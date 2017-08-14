@@ -100,6 +100,12 @@
     _bufferingProgressLabel.center = CGPointMake(_player.playView.center.x + 30, _player.playView.center.y);
     [self.view addSubview:_activityIndicatorView];
     
+    _player.playView.autoresizingMask = UIViewAutoresizingFlexibleWidth
+    | UIViewAutoresizingFlexibleTopMargin
+    | UIViewAutoresizingFlexibleRightMargin
+    | UIViewAutoresizingFlexibleLeftMargin
+    | UIViewAutoresizingFlexibleHeight
+    | UIViewAutoresizingFlexibleBottomMargin;
     [_player play];
     
 }
