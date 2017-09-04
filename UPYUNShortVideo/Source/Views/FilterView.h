@@ -6,20 +6,15 @@
 //  Copyright © 2017年 wen. All rights reserved.
 //
 
-
-
 #import <UIKit/UIKit.h>
 #import "TuSDKFramework.h"
 
 //滤镜栏事件代理
 @protocol FilterViewEventDelegate <NSObject>
 /**
- 滤镜栏当前滤镜的参数栏改变时进行通知
-
- @param seekbar 当前改变的seekbar，使用tag区分是改滤镜的哪一个参数
- @param progress 改变后的progress
+ 滤镜栏当前滤镜的参数栏改变时进行通知 执行 submit 方法
  */
-- (void)filterViewParamChangedWith:(TuSDKICSeekBar *)seekbar changedProgress:(CGFloat)progress;
+- (void)filterViewParamChanged;
 
 /**
  点击选择新滤镜
@@ -28,30 +23,25 @@
  */
 - (void)filterViewSwitchFilterWithCode:(NSString *)filterCode;
 
-/**
- 改变美颜效果参数
-
- @param beautyLevel 滤镜强度
- */
-- (void)filterViewChangeBeautyLevel:(CGFloat)beautyLevel;
-
-
 @end
 
 
 
-
-
+/**
+ 滤镜栏
+ */
 @interface FilterView : UIView
 
-// 是否能够调节参数，默认false; 不调节参数时，不会创建滤镜的参数栏
-@property (nonatomic, assign) BOOL canAdjustParameter;
 // 滤镜事件的代理
 @property (nonatomic, assign) id<FilterViewEventDelegate> filterEventDelegate;
 // 当前选中的滤镜的tag值 基于200
 @property (nonatomic, assign) NSInteger currentFilterTag;
-// 美颜程度
-@property (nonatomic, assign) CGFloat beautyLevel;
+// 是否隐藏大眼、瘦脸参数调节UI   YES：若存在该参数，则不显示
+@property (nonatomic, assign) BOOL isHiddenEyeChinParam;
+// 美颜参数调节 view 包含 磨皮、大眼、瘦脸
+@property (nonatomic, strong) UIView *beautyParamView;
+// 滤镜选择 View
+@property (nonatomic, strong) UIView *filterChooseView;
 
 //根据滤镜数组创建滤镜view
 - (void)createFilterWith:(NSArray *)filterArr;

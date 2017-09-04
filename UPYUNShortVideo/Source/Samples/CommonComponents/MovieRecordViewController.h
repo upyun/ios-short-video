@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "TuSDKFramework.h"
-#import "FilterView.h"
 #import "StickerScrollView.h"
 #import "RecordVideoBottomBar.h"
 #import "CustomTuSDKCPRegionHandler.h"
 #import "TopNavBar.h"
+#import "FilterBottomButtonView.h"
 
 /**
  *  视频录制示例：支持断点续拍，正常模式(模式的切换需要更改相关代码)
@@ -40,7 +40,7 @@
 
 // 滤镜栏
 @property (nonatomic, strong) UIView *bottomBackView;
-@property (nonatomic, strong) FilterView *filterView;
+@property (nonatomic, strong) FilterBottomButtonView *filterBottomView;
 // 贴纸栏
 @property (nonatomic, strong) StickerScrollView *stickerView;
 // 录制相机顶部控制栏视图
@@ -85,6 +85,8 @@
 - (void)changeNodeViewWithLocation:(CGFloat)noteX;
 // 切换相机预览视图显示状态
 - (void)cameraTapEvent;
+// 初始化贴纸栏
+- (void)createStikerView;
 // 销毁对象
 - (void)destroyCamera;
 - (void)dealloc;

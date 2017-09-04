@@ -15,9 +15,9 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MovieRecordFullScreenController.h"
 #import "MoviePreviewAndCutFullScreenController.h"
-#import "MultipleCameraFullScreenController.h"
-#import "MovieRecordCameraViewController.h"
+#import "MoviePreviewAndCutRatioAdaptedController.h"
 #import "MovieEditorRatioAdaptedController.h"
+#import "RecordCameraViewController.h"
 #import "APIAudioMixViewController.h"
 #import "APIMovieMixViewController.h"
 #import "APIMovieSplicerViewController.h"
@@ -75,9 +75,9 @@
     _sectionTitle = @[NSLocalizedString(@"lsq_composite_components", @"功能组合展示"),NSLocalizedString(@"lsq_common_components", @"功能单个展示"),NSLocalizedString(@"lsq_custom_components", @"自定义组件示例"),NSLocalizedString(@"lsq_api_usage_example", @"功能 API 展示")];
     
     _cellTitles = @[
-                   @[NSLocalizedString(@"lsq_record_preview_editor", @"断点续拍+视频编辑"),NSLocalizedString(@"lsq_video_preview_editor", @"给定视频 + 视频编辑")],
+                   @[NSLocalizedString(@"lsq_video_mainVC_record" , @"录制视频"),NSLocalizedString(@"lsq_video_preview_editor", @"给定视频 + 视频编辑")],
                    @[NSLocalizedString(@"lsq_normal_record_camera", @"正常录制相机"),NSLocalizedString(@"lsq_record_camera", @"断点续拍相机"),NSLocalizedString(@"lsq_capture_record_camera", @"拍照录制相机"),NSLocalizedString(@"lsq_album_video_editor", @"选择视频+添加滤镜保存")],
-                   @[NSLocalizedString(@"lsq_full_screen_record_preview_editor", @"全屏展示：断点续拍+视频编辑"),NSLocalizedString(@"lsq_full_screen_album_video_timecut_editor", @"全屏展示：相册导入 + 时间裁剪 + 视频编辑"),NSLocalizedString(@"lsq_full_screen_record_preview_ratio_editor", @"全屏展示：拍照录制+视频编辑（视频自适应比例）")],
+                   @[NSLocalizedString(@"lsq_full_screen_record_preview_editor", @"全屏展示：断点续拍"),NSLocalizedString(@"lsq_full_screen_album_video_timecut_editor", @"全屏展示：相册导入 + 时间裁剪 + 视频编辑"),NSLocalizedString(@"lsq_full_screen_record_preview_ratio_editor", @"全屏展示：拍照录制+视频编辑（视频自适应比例）")],
                    @[NSLocalizedString(@"lsq_audio_mixed", @"音频混合"),NSLocalizedString(@"lsq_video_bgm", @"视频 + 背景音乐"),NSLocalizedString(@"lsq_gain_thumbnail", @"获取缩略图"),NSLocalizedString(@"lsq_video_mixed", @"视频拼接"),NSLocalizedString(@"lsq_video_timecut_save", @"时间裁剪保存"),NSLocalizedString(@"lsq_record_audio_save", @"录制音频")],
                    ];
     
@@ -220,7 +220,7 @@
         switch (indexPath.row)
         {
             case 0:
-                // 断点续拍 + 视频编辑
+                // 首页录制视频
                 [self openVideoEditor];
                 break;
             case 1:
@@ -271,8 +271,9 @@
                 [self openImportVideo];
                 break;
             case 2:
-                // 全屏展示：拍照录制 + 时间裁剪 + 视频编辑（视频比例自适应）
-                [self openFullScreenMultipleCamera];
+                // 比例自适应：相册导入 + 时间裁剪 + 视频编辑（视频比例自适应）
+                _enableOpenVCType = 3;
+                [self openImportVideo];
                 break;
             default:
                 break;
@@ -318,15 +319,8 @@
 // 功能组合展示：断点续拍 + 裁剪 + 视频编辑
 - (void)openVideoEditor;
 {
-    MovieRecordCameraViewController *vc = [MovieRecordCameraViewController new];
+    RecordCameraViewController *vc = [RecordCameraViewController new];
     vc.inputRecordMode = lsqRecordModeKeep;
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-// 全屏展示：拍照录制 + 时间裁剪 + 视频编辑
-- (void)openFullScreenMultipleCamera;
-{
-    MultipleCameraFullScreenController *vc = [MultipleCameraFullScreenController new];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -454,6 +448,10 @@
             MoviePreviewAndCutFullScreenController *vc = [MoviePreviewAndCutFullScreenController new];
             vc.inputURL = url;
             [wSelf.navigationController pushViewController:vc animated:YES];
+        }else if (_enableOpenVCType == 3){
+            MoviePreviewAndCutRatioAdaptedController *vc = [MoviePreviewAndCutRatioAdaptedController new];
+            vc.inputURL = url;
+            [self.navigationController pushViewController:vc animated:YES];
         }
         
     }];

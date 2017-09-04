@@ -7,7 +7,6 @@
 //
 
 #import "RecordCameraViewController.h"
-#import "FilterView.h"
 #import "StickerScrollView.h"
 #import "RecordVideoBottomBar.h"
 #import "CustomTuSDKCPRegionHandler.h"
@@ -16,6 +15,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MoviePreviewAndCutViewController.h"
 #import "MovieEditorViewController.h"
+#import "FilterBottomButtonView.h"
 
 /**
  *  视频录制相机示例
@@ -34,7 +34,7 @@
     
     // 滤镜栏
     UIView *_bottomBackView;
-    FilterView *_filterView;
+    FilterBottomButtonView *_filterBottomView;
     // 贴纸栏
     StickerScrollView *_stickerView;
     // 录制相机顶部控制栏视图
@@ -59,6 +59,8 @@
     // 相冊选择
     UIImagePickerController *ipc;
 
+    // cameraTapView 用于切换贴纸栏滤镜栏状态
+    UIView *tapView;
 }
 
 @property (nonatomic, assign) CGFloat recoderProgress;
@@ -114,6 +116,7 @@
     [self requireCameraPermission];
 
     // 设置全屏
+    self.wantsFullScreenLayout = YES;
     [self setNavigationBarHidden:YES animated:NO];
     [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 }
@@ -144,7 +147,7 @@
          // 设置默认滤镜  对应filterView创建时默认的 currentFilterTag 同样设置为 1
          [_camera switchFilterWithCode:_videoFilters[1]];
 
-         // 进度条view依赖于camer中的最小以及最大录制时间的设置，故应先调用 startCamera 方法
+         // 进度条view依赖于camera中的最小以及最大录制时间的设置，故应先调用 startCamera 方法
          [self initProgressView];
      }];
 }
@@ -155,11 +158,7 @@
     
     // 滤镜列表，获取滤镜前往 TuSDK.bundle/others/lsq_tusdk_configs.json
     // TuSDK 滤镜信息介绍 @see-https://tusdk.com/docs/ios/self-customize-filter
-//    _videoFilters =  @[@"Fair04",@"Pink005",@"Forest04",@"Sundown04",@"Sakura04", @"Paul04"];
-    _videoFilters = @[@"Original04",@"Fair04",@"Pink005",@"Forest04",@"Sundown04",@"Sakura04",@"Paul04", @"Lavender04", @"Manhattan04", @"Dusk05", @"TinyTimes04", @"Vivid04", @"Year195004",@"Missing04",@"Grapefruit04",@"BabyPink004"];
-    
     _videoFilters =  @[@"SkinPink016",@"SkinJelly016",@"Pink016",@"Fair016",@"Forest017",@"Paul016",@"MintGreen016", @"TinyTimes016", @"Year1950016"];
-    
     _videoFilterIndex = 0;
     
     self.view.backgroundColor = lsqRGB(255, 255, 255);
@@ -178,13 +177,10 @@
 
 - (void)initRecorderView
 {
-    CGRect rect = [[UIScreen mainScreen] bounds];
-    
-    
-    CGFloat mainWidth = CGRectGetWidth(rect);
+    CGRect rect = [[UIScreen mainScreen] applicationFrame];
     
     // 默认相机顶部控制栏
-    _topBar = [[TopNavBar alloc] initWithFrame:CGRectMake(0, 0, mainWidth, 44)];
+    _topBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth, 44)];
     [_topBar addTopBarInfoWithTitle:nil
                      leftButtonInfo:@[[NSString stringWithFormat:@"video_style_default_btn_back.png+%@",NSLocalizedString(@"lsq_go_back", @"返回")]]
                     rightButtonInfo:@[@"video_style_default_btn_switch.png",@"video_style_default_btn_flash_off.png"]];
@@ -228,29 +224,31 @@
 // 初始化滤镜栏
 - (void)createFilterView
 {
-    if (!_filterView) {
-        CGFloat filterViewHeight = _bottomBackView.lsqGetSizeHeight - 40;
-        _filterView = [[FilterView alloc]initWithFrame:CGRectMake(0, (_bottomBackView.lsqGetSizeHeight - filterViewHeight)/2, self.view.lsqGetSizeWidth, filterViewHeight)];
-        _filterView.canAdjustParameter = true;
-        _filterView.filterEventDelegate = self;
+    if (!_filterBottomView) {
+        CGFloat filterViewHeight = _bottomBackView.lsqGetSizeHeight;
+        _filterBottomView = [[FilterBottomButtonView alloc]initWithFrame:CGRectMake(0, (_bottomBackView.lsqGetSizeHeight - filterViewHeight)/2, self.view.lsqGetSizeWidth, filterViewHeight)];
+        _filterBottomView.filterView.filterEventDelegate = self;
         
         // 应与 相机初始化加载的默认滤镜所 对应的下标保持一致
-        _filterView.currentFilterTag = 201;
-        _filterView.backgroundColor = [UIColor whiteColor];
-        [_filterView createFilterWith:_videoFilters];
-        [_filterView refreshAdjustParameterViewWith:_currentFilter.code filterArgs:_currentFilter.filterParameter.args];
-        
-        [_bottomBackView addSubview:_filterView];
+        _filterBottomView.filterView.currentFilterTag = 200;
+        _filterBottomView.backgroundColor = [UIColor whiteColor];
+        [_filterBottomView.filterView createFilterWith:_videoFilters];
+        [_filterBottomView.filterView refreshAdjustParameterViewWith:_currentFilter.code filterArgs:_currentFilter.filterParameter.args];
+        _filterBottomView.filterView.beautyParamView.hidden = NO;
+        _filterBottomView.filterView.filterChooseView.hidden = YES;
+
+        [_bottomBackView addSubview:_filterBottomView];
     }
 }
 
 // 初始化贴纸栏
-- (void)createStikerView
+- (void)createStickerView
 {
     if (!_stickerView) {
         CGFloat stickerViewHeight = _bottomBackView.lsqGetSizeHeight - 10;
         _stickerView = [[StickerScrollView alloc]initWithFrame:CGRectMake(0, (_bottomBackView.lsqGetSizeHeight - stickerViewHeight), self.view.lsqGetSizeWidth, stickerViewHeight)];
         _stickerView.stickerDelegate = self;
+        _stickerView.cameraStickerType = lsqCameraStickersTypeSquare;
         _stickerView.backgroundColor = [UIColor whiteColor];
         [_bottomBackView addSubview:_stickerView];
     }
@@ -355,10 +353,12 @@
         _cameraView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth, self.view.lsqGetSizeHeight)];
         [self.view insertSubview:_cameraView atIndex:0];
         
-        // 使用tapView 做中间的手势响应范围，为了防止和录制按钮的手势时间冲突(偶发)
-        UIView *tapView = [[UIView alloc]initWithFrame:CGRectMake(0, 74, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth)];
+        // 使用tapView 做中间的手势响应范围，为了防止和录制按钮的手势时间冲突
+        tapView = [[UIView alloc]initWithFrame:CGRectMake(0, 74, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth)];
+        tapView.hidden =  YES;
         [self.view addSubview:tapView];
         // 添加手势方法
+        // _tapView 显示会影响手动聚焦手势的响应，开启贴纸和滤镜栏时该 view 显示，关闭贴纸滤镜栏时隐藏，避免影响手动聚焦功能的使用。
         UITapGestureRecognizer *cameraTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(cameraTapEvent)];
         [tapView addGestureRecognizer:cameraTap];
     }
@@ -384,6 +384,8 @@
     
     // 输出视频的画质，主要包含码率、分辨率等参数 (默认为空，采用系统设置)
     _camera.videoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Low1];
+    // 禁止触摸聚焦功能 (默认: NO)
+    _camera.disableTapFocus = NO;
     // 是否禁用持续自动对焦
     _camera.disableContinueFoucs = NO;
     // 视频覆盖区域颜色 (默认：[UIColor blackColor])
@@ -408,8 +410,6 @@
     _camera.minRecordingTime = 1;
     // 正常模式/续拍模式  - 注：该录制模式需和 _bottomBar 中的一致, 若不使用这套UI逻辑，可进行自定义交互操作
     _camera.recordMode = _inputRecordMode;
-    // 是否开启美颜
-    _camera.enableBeauty = YES;
     //  设置使用录制相机最小空间限制,开发者可根据需要自行设置（单位：字节 默认：50M）
      _camera.minAvailableSpaceBytes  = 1024.f*1024.f*50.f;
     
@@ -484,14 +484,15 @@
     if (!_bottomBar) return;
     
     if (_bottomBar.hidden) {
-        _bottomBar.hidden = false;
-        if (_filterView) {
-            _filterView.hidden = true;
+        _bottomBar.hidden = NO;
+        if (_filterBottomView) {
+            _filterBottomView.hidden = YES;
         }
         if (_stickerView) {
-            _stickerView.hidden = true;
+            _stickerView.hidden = YES;
         }
     }
+    tapView.hidden = YES;
 }
 
 #pragma mark - TopNavBarDelegate
@@ -531,7 +532,7 @@
         case lsqRightTopBtnFirst:
         {
             // 切换前后摄像头
-            if (!btn.selected) {  // true 为后置， false为后置
+            if (!btn.selected) {  // YES 为后置， NO为后置
                 // 前置摄像头是关闭闪光灯
                 _flashModeIndex = 0;
                 [self resetFlashBtnStatusWithBtnEnabled:NO];
@@ -601,13 +602,13 @@
     }
     else if (btn == _bottomBar.stickerButton)
     {
-        _bottomBar.hidden = true;
+        _bottomBar.hidden = YES;
         if (_stickerView) {
-            _stickerView.hidden = false;
+            _stickerView.hidden = NO;
         }else{
-            [self createStikerView];
+            [self createStickerView];
         }
-
+        tapView.hidden = NO;
     }
     else if (btn == _bottomBar.albumButton)
     {
@@ -615,12 +616,13 @@
     }
     else if (btn == _bottomBar.filterButton)
     {
-        _bottomBar.hidden = true;
-        if (_filterView) {
-            _filterView.hidden = false;
+        _bottomBar.hidden = YES;
+        if (_filterBottomView) {
+            _filterBottomView.hidden = NO;
         }else{
             [self createFilterView];
         }
+        tapView.hidden = NO;
     }
     else if (btn == _bottomBar.cancelButton)
     {
@@ -737,12 +739,8 @@
  @param seekbar seekbar TuSDKICSeekBar
  @param progress progress progress
  */
-- (void)filterViewParamChangedWith:(TuSDKICSeekBar *)seekbar changedProgress:(CGFloat)progress
+- (void)filterViewParamChanged;
 {
-    // 根据tag获得当前滤镜的对应参数，修改precent
-    NSInteger index = seekbar.tag;
-    TuSDKFilterArg *arg = _currentFilter.filterParameter.args[index];
-    arg.precent = progress;
     // 设置滤镜参数
     [_currentFilter submitParameter];
 }
@@ -751,10 +749,6 @@
 {
     // 切换滤镜
     [_camera switchFilterWithCode:filterCode];
-}
-
-- (void)filterViewChangeBeautyLevel:(CGFloat)beautyLevel{
-    _camera.beautyLevel = beautyLevel;
 }
 
 #pragma mark - TuSDKVideoCameraDelegate
@@ -783,7 +777,7 @@
 {
     // 赋值新滤镜 同时刷新滤镜的参数配置
     _currentFilter = newFilter;
-    [_filterView refreshAdjustParameterViewWith:newFilter.code filterArgs:newFilter.filterParameter.args];
+    [_filterBottomView.filterView refreshAdjustParameterViewWith:newFilter.code filterArgs:newFilter.filterParameter.args];
 }
 
 #pragma mark - TuSDKRecordVideoCameraDelegate
@@ -798,18 +792,25 @@
     // 通过相机初始化设置  _camera.saveToAlbum = NO;  result.videoPath 拿到视频的临时文件路径
     if (result.videoPath) {
         [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_record_complete", @"录制完成")];
-        /*
+        
         // 进行自定义操作，例如保存到相册
-        UISaveVideoAtPathToSavedPhotosAlbum(result.videoPath, nil, nil, nil);
-        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
-        */        
-        // 开启添加滤镜
-        MovieEditorViewController *vc = [MovieEditorViewController new];
-        vc.inputURL = [NSURL fileURLWithPath:result.videoPath];
-        vc.cropRect = CGRectMake(0, 0, 1, 1);
-        vc.startTime = 0;
-        vc.endTime = result.duration;
-        [self.navigationController pushViewController:vc animated:true];
+//        UISaveVideoAtPathToSavedPhotosAlbum(result.videoPath, nil, nil, nil);
+//        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
+        
+        
+        //UPYUN短视频 上传到云存储
+        NSString *saveKey = [NSString stringWithFormat:@"short_video_record_test_%d.mp4", arc4random() % 10];
+        [[UPYUNConfig sharedInstance] uploadFilePath:result.videoPath saveKey:saveKey success:^(NSHTTPURLResponse *response, NSDictionary *responseBody) {
+            [[TuSDK shared].messageHub showSuccess:@"上传成功"];
+            NSLog(@"file url：http://%@.b0.upaiyun.com/%@",[UPYUNConfig sharedInstance].DEFAULT_BUCKET, saveKey);
+        } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
+            [[TuSDK shared].messageHub showSuccess:@"上传失败"];
+            NSLog(@"上传失败 error：%@", error);
+            NSLog(@"上传失败 code=%ld, responseHeader：%@", (long)response.statusCode, response.allHeaderFields);
+            NSLog(@"上传失败 message：%@", responseBody);
+        } progress:^(int64_t completedBytesCount, int64_t totalBytesCount) {
+        }];
+        
         
     }else{
         // _camera.saveToAlbum = YES; （默认为 ：YES）将自动保存到相册
@@ -822,6 +823,8 @@
 
     // 自动保存后设置为 恢复进度条状态
     [self changeNodeViewWithLocation:0];
+    
+    
 }
 
 

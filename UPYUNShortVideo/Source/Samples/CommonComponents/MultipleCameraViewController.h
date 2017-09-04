@@ -12,6 +12,7 @@
 #import "ClickPressBottomBar.h"
 #import "CustomTuSDKCPRegionHandler.h"
 #import "TopNavBar.h"
+#import "FilterBottomButtonView.h"
 
 /**
  多功能相机示例，点击拍照，长按录制
@@ -32,7 +33,7 @@
 @property (nonatomic, assign) int flashModeIndex;
 
 // 滤镜栏
-@property (nonatomic, strong) FilterView *filterView;
+@property (nonatomic, strong) FilterBottomButtonView *filterButtonView;
 // 贴纸栏
 @property (nonatomic, strong) StickerScrollView *stickerView;
 // 录制相机顶部控制栏视图

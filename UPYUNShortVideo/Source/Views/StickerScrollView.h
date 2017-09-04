@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "TuSDKFramework.h"
 
+typedef enum : NSUInteger {
+    lsqCameraStickersTypeSquare,
+    lsqCameraStickersTypeFullScreen,
+    lsqCameraStickersTypeAll,
+} lsqCameraStickersType;
+
+
 /**
  贴纸组相关代理方法
  
@@ -32,7 +39,10 @@
 @interface StickerScrollView : UIView
 
 // 贴纸组的数组
-@property (nonatomic, strong) NSArray<TuSDKPFStickerGroup *> *stickerGroups;
+@property (nonatomic, strong) NSArray *stickerGroups;
+
+// 贴纸展示的类型 全屏贴纸、正方形相机贴纸、全部贴纸
+@property (nonatomic, assign) lsqCameraStickersType cameraStickerType;
 
 // 当前选中的贴纸（注意：第一个清除所有贴纸的index为0）
 @property (nonatomic, assign) NSInteger currentStickesIndex;

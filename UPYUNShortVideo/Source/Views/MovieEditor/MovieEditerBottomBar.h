@@ -30,11 +30,8 @@ typedef NS_ENUM (NSUInteger,MovieEditorBottomButtonType)
 
 /**
  滤镜栏参数改变
-
- @param seekbar 滤镜参数调整栏
- @param progress 参数百分比
  */
-- (void)movieEditorBottom_filterViewParamChangedWith:(TuSDKICSeekBar *)seekbar changedProgress:(CGFloat)progress;
+- (void)movieEditorBottom_filterViewParamChanged;
 
 /**
  滤镜栏切换滤镜
@@ -42,13 +39,6 @@ typedef NS_ENUM (NSUInteger,MovieEditorBottomButtonType)
  @param filterCode 滤镜的代号 filterCode
  */
 - (void)movieEditorBottom_filterViewSwitchFilterWithCode:(NSString *)filterCode;
-
-/**
- 改变美颜效果参数
-
- @param beautyLevel 美颜参数等级百分比
- */
-- (void)movieEditorBottom_filterViewChangeBeautyLevel:(CGFloat)beautyLevel;
 
 /**
  调整了bottom的整体的frame

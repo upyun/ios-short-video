@@ -17,17 +17,6 @@
 @implementation MoviePreviewAndCutFullScreenController
 
 #pragma mark - 布局方法
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    self.view.backgroundColor = [UIColor blackColor];
-    
-    [self initPlayerView];
-    
-    [self lsqInitView];
-}
-
 
 - (void)lsqInitView
 {
@@ -105,6 +94,7 @@
     self.videoView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth, self.view.lsqGetSizeHeight)];
     [self.view addSubview:self.videoScroll];
     [self.videoScroll addSubview:self.videoView];
+    [self.view sendSubviewToBack:self.videoScroll];
     
     // 设置播放项目
     self.item = [[AVPlayerItem alloc]initWithURL:self.inputURL];

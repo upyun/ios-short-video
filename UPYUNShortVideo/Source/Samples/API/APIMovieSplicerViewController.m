@@ -271,8 +271,8 @@
     [_secondPlayer play];
 }
 
-
-- (void)dealloc {
+- (void)dealloc;
+{
     // 移除通知
     [[NSNotificationCenter defaultCenter]removeObserver:self];
     // 销毁播放器

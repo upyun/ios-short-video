@@ -158,14 +158,15 @@
 }
 
 // movieMixer cancel 操作
-
-- (void)cancelMovieMixer {
+- (void)cancelMovieMixer
+{
     if (movieMixer) {
         [movieMixer cancelMixing];
     }
 }
 
-- (void)initWithAudioPlayer {
+- (void)initWithAudioPlayer;
+{
     // 创建seekBar
      CGFloat sideGapDistance = 50;
     [self initWithSeekBarAndLabels:NSLocalizedString(@"lsq_api_origin_audio", @"原音") originY:self.view.lsqGetSizeWidth tag:11];
@@ -287,7 +288,7 @@
  */
 - (void)onMovieMixer:(TuSDKTSMovieMixer *)editor result:(TuSDKVideoResult *)result;
 {
-    NSLog(@"保存结果的临时文件路径 : %@", result.videoPath);
+    NSLog(@"保存结果的临时文件路径 : %@",result.videoPath);
 }
 
 #pragma mark - TopNavBarDelegate

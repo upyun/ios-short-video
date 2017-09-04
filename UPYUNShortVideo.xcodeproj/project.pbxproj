@@ -31,42 +31,9 @@
 		3E552DAF1F2894EB002E5A62 /* TuSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3E552CE91F2894EA002E5A62 /* TuSDK.bundle */; };
 		3E552DB01F2894EB002E5A62 /* tusdk_sample_splice_video.mov in Resources */ = {isa = PBXBuildFile; fileRef = 3E552CEA1F2894EA002E5A62 /* tusdk_sample_splice_video.mov */; };
 		3E552DB11F2894EB002E5A62 /* tusdk_sample_video.mov in Resources */ = {isa = PBXBuildFile; fileRef = 3E552CEB1F2894EA002E5A62 /* tusdk_sample_video.mov */; };
-		3E552E091F289506002E5A62 /* ComponentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DB51F289505002E5A62 /* ComponentListViewController.m */; };
 		3E552E0A1F289506002E5A62 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DB71F289505002E5A62 /* MainViewController.m */; };
 		3E552E0B1F289506002E5A62 /* PlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DB91F289505002E5A62 /* PlayerVC.m */; };
 		3E552E0C1F289506002E5A62 /* PlayerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E552DBA1F289505002E5A62 /* PlayerVC.xib */; };
-		3E552E0D1F289506002E5A62 /* APIAudioMixViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DBE1F289505002E5A62 /* APIAudioMixViewController.m */; };
-		3E552E0E1F289506002E5A62 /* APIAudioRecorderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DC01F289505002E5A62 /* APIAudioRecorderViewController.m */; };
-		3E552E0F1F289506002E5A62 /* APIMovieClipperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DC21F289505002E5A62 /* APIMovieClipperViewController.m */; };
-		3E552E101F289506002E5A62 /* APIMovieMixViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DC41F289505002E5A62 /* APIMovieMixViewController.m */; };
-		3E552E111F289506002E5A62 /* APIMovieSplicerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DC61F289505002E5A62 /* APIMovieSplicerViewController.m */; };
-		3E552E121F289506002E5A62 /* APIVideoThumbnailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DC81F289505002E5A62 /* APIVideoThumbnailsViewController.m */; };
-		3E552E131F289506002E5A62 /* MovieEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DCB1F289505002E5A62 /* MovieEditorViewController.m */; };
-		3E552E141F289506002E5A62 /* MoviePreviewAndCutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DCD1F289505002E5A62 /* MoviePreviewAndCutViewController.m */; };
-		3E552E151F289506002E5A62 /* MovieRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DCF1F289505002E5A62 /* MovieRecordViewController.m */; };
-		3E552E161F289506002E5A62 /* MultipleCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DD11F289505002E5A62 /* MultipleCameraViewController.m */; };
-		3E552E171F289506002E5A62 /* MovieEditorFullScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DD41F289505002E5A62 /* MovieEditorFullScreenController.m */; };
-		3E552E181F289506002E5A62 /* MovieEditorRatioAdaptedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DD61F289505002E5A62 /* MovieEditorRatioAdaptedController.m */; };
-		3E552E191F289506002E5A62 /* MoviePreviewAndCutFullScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DD81F289505002E5A62 /* MoviePreviewAndCutFullScreenController.m */; };
-		3E552E1A1F289506002E5A62 /* MoviePreviewAndCutRatioAdaptedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DDA1F289505002E5A62 /* MoviePreviewAndCutRatioAdaptedController.m */; };
-		3E552E1B1F289506002E5A62 /* MovieRecordFullScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DDC1F289505002E5A62 /* MovieRecordFullScreenController.m */; };
-		3E552E1C1F289506002E5A62 /* MultipleCameraFullScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DDE1F289505002E5A62 /* MultipleCameraFullScreenController.m */; };
-		3E552E1D1F289506002E5A62 /* RecordCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DE11F289505002E5A62 /* RecordCameraViewController.m */; };
-		3E552E1E1F289506002E5A62 /* MovieRecordCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DE41F289505002E5A62 /* MovieRecordCameraViewController.m */; };
-		3E552E1F1F289506002E5A62 /* CustomTuSDKCPRegionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DE71F289505002E5A62 /* CustomTuSDKCPRegionHandler.m */; };
-		3E552E211F289506002E5A62 /* FilterItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DEC1F289506002E5A62 /* FilterItemView.m */; };
-		3E552E221F289506002E5A62 /* FilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DEE1F289506002E5A62 /* FilterView.m */; };
-		3E552E231F289506002E5A62 /* DubScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DF11F289506002E5A62 /* DubScrollView.m */; };
-		3E552E241F289506002E5A62 /* MovieEditerBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DF31F289506002E5A62 /* MovieEditerBottomBar.m */; };
-		3E552E251F289506002E5A62 /* MovieEditorClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DF51F289506002E5A62 /* MovieEditorClipView.m */; };
-		3E552E261F289506002E5A62 /* MVScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DF71F289506002E5A62 /* MVScrollView.m */; };
-		3E552E271F289506002E5A62 /* RecorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DF91F289506002E5A62 /* RecorderView.m */; };
-		3E552E281F289506002E5A62 /* CutVideoBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DFC1F289506002E5A62 /* CutVideoBottomView.m */; };
-		3E552E291F289506002E5A62 /* VideoClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552DFE1F289506002E5A62 /* VideoClipView.m */; };
-		3E552E2A1F289506002E5A62 /* RecordVideoBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552E011F289506002E5A62 /* RecordVideoBottomBar.m */; };
-		3E552E2B1F289506002E5A62 /* ClickPressBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552E041F289506002E5A62 /* ClickPressBottomBar.m */; };
-		3E552E2C1F289506002E5A62 /* StickerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552E061F289506002E5A62 /* StickerScrollView.m */; };
-		3E552E2D1F289506002E5A62 /* TopNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E552E081F289506002E5A62 /* TopNavBar.m */; };
 		3E552E301F289B6C002E5A62 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E552E2F1F289B6C002E5A62 /* libz.tbd */; };
 		3E552E321F289BA5002E5A62 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E552E311F289BA5002E5A62 /* libiconv.tbd */; };
 		3E552E341F289BB7002E5A62 /* libbz2.1.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E552E331F289BB7002E5A62 /* libbz2.1.0.tbd */; };
@@ -279,6 +246,41 @@
 		3EFB24301F594DDA008754B6 /* lsq_filter_thumb_SkinJelly016.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EFB242B1F594DDA008754B6 /* lsq_filter_thumb_SkinJelly016.jpg */; };
 		3EFB24311F594DDA008754B6 /* lsq_filter_thumb_SkinPink016.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EFB242C1F594DDA008754B6 /* lsq_filter_thumb_SkinPink016.jpg */; };
 		3EFB24331F59514F008754B6 /* lsq_filter_thumb_MintGreen016.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EFB24321F59514F008754B6 /* lsq_filter_thumb_MintGreen016.jpg */; };
+		3EFB248B1F5CE858008754B6 /* APIAudioMixViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB243B1F5CE858008754B6 /* APIAudioMixViewController.m */; };
+		3EFB248C1F5CE858008754B6 /* APIAudioRecorderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB243D1F5CE858008754B6 /* APIAudioRecorderViewController.m */; };
+		3EFB248D1F5CE858008754B6 /* APIMovieClipperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB243F1F5CE858008754B6 /* APIMovieClipperViewController.m */; };
+		3EFB248E1F5CE858008754B6 /* APIMovieMixViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24411F5CE858008754B6 /* APIMovieMixViewController.m */; };
+		3EFB248F1F5CE858008754B6 /* APIMovieSplicerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24431F5CE858008754B6 /* APIMovieSplicerViewController.m */; };
+		3EFB24901F5CE858008754B6 /* APIVideoThumbnailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24451F5CE858008754B6 /* APIVideoThumbnailsViewController.m */; };
+		3EFB24911F5CE858008754B6 /* MovieEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24481F5CE858008754B6 /* MovieEditorViewController.m */; };
+		3EFB24921F5CE858008754B6 /* MoviePreviewAndCutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB244A1F5CE858008754B6 /* MoviePreviewAndCutViewController.m */; };
+		3EFB24931F5CE858008754B6 /* MovieRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB244C1F5CE858008754B6 /* MovieRecordViewController.m */; };
+		3EFB24941F5CE858008754B6 /* MultipleCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB244E1F5CE858008754B6 /* MultipleCameraViewController.m */; };
+		3EFB24951F5CE858008754B6 /* MovieEditorFullScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24511F5CE858008754B6 /* MovieEditorFullScreenController.m */; };
+		3EFB24961F5CE858008754B6 /* MovieEditorRatioAdaptedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24531F5CE858008754B6 /* MovieEditorRatioAdaptedController.m */; };
+		3EFB24971F5CE858008754B6 /* MoviePreviewAndCutFullScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24551F5CE858008754B6 /* MoviePreviewAndCutFullScreenController.m */; };
+		3EFB24981F5CE858008754B6 /* MoviePreviewAndCutRatioAdaptedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24571F5CE858008754B6 /* MoviePreviewAndCutRatioAdaptedController.m */; };
+		3EFB24991F5CE858008754B6 /* MovieRecordFullScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24591F5CE858008754B6 /* MovieRecordFullScreenController.m */; };
+		3EFB249A1F5CE858008754B6 /* RecordCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB245C1F5CE858008754B6 /* RecordCameraViewController.m */; };
+		3EFB249B1F5CE858008754B6 /* CustomTuSDKCPRegionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB245F1F5CE858008754B6 /* CustomTuSDKCPRegionHandler.m */; };
+		3EFB249C1F5CE858008754B6 /* BottomButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24621F5CE858008754B6 /* BottomButtonView.m */; };
+		3EFB249D1F5CE858008754B6 /* FilterBottomButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24641F5CE858008754B6 /* FilterBottomButtonView.m */; };
+		3EFB249E1F5CE858008754B6 /* FilterItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24661F5CE858008754B6 /* FilterItemView.m */; };
+		3EFB249F1F5CE858008754B6 /* FilterParamItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24681F5CE858008754B6 /* FilterParamItemView.m */; };
+		3EFB24A01F5CE858008754B6 /* FilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB246A1F5CE858008754B6 /* FilterView.m */; };
+		3EFB24A11F5CE858008754B6 /* DubScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB246D1F5CE858008754B6 /* DubScrollView.m */; };
+		3EFB24A21F5CE858008754B6 /* MovieEditerBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB246F1F5CE858008754B6 /* MovieEditerBottomBar.m */; };
+		3EFB24A31F5CE858008754B6 /* MovieEditorClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24711F5CE858008754B6 /* MovieEditorClipView.m */; };
+		3EFB24A41F5CE858008754B6 /* MVScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24731F5CE858008754B6 /* MVScrollView.m */; };
+		3EFB24A51F5CE858008754B6 /* RecorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24751F5CE858008754B6 /* RecorderView.m */; };
+		3EFB24A61F5CE858008754B6 /* CutVideoBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24781F5CE858008754B6 /* CutVideoBottomView.m */; };
+		3EFB24A71F5CE858008754B6 /* VideoClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB247A1F5CE858008754B6 /* VideoClipView.m */; };
+		3EFB24A81F5CE858008754B6 /* RecordVideoBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB247D1F5CE858008754B6 /* RecordVideoBottomBar.m */; };
+		3EFB24A91F5CE858008754B6 /* ClickPressBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24801F5CE858008754B6 /* ClickPressBottomBar.m */; };
+		3EFB24AA1F5CE858008754B6 /* StickerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24821F5CE858008754B6 /* StickerCollectionViewCell.m */; };
+		3EFB24AB1F5CE858008754B6 /* StickerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24841F5CE858008754B6 /* StickerScrollView.m */; };
+		3EFB24AC1F5CE858008754B6 /* TopNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24861F5CE858008754B6 /* TopNavBar.m */; };
+		3EFB24AD1F5CE858008754B6 /* ComponentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB24881F5CE858008754B6 /* ComponentListViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -312,77 +314,11 @@
 		3E552CEA1F2894EA002E5A62 /* tusdk_sample_splice_video.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = tusdk_sample_splice_video.mov; sourceTree = "<group>"; };
 		3E552CEB1F2894EA002E5A62 /* tusdk_sample_video.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = tusdk_sample_video.mov; sourceTree = "<group>"; };
 		3E552DB21F2894F2002E5A62 /* TuSDKFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TuSDKFramework.h; sourceTree = "<group>"; };
-		3E552DB41F289505002E5A62 /* ComponentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComponentListViewController.h; sourceTree = "<group>"; };
-		3E552DB51F289505002E5A62 /* ComponentListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComponentListViewController.m; sourceTree = "<group>"; };
 		3E552DB61F289505002E5A62 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = Source/MainViewController.h; sourceTree = "<group>"; };
 		3E552DB71F289505002E5A62 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = Source/MainViewController.m; sourceTree = "<group>"; };
 		3E552DB81F289505002E5A62 /* PlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerVC.h; path = UPYUNShortVideo/Source/PlayerVC.h; sourceTree = SOURCE_ROOT; };
 		3E552DB91F289505002E5A62 /* PlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayerVC.m; path = UPYUNShortVideo/Source/PlayerVC.m; sourceTree = SOURCE_ROOT; };
 		3E552DBA1F289505002E5A62 /* PlayerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PlayerVC.xib; path = UPYUNShortVideo/Source/PlayerVC.xib; sourceTree = SOURCE_ROOT; };
-		3E552DBD1F289505002E5A62 /* APIAudioMixViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIAudioMixViewController.h; sourceTree = "<group>"; };
-		3E552DBE1F289505002E5A62 /* APIAudioMixViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIAudioMixViewController.m; sourceTree = "<group>"; };
-		3E552DBF1F289505002E5A62 /* APIAudioRecorderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIAudioRecorderViewController.h; sourceTree = "<group>"; };
-		3E552DC01F289505002E5A62 /* APIAudioRecorderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIAudioRecorderViewController.m; sourceTree = "<group>"; };
-		3E552DC11F289505002E5A62 /* APIMovieClipperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIMovieClipperViewController.h; sourceTree = "<group>"; };
-		3E552DC21F289505002E5A62 /* APIMovieClipperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIMovieClipperViewController.m; sourceTree = "<group>"; };
-		3E552DC31F289505002E5A62 /* APIMovieMixViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIMovieMixViewController.h; sourceTree = "<group>"; };
-		3E552DC41F289505002E5A62 /* APIMovieMixViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIMovieMixViewController.m; sourceTree = "<group>"; };
-		3E552DC51F289505002E5A62 /* APIMovieSplicerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIMovieSplicerViewController.h; sourceTree = "<group>"; };
-		3E552DC61F289505002E5A62 /* APIMovieSplicerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIMovieSplicerViewController.m; sourceTree = "<group>"; };
-		3E552DC71F289505002E5A62 /* APIVideoThumbnailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIVideoThumbnailsViewController.h; sourceTree = "<group>"; };
-		3E552DC81F289505002E5A62 /* APIVideoThumbnailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIVideoThumbnailsViewController.m; sourceTree = "<group>"; };
-		3E552DCA1F289505002E5A62 /* MovieEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieEditorViewController.h; sourceTree = "<group>"; };
-		3E552DCB1F289505002E5A62 /* MovieEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieEditorViewController.m; sourceTree = "<group>"; };
-		3E552DCC1F289505002E5A62 /* MoviePreviewAndCutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePreviewAndCutViewController.h; sourceTree = "<group>"; };
-		3E552DCD1F289505002E5A62 /* MoviePreviewAndCutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviePreviewAndCutViewController.m; sourceTree = "<group>"; };
-		3E552DCE1F289505002E5A62 /* MovieRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieRecordViewController.h; sourceTree = "<group>"; };
-		3E552DCF1F289505002E5A62 /* MovieRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieRecordViewController.m; sourceTree = "<group>"; };
-		3E552DD01F289505002E5A62 /* MultipleCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleCameraViewController.h; sourceTree = "<group>"; };
-		3E552DD11F289505002E5A62 /* MultipleCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleCameraViewController.m; sourceTree = "<group>"; };
-		3E552DD31F289505002E5A62 /* MovieEditorFullScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieEditorFullScreenController.h; sourceTree = "<group>"; };
-		3E552DD41F289505002E5A62 /* MovieEditorFullScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieEditorFullScreenController.m; sourceTree = "<group>"; };
-		3E552DD51F289505002E5A62 /* MovieEditorRatioAdaptedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieEditorRatioAdaptedController.h; sourceTree = "<group>"; };
-		3E552DD61F289505002E5A62 /* MovieEditorRatioAdaptedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieEditorRatioAdaptedController.m; sourceTree = "<group>"; };
-		3E552DD71F289505002E5A62 /* MoviePreviewAndCutFullScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePreviewAndCutFullScreenController.h; sourceTree = "<group>"; };
-		3E552DD81F289505002E5A62 /* MoviePreviewAndCutFullScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviePreviewAndCutFullScreenController.m; sourceTree = "<group>"; };
-		3E552DD91F289505002E5A62 /* MoviePreviewAndCutRatioAdaptedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePreviewAndCutRatioAdaptedController.h; sourceTree = "<group>"; };
-		3E552DDA1F289505002E5A62 /* MoviePreviewAndCutRatioAdaptedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviePreviewAndCutRatioAdaptedController.m; sourceTree = "<group>"; };
-		3E552DDB1F289505002E5A62 /* MovieRecordFullScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieRecordFullScreenController.h; sourceTree = "<group>"; };
-		3E552DDC1F289505002E5A62 /* MovieRecordFullScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieRecordFullScreenController.m; sourceTree = "<group>"; };
-		3E552DDD1F289505002E5A62 /* MultipleCameraFullScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleCameraFullScreenController.h; sourceTree = "<group>"; };
-		3E552DDE1F289505002E5A62 /* MultipleCameraFullScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleCameraFullScreenController.m; sourceTree = "<group>"; };
-		3E552DE01F289505002E5A62 /* RecordCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordCameraViewController.h; sourceTree = "<group>"; };
-		3E552DE11F289505002E5A62 /* RecordCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordCameraViewController.m; sourceTree = "<group>"; };
-		3E552DE31F289505002E5A62 /* MovieRecordCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieRecordCameraViewController.h; sourceTree = "<group>"; };
-		3E552DE41F289505002E5A62 /* MovieRecordCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieRecordCameraViewController.m; sourceTree = "<group>"; };
-		3E552DE61F289505002E5A62 /* CustomTuSDKCPRegionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTuSDKCPRegionHandler.h; sourceTree = "<group>"; };
-		3E552DE71F289505002E5A62 /* CustomTuSDKCPRegionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTuSDKCPRegionHandler.m; sourceTree = "<group>"; };
-		3E552DEB1F289506002E5A62 /* FilterItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterItemView.h; sourceTree = "<group>"; };
-		3E552DEC1F289506002E5A62 /* FilterItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterItemView.m; sourceTree = "<group>"; };
-		3E552DED1F289506002E5A62 /* FilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterView.h; sourceTree = "<group>"; };
-		3E552DEE1F289506002E5A62 /* FilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterView.m; sourceTree = "<group>"; };
-		3E552DF01F289506002E5A62 /* DubScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubScrollView.h; sourceTree = "<group>"; };
-		3E552DF11F289506002E5A62 /* DubScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubScrollView.m; sourceTree = "<group>"; };
-		3E552DF21F289506002E5A62 /* MovieEditerBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieEditerBottomBar.h; sourceTree = "<group>"; };
-		3E552DF31F289506002E5A62 /* MovieEditerBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieEditerBottomBar.m; sourceTree = "<group>"; };
-		3E552DF41F289506002E5A62 /* MovieEditorClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieEditorClipView.h; sourceTree = "<group>"; };
-		3E552DF51F289506002E5A62 /* MovieEditorClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieEditorClipView.m; sourceTree = "<group>"; };
-		3E552DF61F289506002E5A62 /* MVScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVScrollView.h; sourceTree = "<group>"; };
-		3E552DF71F289506002E5A62 /* MVScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVScrollView.m; sourceTree = "<group>"; };
-		3E552DF81F289506002E5A62 /* RecorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecorderView.h; sourceTree = "<group>"; };
-		3E552DF91F289506002E5A62 /* RecorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecorderView.m; sourceTree = "<group>"; };
-		3E552DFB1F289506002E5A62 /* CutVideoBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CutVideoBottomView.h; sourceTree = "<group>"; };
-		3E552DFC1F289506002E5A62 /* CutVideoBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CutVideoBottomView.m; sourceTree = "<group>"; };
-		3E552DFD1F289506002E5A62 /* VideoClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoClipView.h; sourceTree = "<group>"; };
-		3E552DFE1F289506002E5A62 /* VideoClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoClipView.m; sourceTree = "<group>"; };
-		3E552E001F289506002E5A62 /* RecordVideoBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordVideoBottomBar.h; sourceTree = "<group>"; };
-		3E552E011F289506002E5A62 /* RecordVideoBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordVideoBottomBar.m; sourceTree = "<group>"; };
-		3E552E031F289506002E5A62 /* ClickPressBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClickPressBottomBar.h; sourceTree = "<group>"; };
-		3E552E041F289506002E5A62 /* ClickPressBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClickPressBottomBar.m; sourceTree = "<group>"; };
-		3E552E051F289506002E5A62 /* StickerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StickerScrollView.h; sourceTree = "<group>"; };
-		3E552E061F289506002E5A62 /* StickerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StickerScrollView.m; sourceTree = "<group>"; };
-		3E552E071F289506002E5A62 /* TopNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopNavBar.h; sourceTree = "<group>"; };
-		3E552E081F289506002E5A62 /* TopNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopNavBar.m; sourceTree = "<group>"; };
 		3E552E2F1F289B6C002E5A62 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		3E552E311F289BA5002E5A62 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		3E552E331F289BB7002E5A62 /* libbz2.1.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.tbd; path = usr/lib/libbz2.1.0.tbd; sourceTree = SDKROOT; };
@@ -606,6 +542,76 @@
 		3EFB242B1F594DDA008754B6 /* lsq_filter_thumb_SkinJelly016.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinJelly016.jpg; sourceTree = "<group>"; };
 		3EFB242C1F594DDA008754B6 /* lsq_filter_thumb_SkinPink016.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinPink016.jpg; sourceTree = "<group>"; };
 		3EFB24321F59514F008754B6 /* lsq_filter_thumb_MintGreen016.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_MintGreen016.jpg; sourceTree = "<group>"; };
+		3EFB243A1F5CE858008754B6 /* APIAudioMixViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIAudioMixViewController.h; sourceTree = "<group>"; };
+		3EFB243B1F5CE858008754B6 /* APIAudioMixViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIAudioMixViewController.m; sourceTree = "<group>"; };
+		3EFB243C1F5CE858008754B6 /* APIAudioRecorderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIAudioRecorderViewController.h; sourceTree = "<group>"; };
+		3EFB243D1F5CE858008754B6 /* APIAudioRecorderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIAudioRecorderViewController.m; sourceTree = "<group>"; };
+		3EFB243E1F5CE858008754B6 /* APIMovieClipperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIMovieClipperViewController.h; sourceTree = "<group>"; };
+		3EFB243F1F5CE858008754B6 /* APIMovieClipperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIMovieClipperViewController.m; sourceTree = "<group>"; };
+		3EFB24401F5CE858008754B6 /* APIMovieMixViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIMovieMixViewController.h; sourceTree = "<group>"; };
+		3EFB24411F5CE858008754B6 /* APIMovieMixViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIMovieMixViewController.m; sourceTree = "<group>"; };
+		3EFB24421F5CE858008754B6 /* APIMovieSplicerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIMovieSplicerViewController.h; sourceTree = "<group>"; };
+		3EFB24431F5CE858008754B6 /* APIMovieSplicerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIMovieSplicerViewController.m; sourceTree = "<group>"; };
+		3EFB24441F5CE858008754B6 /* APIVideoThumbnailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIVideoThumbnailsViewController.h; sourceTree = "<group>"; };
+		3EFB24451F5CE858008754B6 /* APIVideoThumbnailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIVideoThumbnailsViewController.m; sourceTree = "<group>"; };
+		3EFB24471F5CE858008754B6 /* MovieEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieEditorViewController.h; sourceTree = "<group>"; };
+		3EFB24481F5CE858008754B6 /* MovieEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieEditorViewController.m; sourceTree = "<group>"; };
+		3EFB24491F5CE858008754B6 /* MoviePreviewAndCutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePreviewAndCutViewController.h; sourceTree = "<group>"; };
+		3EFB244A1F5CE858008754B6 /* MoviePreviewAndCutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviePreviewAndCutViewController.m; sourceTree = "<group>"; };
+		3EFB244B1F5CE858008754B6 /* MovieRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieRecordViewController.h; sourceTree = "<group>"; };
+		3EFB244C1F5CE858008754B6 /* MovieRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieRecordViewController.m; sourceTree = "<group>"; };
+		3EFB244D1F5CE858008754B6 /* MultipleCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleCameraViewController.h; sourceTree = "<group>"; };
+		3EFB244E1F5CE858008754B6 /* MultipleCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleCameraViewController.m; sourceTree = "<group>"; };
+		3EFB24501F5CE858008754B6 /* MovieEditorFullScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieEditorFullScreenController.h; sourceTree = "<group>"; };
+		3EFB24511F5CE858008754B6 /* MovieEditorFullScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieEditorFullScreenController.m; sourceTree = "<group>"; };
+		3EFB24521F5CE858008754B6 /* MovieEditorRatioAdaptedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieEditorRatioAdaptedController.h; sourceTree = "<group>"; };
+		3EFB24531F5CE858008754B6 /* MovieEditorRatioAdaptedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieEditorRatioAdaptedController.m; sourceTree = "<group>"; };
+		3EFB24541F5CE858008754B6 /* MoviePreviewAndCutFullScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePreviewAndCutFullScreenController.h; sourceTree = "<group>"; };
+		3EFB24551F5CE858008754B6 /* MoviePreviewAndCutFullScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviePreviewAndCutFullScreenController.m; sourceTree = "<group>"; };
+		3EFB24561F5CE858008754B6 /* MoviePreviewAndCutRatioAdaptedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePreviewAndCutRatioAdaptedController.h; sourceTree = "<group>"; };
+		3EFB24571F5CE858008754B6 /* MoviePreviewAndCutRatioAdaptedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviePreviewAndCutRatioAdaptedController.m; sourceTree = "<group>"; };
+		3EFB24581F5CE858008754B6 /* MovieRecordFullScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieRecordFullScreenController.h; sourceTree = "<group>"; };
+		3EFB24591F5CE858008754B6 /* MovieRecordFullScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieRecordFullScreenController.m; sourceTree = "<group>"; };
+		3EFB245B1F5CE858008754B6 /* RecordCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordCameraViewController.h; sourceTree = "<group>"; };
+		3EFB245C1F5CE858008754B6 /* RecordCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordCameraViewController.m; sourceTree = "<group>"; };
+		3EFB245E1F5CE858008754B6 /* CustomTuSDKCPRegionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTuSDKCPRegionHandler.h; sourceTree = "<group>"; };
+		3EFB245F1F5CE858008754B6 /* CustomTuSDKCPRegionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTuSDKCPRegionHandler.m; sourceTree = "<group>"; };
+		3EFB24611F5CE858008754B6 /* BottomButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomButtonView.h; sourceTree = "<group>"; };
+		3EFB24621F5CE858008754B6 /* BottomButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomButtonView.m; sourceTree = "<group>"; };
+		3EFB24631F5CE858008754B6 /* FilterBottomButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterBottomButtonView.h; sourceTree = "<group>"; };
+		3EFB24641F5CE858008754B6 /* FilterBottomButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterBottomButtonView.m; sourceTree = "<group>"; };
+		3EFB24651F5CE858008754B6 /* FilterItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterItemView.h; sourceTree = "<group>"; };
+		3EFB24661F5CE858008754B6 /* FilterItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterItemView.m; sourceTree = "<group>"; };
+		3EFB24671F5CE858008754B6 /* FilterParamItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterParamItemView.h; sourceTree = "<group>"; };
+		3EFB24681F5CE858008754B6 /* FilterParamItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterParamItemView.m; sourceTree = "<group>"; };
+		3EFB24691F5CE858008754B6 /* FilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterView.h; sourceTree = "<group>"; };
+		3EFB246A1F5CE858008754B6 /* FilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterView.m; sourceTree = "<group>"; };
+		3EFB246C1F5CE858008754B6 /* DubScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubScrollView.h; sourceTree = "<group>"; };
+		3EFB246D1F5CE858008754B6 /* DubScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubScrollView.m; sourceTree = "<group>"; };
+		3EFB246E1F5CE858008754B6 /* MovieEditerBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieEditerBottomBar.h; sourceTree = "<group>"; };
+		3EFB246F1F5CE858008754B6 /* MovieEditerBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieEditerBottomBar.m; sourceTree = "<group>"; };
+		3EFB24701F5CE858008754B6 /* MovieEditorClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieEditorClipView.h; sourceTree = "<group>"; };
+		3EFB24711F5CE858008754B6 /* MovieEditorClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieEditorClipView.m; sourceTree = "<group>"; };
+		3EFB24721F5CE858008754B6 /* MVScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVScrollView.h; sourceTree = "<group>"; };
+		3EFB24731F5CE858008754B6 /* MVScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVScrollView.m; sourceTree = "<group>"; };
+		3EFB24741F5CE858008754B6 /* RecorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecorderView.h; sourceTree = "<group>"; };
+		3EFB24751F5CE858008754B6 /* RecorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecorderView.m; sourceTree = "<group>"; };
+		3EFB24771F5CE858008754B6 /* CutVideoBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CutVideoBottomView.h; sourceTree = "<group>"; };
+		3EFB24781F5CE858008754B6 /* CutVideoBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CutVideoBottomView.m; sourceTree = "<group>"; };
+		3EFB24791F5CE858008754B6 /* VideoClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoClipView.h; sourceTree = "<group>"; };
+		3EFB247A1F5CE858008754B6 /* VideoClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoClipView.m; sourceTree = "<group>"; };
+		3EFB247C1F5CE858008754B6 /* RecordVideoBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordVideoBottomBar.h; sourceTree = "<group>"; };
+		3EFB247D1F5CE858008754B6 /* RecordVideoBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordVideoBottomBar.m; sourceTree = "<group>"; };
+		3EFB247F1F5CE858008754B6 /* ClickPressBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClickPressBottomBar.h; sourceTree = "<group>"; };
+		3EFB24801F5CE858008754B6 /* ClickPressBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClickPressBottomBar.m; sourceTree = "<group>"; };
+		3EFB24811F5CE858008754B6 /* StickerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StickerCollectionViewCell.h; sourceTree = "<group>"; };
+		3EFB24821F5CE858008754B6 /* StickerCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StickerCollectionViewCell.m; sourceTree = "<group>"; };
+		3EFB24831F5CE858008754B6 /* StickerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StickerScrollView.h; sourceTree = "<group>"; };
+		3EFB24841F5CE858008754B6 /* StickerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StickerScrollView.m; sourceTree = "<group>"; };
+		3EFB24851F5CE858008754B6 /* TopNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopNavBar.h; sourceTree = "<group>"; };
+		3EFB24861F5CE858008754B6 /* TopNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopNavBar.m; sourceTree = "<group>"; };
+		3EFB24871F5CE858008754B6 /* ComponentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComponentListViewController.h; sourceTree = "<group>"; };
+		3EFB24881F5CE858008754B6 /* ComponentListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComponentListViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -733,170 +739,13 @@
 		3E552DB31F289505002E5A62 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				3E552DB41F289505002E5A62 /* ComponentListViewController.h */,
-				3E552DB51F289505002E5A62 /* ComponentListViewController.m */,
-				3E552DBB1F289505002E5A62 /* Samples */,
-				3E552DE51F289505002E5A62 /* ToolModule */,
-				3E552DEA1F289506002E5A62 /* Views */,
+				3EFB24381F5CE858008754B6 /* Samples */,
+				3EFB245D1F5CE858008754B6 /* ToolModule */,
+				3EFB24601F5CE858008754B6 /* Views */,
+				3EFB24871F5CE858008754B6 /* ComponentListViewController.h */,
+				3EFB24881F5CE858008754B6 /* ComponentListViewController.m */,
 			);
 			path = Source;
-			sourceTree = "<group>";
-		};
-		3E552DBB1F289505002E5A62 /* Samples */ = {
-			isa = PBXGroup;
-			children = (
-				3E552DBC1F289505002E5A62 /* API */,
-				3E552DC91F289505002E5A62 /* CommonComponents */,
-				3E552DD21F289505002E5A62 /* CustomComponents */,
-				3E552DDF1F289505002E5A62 /* MainScreen */,
-				3E552DE21F289505002E5A62 /* SuiteComponents */,
-			);
-			path = Samples;
-			sourceTree = "<group>";
-		};
-		3E552DBC1F289505002E5A62 /* API */ = {
-			isa = PBXGroup;
-			children = (
-				3E552DBD1F289505002E5A62 /* APIAudioMixViewController.h */,
-				3E552DBE1F289505002E5A62 /* APIAudioMixViewController.m */,
-				3E552DBF1F289505002E5A62 /* APIAudioRecorderViewController.h */,
-				3E552DC01F289505002E5A62 /* APIAudioRecorderViewController.m */,
-				3E552DC11F289505002E5A62 /* APIMovieClipperViewController.h */,
-				3E552DC21F289505002E5A62 /* APIMovieClipperViewController.m */,
-				3E552DC31F289505002E5A62 /* APIMovieMixViewController.h */,
-				3E552DC41F289505002E5A62 /* APIMovieMixViewController.m */,
-				3E552DC51F289505002E5A62 /* APIMovieSplicerViewController.h */,
-				3E552DC61F289505002E5A62 /* APIMovieSplicerViewController.m */,
-				3E552DC71F289505002E5A62 /* APIVideoThumbnailsViewController.h */,
-				3E552DC81F289505002E5A62 /* APIVideoThumbnailsViewController.m */,
-			);
-			path = API;
-			sourceTree = "<group>";
-		};
-		3E552DC91F289505002E5A62 /* CommonComponents */ = {
-			isa = PBXGroup;
-			children = (
-				3E552DCA1F289505002E5A62 /* MovieEditorViewController.h */,
-				3E552DCB1F289505002E5A62 /* MovieEditorViewController.m */,
-				3E552DCC1F289505002E5A62 /* MoviePreviewAndCutViewController.h */,
-				3E552DCD1F289505002E5A62 /* MoviePreviewAndCutViewController.m */,
-				3E552DCE1F289505002E5A62 /* MovieRecordViewController.h */,
-				3E552DCF1F289505002E5A62 /* MovieRecordViewController.m */,
-				3E552DD01F289505002E5A62 /* MultipleCameraViewController.h */,
-				3E552DD11F289505002E5A62 /* MultipleCameraViewController.m */,
-			);
-			path = CommonComponents;
-			sourceTree = "<group>";
-		};
-		3E552DD21F289505002E5A62 /* CustomComponents */ = {
-			isa = PBXGroup;
-			children = (
-				3E552DD31F289505002E5A62 /* MovieEditorFullScreenController.h */,
-				3E552DD41F289505002E5A62 /* MovieEditorFullScreenController.m */,
-				3E552DD51F289505002E5A62 /* MovieEditorRatioAdaptedController.h */,
-				3E552DD61F289505002E5A62 /* MovieEditorRatioAdaptedController.m */,
-				3E552DD71F289505002E5A62 /* MoviePreviewAndCutFullScreenController.h */,
-				3E552DD81F289505002E5A62 /* MoviePreviewAndCutFullScreenController.m */,
-				3E552DD91F289505002E5A62 /* MoviePreviewAndCutRatioAdaptedController.h */,
-				3E552DDA1F289505002E5A62 /* MoviePreviewAndCutRatioAdaptedController.m */,
-				3E552DDB1F289505002E5A62 /* MovieRecordFullScreenController.h */,
-				3E552DDC1F289505002E5A62 /* MovieRecordFullScreenController.m */,
-				3E552DDD1F289505002E5A62 /* MultipleCameraFullScreenController.h */,
-				3E552DDE1F289505002E5A62 /* MultipleCameraFullScreenController.m */,
-			);
-			path = CustomComponents;
-			sourceTree = "<group>";
-		};
-		3E552DDF1F289505002E5A62 /* MainScreen */ = {
-			isa = PBXGroup;
-			children = (
-				3E552DE01F289505002E5A62 /* RecordCameraViewController.h */,
-				3E552DE11F289505002E5A62 /* RecordCameraViewController.m */,
-			);
-			path = MainScreen;
-			sourceTree = "<group>";
-		};
-		3E552DE21F289505002E5A62 /* SuiteComponents */ = {
-			isa = PBXGroup;
-			children = (
-				3E552DE31F289505002E5A62 /* MovieRecordCameraViewController.h */,
-				3E552DE41F289505002E5A62 /* MovieRecordCameraViewController.m */,
-			);
-			path = SuiteComponents;
-			sourceTree = "<group>";
-		};
-		3E552DE51F289505002E5A62 /* ToolModule */ = {
-			isa = PBXGroup;
-			children = (
-				3E552DE61F289505002E5A62 /* CustomTuSDKCPRegionHandler.h */,
-				3E552DE71F289505002E5A62 /* CustomTuSDKCPRegionHandler.m */,
-			);
-			path = ToolModule;
-			sourceTree = "<group>";
-		};
-		3E552DEA1F289506002E5A62 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				3E552DEB1F289506002E5A62 /* FilterItemView.h */,
-				3E552DEC1F289506002E5A62 /* FilterItemView.m */,
-				3E552DED1F289506002E5A62 /* FilterView.h */,
-				3E552DEE1F289506002E5A62 /* FilterView.m */,
-				3E552DEF1F289506002E5A62 /* MovieEditor */,
-				3E552DFA1F289506002E5A62 /* MoviePreviewAndCut */,
-				3E552DFF1F289506002E5A62 /* MovieRecord */,
-				3E552E021F289506002E5A62 /* MultipleCamera */,
-				3E552E051F289506002E5A62 /* StickerScrollView.h */,
-				3E552E061F289506002E5A62 /* StickerScrollView.m */,
-				3E552E071F289506002E5A62 /* TopNavBar.h */,
-				3E552E081F289506002E5A62 /* TopNavBar.m */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		3E552DEF1F289506002E5A62 /* MovieEditor */ = {
-			isa = PBXGroup;
-			children = (
-				3E552DF01F289506002E5A62 /* DubScrollView.h */,
-				3E552DF11F289506002E5A62 /* DubScrollView.m */,
-				3E552DF21F289506002E5A62 /* MovieEditerBottomBar.h */,
-				3E552DF31F289506002E5A62 /* MovieEditerBottomBar.m */,
-				3E552DF41F289506002E5A62 /* MovieEditorClipView.h */,
-				3E552DF51F289506002E5A62 /* MovieEditorClipView.m */,
-				3E552DF61F289506002E5A62 /* MVScrollView.h */,
-				3E552DF71F289506002E5A62 /* MVScrollView.m */,
-				3E552DF81F289506002E5A62 /* RecorderView.h */,
-				3E552DF91F289506002E5A62 /* RecorderView.m */,
-			);
-			path = MovieEditor;
-			sourceTree = "<group>";
-		};
-		3E552DFA1F289506002E5A62 /* MoviePreviewAndCut */ = {
-			isa = PBXGroup;
-			children = (
-				3E552DFB1F289506002E5A62 /* CutVideoBottomView.h */,
-				3E552DFC1F289506002E5A62 /* CutVideoBottomView.m */,
-				3E552DFD1F289506002E5A62 /* VideoClipView.h */,
-				3E552DFE1F289506002E5A62 /* VideoClipView.m */,
-			);
-			path = MoviePreviewAndCut;
-			sourceTree = "<group>";
-		};
-		3E552DFF1F289506002E5A62 /* MovieRecord */ = {
-			isa = PBXGroup;
-			children = (
-				3E552E001F289506002E5A62 /* RecordVideoBottomBar.h */,
-				3E552E011F289506002E5A62 /* RecordVideoBottomBar.m */,
-			);
-			path = MovieRecord;
-			sourceTree = "<group>";
-		};
-		3E552E021F289506002E5A62 /* MultipleCamera */ = {
-			isa = PBXGroup;
-			children = (
-				3E552E031F289506002E5A62 /* ClickPressBottomBar.h */,
-				3E552E041F289506002E5A62 /* ClickPressBottomBar.m */,
-			);
-			path = MultipleCamera;
 			sourceTree = "<group>";
 		};
 		3E552E2E1F289B6C002E5A62 /* Frameworks */ = {
@@ -1171,6 +1020,159 @@
 				3EBD859A1F330FA2009DF2D1 /* UpSimpleHttpClient.m */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		3EFB24381F5CE858008754B6 /* Samples */ = {
+			isa = PBXGroup;
+			children = (
+				3EFB24391F5CE858008754B6 /* API */,
+				3EFB24461F5CE858008754B6 /* CommonComponents */,
+				3EFB244F1F5CE858008754B6 /* CustomComponents */,
+				3EFB245A1F5CE858008754B6 /* SuiteComponents */,
+			);
+			path = Samples;
+			sourceTree = "<group>";
+		};
+		3EFB24391F5CE858008754B6 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				3EFB243A1F5CE858008754B6 /* APIAudioMixViewController.h */,
+				3EFB243B1F5CE858008754B6 /* APIAudioMixViewController.m */,
+				3EFB243C1F5CE858008754B6 /* APIAudioRecorderViewController.h */,
+				3EFB243D1F5CE858008754B6 /* APIAudioRecorderViewController.m */,
+				3EFB243E1F5CE858008754B6 /* APIMovieClipperViewController.h */,
+				3EFB243F1F5CE858008754B6 /* APIMovieClipperViewController.m */,
+				3EFB24401F5CE858008754B6 /* APIMovieMixViewController.h */,
+				3EFB24411F5CE858008754B6 /* APIMovieMixViewController.m */,
+				3EFB24421F5CE858008754B6 /* APIMovieSplicerViewController.h */,
+				3EFB24431F5CE858008754B6 /* APIMovieSplicerViewController.m */,
+				3EFB24441F5CE858008754B6 /* APIVideoThumbnailsViewController.h */,
+				3EFB24451F5CE858008754B6 /* APIVideoThumbnailsViewController.m */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		3EFB24461F5CE858008754B6 /* CommonComponents */ = {
+			isa = PBXGroup;
+			children = (
+				3EFB24471F5CE858008754B6 /* MovieEditorViewController.h */,
+				3EFB24481F5CE858008754B6 /* MovieEditorViewController.m */,
+				3EFB24491F5CE858008754B6 /* MoviePreviewAndCutViewController.h */,
+				3EFB244A1F5CE858008754B6 /* MoviePreviewAndCutViewController.m */,
+				3EFB244B1F5CE858008754B6 /* MovieRecordViewController.h */,
+				3EFB244C1F5CE858008754B6 /* MovieRecordViewController.m */,
+				3EFB244D1F5CE858008754B6 /* MultipleCameraViewController.h */,
+				3EFB244E1F5CE858008754B6 /* MultipleCameraViewController.m */,
+			);
+			path = CommonComponents;
+			sourceTree = "<group>";
+		};
+		3EFB244F1F5CE858008754B6 /* CustomComponents */ = {
+			isa = PBXGroup;
+			children = (
+				3EFB24501F5CE858008754B6 /* MovieEditorFullScreenController.h */,
+				3EFB24511F5CE858008754B6 /* MovieEditorFullScreenController.m */,
+				3EFB24521F5CE858008754B6 /* MovieEditorRatioAdaptedController.h */,
+				3EFB24531F5CE858008754B6 /* MovieEditorRatioAdaptedController.m */,
+				3EFB24541F5CE858008754B6 /* MoviePreviewAndCutFullScreenController.h */,
+				3EFB24551F5CE858008754B6 /* MoviePreviewAndCutFullScreenController.m */,
+				3EFB24561F5CE858008754B6 /* MoviePreviewAndCutRatioAdaptedController.h */,
+				3EFB24571F5CE858008754B6 /* MoviePreviewAndCutRatioAdaptedController.m */,
+				3EFB24581F5CE858008754B6 /* MovieRecordFullScreenController.h */,
+				3EFB24591F5CE858008754B6 /* MovieRecordFullScreenController.m */,
+			);
+			path = CustomComponents;
+			sourceTree = "<group>";
+		};
+		3EFB245A1F5CE858008754B6 /* SuiteComponents */ = {
+			isa = PBXGroup;
+			children = (
+				3EFB245B1F5CE858008754B6 /* RecordCameraViewController.h */,
+				3EFB245C1F5CE858008754B6 /* RecordCameraViewController.m */,
+			);
+			path = SuiteComponents;
+			sourceTree = "<group>";
+		};
+		3EFB245D1F5CE858008754B6 /* ToolModule */ = {
+			isa = PBXGroup;
+			children = (
+				3EFB245E1F5CE858008754B6 /* CustomTuSDKCPRegionHandler.h */,
+				3EFB245F1F5CE858008754B6 /* CustomTuSDKCPRegionHandler.m */,
+			);
+			path = ToolModule;
+			sourceTree = "<group>";
+		};
+		3EFB24601F5CE858008754B6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3EFB24611F5CE858008754B6 /* BottomButtonView.h */,
+				3EFB24621F5CE858008754B6 /* BottomButtonView.m */,
+				3EFB24631F5CE858008754B6 /* FilterBottomButtonView.h */,
+				3EFB24641F5CE858008754B6 /* FilterBottomButtonView.m */,
+				3EFB24651F5CE858008754B6 /* FilterItemView.h */,
+				3EFB24661F5CE858008754B6 /* FilterItemView.m */,
+				3EFB24671F5CE858008754B6 /* FilterParamItemView.h */,
+				3EFB24681F5CE858008754B6 /* FilterParamItemView.m */,
+				3EFB24691F5CE858008754B6 /* FilterView.h */,
+				3EFB246A1F5CE858008754B6 /* FilterView.m */,
+				3EFB246B1F5CE858008754B6 /* MovieEditor */,
+				3EFB24761F5CE858008754B6 /* MoviePreviewAndCut */,
+				3EFB247B1F5CE858008754B6 /* MovieRecord */,
+				3EFB247E1F5CE858008754B6 /* MultipleCamera */,
+				3EFB24811F5CE858008754B6 /* StickerCollectionViewCell.h */,
+				3EFB24821F5CE858008754B6 /* StickerCollectionViewCell.m */,
+				3EFB24831F5CE858008754B6 /* StickerScrollView.h */,
+				3EFB24841F5CE858008754B6 /* StickerScrollView.m */,
+				3EFB24851F5CE858008754B6 /* TopNavBar.h */,
+				3EFB24861F5CE858008754B6 /* TopNavBar.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3EFB246B1F5CE858008754B6 /* MovieEditor */ = {
+			isa = PBXGroup;
+			children = (
+				3EFB246C1F5CE858008754B6 /* DubScrollView.h */,
+				3EFB246D1F5CE858008754B6 /* DubScrollView.m */,
+				3EFB246E1F5CE858008754B6 /* MovieEditerBottomBar.h */,
+				3EFB246F1F5CE858008754B6 /* MovieEditerBottomBar.m */,
+				3EFB24701F5CE858008754B6 /* MovieEditorClipView.h */,
+				3EFB24711F5CE858008754B6 /* MovieEditorClipView.m */,
+				3EFB24721F5CE858008754B6 /* MVScrollView.h */,
+				3EFB24731F5CE858008754B6 /* MVScrollView.m */,
+				3EFB24741F5CE858008754B6 /* RecorderView.h */,
+				3EFB24751F5CE858008754B6 /* RecorderView.m */,
+			);
+			path = MovieEditor;
+			sourceTree = "<group>";
+		};
+		3EFB24761F5CE858008754B6 /* MoviePreviewAndCut */ = {
+			isa = PBXGroup;
+			children = (
+				3EFB24771F5CE858008754B6 /* CutVideoBottomView.h */,
+				3EFB24781F5CE858008754B6 /* CutVideoBottomView.m */,
+				3EFB24791F5CE858008754B6 /* VideoClipView.h */,
+				3EFB247A1F5CE858008754B6 /* VideoClipView.m */,
+			);
+			path = MoviePreviewAndCut;
+			sourceTree = "<group>";
+		};
+		3EFB247B1F5CE858008754B6 /* MovieRecord */ = {
+			isa = PBXGroup;
+			children = (
+				3EFB247C1F5CE858008754B6 /* RecordVideoBottomBar.h */,
+				3EFB247D1F5CE858008754B6 /* RecordVideoBottomBar.m */,
+			);
+			path = MovieRecord;
+			sourceTree = "<group>";
+		};
+		3EFB247E1F5CE858008754B6 /* MultipleCamera */ = {
+			isa = PBXGroup;
+			children = (
+				3EFB247F1F5CE858008754B6 /* ClickPressBottomBar.h */,
+				3EFB24801F5CE858008754B6 /* ClickPressBottomBar.m */,
+			);
+			path = MultipleCamera;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1459,49 +1461,51 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E552E1F1F289506002E5A62 /* CustomTuSDKCPRegionHandler.m in Sources */,
-				3E552E2A1F289506002E5A62 /* RecordVideoBottomBar.m in Sources */,
-				3E552E111F289506002E5A62 /* APIMovieSplicerViewController.m in Sources */,
+				3EFB24921F5CE858008754B6 /* MoviePreviewAndCutViewController.m in Sources */,
+				3EFB248D1F5CE858008754B6 /* APIMovieClipperViewController.m in Sources */,
+				3EFB24991F5CE858008754B6 /* MovieRecordFullScreenController.m in Sources */,
 				3EBD859D1F330FA2009DF2D1 /* UPYUNConfig.m in Sources */,
-				3E552E0F1F289506002E5A62 /* APIMovieClipperViewController.m in Sources */,
-				3E552E0E1F289506002E5A62 /* APIAudioRecorderViewController.m in Sources */,
-				3E552E221F289506002E5A62 /* FilterView.m in Sources */,
-				3E552E1B1F289506002E5A62 /* MovieRecordFullScreenController.m in Sources */,
-				3E552E1C1F289506002E5A62 /* MultipleCameraFullScreenController.m in Sources */,
-				3E552E291F289506002E5A62 /* VideoClipView.m in Sources */,
-				3E552E151F289506002E5A62 /* MovieRecordViewController.m in Sources */,
+				3EFB24971F5CE858008754B6 /* MoviePreviewAndCutFullScreenController.m in Sources */,
+				3EFB24911F5CE858008754B6 /* MovieEditorViewController.m in Sources */,
+				3EFB249B1F5CE858008754B6 /* CustomTuSDKCPRegionHandler.m in Sources */,
+				3EFB24931F5CE858008754B6 /* MovieRecordViewController.m in Sources */,
 				3EBD859F1F330FA2009DF2D1 /* UpSimpleHttpClient.m in Sources */,
+				3EFB24A61F5CE858008754B6 /* CutVideoBottomView.m in Sources */,
 				3EBD859B1F330FA2009DF2D1 /* UpYunBlockUpLoader.m in Sources */,
-				3E552E2D1F289506002E5A62 /* TopNavBar.m in Sources */,
-				3E552E2C1F289506002E5A62 /* StickerScrollView.m in Sources */,
+				3EFB24901F5CE858008754B6 /* APIVideoThumbnailsViewController.m in Sources */,
+				3EFB248F1F5CE858008754B6 /* APIMovieSplicerViewController.m in Sources */,
+				3EFB24A21F5CE858008754B6 /* MovieEditerBottomBar.m in Sources */,
+				3EFB24A01F5CE858008754B6 /* FilterView.m in Sources */,
+				3EFB24AD1F5CE858008754B6 /* ComponentListViewController.m in Sources */,
+				3EFB24A81F5CE858008754B6 /* RecordVideoBottomBar.m in Sources */,
 				3E552F821F2AEF2F002E5A62 /* UPLivePlayerVC.m in Sources */,
-				3E552E121F289506002E5A62 /* APIVideoThumbnailsViewController.m in Sources */,
+				3EFB249E1F5CE858008754B6 /* FilterItemView.m in Sources */,
+				3EFB24981F5CE858008754B6 /* MoviePreviewAndCutRatioAdaptedController.m in Sources */,
 				3EBD859C1F330FA2009DF2D1 /* UpYunFormUploader.m in Sources */,
-				3E552E0D1F289506002E5A62 /* APIAudioMixViewController.m in Sources */,
-				3E552E251F289506002E5A62 /* MovieEditorClipView.m in Sources */,
-				3E552E171F289506002E5A62 /* MovieEditorFullScreenController.m in Sources */,
+				3EFB249F1F5CE858008754B6 /* FilterParamItemView.m in Sources */,
 				3E552BFC1F272055002E5A62 /* AppDelegate.m in Sources */,
-				3E552E231F289506002E5A62 /* DubScrollView.m in Sources */,
-				3E552E2B1F289506002E5A62 /* ClickPressBottomBar.m in Sources */,
-				3E552E101F289506002E5A62 /* APIMovieMixViewController.m in Sources */,
-				3E552E091F289506002E5A62 /* ComponentListViewController.m in Sources */,
-				3E552E271F289506002E5A62 /* RecorderView.m in Sources */,
-				3E552E281F289506002E5A62 /* CutVideoBottomView.m in Sources */,
+				3EFB24A41F5CE858008754B6 /* MVScrollView.m in Sources */,
+				3EFB249A1F5CE858008754B6 /* RecordCameraViewController.m in Sources */,
 				3E552E0A1F289506002E5A62 /* MainViewController.m in Sources */,
-				3E552E1A1F289506002E5A62 /* MoviePreviewAndCutRatioAdaptedController.m in Sources */,
+				3EFB248C1F5CE858008754B6 /* APIAudioRecorderViewController.m in Sources */,
+				3EFB249C1F5CE858008754B6 /* BottomButtonView.m in Sources */,
+				3EFB248E1F5CE858008754B6 /* APIMovieMixViewController.m in Sources */,
+				3EFB24AB1F5CE858008754B6 /* StickerScrollView.m in Sources */,
+				3EFB24A71F5CE858008754B6 /* VideoClipView.m in Sources */,
+				3EFB24A31F5CE858008754B6 /* MovieEditorClipView.m in Sources */,
+				3EFB24AC1F5CE858008754B6 /* TopNavBar.m in Sources */,
+				3EFB24A51F5CE858008754B6 /* RecorderView.m in Sources */,
+				3EFB24941F5CE858008754B6 /* MultipleCameraViewController.m in Sources */,
+				3EFB249D1F5CE858008754B6 /* FilterBottomButtonView.m in Sources */,
+				3EFB24A11F5CE858008754B6 /* DubScrollView.m in Sources */,
 				3EBD859E1F330FA2009DF2D1 /* UpApiUtils.m in Sources */,
-				3E552E241F289506002E5A62 /* MovieEditerBottomBar.m in Sources */,
+				3EFB24951F5CE858008754B6 /* MovieEditorFullScreenController.m in Sources */,
 				3E552BF91F272055002E5A62 /* main.m in Sources */,
-				3E552E181F289506002E5A62 /* MovieEditorRatioAdaptedController.m in Sources */,
-				3E552E261F289506002E5A62 /* MVScrollView.m in Sources */,
-				3E552E1E1F289506002E5A62 /* MovieRecordCameraViewController.m in Sources */,
-				3E552E191F289506002E5A62 /* MoviePreviewAndCutFullScreenController.m in Sources */,
-				3E552E141F289506002E5A62 /* MoviePreviewAndCutViewController.m in Sources */,
-				3E552E1D1F289506002E5A62 /* RecordCameraViewController.m in Sources */,
-				3E552E161F289506002E5A62 /* MultipleCameraViewController.m in Sources */,
-				3E552E131F289506002E5A62 /* MovieEditorViewController.m in Sources */,
-				3E552E211F289506002E5A62 /* FilterItemView.m in Sources */,
 				3E552E0B1F289506002E5A62 /* PlayerVC.m in Sources */,
+				3EFB24AA1F5CE858008754B6 /* StickerCollectionViewCell.m in Sources */,
+				3EFB248B1F5CE858008754B6 /* APIAudioMixViewController.m in Sources */,
+				3EFB24961F5CE858008754B6 /* MovieEditorRatioAdaptedController.m in Sources */,
+				3EFB24A91F5CE858008754B6 /* ClickPressBottomBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

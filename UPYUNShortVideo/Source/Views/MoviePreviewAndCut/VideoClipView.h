@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RecordVideoBottomBar.h"
 
+//#define kCustomYellowColor [UIColor colorWithRed:244/255.0f green:161/255.0f blue:26/255.0f alpha:1]
 #define kCustomYellowColor HEXCOLOR(0x22bbf4)
 
 

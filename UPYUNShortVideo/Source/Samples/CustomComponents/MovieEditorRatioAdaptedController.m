@@ -39,12 +39,10 @@
    self.movieEditor.saveToAlbum = YES;
     // 设置录制文件格式(默认：lsqFileTypeQuickTimeMovie)
    self.movieEditor.fileType = lsqFileTypeMPEG4;
-    // 是否开启美颜
-   self.movieEditor.enableBeauty = YES;
-    // 设置水印，默认为空
-   self.movieEditor.waterMarkImage = [UIImage imageNamed:@"upyun_wartermark.png"];
-    // 设置水印图片的位置
-   self.movieEditor.waterMarkPosition = lsqWaterMarkTopLeft;
+//    // 设置水印，默认为空
+//   self.movieEditor.waterMarkImage = [UIImage imageNamed:@"upyun_wartermark.png"];
+//    // 设置水印图片的位置
+//   self.movieEditor.waterMarkPosition = lsqWaterMarkTopLeft;
     // 视频播放音量设置，0 ~ 1.0 仅在 enableVideoSound 为 YES 时有效
    self.movieEditor.videoSoundVolume = 0.5;
 

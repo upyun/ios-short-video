@@ -8,16 +8,14 @@
 
 #import "MovieEditerBottomBar.h"
 #import "RecorderView.h"
+#import "BottomButtonView.h"
 
-@interface MovieEditerBottomBar ()<FilterViewEventDelegate, MVViewClickDelegate, DubViewClickDelegate, TuSDKICSeekBarDelegate>{
+@interface MovieEditerBottomBar ()<FilterViewEventDelegate, MVViewClickDelegate, DubViewClickDelegate, TuSDKICSeekBarDelegate, BottomButtonViewDelegate>{
     // 底部按钮以及分割线的父视图
     UIView *_bottomDisplayView;
-    // 滤镜按钮
-    UIButton *_filterBtn;
-    // MV按钮
-    UIButton *_mvBtn;
-    // 配音按钮
-    UIButton *_dubBtn;
+    // 底部按钮View
+    BottomButtonView *_bottomButtonView;
+    
     // 音量调节 View
     UIView *_volumeBackView;
     // 原音音量 数值显示 UILabel
@@ -48,6 +46,8 @@
     _videoFilters = videoFilters;
     if (_filterView) {
         [_filterView createFilterWith:videoFilters];
+        _filterView.beautyParamView.hidden = NO;
+        _filterView.filterChooseView.hidden = YES;
     }
 }
 
@@ -60,94 +60,49 @@
         _originVolume = 0.5;
         _initFrame = frame;
 
-        [self addBottomButton];
+        [self initBottomButton];
+        [self initContentView];
         [self initVolumeView];
     }
     return self;
 }
 
-// 初始化底部按钮：滤镜、MV
-- (void)addBottomButton;
+// 初始化底部按钮视图
+- (void)initBottomButton;
 {
-    CGFloat btnHeight = 50;
-    CGFloat btnWidth = 30;
-    CGFloat centerX = 35;
-    CGFloat btnFontSize = btnWidth < 35 ? 12 : 14;
-    
-    
-    _bottomDisplayView = [[UIView alloc]initWithFrame:CGRectMake(0, self.lsqGetSizeHeight - btnHeight - 10, self.lsqGetSizeWidth, btnHeight + 10)];
+    // 底部按钮 + 线条 背景View
+    _bottomDisplayView = [[UIView alloc]initWithFrame:CGRectMake(0, self.lsqGetSizeHeight - 60, self.lsqGetSizeWidth, 60)];
     [self addSubview:_bottomDisplayView];
     
     UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, 0 , self.lsqGetSizeWidth, 1)];
     line.backgroundColor = lsqRGB(230, 230, 230);
     [_bottomDisplayView addSubview:line];
     
-    CGFloat centerY = _bottomDisplayView.bounds.size.height/2 + 2;
+    // 底部按钮
+    NSArray *normalImageNames = @[@"style_default_1.5.0_btn_beauty_unselected", @"style_default_1.5.0_btn_beauty_unclected", @"style_default_1.5.0_btn_mv_unselected",@"style_default_1.7.0_sound_default"];
+    NSArray *selectImageNames = @[@"style_default_1.5.0_btn_beauty", @"style_default_1.5.0_btn_filter", @"style_default_1.5.0_btn_mv", @"style_default_1.7.0_sound_selected"];
+    NSArray *titles = @[NSLocalizedString(@"lsq_filter_beautyArg", @"美颜"), NSLocalizedString(@"lsq_movieEditor_filterBtn", @"滤镜"), NSLocalizedString(@"lsq_movieEditor_MVBtn", @"MV"), NSLocalizedString(@"lsq_movieEditor_dubBtn", @"配音")];
     
-    // 滤镜按钮
-    _filterBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, btnWidth, btnHeight)];
-    _filterBtn.center = CGPointMake(centerX, centerY);
-    _filterBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-    _filterBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [_filterBtn addTarget:self action:@selector(clickBottomButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
-    [_filterBtn setImage:[UIImage imageNamed:@"style_default_1.5.0_btn_filter"] forState:UIControlStateNormal];
-    [_filterBtn setTitle:NSLocalizedString(@"lsq_movieEditor_filterBtn", @"滤镜") forState:UIControlStateNormal];
-    [_filterBtn setTitleColor:HEXCOLOR(0x22bbf4) forState:UIControlStateNormal];
-    _filterBtn.titleLabel.font = [UIFont systemFontOfSize:btnFontSize];
-    _filterBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
-    [_filterBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    [_filterBtn setTitleEdgeInsets:UIEdgeInsetsMake(btnHeight - 16, -(btnWidth/2 + btnFontSize), 0, 0)];
-    _filterBtn.tag = MovieEditorBottomButtonType_Filter;
-    _filterBtn.selected = YES;
-    _filterBtn.adjustsImageWhenHighlighted = NO;
-    [_bottomDisplayView addSubview:_filterBtn];
-    
-    centerX = centerX + btnWidth + 50;
-    
-    // MV 按钮
-    _mvBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, btnWidth, btnHeight)];
-    _mvBtn.center = CGPointMake(centerX, centerY);
-    _mvBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-    _mvBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    _bottomButtonView = [[BottomButtonView alloc]initWithFrame:CGRectMake(0, 7, _bottomDisplayView.lsqGetSizeWidth, 50)];
+    _bottomButtonView.clickDelegate = self;
+    _bottomButtonView.selectedTitleColor = HEXCOLOR(0x22bbf4);
+    _bottomButtonView.normalTitleColor = [UIColor lsqClorWithHex:@"#9fa0a0"];
+    [_bottomButtonView initButtonWith:normalImageNames selectImageNames:selectImageNames With:titles];
+    [_bottomDisplayView addSubview:_bottomButtonView];
+}
 
-    [_mvBtn addTarget:self action:@selector(clickBottomButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
-    [_mvBtn setImage:[UIImage imageNamed:@"style_default_1.5.0_btn_mv_unselected"] forState:UIControlStateNormal];
-    [_mvBtn setTitle:NSLocalizedString(@"lsq_movieEditor_MVBtn", @"MV") forState:UIControlStateNormal];
-    [_mvBtn setTitleColor:[UIColor lsqClorWithHex:@"#9fa0a0"] forState:UIControlStateNormal];
-    _mvBtn.titleLabel.font = [UIFont systemFontOfSize:btnFontSize];
-    [_mvBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    [_mvBtn setTitleEdgeInsets:UIEdgeInsetsMake(btnHeight - 16, -(btnWidth/2 + btnFontSize -3), 0, 0)];
-    _mvBtn.tag = MovieEditorBottomButtonType_MV;
-    _mvBtn.adjustsImageWhenHighlighted = NO;
-    [_bottomDisplayView addSubview:_mvBtn];
-    
-    centerX = centerX + btnWidth + 50;
-    
-    // 配音 按钮
-    _dubBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, btnWidth, btnHeight)];
-    _dubBtn.center = CGPointMake(centerX, centerY);
-    _dubBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-    _dubBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    
-    [_dubBtn addTarget:self action:@selector(clickBottomButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
-    [_dubBtn setImage:[UIImage imageNamed:@"style_default_1.7.0_sound_default"] forState:UIControlStateNormal];
-    [_dubBtn setTitle:NSLocalizedString(@"lsq_movieEditor_dubBtn", @"配音") forState:UIControlStateNormal];
-    [_dubBtn setTitleColor:[UIColor lsqClorWithHex:@"#9fa0a0"] forState:UIControlStateNormal];
-    _dubBtn.titleLabel.font = [UIFont systemFontOfSize:btnFontSize];
-    [_dubBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    [_dubBtn setTitleEdgeInsets:UIEdgeInsetsMake(btnHeight - 16, -(btnWidth/2 + btnFontSize -3), 0, 0)];
-    _dubBtn.tag = MovieEditorBottomButtonType_Dub;
-    _dubBtn.adjustsImageWhenHighlighted = NO;
-    [_bottomDisplayView addSubview:_dubBtn];
-
+// 初始化视图调节内容
+- (void)initContentView;
+{
+    // 调节内容 背景view
     _contentBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, _bottomDisplayView.lsqGetSizeWidth, _bottomDisplayView.lsqGetOriginY)];
     _contentBackView.backgroundColor = [UIColor whiteColor];
     [self addSubview:_contentBackView];
     
     // 滤镜显示 View
-    _filterView = [[FilterView alloc]initWithFrame:CGRectMake(0, 12, _bottomDisplayView.lsqGetSizeWidth , _bottomDisplayView.lsqGetOriginY )];
-    _filterView.canAdjustParameter = true;
+    _filterView = [[FilterView alloc]initWithFrame:CGRectMake(0, 0, _bottomDisplayView.lsqGetSizeWidth , _bottomDisplayView.lsqGetOriginY )];
     _filterView.filterEventDelegate = self;
+    _filterView.isHiddenEyeChinParam = YES;
     // 注： currentFilterTag 基于200 即： = 200 + 滤镜列表中某滤镜的对应下标
     _filterView.currentFilterTag = 200;
     [_contentBackView addSubview:_filterView];
@@ -233,57 +188,6 @@
     _audioArgLabel.text = [NSString stringWithFormat:@"%d%%",(int)(_audioVolume*100)];
     audioSeekBar.tag = 102;
     [_volumeBackView addSubview: audioSeekBar];
-
-}
-
-#pragma mark - 按钮点击事件
-- (void)clickBottomButtonEvent:(UIButton *)btn;
-{
-    if (btn.tag == MovieEditorBottomButtonType_Filter) {
-        // 点击滤镜
-        _filterView.hidden = NO;
-        _mvView.hidden = YES;
-        _dubView.hidden = YES;
-        _volumeBackView.hidden = YES;
-        
-        [_filterBtn setImage:[UIImage imageNamed:@"style_default_1.5.0_btn_filter"] forState:UIControlStateNormal];
-        [_filterBtn setTitleColor:HEXCOLOR(0x22bbf4) forState:UIControlStateNormal];
-        [_mvBtn setImage:[UIImage imageNamed:@"style_default_1.5.0_btn_mv_unselected"] forState:UIControlStateNormal];
-        [_mvBtn setTitleColor:[UIColor lsqClorWithHex:@"#9fa0a0"] forState:UIControlStateNormal];
-        [_dubBtn setImage:[UIImage imageNamed:@"style_default_1.7.0_sound_default"] forState:UIControlStateNormal];
-        [_dubBtn setTitleColor:[UIColor lsqClorWithHex:@"#9fa0a0"] forState:UIControlStateNormal];
-        
-    }else if (btn.tag == MovieEditorBottomButtonType_MV){
-        
-        // 点击 MV
-        _mvView.hidden = NO;
-        _volumeBackView.hidden = NO;
-        _filterView.hidden = YES;
-        _dubView.hidden = YES;
-        
-        [_mvBtn setImage:[UIImage imageNamed:@"style_default_1.5.0_btn_mv"] forState:UIControlStateNormal];
-        [_mvBtn setTitleColor:HEXCOLOR(0x22bbf4) forState:UIControlStateNormal];
-        [_filterBtn setImage:[UIImage imageNamed:@"style_default_1.5.0_btn_beauty_unclected"] forState:UIControlStateNormal];
-        [_filterBtn setTitleColor:[UIColor lsqClorWithHex:@"#9fa0a0"] forState:UIControlStateNormal];
-        [_dubBtn setImage:[UIImage imageNamed:@"style_default_1.7.0_sound_default"] forState:UIControlStateNormal];
-        [_dubBtn setTitleColor:[UIColor lsqClorWithHex:@"#9fa0a0"] forState:UIControlStateNormal];
-
-    }else if (btn.tag == MovieEditorBottomButtonType_Dub){
-        // 点击 配音
-        _dubView.hidden = NO;
-        _volumeBackView.hidden = NO;
-        _mvView.hidden = YES;
-        _filterView.hidden = YES;
-        
-        [_dubBtn setImage:[UIImage imageNamed:@"style_default_1.7.0_sound_selected"] forState:UIControlStateNormal];
-        [_dubBtn setTitleColor:HEXCOLOR(0x22bbf4) forState:UIControlStateNormal];
-        [_mvBtn setImage:[UIImage imageNamed:@"style_default_1.5.0_btn_mv_unselected"] forState:UIControlStateNormal];
-        [_mvBtn setTitleColor:[UIColor lsqClorWithHex:@"#9fa0a0"] forState:UIControlStateNormal];
-        [_filterBtn setImage:[UIImage imageNamed:@"style_default_1.5.0_btn_beauty_unclected"] forState:UIControlStateNormal];
-        [_filterBtn setTitleColor:[UIColor lsqClorWithHex:@"#9fa0a0"] forState:UIControlStateNormal];
-    }
-    
-    [self adjustLayout];
 }
 
 // 切换按钮时 调整底部栏整体布局
@@ -325,12 +229,54 @@
     [_filterView refreshAdjustParameterViewWith:filterDescription filterArgs:args];
 }
 
-#pragma mark - FilterView代理方法 FilterViewEventDelegate
-// 改变滤镜参数
-- (void)filterViewParamChangedWith:(TuSDKICSeekBar *)seekbar changedProgress:(CGFloat)progress;
+#pragma mark - BottomButtonViewDelegate
+// 底部按钮点击事件
+- (void)bottomButton:(BottomButtonView *)bottomButtonView clickIndex:(NSInteger)index;
 {
-    if ([self.bottomBarDelegate respondsToSelector:@selector(movieEditorBottom_filterViewParamChangedWith:changedProgress:)]) {
-        [self.bottomBarDelegate movieEditorBottom_filterViewParamChangedWith:seekbar changedProgress:progress];
+    if (index == 0) {
+        // 点击美颜
+        _filterView.hidden = NO;
+        _mvView.hidden = YES;
+        _dubView.hidden = YES;
+        _volumeBackView.hidden = YES;
+
+        _filterView.beautyParamView.hidden = NO;
+        _filterView.filterChooseView.hidden = YES;
+        
+    }else if (index == 1) {
+        // 点击滤镜
+        _filterView.hidden = NO;
+        _mvView.hidden = YES;
+        _dubView.hidden = YES;
+        _volumeBackView.hidden = YES;
+        
+        _filterView.beautyParamView.hidden = YES;
+        _filterView.filterChooseView.hidden = NO;
+
+    }else if (index == 2){
+        // 点击 MV
+        _mvView.hidden = NO;
+        _volumeBackView.hidden = NO;
+        _filterView.hidden = YES;
+        _dubView.hidden = YES;
+        
+    }else if (index == 3){
+        // 点击 配音
+        _dubView.hidden = NO;
+        _volumeBackView.hidden = NO;
+        _mvView.hidden = YES;
+        _filterView.hidden = YES;
+    }
+    
+    [self adjustLayout];
+}
+
+#pragma mark - FilterViewEventDelegate
+// 改变滤镜参数
+- (void)filterViewParamChanged;
+{
+    if ([self.bottomBarDelegate respondsToSelector:@selector(movieEditorBottom_filterViewParamChanged)]) {
+        [self.bottomBarDelegate movieEditorBottom_filterViewParamChanged];
     }
 }
 
@@ -342,14 +288,7 @@
     }
 }
 
-- (void)filterViewChangeBeautyLevel:(CGFloat)beautyLevel;
-{
-    if ([self.bottomBarDelegate respondsToSelector:@selector(movieEditorBottom_filterViewChangeBeautyLevel:)]) {
-        [self.bottomBarDelegate movieEditorBottom_filterViewChangeBeautyLevel:beautyLevel];
-    }
-}
-
-#pragma mark - mvView代理方法 StickerViewClickDelegate
+#pragma mark -  StickerViewClickDelegate
 // 切换选中的 MV item 
 - (void)clickMVListViewWith:(TuSDKMVStickerAudioEffectData *)mvData
 {
@@ -362,8 +301,7 @@
     }
 }
 
-#pragma mark - dubView代理方法 DubViewClickDelegate
-
+#pragma mark - DubViewClickDelegate
 // 点击选择新的音乐
 - (void)clickDubListViewWith:(NSURL *)audioURL;
 {
@@ -403,8 +341,7 @@
 
 }
 
-#pragma mark - 滑动条代理方法 TuSDKICSeekBarDelegate
-
+#pragma mark - TuSDKICSeekBarDelegate
 - (void)onTuSDKICSeekBar:(TuSDKICSeekBar *)seekbar changedProgress:(CGFloat)progress;
 {
     if (seekbar.tag == 101) {

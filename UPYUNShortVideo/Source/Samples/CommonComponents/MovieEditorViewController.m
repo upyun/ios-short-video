@@ -88,8 +88,6 @@
     CGRect rect = [[UIScreen mainScreen] applicationFrame];
 
     // 滤镜列表
-    _videoFilters =  @[@"Original04",@"Fair04",@"Pink005",@"Forest04",@"Sundown04",@"Sakura04",@"Paul04", @"Lavender04", @"Manhattan04", @"Dusk05", @"TinyTimes04", @"Vivid04", @"Year195004",@"Missing04",@"Grapefruit04",@"BabyPink004"];
-
     _videoFilters =  @[@"SkinPink016",@"SkinJelly016",@"Pink016",@"Fair016",@"Forest017",@"Paul016",@"MintGreen016", @"TinyTimes016", @"Year1950016"];
     
     // 默认相机顶部控制栏
@@ -143,16 +141,11 @@
     // 设置裁剪范围 注：该参数对应的值均为比例值，即：若视频展示View总高度800，此时截取时y从200开始，则cropRect的 originY = 偏移位置/总高度， 应为 0.25, 其余三个值同理
     options.cropRect = _cropRect;
     // 设置编码视频的画质
-    options.encodeVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_High1];
+    options.encodeVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Low1];
     // 是否保留原音
     options.enableVideoSound = YES;
 
     _movieEditor = [[TuSDKMovieEditor alloc]initWithPreview:_videoView options:options];
-    
-    
-
-    
-    
     _movieEditor.delegate = self;
     
     /*设置贴纸出现的默认时间范围 （开始时间~结束时间，注：基于裁剪范围，如原视频8秒，裁剪2~7秒的内容，此时贴纸时间范围为1~2，即原视频的3~4秒）
@@ -163,18 +156,17 @@
     _movieEditor.saveToAlbum = NO;
     // 设置录制文件格式(默认：lsqFileTypeQuickTimeMovie)
     _movieEditor.fileType = lsqFileTypeMPEG4;
-    // 是否开启美颜
-    _movieEditor.enableBeauty = YES;
-    // 设置水印，默认为空
-    _movieEditor.waterMarkImage = [UIImage imageNamed:@"upyun_wartermark.png"];
-    // 设置水印图片的位置
-    _movieEditor.waterMarkPosition = lsqWaterMarkTopLeft;
+//    // 设置水印，默认为空
+//    _movieEditor.waterMarkImage = [UIImage imageNamed:@"upyun_wartermark.png"];
+//    // 设置水印图片的位置
+//    _movieEditor.waterMarkPosition = lsqWaterMarkTopLeft;
     // 视频播放音量设置，0 ~ 1.0 仅在 enableVideoSound 为 YES 时有效
     _movieEditor.videoSoundVolume = 0.5;
     // 设置默认镜
     [_movieEditor switchFilterWithCode:_videoFilters[0]];
     // 加载视频，显示第一帧
     [_movieEditor loadVideo];
+    
 }
 
 #pragma mark - 自定义事件方法
@@ -259,47 +251,48 @@
     
     if (result.videoPath) {
         // 进行自定义操作，例如保存到相册
-        UISaveVideoAtPathToSavedPhotosAlbum(result.videoPath, nil, nil, nil);
-//        /// 上传到UPYUN 存储空间
-//        NSString *saveKey = [NSString stringWithFormat:@"short_video_test_%d.mp4", arc4random() % 10];
-//        [[UPYUNConfig sharedInstance] uploadFilePath:result.videoPath saveKey:saveKey success:^(NSHTTPURLResponse *response, NSDictionary *responseBody) {
+//        UISaveVideoAtPathToSavedPhotosAlbum(result.videoPath, nil, nil, nil);
+        
+        
+        /// 上传到UPYUN 存储空间
+        NSString *saveKey = [NSString stringWithFormat:@"short_video_edit_%d.mp4", arc4random() % 10];
+        [[UPYUNConfig sharedInstance] uploadFilePath:result.videoPath saveKey:saveKey success:^(NSHTTPURLResponse *response, NSDictionary *responseBody) {
+            NSLog(@"file url：http://%@.b0.upaiyun.com/%@",[UPYUNConfig sharedInstance].DEFAULT_BUCKET, saveKey);
 //            [[TuSDK shared].messageHub showSuccess:@"上传成功"];
-//
-//            NSLog(@"file url：http://%@.b0.upaiyun.com/%@",[UPYUNConfig sharedInstance].DEFAULT_BUCKET, saveKey);
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [self popToRootViewControllerAnimated:YES];
-//            });
-//            
-//        } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
-//            
-//            NSLog(@"上传失败 error：%@", error);
-//            NSLog(@"上传失败 code=%ld, responseHeader：%@", (long)response.statusCode, response.allHeaderFields);
-//            NSLog(@"上传失败 message：%@", responseBody);
-//            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[TuSDK shared].messageHub showSuccess:@"上传成功"];
+                [self popToRootViewControllerAnimated:YES];
+            });
+            
+        } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
+            
+            NSLog(@"上传失败 error：%@", error);
+            NSLog(@"上传失败 code=%ld, responseHeader：%@", (long)response.statusCode, response.allHeaderFields);
+            NSLog(@"上传失败 message：%@", responseBody);
+            
 //            [[TuSDK shared].messageHub showSuccess:@"上传失败"];
-//            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[TuSDK shared].messageHub showSuccess:@"上传失败"];
 //                [self popToRootViewControllerAnimated:YES];
-//            });
-//            
-//        } progress:^(int64_t completedBytesCount, int64_t totalBytesCount) {
-//        }];
-        
-        
-        [[TuSDK shared].messageHub dismiss];
-        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
-        
-        
-        
-        
+            });
+            
+        } progress:^(int64_t completedBytesCount, int64_t totalBytesCount) {
+        }];
+//        
+//        
+//        [[TuSDK shared].messageHub dismiss];
+//        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
+
     }else{
         // _movieEditor.saveToAlbum = YES; （默认为 ：YES）将自动保存到相册
         [[TuSDK shared].messageHub dismiss];
         [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
+        [self popToRootViewControllerAnimated:YES];
     }
     
     
     
-    [self popToRootViewControllerAnimated:YES];
+//    [self popToRootViewControllerAnimated:YES];
 
 }
 
@@ -337,6 +330,7 @@
         }
     }else if (status == lsqMovieEditorStatusLoaded){
         NSLog(@"加载完成");
+        [self clickPlayerBtn:_playBtn];
     }else if (status == lsqMovieEditorStatusLoadFailed) {
         NSLog(@"加载失败");
     }else if (status == lsqMovieEditorStatusRecordingCompleted){
@@ -389,13 +383,8 @@
  @param seekbar seekbar TuSDKICSeekBar
  @param progress progress progress
  */
-- (void)movieEditorBottom_filterViewParamChangedWith:(TuSDKICSeekBar *)seekbar changedProgress:(CGFloat)progress
+- (void)movieEditorBottom_filterViewParamChanged
 {
-    // 调整滤镜参数 根据tag判断是当前滤镜的哪一个参数
-    NSInteger index = seekbar.tag;
-    TuSDKFilterArg *arg = _currentFilter.filterParameter.args[index];
-    arg.precent = progress;
-    
     [_currentFilter submitParameter];
 }
 
@@ -405,14 +394,6 @@
     // 更换滤镜
     [_movieEditor switchFilterWithCode:filterCode];
 }
-
-// 改变美颜效果参数
-- (void)movieEditorBottom_filterViewChangeBeautyLevel:(CGFloat)beautyLevel
-{
-    _movieEditor.beautyLevel = beautyLevel;
-}
-
-// 调整了bottom的整体的frame
 
 /**
  调整 bottom 整体 frame
@@ -425,7 +406,7 @@
 {
     CGFloat adjustHeight = newFrame.origin.y - lastFrame.origin.y;
 
-    // 展示 MV View，此时需要移动camera的位置，同事现实缩略图；
+    // 展示 MV View，此时需要移动camera的位置，同时显示缩略图
     if (!_topThumbnailView) {
         _topThumbnailView = [[MovieEditorClipView alloc]initWithFrame:CGRectMake(0, 44 + 3, self.view.lsqGetSizeWidth, adjustHeight - 6)];
         _topThumbnailView.timeInterval = CMTimeGetSeconds(_movieEditor.cutTimeRange.duration);

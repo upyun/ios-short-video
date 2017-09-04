@@ -56,14 +56,27 @@
     
     // 获取贴纸组数据源
     NSArray<TuSDKPFStickerGroup *> *stickers = [[TuSDKPFStickerLocalPackage package] getSmartStickerGroupsWithFaceFeature:NO];
+    
     _mvArr = [[NSMutableArray alloc]init];
-    NSArray *audioArr = @[@"sound_cat",@"sound_children",@"sound_crow"];
     int i = 0;
     for (TuSDKPFStickerGroup *sticker in stickers) {
-        TuSDKMVStickerAudioEffectData *mvData =  [[TuSDKMVStickerAudioEffectData alloc] initWithAudioURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:audioArr[i] ofType:@"mp3"] ] stickerGroup:sticker];
+        NSURL *audioURL = [self getAudioURLWithStickerIdt:sticker.idt];
+        TuSDKMVStickerAudioEffectData *mvData =  [[TuSDKMVStickerAudioEffectData alloc] initWithAudioURL:audioURL stickerGroup:sticker];
         [_mvArr addObject:mvData];
         i++;
     }
+}
+
+- (NSURL *)getAudioURLWithStickerIdt:(int64_t)stickerIdt;
+{
+    NSDictionary *fileNameDic = @{@(1420):@"sound_cat",
+                                  @(1427):@"sound_crow",
+                                  @(1432):@"sound_tangyuan",
+                                  @(1446):@"sound_children"};
+    
+    NSString *audioFileName = fileNameDic[@(stickerIdt)];
+    NSURL *audioURL = !audioFileName ? nil : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:audioFileName ofType:@"mp3"]];
+    return audioURL;
 }
 
 // 选中某一个cell

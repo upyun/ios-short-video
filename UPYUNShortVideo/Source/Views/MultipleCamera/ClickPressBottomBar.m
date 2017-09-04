@@ -82,7 +82,7 @@
     // 进度条的圆环
     _borderProgressLayer = [CAShapeLayer new];
     _borderProgressLayer.lineWidth = _borderBackLayer.lineWidth;
-    _borderProgressLayer.strokeColor = [UIColor lsqClorWithHex:@"#F6A623"].CGColor;
+    _borderProgressLayer.strokeColor = HEXCOLOR(0x22bbf4).CGColor;
     _borderProgressLayer.fillColor = [UIColor clearColor].CGColor;
     UIBezierPath *path2 = [UIBezierPath bezierPathWithArcCenter:_recordButton.center radius:44 startAngle:0 endAngle:2*M_PI clockwise:true];
     _borderProgressLayer.path = path2.CGPath;
@@ -229,7 +229,7 @@
     _startPressRecorCenter = YES;
     _stickerBackView.hidden = true;
     _filterBackView.hidden = true;
-    _recordButton.backgroundColor = [UIColor lsqClorWithHex:@"#F6A623"];
+    _recordButton.backgroundColor = HEXCOLOR(0x22bbf4);
     [UIView animateWithDuration:0.2 animations:^{
         _recorderBack.transform = CGAffineTransformScale(_recorderBack.transform, 1.2, 1.2);
     }];

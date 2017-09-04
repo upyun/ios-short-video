@@ -16,8 +16,8 @@
     self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
     CGRect rect = [[UIScreen mainScreen] applicationFrame];
 
-    // 滤镜列表
-    self.videoFilters =  @[@"Original",@"Pink01",@"Fair01",@"Forest01",@"Sundown",@"Sakura",@"Paul01", @"Lavender", @"Manhattan", @"Dusk", @"TinyTimes", @"Vivid01", @"Year1950",@"Missing01",@"Grapefruit01",@"BabyPink001"];
+    // 滤镜列表    
+    self.videoFilters =  @[@"SkinPink016",@"SkinJelly016",@"Pink016",@"Fair016",@"Forest017",@"Paul016",@"MintGreen016", @"TinyTimes016", @"Year1950016"];
     
     // 视频播放view，将 frame 修改为全屏
     self.previewView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, rect.size.width, rect.size.height)];
@@ -90,12 +90,10 @@
     self.movieEditor.saveToAlbum = YES;
     // 设置录制文件格式(默认：lsqFileTypeQuickTimeMovie)
     self.movieEditor.fileType = lsqFileTypeMPEG4;
-    // 是否开启美颜
-    self.movieEditor.enableBeauty = YES;
-    // 设置水印，默认为空
-    self.movieEditor.waterMarkImage = [UIImage imageNamed:@"upyun_wartermark.png"];
-    // 设置水印图片的位置
-    self.movieEditor.waterMarkPosition = lsqWaterMarkTopLeft;
+//    // 设置水印，默认为空
+//    self.movieEditor.waterMarkImage = [UIImage imageNamed:@"upyun_wartermark.png"];
+//    // 设置水印图片的位置
+//    self.movieEditor.waterMarkPosition = lsqWaterMarkTopLeft;
     // 视频播放音量设置，0 ~ 1.0 仅在 enableVideoSound 为 YES 时有效
     self.movieEditor.videoSoundVolume = 0.5;
     // 设置默认镜
