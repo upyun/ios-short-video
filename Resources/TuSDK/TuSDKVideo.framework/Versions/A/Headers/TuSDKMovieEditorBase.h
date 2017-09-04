@@ -128,14 +128,14 @@ typedef NS_ENUM(NSInteger, lsqMovieEditorStatus)
 @property (nonatomic) lsqWaterMarkPosition waterMarkPosition;
 
 /**
- *  是否开启美颜效果 (默认: NO)
+ *  是否开启美颜效果 (默认: NO) 已废弃
  */
-@property (nonatomic,assign) BOOL enableBeauty;
+@property (nonatomic,assign) BOOL enableBeauty __attribute__((deprecated));
 
 /**
- *  设置美颜强度 (范围：0~1 数值越大越平滑 默认：0.6)
+ *  设置美颜强度 (范围：0~1 数值越大越平滑 默认：0.6) 已废弃
  */
-@property (nonatomic,assign) CGFloat beautyLevel;
+@property (nonatomic,assign) CGFloat beautyLevel __attribute__((deprecated));
 
 /**
  *  预览时视频原音音量， 默认 1.0  注：仅在 option 中的 enableSound 为 YES 时有效

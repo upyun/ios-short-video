@@ -50,10 +50,9 @@
  */
 - (void)notifyRangeViewWithPoint:(CGPoint)point;
 
-#ifdef ENABLE_FACE_LIB
 - (void) onFaceAligmented:(NSArray<TuSDKFaceAligment *> *)aligments
                      size:(CGSize)size
                 focusFace:(BOOL)focusFace;
-#endif
+
 @end
 

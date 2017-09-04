@@ -103,6 +103,9 @@
     // 滤镜列表，获取滤镜前往 TuSDK.bundle/others/lsq_tusdk_configs.json
     // TuSDK 滤镜信息介绍 @see-https://tusdk.com/docs/ios/self-customize-filter
     _videoFilters =  @[@"Original04",@"Fair04",@"Pink005",@"Forest04",@"Sundown04",@"Sakura04",@"Paul04", @"Lavender04", @"Manhattan04", @"Dusk05", @"TinyTimes04", @"Vivid04", @"Year195004",@"Missing04",@"Grapefruit04",@"BabyPink004"];
+    
+    _videoFilters =  @[@"SkinPink016",@"SkinJelly016",@"Pink016",@"Fair016",@"Forest017",@"Paul016",@"MintGreen016", @"TinyTimes016", @"Year1950016"];
+    
     _videoFilterIndex = 0;
     
     self.view.backgroundColor = lsqRGB(255, 255, 255);

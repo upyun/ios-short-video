@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 
 typedef void(^TuSDKVideoImageExtractorBlock)(NSArray<UIImage *> *);
@@ -57,6 +58,14 @@ typedef void(^TuSDKVideoImageExtractorBlock)(NSArray<UIImage *> *);
  *  异步获取视频帧
  */
 - (void) asyncExtractImageList:(TuSDKVideoImageExtractorBlock)  handler;
+
+/**
+ 获取指定时间的视频帧
+ 
+ @param time 帧所在时间
+ @return 视频帧
+ */
+- (UIImage *)frameImageAtTime:(CMTime)time;
 
 @end
 

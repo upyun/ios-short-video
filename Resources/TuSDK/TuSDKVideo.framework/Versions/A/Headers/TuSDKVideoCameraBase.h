@@ -25,9 +25,13 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
      */
     lsqFormatTypeBGRA,
     /**
-     *  输出 YUV 格式 (kCVPixelFormatType_420YpCbCr8BiPlanarFullRange，即 NV21， Two Plane)
+     *  输出 YUV 格式 (kCVPixelFormatType_420YpCbCr8BiPlanarFullRange，即 NV12，YYYYYYYY UVUV)
      */
     lsqFormatTypeYUV420F,
+    /**
+     *  输出 YUV 格式 (NV21， YYYYYYYY VUVU) 注：无法用于预览，仅供推流时使用
+     */
+    lsqFormatTypeNV21,
     /**
      *  输出基于 BGRA 格式的原始数据
      */
@@ -196,14 +200,14 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
 @property (nonatomic) lsqWaterMarkPosition waterMarkPosition;
 
 /**
- *  是否开启美颜效果 (默认: NO)
+ *  是否开启美颜效果 (默认: NO) 已废弃
  */
-@property (nonatomic,assign) BOOL enableBeauty;
+@property (nonatomic,assign) BOOL enableBeauty __attribute__((deprecated));
 
 /**
- *  设置美颜强度 (范围：0~1 数值越大越平滑 默认：0.6)
+ *  设置美颜强度 (范围：0~1 数值越大越平滑 默认：0.6)  已废弃
  */
-@property (nonatomic,assign) CGFloat beautyLevel;
+@property (nonatomic,assign) CGFloat beautyLevel __attribute__((deprecated));
 
 /**
  *  初始化
@@ -260,16 +264,6 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
  *  @return 是否支持曝光模式
  */
 - (BOOL)exposureWithMode:(AVCaptureExposureMode)exposureMode;
-
-/**
- *  设置曝光模式
- *
- *  @param focusMode 曝光模式
- *  @param point     曝光坐标
- *
- *  @return 是否支持曝光模式
- */
-- (BOOL)exposureWithMode:(AVCaptureExposureMode)exposureMode point:(CGPoint)point;
 
 /**
  *  当前聚焦状态

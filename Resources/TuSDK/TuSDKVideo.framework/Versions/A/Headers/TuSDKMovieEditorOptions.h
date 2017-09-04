@@ -86,6 +86,12 @@
 @property (nonatomic,assign) CGRect cropRect;
 
 /**
+ *  视频输出尺寸
+ *  注：当使用 cropRect 设置了裁剪范围后，该参数不再生效
+ */
+@property (nonatomic,assign) CGSize outputSize;
+
+/**
  *  预览时是否播放视频原音， 默认 NO：预览和保存后的视频，无声音
  */
 @property (nonatomic,assign) BOOL enableVideoSound;

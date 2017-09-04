@@ -180,18 +180,19 @@
     [picker dismissViewControllerAnimated:NO completion:^{
         NSURL *url = [info objectForKey:UIImagePickerControllerMediaURL];
 
-//        /// 从相册中上传视频,图片等
-        NSString *saveKey = [NSString stringWithFormat:@"short_video_lib_test_%d.mp4", arc4random() % 10];
-        [[UPYUNConfig sharedInstance] uploadFilePath:url.path saveKey:saveKey success:^(NSHTTPURLResponse *response, NSDictionary *responseBody) {
-            [[TuSDK shared].messageHub showSuccess:@"上传成功"];
-            NSLog(@"file url：http://%@.b0.upaiyun.com/%@",[UPYUNConfig sharedInstance].DEFAULT_BUCKET, saveKey);
-        } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
-            [[TuSDK shared].messageHub showSuccess:@"上传失败"];
-            NSLog(@"上传失败 error：%@", error);
-            NSLog(@"上传失败 code=%ld, responseHeader：%@", (long)response.statusCode, response.allHeaderFields);
-            NSLog(@"上传失败 message：%@", responseBody);
-        } progress:^(int64_t completedBytesCount, int64_t totalBytesCount) {
-        }];
+        /// 从相册中上传视频,图片等
+        
+//        NSString *saveKey = [NSString stringWithFormat:@"short_video_lib_test_%d.mp4", arc4random() % 10];
+//        [[UPYUNConfig sharedInstance] uploadFilePath:url.path saveKey:saveKey success:^(NSHTTPURLResponse *response, NSDictionary *responseBody) {
+//            [[TuSDK shared].messageHub showSuccess:@"上传成功"];
+//            NSLog(@"file url：http://%@.b0.upaiyun.com/%@",[UPYUNConfig sharedInstance].DEFAULT_BUCKET, saveKey);
+//        } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
+//            [[TuSDK shared].messageHub showSuccess:@"上传失败"];
+//            NSLog(@"上传失败 error：%@", error);
+//            NSLog(@"上传失败 code=%ld, responseHeader：%@", (long)response.statusCode, response.allHeaderFields);
+//            NSLog(@"上传失败 message：%@", responseBody);
+//        } progress:^(int64_t completedBytesCount, int64_t totalBytesCount) {
+//        }];
 
 
         // 开启视频编辑导入视频

@@ -45,12 +45,12 @@
 - (UIView<TuSDKVideoCameraExtendViewInterface> *)getFocusTouchView;
 
 /**
- *  更新脸部信息
+ *  更新脸部信息，运行在主线程
  *
- *  @param points      特征点数据
+ *  @param faces       特征点数据
  *  @param deviceAngle 设备角度
  */
-- (void)updateFaceFeatures:(NSArray<NSValue *> *)points angle:(CGFloat)deviceAngle;
+- (void)updateFaceFeatures:(NSArray<TuSDKFaceAligment *> *)faces angle:(CGFloat)deviceAngle;
 
 @end
 

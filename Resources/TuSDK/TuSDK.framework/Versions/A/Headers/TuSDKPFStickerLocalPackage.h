@@ -140,6 +140,15 @@
 - (void)removeDownloadWithIdt:(uint64_t)idt;
 
 /**
+ *  是否正在下载某个资源
+ 
+ *  @param idt  下载对象ID
+ *
+ *  @return true: 下载中
+ */
+- (BOOL)isDownloadingWithIdt:(uint64_t)idt;
+
+/**
  *  获取分类数据
  *
  *  @param idt 分类ID
@@ -180,6 +189,15 @@
  @return 贴纸组列表
  */
 - (NSArray<TuSDKPFStickerGroup *> *)getSmartStickerGroupsWithFaceFeature:(BOOL)requireFaceFeature;
+
+/**
+ *  是否存在包ID
+ *
+ *  @param groupId 包ID
+ *
+ *  @return 是否存在包ID
+ */
+- (BOOL)containsWithGroupId:(uint64_t)groupId;
 
 /**
  *  获取所有json数据

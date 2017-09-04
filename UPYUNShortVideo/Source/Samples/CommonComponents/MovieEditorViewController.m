@@ -90,6 +90,7 @@
     // 滤镜列表
     _videoFilters =  @[@"Original04",@"Fair04",@"Pink005",@"Forest04",@"Sundown04",@"Sakura04",@"Paul04", @"Lavender04", @"Manhattan04", @"Dusk05", @"TinyTimes04", @"Vivid04", @"Year195004",@"Missing04",@"Grapefruit04",@"BabyPink004"];
 
+    _videoFilters =  @[@"SkinPink016",@"SkinJelly016",@"Pink016",@"Fair016",@"Forest017",@"Paul016",@"MintGreen016", @"TinyTimes016", @"Year1950016"];
     
     // 默认相机顶部控制栏
     _topBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, 0, rect.size.width, 44)];
@@ -258,30 +259,30 @@
     
     if (result.videoPath) {
         // 进行自定义操作，例如保存到相册
-        //UISaveVideoAtPathToSavedPhotosAlbum(result.videoPath, nil, nil, nil);
-        /// 上传到UPYUN 存储空间
-        NSString *saveKey = [NSString stringWithFormat:@"short_video_test_%d.mp4", arc4random() % 10];
-        [[UPYUNConfig sharedInstance] uploadFilePath:result.videoPath saveKey:saveKey success:^(NSHTTPURLResponse *response, NSDictionary *responseBody) {
-            [[TuSDK shared].messageHub showSuccess:@"上传成功"];
-
-            NSLog(@"file url：http://%@.b0.upaiyun.com/%@",[UPYUNConfig sharedInstance].DEFAULT_BUCKET, saveKey);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self popToRootViewControllerAnimated:YES];
-            });
-            
-        } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
-            
-            NSLog(@"上传失败 error：%@", error);
-            NSLog(@"上传失败 code=%ld, responseHeader：%@", (long)response.statusCode, response.allHeaderFields);
-            NSLog(@"上传失败 message：%@", responseBody);
-            
-            [[TuSDK shared].messageHub showSuccess:@"上传失败"];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self popToRootViewControllerAnimated:YES];
-            });
-            
-        } progress:^(int64_t completedBytesCount, int64_t totalBytesCount) {
-        }];
+        UISaveVideoAtPathToSavedPhotosAlbum(result.videoPath, nil, nil, nil);
+//        /// 上传到UPYUN 存储空间
+//        NSString *saveKey = [NSString stringWithFormat:@"short_video_test_%d.mp4", arc4random() % 10];
+//        [[UPYUNConfig sharedInstance] uploadFilePath:result.videoPath saveKey:saveKey success:^(NSHTTPURLResponse *response, NSDictionary *responseBody) {
+//            [[TuSDK shared].messageHub showSuccess:@"上传成功"];
+//
+//            NSLog(@"file url：http://%@.b0.upaiyun.com/%@",[UPYUNConfig sharedInstance].DEFAULT_BUCKET, saveKey);
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self popToRootViewControllerAnimated:YES];
+//            });
+//            
+//        } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
+//            
+//            NSLog(@"上传失败 error：%@", error);
+//            NSLog(@"上传失败 code=%ld, responseHeader：%@", (long)response.statusCode, response.allHeaderFields);
+//            NSLog(@"上传失败 message：%@", responseBody);
+//            
+//            [[TuSDK shared].messageHub showSuccess:@"上传失败"];
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self popToRootViewControllerAnimated:YES];
+//            });
+//            
+//        } progress:^(int64_t completedBytesCount, int64_t totalBytesCount) {
+//        }];
         
         
         [[TuSDK shared].messageHub dismiss];
@@ -298,7 +299,7 @@
     
     
     
-//    [self popToRootViewControllerAnimated:YES];
+    [self popToRootViewControllerAnimated:YES];
 
 }
 

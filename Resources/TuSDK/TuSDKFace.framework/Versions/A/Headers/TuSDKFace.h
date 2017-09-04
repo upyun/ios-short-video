@@ -11,22 +11,6 @@
 #include <CoreMedia/CoreMedia.h>
 #import "TuSDKFaceImport.h"
 
-#pragma mark - FaceAligment
-/** 人脸对齐信息 (归一百分比) */
-@interface TuSDKFaceAligment : NSObject
-/** 人脸区域 */
-@property (nonatomic) CGRect rect;
-/** 对齐信息 */
-@property (nonatomic, retain) NSArray<NSValue *> *marks;
-
-@property (nonatomic) CGFloat yaw;
-
-@property (nonatomic) CGFloat pitch;
-
-@property (nonatomic) CGFloat roll;
-@end
-
-
 #pragma mark - TuSDKFace
 /**
  *  人脸检测
@@ -56,11 +40,10 @@
 + (NSDictionary *)calcFaceAngle:(TuSDKFaceAligment *)faceAligment
                            previewSize:(CGSize)previewSize;
 
-
 /**
  对相机采集的帧数据检测人脸并识别
-
- @param yBuffer 灰度图
+ 
+ @param buffer 帧数据(BGRA)
  @param width 宽度
  @param height 高度
  @param ori 朝向
@@ -69,9 +52,30 @@
  
  @return 返回查找到的人脸
  */
-+ (NSArray<TuSDKFaceAligment *> *)markFaceWithGrayBuffer:(uint8_t *)yBuffer
++ (NSArray<TuSDKFaceAligment *> *)markFaceWithBGRABuffer:(uint8_t *)buffer
                                                    width:(int)width
                                                   height:(int)height
+                                                  stride:(int)stride
+                                                     ori:(float)ori
+                                                   angle:(float)angle
+                                                    flip:(BOOL)flip;
+
+/**
+ 对灰度图数据检测人脸并识别
+
+ @param buffer 灰度
+ @param width 宽度
+ @param height 高度
+ @param ori 朝向
+ @param angle 设备旋转角度
+ @param flip 是否水平翻转
+ 
+ @return 返回查找到的人脸
+ */
++ (NSArray<TuSDKFaceAligment *> *)markFaceWithGrayBuffer:(uint8_t *)buffer
+                                                   width:(int)width
+                                                  height:(int)height
+                                                  stride:(int)stride
                                                      ori:(float)ori
                                                    angle:(float)angle
                                                     flip:(BOOL)flip;

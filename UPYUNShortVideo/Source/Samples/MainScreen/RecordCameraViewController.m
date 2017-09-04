@@ -158,6 +158,7 @@
 //    _videoFilters =  @[@"Fair04",@"Pink005",@"Forest04",@"Sundown04",@"Sakura04", @"Paul04"];
     _videoFilters = @[@"Original04",@"Fair04",@"Pink005",@"Forest04",@"Sundown04",@"Sakura04",@"Paul04", @"Lavender04", @"Manhattan04", @"Dusk05", @"TinyTimes04", @"Vivid04", @"Year195004",@"Missing04",@"Grapefruit04",@"BabyPink004"];
     
+    _videoFilters =  @[@"SkinPink016",@"SkinJelly016",@"Pink016",@"Fair016",@"Forest017",@"Paul016",@"MintGreen016", @"TinyTimes016", @"Year1950016"];
     
     _videoFilterIndex = 0;
     
@@ -398,9 +399,9 @@
     // 启用智能贴纸
     _camera.enableLiveSticker = YES;
     // 设置水印，默认为空
-    // _camera.waterMarkImage = [UIImage imageNamed:@"upyun_wartermark.png"];
+     _camera.waterMarkImage = [UIImage imageNamed:@"upyun_wartermark.png"];
     // 设置水印图片的位置
-    // _camera.waterMarkPosition = lsqWaterMarkTopLeft;
+     _camera.waterMarkPosition = lsqWaterMarkTopLeft;
     // 最大录制时长 8s
     _camera.maxRecordingTime = 8;
     // 最小录制时长 2s

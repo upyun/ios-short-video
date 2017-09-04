@@ -32,6 +32,20 @@
  滤镜引擎，实时处理帧数据，并返回处理的结果
  */
 @interface TuSDKFilterProcessor : TuSDKFilterProcessorBase
+{
+    @protected
+    
+    /**
+     *  输出画面分辨率，默认原始采样尺寸输出。
+     *  如果设置了输出尺寸，则对画面进行等比例缩放，必要时进行裁剪，保证输出尺寸和预设尺寸一致。
+     */
+    CGSize _outputSize;
+}
+
+/**
+ *  是否开启动态贴纸 (默认: NO)
+ */
+@property (nonatomic) BOOL enableLiveSticker;
 
 /**
  *  处理器事件委托
@@ -43,6 +57,21 @@
  *  默认:lsqFormatTypeBGRA
  */
 @property (nonatomic) lsqFrameFormatType outputPixelFormatType;
+
+/**
+ *  初始化
+ *
+ *  支持： kCVPixelFormatType_420YpCbCr8BiPlanarFullRange | kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange kCVPixelFormatType_32BGRA
+ *
+ *  @param pixelFormatType          原始采样的pixelFormat Type
+ *  @param isOriginalOrientation    传入图像的方向是否为原始朝向，SDK 将依据该属性来调整人脸检测时图片的角度。如果没有对图片进行旋转，则为 YES
+ *  @param videoSize                输出尺寸
+ *
+ *  @return instance
+ */
+- (instancetype)initWithFormatType:(OSType)pixelFormatType
+        isOriginalOrientation:(BOOL)isOriginalOrientation
+               videoSize:(CGSize)outputSize;
 
 /**
  Process a video sample and return result soon
@@ -61,6 +90,14 @@
 - (CVPixelBufferRef)syncProcessPixelBuffer:(CVPixelBufferRef)pixelBuffer;
 
 /**
+ 将 CVPixelBufferRef 数据从 srcPixelBuffer 复制到 destPixelBuffer
+ 
+ @param pixelBuffer srcPixelBuffer
+ @param pixelBuffer destPixelBuffer
+ */
+- (void)copyPixelBuffer:(CVPixelBufferRef)srcPixelBuffer dest:(CVPixelBufferRef) destPixelBuffer;
+
+/**
  手动销毁帧数据
  */
 - (void)destroyFrameData;
@@ -73,5 +110,35 @@
  *  @return 是否成功切换滤镜
  */
 - (BOOL)switchFilterWithCode:(NSString *)code;
+
+#pragma mark - live sticker
+
+/**
+ *  显示一组动态贴纸。当显示一组贴纸时，会清除画布上的其它贴纸
+ *
+ *  @param groupSticker 动态贴纸对象
+ */
+- (void)showGroupSticker:(TuSDKPFStickerGroup *)groupSticker;
+
+/**
+ *  动态贴纸组是否已在使用
+ *
+ *  @param groupSticker 动态贴纸组对象
+ *  @return 　是否使用
+ */
+- (BOOL)isGroupStickerUsed:(TuSDKPFStickerGroup *)groupSticker;
+
+/**
+ *  清除动态贴纸
+ */
+- (void)removeAllLiveSticker;
+
+#pragma mark - destory
+
+/**
+ *  销毁
+ */
+- (void)destory;
+
 
 @end
