@@ -25,10 +25,12 @@
 
 - (void)setCameraStickerType:(lsqCameraStickersType)cameraStickerType;
 {
-    if (_cameraStickerType != cameraStickerType) {
-        _cameraStickerType = cameraStickerType;
-        [self initStickersData];
-    }
+    _cameraStickerType = lsqCameraStickersTypeAll;
+    [self initStickersData];
+//    if (_cameraStickerType != cameraStickerType) {
+//        _cameraStickerType = cameraStickerType;
+//        [self initStickersData];
+//    }
 }
 
 #pragma mark - 视图布局方法

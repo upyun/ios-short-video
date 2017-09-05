@@ -256,7 +256,7 @@
     }else if (index == 2){
         // 点击 MV
         _mvView.hidden = NO;
-        _volumeBackView.hidden = NO;
+        _volumeBackView.hidden = YES;
         _filterView.hidden = YES;
         _dubView.hidden = YES;
         
