@@ -71,6 +71,8 @@
 {
     NSDictionary *fileNameDic = @{@(1420):@"sound_cat",
                                   @(1427):@"sound_crow",
+                                  @(1469):@"sound_lively",
+                                  @(1470):@"sound_oldmovie",
                                   @(1432):@"sound_tangyuan",
                                   @(1446):@"sound_children"};
     
