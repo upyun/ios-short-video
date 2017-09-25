@@ -6,7 +6,7 @@
 //  Copyright © 2017 upyun. All rights reserved.
 //
 
-#define UpYunSDKVersion @"2.0.1"
+#define UpYunSDKVersion @"2.0.2"
 
 /*** UpYunStorageServer list  http://docs.upyun.com/api/rest_api/
  智能选路（推荐）：v0.api.upyun.com
@@ -17,6 +17,8 @@
 
 #import "UpApiUtils.h"
 #define UpYunStorageServer  @"https://v0.api.upyun.com"
+#define UpYunFileDealServer  @"https://p0.api.upyun.com/pretreatment/"
+#define UpYunFileSyncDealServer  @"https://p1.api.upyun.com/"
 #define UpYunFileBlcokSize (1024 * 1024)//分块上传，文件块大小。固定大小，不可改变。
 
 typedef void (^UpLoaderSuccessBlock)(NSHTTPURLResponse *response, NSDictionary *responseBody);

@@ -240,6 +240,7 @@
 		3EBD859D1F330FA2009DF2D1 /* UPYUNConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD85951F330FA2009DF2D1 /* UPYUNConfig.m */; };
 		3EBD859E1F330FA2009DF2D1 /* UpApiUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD85981F330FA2009DF2D1 /* UpApiUtils.m */; };
 		3EBD859F1F330FA2009DF2D1 /* UpSimpleHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD859A1F330FA2009DF2D1 /* UpSimpleHttpClient.m */; };
+		3EE50CE21F78D97A006995D7 /* UpYunFileDealManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE50CE01F78D979006995D7 /* UpYunFileDealManger.m */; };
 		3EFB242D1F594DDA008754B6 /* lsq_filter_thumb_Fair016.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EFB24281F594DDA008754B6 /* lsq_filter_thumb_Fair016.jpg */; };
 		3EFB242E1F594DDA008754B6 /* lsq_filter_thumb_Forest017.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EFB24291F594DDA008754B6 /* lsq_filter_thumb_Forest017.jpg */; };
 		3EFB242F1F594DDA008754B6 /* lsq_filter_thumb_Pink016.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EFB242A1F594DDA008754B6 /* lsq_filter_thumb_Pink016.jpg */; };
@@ -536,6 +537,8 @@
 		3EBD85981F330FA2009DF2D1 /* UpApiUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpApiUtils.m; sourceTree = "<group>"; };
 		3EBD85991F330FA2009DF2D1 /* UpSimpleHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpSimpleHttpClient.h; sourceTree = "<group>"; };
 		3EBD859A1F330FA2009DF2D1 /* UpSimpleHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpSimpleHttpClient.m; sourceTree = "<group>"; };
+		3EE50CE01F78D979006995D7 /* UpYunFileDealManger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpYunFileDealManger.m; sourceTree = "<group>"; };
+		3EE50CE11F78D97A006995D7 /* UpYunFileDealManger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpYunFileDealManger.h; sourceTree = "<group>"; };
 		3EFB24281F594DDA008754B6 /* lsq_filter_thumb_Fair016.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Fair016.jpg; sourceTree = "<group>"; };
 		3EFB24291F594DDA008754B6 /* lsq_filter_thumb_Forest017.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Forest017.jpg; sourceTree = "<group>"; };
 		3EFB242A1F594DDA008754B6 /* lsq_filter_thumb_Pink016.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Pink016.jpg; sourceTree = "<group>"; };
@@ -1002,6 +1005,8 @@
 		3EBD858E1F330FA2009DF2D1 /* UpLoader */ = {
 			isa = PBXGroup;
 			children = (
+				3EE50CE11F78D97A006995D7 /* UpYunFileDealManger.h */,
+				3EE50CE01F78D979006995D7 /* UpYunFileDealManger.m */,
 				3EBD858F1F330FA2009DF2D1 /* UpYunBlockUpLoader.h */,
 				3EBD85901F330FA2009DF2D1 /* UpYunBlockUpLoader.m */,
 				3EBD85911F330FA2009DF2D1 /* UpYunFormUploader.h */,
@@ -1470,6 +1475,7 @@
 				3EFB249B1F5CE858008754B6 /* CustomTuSDKCPRegionHandler.m in Sources */,
 				3EFB24931F5CE858008754B6 /* MovieRecordViewController.m in Sources */,
 				3EBD859F1F330FA2009DF2D1 /* UpSimpleHttpClient.m in Sources */,
+				3EE50CE21F78D97A006995D7 /* UpYunFileDealManger.m in Sources */,
 				3EFB24A61F5CE858008754B6 /* CutVideoBottomView.m in Sources */,
 				3EBD859B1F330FA2009DF2D1 /* UpYunBlockUpLoader.m in Sources */,
 				3EFB24901F5CE858008754B6 /* APIVideoThumbnailsViewController.m in Sources */,

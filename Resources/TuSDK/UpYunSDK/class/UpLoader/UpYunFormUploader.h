@@ -19,10 +19,14 @@
 @interface UpYunFormUploader : NSObject
 
 
-/*表单上传接口
- 参数  bucketName:           上传空间名
- 参数  operator:             空间操作员
- 参数  password:             空间操作员密码
+/**表单上传接口
+ 参数  bucketName:           服务名
+ 参数  operator:             操作员
+ 参数  password:             操作员密码
+ 
+ 服务名、操作员、操作员密码, 可以在 upyun 控制台获取：https://console.upyun.com/dashboard/ 导航栏>云产品>云存储>创建服务
+
+
  参数  fileData:             上传文件数据
  参数  fileName:             上传文件名
  参数  saveKey:              上传文件的保存路径, 例如：“/2015/0901/file1.jpg”。可用占位符，参考：http://docs.upyun.com/api/form_api/#save-key
@@ -44,8 +48,9 @@
                     progress:(UpLoaderProgressBlock)progressBlock;
 
 
-/*表单上传接口，上传策略和签名可以是从服务器获取
- 参数  operator:        空间操作员
+
+/**表单上传接口，上传策略和签名可以是从服务器获取
+ 参数  operator:        操作员
  参数  policy:          上传策略
  参数  signature:       上传策略签名
  参数  fileData:        上传的数据

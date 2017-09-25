@@ -18,7 +18,6 @@
         sharedInstance.DEFAULT_BUCKET = @"";
         sharedInstance.OPERATOR_PWD = @"";
         sharedInstance.OPERATOR_NAME = @"";
-        sharedInstance.SAVE_KEY_HEADER = @"";
         sharedInstance.DEFAULT_MUTUPLOAD_SIZE = 20*1024*1024;
 
     });
@@ -43,26 +42,24 @@
     }
     
     NSString *fileLength =  [UpApiUtils lengthOfFileAtPath:filePath];
-    
-    
+
     if (fileLength.longLongValue > _DEFAULT_MUTUPLOAD_SIZE) {
         /// 断点续传
         UpYunBlockUpLoader *up = [[UpYunBlockUpLoader alloc] init];
-        [up uploadWithBucketName:_DEFAULT_BUCKET operator:_OPERATOR_NAME password:_OPERATOR_PWD filePath:filePath savePath:saveKey success:successBlock failure:failureBlock progress:progressBlock];
+        [up uploadWithBucketName:_DEFAULT_BUCKET operator:_OPERATOR_NAME password:_OPERATOR_PWD filePath:filePath savePath:saveKey   success:successBlock failure:failureBlock progress:progressBlock];
     } else {
         // 表单上传
         NSData *fileData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:filePath]];
         UpYunFormUploader *up = [[UpYunFormUploader alloc] init];
         [up uploadWithBucketName:_DEFAULT_BUCKET operator:_OPERATOR_NAME password:_OPERATOR_PWD fileData:fileData fileName:nil saveKey:saveKey otherParameters:nil success:successBlock failure:failureBlock progress:progressBlock];
     }
+}
+
+- (void)fileTask:(NSDictionary *)task success:(UpLoaderSuccessBlock)successBlock failure:(UpLoaderFailureBlock)failureBlock {
     
+    UpYunFileDealManger *upDeal = [[UpYunFileDealManger alloc] init];
     
-    
-    
-    
-    
-    
-    
+    [upDeal dealSyncTaskWithBucketName:[UPYUNConfig sharedInstance].DEFAULT_BUCKET operator:[UPYUNConfig sharedInstance].OPERATOR_NAME password:[UPYUNConfig sharedInstance].OPERATOR_PWD tasks:task success:successBlock failure:failureBlock];
 }
 
 

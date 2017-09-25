@@ -12,6 +12,11 @@
 #define  NSErrorDomain_UpYunBlockUpLoader   @"NSErrorDomain_UpYunBlockUpLoader"
 #define  kUpYunBlockUpLoaderTasksRecords  @"kUpYunBlockUpLoaderTasksRecords"
 
+
+#import "UpYunFileDealManger.h"
+
+
+
 @interface UpYunBlockUpLoader()
 {
     NSString *_bucketName;
@@ -32,6 +37,10 @@
     BOOL _cancelled;
     NSString *_uploaderIdentityString;//一次上传文件的特征值。特征值相同，上传成功后的结果相同（文件内容和保存路径)。
     NSMutableDictionary *_uploaderTaskInfo;//当前的上传任务。（目的是断点续传，所以仅仅纪录保存 upload 阶段的状态）
+    
+    
+    NSArray *_tasks;
+    NSString *_notify_url;
 }
 
 @end
@@ -92,12 +101,25 @@
     return statusIsUploading;
 }
 
+- (void)uploadWithBucketName:(NSString *)bucketName
+                    operator:(NSString *)operatorName
+                    password:(NSString *)operatorPassword
+                    filePath:(NSString *)filePath
+                    savePath:(NSString *)savePath
+                     success:(UpLoaderSuccessBlock)successBlock
+                     failure:(UpLoaderFailureBlock)failureBlock
+                    progress:(UpLoaderProgressBlock)progressBlock {
+    [self uploadWithBucketName:bucketName operator:operatorName password:operatorPassword filePath:filePath savePath:savePath notify_url:nil tasks:nil success:successBlock failure:failureBlock progress:progressBlock];
+}
+
 
 - (void)uploadWithBucketName:(NSString *)bucketName
                     operator:(NSString *)operatorName
                     password:(NSString *)operatorPassword
                     filePath:(NSString *)filePath
                     savePath:(NSString *)savePath
+                  notify_url:(NSString *)notify_url
+                       tasks:(NSArray *)tasks
                      success:(UpLoaderSuccessBlock)successBlock
                      failure:(UpLoaderFailureBlock)failureBlock
                     progress:(UpLoaderProgressBlock)progressBlock {
@@ -108,6 +130,8 @@
     _operatorPassword = operatorPassword;
     _filePath = filePath;
     _savePath = savePath;
+    _notify_url = notify_url;
+    _tasks = tasks;
     _successBlock = successBlock;
     _failureBlock = failureBlock;
     _progressBlock = progressBlock;
@@ -235,6 +259,9 @@
                                                                            userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
                                             
                                         }
+                                    }
+                                    if (!error) {
+                                        error = [[NSError alloc] initWithDomain:NSErrorDomain_UpYunBlockUpLoader code: -102 userInfo: retObj];
                                     }
                                     _failureBlock(error, response, retObj);
                                     [self clean];
@@ -409,6 +436,9 @@
                                     return;
                                 }
                                 if (_failureBlock) {
+                                    if (!error) {
+                                        error = [[NSError alloc] initWithDomain:NSErrorDomain_UpYunBlockUpLoader code: -102 userInfo: retObj];
+                                    }
                                     _failureBlock(error, response, retObj);
                                     [self clean];
                                     
@@ -490,18 +520,32 @@
                                     _progressBlock(_fileSize, _fileSize);
                                     
                                 }
-                                if (_successBlock) {
-                                    _successBlock(response, retObj);
+                                
+                                if (_tasks.count > 0 && _notify_url. length > 0) {
+                                    UpYunFileDealManger *upDeal = [[UpYunFileDealManger alloc] init];
+                                    [upDeal dealTaskWithBucketName:_bucketName operator:_operatorName password:_operatorPassword notify_url:_notify_url source:_savePath tasks:_tasks success:_successBlock failure:_failureBlock];
+                                } else {
+                                    if (_successBlock) {
+                                        _successBlock(response, retObj);
+                                    }
                                 }
                                 [self updateUploaderTaskInfoWithCompleted:YES];
                             } else {
                                 if (_failureBlock) {
+                                    
+                                    if (!error) {
+                                        error = [[NSError alloc] initWithDomain:NSErrorDomain_UpYunBlockUpLoader code: -102 userInfo: retObj];
+                                    }
                                     _failureBlock(error, response, retObj);
                                 }
                             }
                             [self clean];
                         }];
 }
+
+
+
+
 
 //预处理获取文件信息，文件分块记录
 - (NSDictionary *)fileBlocksInfo:(NSString *)filePath {

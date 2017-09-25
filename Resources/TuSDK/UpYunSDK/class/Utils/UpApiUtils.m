@@ -197,5 +197,22 @@
     return  [NSString stringWithFormat:@"%@", [fileAttributes objectForKey:@"NSFileSize"]];
 }
 
+///  dic to query tring
++ (NSString*)queryStringFrom:(NSDictionary *)parameters {
+    
+    
+    NSString *result = nil;
+    NSMutableString *postParameters = [[NSMutableString alloc] init];
+    for (NSString *key in parameters.allKeys) {
+        NSString *keyValue = [NSString stringWithFormat:@"&%@=%@",key, [parameters objectForKey:key]];
+        [postParameters appendString:keyValue];
+    }
+    if (postParameters.length > 1) {
+        result = [postParameters substringFromIndex:1];
+    }
+    return result;
+
+}
+
 
 @end

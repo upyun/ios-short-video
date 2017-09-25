@@ -800,9 +800,24 @@
         
         //UPYUN短视频 上传到云存储
         NSString *saveKey = [NSString stringWithFormat:@"short_video_record_test_%d.mp4", arc4random() % 10];
+        
+        NSString *imgSaveKey = [NSString stringWithFormat:@"short_video_record_jietu_%d.jpg", arc4random() % 10];
         [[UPYUNConfig sharedInstance] uploadFilePath:result.videoPath saveKey:saveKey success:^(NSHTTPURLResponse *response, NSDictionary *responseBody) {
             [[TuSDK shared].messageHub showSuccess:@"上传成功"];
+            
             NSLog(@"file url：http://%@.b0.upaiyun.com/%@",[UPYUNConfig sharedInstance].DEFAULT_BUCKET, saveKey);
+//            视频同步截图方法
+//            /// source   需截图的视频相对地址,   save_as 保存截图的相对地址, point 截图时间点 hh:mm:ss 格式
+//            NSDictionary *task = @{@"source": [NSString stringWithFormat:@"/%@", saveKey], @"save_as": [NSString stringWithFormat:@"/%@", imgSaveKey], @"point": @"00:00:00"};
+//            [[UPYUNConfig sharedInstance] fileTask:task success:^(NSHTTPURLResponse *response, NSDictionary *responseBody) {
+//                NSLog(@"截图成功--%@", responseBody);
+//
+//                NSLog(@"截图 图片 url：http://%@.b0.upaiyun.com/%@",[UPYUNConfig sharedInstance].DEFAULT_BUCKET, imgSaveKey);
+//            } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
+//                NSLog(@"截图失败-error==%@--response==%@, responseBody==%@", error,  response, responseBody);
+//            }];
+            
+            
         } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
             [[TuSDK shared].messageHub showSuccess:@"上传失败"];
             NSLog(@"上传失败 error：%@", error);

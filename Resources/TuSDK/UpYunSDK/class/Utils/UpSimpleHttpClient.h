@@ -8,17 +8,17 @@
 #import <Foundation/Foundation.h>
 
 
-/* 简单的 http 请求结束回调 block。
+/** 简单的 http 请求结束回调 block。
  error：请求发生错误，没有正常完成；（如 DNS 解析失败，请求超时，请求取消，网络断开）。
  response：一个 NSHTTPURLResponse 对象，可以查看 http response headers 信息。
  data： http response body。
  */
 typedef void (^SimpleHttpTaskCompletionHandler)(NSError *error, id response, NSData *body);
 
-//用于获取数据发送进度
+/// 用于获取数据发送进度
 typedef void(^SimpleHttpTaskDataSendProgressHandler)(NSProgress *progress);
 
-//用于获取数据接收进度及数据
+/// 用于获取数据接收进度及数据
 typedef void(^SimpleHttpTaskDataReceiveProgressHandler)(NSProgress *progress, NSData *buffer);
 
 
@@ -27,19 +27,28 @@ typedef void(^SimpleHttpTaskDataReceiveProgressHandler)(NSProgress *progress, NS
 
 
 #pragma mark 简单接口。用于 GET/POST json，xml 等小文件和数据，无需获取进度信息。
-//GET   可用于获取 json 等数据接口。
+///GET   可用于获取 json 等数据接口。
 + (UpSimpleHttpClient *)GET:(NSString *)URLString
           completionHandler:(SimpleHttpTaskCompletionHandler)completionHandler;
 
 
-//POST  发送 body 的 content-type：application/x-www-form-urlencoded
+///POST  发送 body 的 content-type：application/x-www-form-urlencoded
 + (UpSimpleHttpClient *)POST:(NSString *)URLString
                   parameters:(NSDictionary *)parameters
            completionHandler:(SimpleHttpTaskCompletionHandler)completionHandler;
 
 
-//POST  发送 body 的 content-type：application/json
+
+///POST  发送 body 的 content-type：application/x-www-form-urlencoded
++ (UpSimpleHttpClient *)POSTURL:(NSString *)URLString
+                     headers:(NSDictionary *)headers
+                  parameters:(NSDictionary *)parameters
+           completionHandler:(SimpleHttpTaskCompletionHandler)completionHandler;
+
+
+///POST  发送 body 的 content-type：application/json
 + (UpSimpleHttpClient *)POST2:(NSString *)URLString
+                      headers:(NSDictionary *)headers
                    parameters:(NSDictionary *)parameters
             completionHandler:(SimpleHttpTaskCompletionHandler)completionHandler;
 
@@ -47,7 +56,7 @@ typedef void(^SimpleHttpTaskDataReceiveProgressHandler)(NSProgress *progress, NS
 
 #pragma mark 高级接口。用于发送和接收稍大的文件，关心数据传输进度。
 
-/*
+/**
  POST 上传 body 的 content-type：multipart/form-data。
  一般用来发送文件图片等，所以可以用 progressBlock 获取数据发送进度。
  
@@ -70,7 +79,7 @@ typedef void(^SimpleHttpTaskDataReceiveProgressHandler)(NSProgress *progress, NS
 
 
 
-/*
+/**
  PUT 上传 body 的 content-type：application/octet-stream。
  一般用来发送文件图片等，所以可以用 progressBlock 获取数据发送进度。
  
@@ -85,7 +94,7 @@ typedef void(^SimpleHttpTaskDataReceiveProgressHandler)(NSProgress *progress, NS
           completionHandler:(SimpleHttpTaskCompletionHandler)completionHandler;
 
 
-/*
+/**
  GET  下载大文件或者图片。
  一般用来下载文件图片等，所以可以用 progressBlock 获取数据接收进度。
  注意：基于普遍性和内存占用考虑，receiveProgressBlock 是下载分片数据的接收处。completionHandler 结束回掉里面的 data 将是 nil。
@@ -97,6 +106,6 @@ typedef void(^SimpleHttpTaskDataReceiveProgressHandler)(NSProgress *progress, NS
           completionHandler:(SimpleHttpTaskCompletionHandler)completionHandler;
 
 
-//取消请求任务
+/// 取消请求任务
 - (void)cancel;
 @end

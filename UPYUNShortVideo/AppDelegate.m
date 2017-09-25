@@ -41,8 +41,6 @@
     // 上传 操作员的密码
     [UPYUNConfig sharedInstance].OPERATOR_PWD = @"password123";
     
-//    // 上传文件的命名规则前缀, 没有的话. 将使用默认命名方式
-//    [UPYUNConfig sharedInstance].SAVE_KEY_HEADER = @"";
     
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
