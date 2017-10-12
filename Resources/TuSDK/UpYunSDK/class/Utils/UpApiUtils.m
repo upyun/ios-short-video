@@ -192,8 +192,7 @@
 
 + (NSString*)lengthOfFileAtPath:(NSString *) path {
     NSError *attributesError = nil;
-    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path
-                                                                                    error:&attributesError];
+    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&attributesError];
     return  [NSString stringWithFormat:@"%@", [fileAttributes objectForKey:@"NSFileSize"]];
 }
 
