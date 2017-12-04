@@ -16,6 +16,10 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 
 
+#import "UPRecordSettingVC.h"
+#import "UPEditorSettingVC.h"
+
+
 
 
 @interface MainViewController ()<TuSDKFilterManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -148,26 +152,40 @@
 - (void)enterAction:(UIButton *)button {
     
     if (button.tag == 100) {
-        RecordCameraViewController *vc = [RecordCameraViewController new];
-        vc.inputRecordMode = lsqRecordModeKeep;
-        [self.navigationController pushViewController:vc animated:YES];
+//        RecordCameraViewController *vc = [RecordCameraViewController new];
+//        vc.inputRecordMode = lsqRecordModeKeep;
+//        [self.navigationController pushViewController:vc animated:YES];
+//
+        
+        UPRecordSettingVC *settingVC = [[UPRecordSettingVC alloc] init];
+        settingVC.view.backgroundColor = HEXCOLOR(0xe7e7e7);
+        [self.navigationController pushViewController:settingVC animated:YES];
+        
+        
 
     } else if (button.tag == 101) {
+        
+        UPEditorSettingVC *settingVC = [[UPEditorSettingVC alloc] init];
+        settingVC.view.backgroundColor = HEXCOLOR(0xe7e7e7);
+        [self.navigationController pushViewController:settingVC animated:YES];
+        
 //        ComponentListViewController *vc = [ComponentListViewController new];
 //        [self.navigationController pushViewController:vc animated:YES];
-        UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
-        
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
-            ipc.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
-            ipc.mediaTypes = @[(NSString *)kUTTypeMovie];
-        }
-        ipc.allowsEditing = NO;
-        ipc.delegate = self;
-        
-        [self presentViewController:ipc animated:YES completion:nil];
+//        UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
+//
+//        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
+//            ipc.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
+//            ipc.mediaTypes = @[(NSString *)kUTTypeMovie];
+//        }
+//        ipc.allowsEditing = NO;
+//        ipc.delegate = self;
+//
+//        [self presentViewController:ipc animated:YES completion:nil];
     } else {
         UPLivePlayerVC *vc = [[UPLivePlayerVC alloc] init];
         vc.url = @"http://uprocess.b0.upaiyun.com/demo/short_video/UPYUN_0.mp4";
+//        vc.url = @"http://upyun.ixiandan.cn/242813665/ShortVideo/2017/11/16/18/4302";
+        
         [self presentViewController:vc animated:YES completion:nil];
     }
     
@@ -195,10 +213,16 @@
 //        }];
 
 
-        // 开启视频编辑导入视频
-        MoviePreviewAndCutViewController *vc = [MoviePreviewAndCutViewController new];
-        vc.inputURL = url;
-        [wSelf.navigationController pushViewController:vc animated:YES];
+        
+        UPEditorSettingVC *settingVC = [[UPEditorSettingVC alloc] init];
+        settingVC.videoUrl = url;
+        settingVC.view.backgroundColor = HEXCOLOR(0xe7e7e7);
+        [self.navigationController pushViewController:settingVC animated:YES];
+        
+//        // 开启视频编辑导入视频
+//        MoviePreviewAndCutViewController *vc = [MoviePreviewAndCutViewController new];
+//        vc.inputURL = url;
+//        [wSelf.navigationController pushViewController:vc animated:YES];
         
     }];
 }

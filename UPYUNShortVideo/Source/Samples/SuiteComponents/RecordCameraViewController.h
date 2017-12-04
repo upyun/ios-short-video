@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "TuSDKFramework.h"
 
+#import "UPSettingConfig.h"
+
 /**
  *  视频录制示例：支持断点续拍，正常模式(模式的切换需要更改相关代码)
  */
@@ -21,5 +23,5 @@
  *  录制模式 默认:lsqRecordModeNormal (lsqRecordModeNormal: 正常模式, lsqRecordModeKeep: 续拍模式,支持断点续拍）
  */
 @property (nonatomic, assign) lsqRecordMode inputRecordMode;
-
+@property (nonatomic, strong) UPSettingConfig *settingConfig;
 @end

@@ -6,12 +6,11 @@
 //  Copyright (c) 2014年 tusdk.com. All rights reserved.
 //
 
-#import <GPUImage/GPUImage.h>
-#import "TuSDKGPUImageFilter.h"
+#import "TuSDKFilterAdapter.h"
 
 /**
  *  默认滤镜
  */
-@interface TuSDKNormalFilter : TuSDKGPUImageFilter <TuSDKFilterStickerProtocol>
+@interface TuSDKNormalFilter : TuSDKFilter
 
 @end

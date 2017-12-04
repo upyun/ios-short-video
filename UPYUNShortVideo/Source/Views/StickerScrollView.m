@@ -164,7 +164,9 @@
         stickerCell.borderColor = HEXCOLOR(0x22bbf4);
         
         [_collectionView selectItemAtIndexPath:_selectedIndexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-        
+        if (indexPath.row-1 < 0) {
+            return;
+        }
         // 判断贴纸是否存在
         if ([_stickerGroups[indexPath.row-1] isMemberOfClass:[TuSDKPFStickerGroup class]]) {
             // 贴纸已存在

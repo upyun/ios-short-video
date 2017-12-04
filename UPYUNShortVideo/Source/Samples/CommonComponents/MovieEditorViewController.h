@@ -12,6 +12,8 @@
 #import "MovieEditerBottomBar.h"
 #import "MovieEditorClipView.h"
 
+#import "UPSettingConfig.h"
+
 /**
  视频编辑示例：对视频进行裁剪，添加滤镜，添加MV效果
  */
@@ -65,5 +67,7 @@
 @property (nonatomic, strong) TuSDKMediaEffectData *currentMediaEffect;
 // 当前的 MV\配音 音量
 @property (nonatomic, assign) CGFloat dubAudioVolume;
+
+@property (nonatomic, strong) UPSettingConfig *config;
 
 @end

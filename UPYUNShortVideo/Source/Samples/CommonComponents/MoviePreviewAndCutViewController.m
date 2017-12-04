@@ -277,6 +277,7 @@
             [self pauseTheVideo];
             
             MovieEditorViewController *vc = [MovieEditorViewController new];
+            vc.config = _config;
             vc.inputURL = _inputURL;
             vc.startTime = _startTime;
             vc.endTime = _endTime;

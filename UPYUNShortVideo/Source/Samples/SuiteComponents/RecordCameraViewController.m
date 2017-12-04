@@ -8,7 +8,6 @@
 
 #import "RecordCameraViewController.h"
 #import "StickerScrollView.h"
-#import "RecordVideoBottomBar.h"
 #import "CustomTuSDKCPRegionHandler.h"
 #import "TopNavBar.h"
 
@@ -17,10 +16,13 @@
 #import "MovieEditorViewController.h"
 #import "FilterBottomButtonView.h"
 
+
+#import "UPRecordVideoBottomBar.h"
+
 /**
  *  视频录制相机示例
  */
-@interface RecordCameraViewController () <TopNavBarDelegate, BottomBarDelegate, TuSDKRecordVideoCameraDelegate, FilterViewEventDelegate, StickerViewClickDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface RecordCameraViewController () <TopNavBarDelegate, UPBottomBarDelegate, TuSDKRecordVideoCameraDelegate, FilterViewEventDelegate, StickerViewClickDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
     // 录制相机对象
     TuSDKRecordVideoCamera  *_camera;
@@ -40,7 +42,9 @@
     // 录制相机顶部控制栏视图
     TopNavBar *_topBar;
     // 录制相机底部功能栏视图
-    RecordVideoBottomBar *_bottomBar;
+//    RecordVideoBottomBar *_bottomBar;
+    UPRecordVideoBottomBar *_bottomBar;
+    
     
     // cameraView
     UIView *_cameraView;
@@ -61,6 +65,10 @@
 
     // cameraTapView 用于切换贴纸栏滤镜栏状态
     UIView *tapView;
+    
+    
+    UILabel *timeLabel;
+    
 }
 
 @property (nonatomic, assign) CGFloat recoderProgress;
@@ -183,16 +191,16 @@
     _topBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth, 44)];
     [_topBar addTopBarInfoWithTitle:nil
                      leftButtonInfo:@[[NSString stringWithFormat:@"video_style_default_btn_back.png+%@",NSLocalizedString(@"lsq_go_back", @"返回")]]
-                    rightButtonInfo:@[@"video_style_default_btn_switch.png",@"video_style_default_btn_flash_off.png"]];
+                    rightButtonInfo:@[ @"video_style_default_btn_switch.png", @"video_style_default_btn_flash_off.png"]];//, @"homepage_import_icon.png"
     _topBar.topBarDelegate = self;
     _topBar.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_topBar];
     
     // 默认相机底部控制栏
-    _bottomBackView = [[UIView alloc]initWithFrame:CGRectMake(0, rect.size.width + 74, rect.size.width , rect.size.height - rect.size.width - 74)];
+    _bottomBackView = [[UIView alloc]initWithFrame:CGRectMake(0, rect.size.width + 44 +10, rect.size.width , rect.size.height - rect.size.width - 44 -10)];
     _bottomBackView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_bottomBackView];
-    _bottomBar = [[RecordVideoBottomBar alloc]initWithFrame:_bottomBackView.bounds];
+    _bottomBar = [[UPRecordVideoBottomBar alloc]initWithFrame:_bottomBackView.bounds];
     // 该录制模式需和 _camera 中的一致, bottomBar的UI逻辑中，默认为正常模式
     _bottomBar.recordMode = _inputRecordMode;
     _bottomBar.bottomBarDelegate = self;
@@ -205,7 +213,7 @@
     if (!_camera) return;
     
     // 添加时间进度条
-    _underView = [[UIView alloc]initWithFrame:CGRectMake(0, 44, self.view.lsqGetSizeWidth, 30)];
+    _underView = [[UIView alloc]initWithFrame:CGRectMake(0, 44, self.view.lsqGetSizeWidth, 10)];
     [_underView setBackgroundColor:[UIColor colorWithRed:0.93 green:0.93 blue:0.93 alpha:1]];
     [self.view addSubview:_underView];
     
@@ -219,6 +227,21 @@
     _minSecondView.center = CGPointMake(_underView.lsqGetSizeWidth*(_camera.minRecordingTime*1.0/_camera.maxRecordingTime), _underView.lsqGetSizeHeight/2);
     _minSecondView.backgroundColor = [UIColor whiteColor];
     [_underView addSubview:_minSecondView];
+    
+    
+    
+    timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90, 30)];
+    timeLabel.center = CGPointMake(_underView.center.x, _underView.center.y + 10 + 30 );
+    
+    timeLabel.textAlignment = NSTextAlignmentCenter;
+    
+    timeLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.15];
+    timeLabel.textColor = [UIColor whiteColor];
+    
+    timeLabel.hidden = YES;
+    [self.view addSubview:timeLabel];
+    
+    
 }
 
 // 初始化滤镜栏
@@ -268,11 +291,34 @@
 - (void)setRecoderProgress:(CGFloat)recoderProgress
 {
     if (_recoderProgress == recoderProgress) return;
-        
+    
+    timeLabel.hidden = NO;
+    NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
+    UIImage *timeImg = [UIImage imageNamed:@"record_icon.png"];
+    attachment.image = timeImg;
+    CGFloat imageOffsetY = -(30 - timeImg.size.height)/2;
+    attachment.bounds = CGRectMake(5, imageOffsetY, timeImg.size.width, timeImg.size.height);
+
+    NSAttributedString *attachmentString = [NSAttributedString attributedStringWithAttachment:attachment];
+    
+    float sec = recoderProgress * _settingConfig.maxRecordingTime;
+    NSMutableAttributedString *time = [[NSMutableAttributedString alloc] init];
+    
+//    NSMutableAttributedString *myString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"   %.1f秒", sec] attributes:];
+
+    NSMutableAttributedString *myString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"   %.1f秒", sec]];
+    [time appendAttributedString:attachmentString];
+    [time appendAttributedString:myString];
+    
+    
+    timeLabel.textAlignment = NSTextAlignmentCenter | NSTextAlignmentRight;
+    timeLabel.attributedText = time;
+    
+    
     _recoderProgress = recoderProgress;
     if (_camera) {
         [_aboveView lsqSetSizeWidth:_underView.lsqGetSizeWidth*recoderProgress];
-        [_bottomBar enabledBtnWithComplete: ([_aboveView lsqGetSizeWidth]>_minSecondView.center.x ? YES : NO)];
+//        [_bottomBar enabledBtnWithComplete: ([_aboveView lsqGetSizeWidth]>_minSecondView.center.x ? YES : NO)];
         if (_camera.recordMode == lsqRecordModeKeep && (_camera.videoCameraStatue == lsqRecordStatePaused || _recoderProgress == 1)) {
             // 续拍模式下，中间的暂停状态为 lsqRecordStatePaused，此时手势已经松开，但是松开后会有一次progress的调用，故需更新节点
             // 注：SDK中的续拍模式下，是会在 pauseRecording 调用之后(此时state 为 lsqRecordStatePaused)还有一次progress的校对通知，Demo中以暂停后的校对progress为准
@@ -288,6 +334,9 @@
 */
 - (void)changeNodeViewWithLocation:(CGFloat)noteX{
     if (!_aboveView) return;
+    
+    timeLabel.hidden = noteX == 0;
+    
     if (!_nodesLocation)
     {
         _nodesLocation = [[NSMutableArray alloc]init];
@@ -301,19 +350,44 @@
         noteView.tag = 300 + _nodesLocation.count;
         [_underView addSubview:noteView];
         [_nodesLocation addObject:@(noteX)];
+        
     }
     
     if (noteX == -1) {
         if (_nodesLocation.count == 0) {
             return;
         }
+        
+        float positonX = 0.0;
         // 减一个
         for (UIView *view in _underView.subviews) {
             if (view.tag == _nodesLocation.count-1 + 300) {
                 [view removeFromSuperview];
             }
+            
+            if (view.tag == _nodesLocation.count-2 + 300) {
+                positonX = view.center.x;
+            }
         }
         [_nodesLocation removeObjectAtIndex:_nodesLocation.count-1];
+        
+        
+        NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
+        UIImage *timeImg = [UIImage imageNamed:@"record_icon.png"];
+        attachment.image = timeImg;
+        CGFloat imageOffsetY = -(30 - timeImg.size.height)/2;
+        attachment.bounds = CGRectMake(5, imageOffsetY, timeImg.size.width, timeImg.size.height);
+        
+        NSAttributedString *attachmentString = [NSAttributedString attributedStringWithAttachment:attachment];
+        
+        float sec = positonX/(_underView.lsqGetSizeWidth) * _settingConfig.maxRecordingTime;
+        NSMutableAttributedString *time = [[NSMutableAttributedString alloc] init];
+        
+        NSMutableAttributedString *myString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"   %.1f秒", sec]];
+        [time appendAttributedString:attachmentString];
+        [time appendAttributedString:myString];
+        timeLabel.attributedText = time;
+        
     }
     
     if (noteX == 0) {
@@ -339,9 +413,10 @@
     [_aboveView lsqSetSizeWidth: _newProgressLocation];
 
     // 设置后退和确认按钮
-    [_bottomBar enabledBtnWithCancle: (_nodesLocation.count>0 ? YES : NO)];
+    [_bottomBar enabledBtnWithCancle: _nodesLocation.count>0 ];
     [_bottomBar enabledBtnWithComplete: ([_aboveView lsqGetSizeWidth]>_minSecondView.center.x ? YES : NO)];
-
+    [_bottomBar reFrameViews: _nodesLocation.count>0 ];
+    
 }
 
 #pragma mark - TuSDK Camera
@@ -350,7 +425,7 @@
 - (void)startCamera
 {
     if (!_cameraView) {
-        _cameraView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth, self.view.lsqGetSizeHeight)];
+        _cameraView = [[UIView alloc]initWithFrame:CGRectMake(0, -20, self.view.lsqGetSizeWidth, self.view.lsqGetSizeHeight)];
         [self.view insertSubview:_cameraView atIndex:0];
         
         // 使用tapView 做中间的手势响应范围，为了防止和录制按钮的手势时间冲突
@@ -376,14 +451,16 @@
     // 配置相机参数
     // 相机预览画面区域显示算法
     _camera.regionHandler = [[CustomTuSDKCPRegionDefaultHandler alloc]init];
-
+    
+//    _camera.regionHandler.offsetPercentTop = 74/self.view.lsqGetSizeHeight;
+    
     // 输出 1:1 画幅视频
-    _camera.cameraViewRatio = 1.0;
+//    _camera.cameraViewRatio = 1.0;
     // 指定比例后，如不指定尺寸，SDK 会根据设备情况自动输出适应比例的尺寸
-    // _camera.outputSize = CGSizeMake(640, 640);
+//     _camera.outputSize = CGSizeMake(96, 640);
     
     // 输出视频的画质，主要包含码率、分辨率等参数 (默认为空，采用系统设置)
-    _camera.videoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Low1];
+    _camera.videoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium2];
     // 禁止触摸聚焦功能 (默认: NO)
     _camera.disableTapFocus = NO;
     // 是否禁用持续自动对焦
@@ -405,13 +482,41 @@
     // 设置水印图片的位置
      _camera.waterMarkPosition = lsqWaterMarkTopLeft;
     // 最大录制时长 8s
-    _camera.maxRecordingTime = 8;
+    _camera.maxRecordingTime = 60;
     // 最小录制时长 2s
     _camera.minRecordingTime = 1;
     // 正常模式/续拍模式  - 注：该录制模式需和 _bottomBar 中的一致, 若不使用这套UI逻辑，可进行自定义交互操作
     _camera.recordMode = _inputRecordMode;
     //  设置使用录制相机最小空间限制,开发者可根据需要自行设置（单位：字节 默认：50M）
      _camera.minAvailableSpaceBytes  = 1024.f*1024.f*50.f;
+    
+    
+    
+    
+    
+    
+    _camera.minRecordingTime = _settingConfig.minRecordingTime;
+    _camera.maxRecordingTime = _settingConfig.maxRecordingTime;
+    _camera.outputSize = _settingConfig.outputSize;
+
+    TuSDKVideoQuality *quality = [TuSDKVideoQuality defaultQuality];
+    quality.lsqVideoBitRate = _settingConfig.lsqVideoBitRate * 1000;
+    _camera.videoQuality = quality;
+    
+    _camera.frameRate = _settingConfig.frameRate;
+    
+    
+    if (_settingConfig.watermarkPosition > 0) {
+        // 设置水印，默认为空
+        _camera.waterMarkImage = [UIImage imageNamed:@"upyun_wartermark.png"];
+        // 设置水印图片的位置
+        _camera.waterMarkPosition = _settingConfig.watermarkPosition;
+    } else {
+        _camera.waterMarkImage  = nil;
+    }
+    
+    
+    
     
     // 启动相机
     [_camera tryStartCameraCapture];
@@ -466,6 +571,7 @@
 
 - (void)resetFlashBtnStatusWithBtnEnabled:(BOOL)enabled
 {
+    
     NSString *imageName = @"";
     
     if(_flashModeIndex == 1){
@@ -473,7 +579,17 @@
     }else{
         imageName = @"video_style_default_btn_flash_off";
     }
+    
+    if (!enabled) {
+        imageName = @"lsq_icon_flash_none";
+    }
+    
     UIImage *image = [UIImage imageNamed:imageName];
+    
+    
+    
+    
+    
     [_topBar changeBtnStateWithIndex:1 isLeftbtn:NO withImage:image withEnabled:enabled];
 }
 
@@ -511,6 +627,7 @@
     }
     
     // 返回按钮
+//    [self.navigationController popToRootViewControllerAnimated:YES];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -557,8 +674,15 @@
             });
         }
         break;
+        case 12:
+        {
+            // 相册按钮
+            [self openImportVideo];
+        }
+            break;
             
         default:
+            
             break;
     }
 
@@ -610,10 +734,10 @@
         }
         tapView.hidden = NO;
     }
-    else if (btn == _bottomBar.albumButton)
-    {
-        [self openImportVideo];
-    }
+//    else if (btn == _bottomBar.albumButton)
+//    {
+//        [self openImportVideo];
+//    }
     else if (btn == _bottomBar.filterButton)
     {
         _bottomBar.hidden = YES;
@@ -629,6 +753,10 @@
         // 后退按钮
         // 删除最后一段录制的视频片段
         [_camera popMovieFragment];
+        
+
+        
+        
         [self changeNodeViewWithLocation:-1];
     }
     else if (btn == _bottomBar.completeButton)
@@ -650,9 +778,13 @@
  */
 - (void)onRecordBtnPressStart:(UIButton*)btn;
 {
+    
     // 按下
     if (![_camera isRecording]) {
         [self startRecording];
+        [_bottomBar enabledOtherBtn:NO];
+//        UIImage *image = [UIImage imageNamed:@"homepage_import_icon_unselected"];
+//        [_topBar changeBtnStateWithIndex:2 isLeftbtn:NO withImage:image withEnabled:NO];
     }
 }
 
@@ -666,6 +798,13 @@
 {
     // 松开
     [self pauseRecording];
+    [_bottomBar enabledOtherBtn:YES];
+//    UIImage *image = [UIImage imageNamed:@"homepage_import_icon.png"];
+//    [_topBar changeBtnStateWithIndex:2 isLeftbtn:NO withImage:image withEnabled:YES];
+//
+    // 设置后退和确认按钮
+    [_bottomBar enabledBtnWithCancle: YES];
+    [_bottomBar enabledBtnWithComplete: ([_aboveView lsqGetSizeWidth]>_minSecondView.center.x ? YES : NO)];
 }
 
 #pragma mark - StickerViewClickDelegate
@@ -791,20 +930,20 @@
 {
     // 通过相机初始化设置  _camera.saveToAlbum = NO;  result.videoPath 拿到视频的临时文件路径
     if (result.videoPath) {
-        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_record_complete", @"录制完成")];
+//        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_record_complete", @"录制完成")];
         
         // 进行自定义操作，例如保存到相册
-//        UISaveVideoAtPathToSavedPhotosAlbum(result.videoPath, nil, nil, nil);
-//        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
-        
-        
+        UISaveVideoAtPathToSavedPhotosAlbum(result.videoPath, nil, nil, nil);
+        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
+
+
         //UPYUN短视频 上传到云存储
         NSString *saveKey = [NSString stringWithFormat:@"short_video_record_test_%d.mp4", arc4random() % 10];
-        
+
         NSString *imgSaveKey = [NSString stringWithFormat:@"short_video_record_jietu_%d.jpg", arc4random() % 10];
         [[UPYUNConfig sharedInstance] uploadFilePath:result.videoPath saveKey:saveKey success:^(NSHTTPURLResponse *response, NSDictionary *responseBody) {
             [[TuSDK shared].messageHub showSuccess:@"上传成功"];
-            
+
             NSLog(@"file url：http://%@.b0.upaiyun.com/%@",[UPYUNConfig sharedInstance].DEFAULT_BUCKET, saveKey);
 //            视频同步截图方法
 //            /// source   需截图的视频相对地址,   save_as 保存截图的相对地址, point 截图时间点 hh:mm:ss 格式
@@ -816,8 +955,8 @@
 //            } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
 //                NSLog(@"截图失败-error==%@--response==%@, responseBody==%@", error,  response, responseBody);
 //            }];
-            
-            
+
+
         } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
             [[TuSDK shared].messageHub showSuccess:@"上传失败"];
             NSLog(@"上传失败 error：%@", error);

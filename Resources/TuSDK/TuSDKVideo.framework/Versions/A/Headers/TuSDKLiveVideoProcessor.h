@@ -112,6 +112,16 @@
 @property (nonatomic) AVCaptureDevice *inputCamera;
 
 /**
+ *  是否为前置摄像头
+ */
+@property (readonly, getter = isFrontFacingCameraPresent) BOOL frontFacingCameraPresent;
+
+/**
+ *  是否为后置摄像头
+ */
+@property (readonly, getter = isBackFacingCameraPresent) BOOL backFacingCameraPresent;
+
+/**
  *  相机状态
  */
 @property (nonatomic, readonly) lsqCameraState state;
@@ -187,6 +197,21 @@
  *  是否开启脸部追踪
  */
 @property (nonatomic) BOOL enableFaceDetection;
+
+/**
+ *  是否开启焦距调节 (默认关闭)
+ */
+@property (nonatomic, assign) BOOL enableFocalDistance;
+
+/**
+ *  相机显示焦距 (默认为 1，最大不可超过硬件最大值，当小于 1 时，取 1)
+ */
+@property (nonatomic, assign) CGFloat focalDistanceScale;
+
+/**
+ *  相机支持的最大值 (只读属性)
+ */
+@property (nonatomic, readonly, assign) CGFloat supportMaxFocalDistanceScale;
 
 /**
  *  视频相机前置或后置

@@ -205,7 +205,7 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
 @property (nonatomic,assign) BOOL enableBeauty __attribute__((deprecated));
 
 /**
- *  设置美颜强度 (范围：0~1 数值越大越平滑 默认：0.6)  已废弃
+ *  设置美颜强度 (范围：0~1 数值越大越平滑 默认：0.0)  已废弃
  */
 @property (nonatomic,assign) CGFloat beautyLevel __attribute__((deprecated));
 
@@ -229,6 +229,11 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
  *  更新相机视图布局
  */
 - (void)updateCameraLayout;
+
+/**
+ *  更新相机视图bounds
+ */
+- (void)updateCameraViewBounds:(CGRect)bounds;
 
 /**
  *  获取聚焦视图

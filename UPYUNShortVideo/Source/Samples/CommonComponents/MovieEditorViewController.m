@@ -139,9 +139,17 @@
     // 是否按照时间播放
     options.playAtActualSpeed = YES;
     // 设置裁剪范围 注：该参数对应的值均为比例值，即：若视频展示View总高度800，此时截取时y从200开始，则cropRect的 originY = 偏移位置/总高度， 应为 0.25, 其余三个值同理
-    options.cropRect = _cropRect;
+//    options.cropRect = _cropRect;
+    
+    options.outputSize = _config.outputSize;
+    
+    TuSDKVideoQuality *quality = [TuSDKVideoQuality defaultQuality];
+    quality.lsqVideoBitRate = _config.lsqVideoBitRate * 1000;
+    quality.lsqEncodeVideoFrameRate = _config.frameRate;
     // 设置编码视频的画质
     options.encodeVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Low1];
+    
+    
     // 是否保留原音
     options.enableVideoSound = YES;
 
@@ -250,10 +258,12 @@
 
     
     if (result.videoPath) {
+        [[TuSDK shared].messageHub dismiss];
+        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
         // 进行自定义操作，例如保存到相册
-//        UISaveVideoAtPathToSavedPhotosAlbum(result.videoPath, nil, nil, nil);
+        UISaveVideoAtPathToSavedPhotosAlbum(result.videoPath, nil, nil, nil);
         
-        
+
         /// 上传到UPYUN 存储空间
         NSString *saveKey = [NSString stringWithFormat:@"short_video_edit_%d.mp4", arc4random() % 10];
         NSString *imgSaveKey = [NSString stringWithFormat:@"short_video_edit_jietu_%d.jpg", arc4random() % 10];
@@ -269,41 +279,41 @@
 //            } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
 //                NSLog(@"截图失败-error==%@--response==%@, responseBody==%@", error,  response, responseBody);
 //            }];
-            
+
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[TuSDK shared].messageHub showSuccess:@"上传成功"];
                 [self popToRootViewControllerAnimated:YES];
             });
-            
+
         } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
-            
+
             NSLog(@"上传失败 error：%@", error);
             NSLog(@"上传失败 code=%ld, responseHeader：%@", (long)response.statusCode, response.allHeaderFields);
             NSLog(@"上传失败 message：%@", responseBody);
-            
+
 //            [[TuSDK shared].messageHub showSuccess:@"上传失败"];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[TuSDK shared].messageHub showSuccess:@"上传失败"];
 //                [self popToRootViewControllerAnimated:YES];
             });
-            
+
         } progress:^(int64_t completedBytesCount, int64_t totalBytesCount) {
         }];
-//        
-//        
-//        [[TuSDK shared].messageHub dismiss];
-//        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
+
+        
+        [[TuSDK shared].messageHub dismiss];
+        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
 
     }else{
         // _movieEditor.saveToAlbum = YES; （默认为 ：YES）将自动保存到相册
         [[TuSDK shared].messageHub dismiss];
         [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
-        [self popToRootViewControllerAnimated:YES];
+//        [self popToRootViewControllerAnimated:YES];
     }
     
     
     
-//    [self popToRootViewControllerAnimated:YES];
+    [self popToRootViewControllerAnimated:YES];
 
 }
 

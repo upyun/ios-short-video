@@ -20,6 +20,8 @@
 - (void)setBorderColor:(UIColor *)borderColor;
 {
     _borderColor = borderColor;
+    self.layer.masksToBounds = YES;
+    self.layer.cornerRadius = 6;
     self.layer.borderWidth = 2;
     self.layer.borderColor = _borderColor.CGColor;
 }

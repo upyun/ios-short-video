@@ -133,7 +133,7 @@ typedef NS_ENUM(NSInteger, lsqMovieEditorStatus)
 @property (nonatomic,assign) BOOL enableBeauty __attribute__((deprecated));
 
 /**
- *  设置美颜强度 (范围：0~1 数值越大越平滑 默认：0.6) 已废弃
+ *  设置美颜强度 (范围：0~1 数值越大越平滑 默认：0.0) 已废弃
  */
 @property (nonatomic,assign) CGFloat beautyLevel __attribute__((deprecated));
 

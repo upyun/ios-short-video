@@ -353,7 +353,7 @@
     // 设置水印图片的位置
     _camera.waterMarkPosition = lsqWaterMarkTopLeft;
     // 最大录制时长 8s
-    _camera.maxRecordingTime = 8;
+    _camera.maxRecordingTime = 60;
     // 最小录制时长 2s
     _camera.minRecordingTime = 1;
     // 正常模式/续拍模式  - 注：该录制模式需和 _bottomBar 中的一致, 若不使用这套UI逻辑，可进行自定义交互操作
