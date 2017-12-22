@@ -368,44 +368,44 @@
     }
     button.selected = YES;
     
-    int width = 0;
-    int heigth = 0;
+    int vWidth = 0;
+    int vHeigth = 0;
     int fps = 30;
     int bitrate = 0;
     
     switch (button.tag) {
         case 100:{
-            width = 640;
-            heigth = 360;
+            vHeigth = 640;
+            vWidth = 360;
             fps = 15;
             bitrate = 384;
             break;
         }
         case 101:{
-            width = 864;
-            heigth = 480;
+            vHeigth = 864;
+            vWidth = 480;
             fps = 20;
             bitrate = 512;
             break;
         }
         case 102:{
-            width = 1280;
-            heigth = 720;
+            vHeigth = 1280;
+            vWidth = 720;
             fps = 25;
             bitrate = 1152;
             break;
         }
         case 103:{
-            width = 1920;
-            heigth = 1080;
+            vHeigth = 1920;
+            vWidth = 1080;
             fps = 30;
             bitrate = 2560;
             break;
         }
     }
     
-    [[_textFiledArray objectAtIndex:0] setText:[NSString stringWithFormat:@"%d", width]];
-    [[_textFiledArray objectAtIndex:1] setText:[NSString stringWithFormat:@"%d", heigth]];
+    [[_textFiledArray objectAtIndex:0] setText:[NSString stringWithFormat:@"%d", vWidth]];
+    [[_textFiledArray objectAtIndex:1] setText:[NSString stringWithFormat:@"%d", vHeigth]];
     [[_textFiledArray objectAtIndex:2] setText:[NSString stringWithFormat:@"%d", bitrate]];
     [[_textFiledArray objectAtIndex:3] setText:[NSString stringWithFormat:@"%d", fps]];
     

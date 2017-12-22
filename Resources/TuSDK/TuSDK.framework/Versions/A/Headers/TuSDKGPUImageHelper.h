@@ -20,4 +20,20 @@
  *  @return GPUImage方向
  */
 + (GPUImageRotationMode)rotationModeWithImageOrientation:(UIImageOrientation)imageOrientation;
+
+/**
+ 通过GPUImage方向旋转归一化区域
+ @param rect 归一化区域
+ @param rotation GPUImage方向
+ @return 旋转归一化区域
+ */
++ (CGRect)rotationWithRect:(CGRect)rect rotation:(GPUImageRotationMode)rotation;
+
+/**
+ 计算旋转坐标
+ @param rotation GPUImage方向
+ @param rect 归一化区域
+ @param coordinates 顶点
+ */
++ (void)rotationWithRotation:(GPUImageRotationMode)rotation rect:(CGRect)rect coordinates:(GLfloat *)coordinates;
 @end

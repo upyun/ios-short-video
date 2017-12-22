@@ -153,7 +153,8 @@
          }
          [self startCamera];
          // 设置默认滤镜  对应filterView创建时默认的 currentFilterTag 同样设置为 1
-         [_camera switchFilterWithCode:_videoFilters[1]];
+         int index = _videoFilters.count > 1?1:0;
+         [_camera switchFilterWithCode:_videoFilters[index]];
 
          // 进度条view依赖于camera中的最小以及最大录制时间的设置，故应先调用 startCamera 方法
          [self initProgressView];
@@ -451,14 +452,14 @@
     // 配置相机参数
     // 相机预览画面区域显示算法
     _camera.regionHandler = [[CustomTuSDKCPRegionDefaultHandler alloc]init];
-    
+
 //    _camera.regionHandler.offsetPercentTop = 74/self.view.lsqGetSizeHeight;
-    
+
     // 输出 1:1 画幅视频
 //    _camera.cameraViewRatio = 1.0;
     // 指定比例后，如不指定尺寸，SDK 会根据设备情况自动输出适应比例的尺寸
 //     _camera.outputSize = CGSizeMake(96, 640);
-    
+
     // 输出视频的画质，主要包含码率、分辨率等参数 (默认为空，采用系统设置)
     _camera.videoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium2];
     // 禁止触摸聚焦功能 (默认: NO)
@@ -502,10 +503,10 @@
     TuSDKVideoQuality *quality = [TuSDKVideoQuality defaultQuality];
     quality.lsqVideoBitRate = _settingConfig.lsqVideoBitRate * 1000;
     _camera.videoQuality = quality;
-    
+
     _camera.frameRate = _settingConfig.frameRate;
-    
-    
+
+
     if (_settingConfig.watermarkPosition > 0) {
         // 设置水印，默认为空
         _camera.waterMarkImage = [UIImage imageNamed:@"upyun_wartermark.png"];

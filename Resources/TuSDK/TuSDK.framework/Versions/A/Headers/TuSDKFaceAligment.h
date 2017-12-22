@@ -19,10 +19,10 @@
 @property (nonatomic, retain) NSArray<NSValue *> *orginMarks;
 
 /** 仰角／俯角 */
-@property (nonatomic) CGFloat yaw;
+@property (nonatomic) CGFloat pitch;
 
 /** 左右旋转角度 */
-@property (nonatomic) CGFloat pitch;
+@property (nonatomic) CGFloat yaw;
 
 /** 翻滚角 */
 @property (nonatomic) CGFloat roll;

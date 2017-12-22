@@ -184,7 +184,6 @@
     } else {
         UPLivePlayerVC *vc = [[UPLivePlayerVC alloc] init];
         vc.url = @"http://uprocess.b0.upaiyun.com/demo/short_video/UPYUN_0.mp4";
-//        vc.url = @"http://upyun.ixiandan.cn/242813665/ShortVideo/2017/11/16/18/4302";
         
         [self presentViewController:vc animated:YES completion:nil];
     }

@@ -80,6 +80,7 @@
     [_stickerButton setCenter:CGPointMake(sideDistance + buttonWidth/2, stickerBtnCenterY)];
     [_stickerButton setImage:[UIImage imageNamed:@"style_default_btn_sticker"] forState:UIControlStateNormal];
     [_stickerButton setImage:[UIImage imageNamed:@"lsq_style_sticker_unselected"] forState:UIControlStateDisabled];
+    //[_stickerButton setImage:[UIImage imageNamed:@"style_default_1.6.0_sticker_btn_default"] forState:UIControlStateDisabled];
     [_stickerButton addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_stickerButton];
     

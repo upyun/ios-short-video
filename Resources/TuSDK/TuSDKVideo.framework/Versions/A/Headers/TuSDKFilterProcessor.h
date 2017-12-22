@@ -90,6 +90,15 @@
 - (CVPixelBufferRef)syncProcessPixelBuffer:(CVPixelBufferRef)pixelBuffer;
 
 /**
+ Process pixelBuffer and return result soon
+ 
+ @param pixelBuffer pixelBuffer
+ @param frameTime frameTime
+ @return PixelBuffer
+ */
+- (CVPixelBufferRef)syncProcessPixelBuffer:(CVPixelBufferRef)pixelBuffer frameTime:(CMTime)currentTime;
+
+/**
  将 CVPixelBufferRef 数据从 srcPixelBuffer 复制到 destPixelBuffer
  
  @param pixelBuffer srcPixelBuffer
