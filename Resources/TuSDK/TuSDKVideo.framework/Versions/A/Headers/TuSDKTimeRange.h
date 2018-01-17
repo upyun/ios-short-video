@@ -62,40 +62,48 @@
  */
 @property (nonatomic,assign) CMTime duration;
 
+/**
+ 结束时间 只读类型 若需要修改结束时间,请通过修改duration进行
+ */
+@property (nonatomic,assign,readonly) CMTime end;
 
 #pragma mark - Methods
 
 /**
- 开始时间秒数
+ 开始时间(秒)
  
- @return 秒数
+ @return 开始时间
  */
 - (Float64)startSeconds;
 
 /**
- 持续时间秒数
+ 持续时间(秒)
  
- @return 秒数
+ @return 持续时间
  */
 - (Float64)durationSeconds;
 
 
-- (Float64)endSeconds;
+/**
+ 结束时间(秒)
 
+ @return 结束时间
+ */
+- (Float64)endSeconds;
 
 /**
  TuSDKTimeRange 转为 CMTimeRange
  
  @return CMTimeRange
  */
-- (CMTimeRange) CMTimeRange;
+- (CMTimeRange)CMTimeRange;
 
 /**
  时间范围是否有效
  
  @return true/false
  */
-- (BOOL) isValid;
+- (BOOL)isValid;
 
 /**
  是否包含另一个timeRange

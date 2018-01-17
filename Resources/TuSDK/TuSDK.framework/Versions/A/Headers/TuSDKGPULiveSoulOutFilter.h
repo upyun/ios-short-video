@@ -10,6 +10,6 @@
 #import "TuSDKFilterParameter.h"
 
 /** Live Soul Out Filter */
-@interface TuSDKGPULiveSoulOutFilter : TuSDKFilter<TuSDKFilterParameterProtocol>
+@interface TuSDKGPULiveSoulOutFilter : TuSDKFilter
 
 @end

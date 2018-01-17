@@ -12,6 +12,7 @@
 #import "TuSDKMediaEffectData.h"
 #import "TuSDKTimeRange.h"
 #import "TuSDKMVStickerAudioEffectData.h"
+#import "TuSDKMediaSceneEffectData.h"
 
 /**
  *  TuSDKMovieEditor状态
@@ -116,32 +117,29 @@ typedef NS_ENUM(NSInteger, lsqMovieEditorStatus)
  */
 @property (nonatomic, assign) lsqFileType fileType;
 
-#pragma mark - waterMark
 /**
- 设置水印图片，最大边长不宜超过 500
+ *  预览时视频原音音量， 默认 1.0  注：仅在 option 中的 enableSound 为 YES 时有效
+ */
+@property (nonatomic, assign) CGFloat videoSoundVolume;
+
+/**
+ *  场景特效设置数组
+ */
+@property (nonatomic, strong) NSArray<TuSDKMediaSceneEffectData *> *sceneEffects;
+
+#pragma mark - waterMark
+
+/**
+ *  设置水印图片，最大边长不宜超过 500
  */
 @property (nonatomic, retain) UIImage *waterMarkImage;
 
 /**
- 水印位置，默认 lsqWaterMarkBottomRight
+ *  水印位置，默认 lsqWaterMarkBottomRight
  */
 @property (nonatomic) lsqWaterMarkPosition waterMarkPosition;
 
-/**
- *  是否开启美颜效果 (默认: NO) 已废弃
- */
-@property (nonatomic,assign) BOOL enableBeauty __attribute__((deprecated));
-
-/**
- *  设置美颜强度 (范围：0~1 数值越大越平滑 默认：0.0) 已废弃
- */
-@property (nonatomic,assign) CGFloat beautyLevel __attribute__((deprecated));
-
-/**
- *  预览时视频原音音量， 默认 1.0  注：仅在 option 中的 enableSound 为 YES 时有效
- */
-@property (nonatomic,assign) CGFloat videoSoundVolume;
-
+#pragma mark - init
 
 /**
  *  初始化
@@ -226,6 +224,7 @@ typedef NS_ENUM(NSInteger, lsqMovieEditorStatus)
 - (void)notifyResult:(TuSDKVideoResult *)result error:(NSError *)error;
 
 #pragma mark - switch filter
+
 /**
  *  切换滤镜
  *
@@ -234,29 +233,6 @@ typedef NS_ENUM(NSInteger, lsqMovieEditorStatus)
  *  @return BOOL 是否成功切换滤镜
  */
 - (BOOL)switchFilterWithCode:(NSString *)code;
-
-#pragma mark - MV sticker
-
-/**
- *  设置某个 MV 效果，但并不立即显示，在达到对应的时间范围时显示
- *
- *  @param mvItem MV 对象
- */
-- (void)showMVItem:(TuSDKMVStickerAudioEffectData *)mvItem;
-
-/**
- *  该 MV 是否已在使用
- *
- *  @param mvItem MV 对象
- *
- *  @return 　是否使用
- */
-- (BOOL)isMVItemUsed:(TuSDKMVStickerAudioEffectData *)mvItem;
-
-/**
- *  清除动态贴纸
- */
-- (void)removeAllMVItem;
 
 #pragma mark - media effect
 

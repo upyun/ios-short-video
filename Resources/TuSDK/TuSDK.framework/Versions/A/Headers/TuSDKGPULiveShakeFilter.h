@@ -10,6 +10,6 @@
 #import "TuSDKFilterParameter.h"
 
 /** Live Shake Filter*/
-@interface TuSDKGPULiveShakeFilter : TuSDKFilter<TuSDKFilterParameterProtocol>
+@interface TuSDKGPULiveShakeFilter : TuSDKFilter
 
 @end

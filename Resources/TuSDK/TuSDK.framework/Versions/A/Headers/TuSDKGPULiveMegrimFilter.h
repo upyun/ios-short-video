@@ -10,6 +10,6 @@
 #import "TuSDKFilterParameter.h"
 
 /** Live Megrim Filter*/
-@interface TuSDKGPULiveMegrimFilter : GPUImageFilterGroup<TuSDKFilterParameterProtocol>
+@interface TuSDKGPULiveMegrimFilter : GPUImageFilterGroup
 
 @end

@@ -200,16 +200,6 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
 @property (nonatomic) lsqWaterMarkPosition waterMarkPosition;
 
 /**
- *  是否开启美颜效果 (默认: NO) 已废弃
- */
-@property (nonatomic,assign) BOOL enableBeauty __attribute__((deprecated));
-
-/**
- *  设置美颜强度 (范围：0~1 数值越大越平滑 默认：0.0)  已废弃
- */
-@property (nonatomic,assign) CGFloat beautyLevel __attribute__((deprecated));
-
-/**
  *  初始化
  *
  *  @param sessionPreset  相机分辨率类型

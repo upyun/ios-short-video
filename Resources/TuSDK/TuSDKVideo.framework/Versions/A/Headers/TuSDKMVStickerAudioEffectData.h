@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "TuSDKVideoImport.h"
-#import "TuSDKMVEffectData.h"
 #import "TuSDKMediaStickerAudioEffectData.h"
 
 @interface TuSDKMVStickerAudioEffectData : TuSDKMediaStickerAudioEffectData

@@ -10,6 +10,6 @@
 #import "TuSDKFilterParameter.h"
 
 /** Live Edge Magic Filter */
-@interface TuSDKGPULiveEdgeMagicFilter : TuSDKFilter<TuSDKFilterParameterProtocol>
+@interface TuSDKGPULiveEdgeMagicFilter : TuSDKFilter
 
 @end

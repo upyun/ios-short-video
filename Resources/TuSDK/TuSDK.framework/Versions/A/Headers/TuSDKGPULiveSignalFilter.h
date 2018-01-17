@@ -10,6 +10,6 @@
 #import "TuSDKFilterParameter.h"
 
 /** Live Signal Filter*/
-@interface TuSDKGPULiveSignalFilter : TuSDKTwoInputFilter<TuSDKFilterParameterProtocol>
+@interface TuSDKGPULiveSignalFilter : TuSDKTwoInputFilter
 
 @end

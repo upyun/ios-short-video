@@ -10,6 +10,6 @@
 #import "TuSDKFilterParameter.h"
 
 /** Live Fancy01 Filter */
-@interface TuSDKGPULiveFancy01Filter : TuSDKTwoInputFilter<TuSDKFilterParameterProtocol>
+@interface TuSDKGPULiveFancy01Filter : TuSDKTwoInputFilter
 
 @end
