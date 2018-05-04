@@ -10,31 +10,19 @@
 #import "TuSDKVideoImport.h"
 #import "TuSDKVideoResult.h"
 
-/**
- *  贴纸可以同时使用的的最大数量
- */
+/** 贴纸可以同时使用的的最大数量*/
 #define LSQ_SMART_STICKER_MAX_NUM 5
 
-/**
- *  输出帧格式类型
- */
+/** 输出帧格式类型*/
 typedef NS_ENUM(NSInteger, lsqFrameFormatType)
 {
-    /**
-     *  输出 BGRA 格式 (kCVPixelFormatType_32BGRA)
-     */
+    /** 输出 BGRA 格式 (kCVPixelFormatType_32BGRA)*/
     lsqFormatTypeBGRA,
-    /**
-     *  输出 YUV 格式 (kCVPixelFormatType_420YpCbCr8BiPlanarFullRange，即 NV12，YYYYYYYY UVUV)
-     */
+    /** 输出 YUV 格式 (kCVPixelFormatType_420YpCbCr8BiPlanarFullRange，即 NV12，YYYYYYYY UVUV) */
     lsqFormatTypeYUV420F,
-    /**
-     *  输出 YUV 格式 (NV21， YYYYYYYY VUVU) 注：无法用于预览，仅供推流时使用
-     */
+    /** 输出 YUV 格式 (NV21， YYYYYYYY VUVU) 注：无法用于预览，仅供推流时使用 */
     lsqFormatTypeNV21,
-    /**
-     *  输出基于 BGRA 格式的原始数据
-     */
+    /** 输出基于 BGRA 格式的原始数据 */
     lsqFormatTypeRawData,
 };
 
@@ -55,23 +43,27 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
     @protected
     // 输出尺寸
     CGSize _outputSize;
-    
     // 视频视图
     TuSDKICFilterVideoViewWrap *_cameraView;
     // 相机聚焦触摸视图
     UIView<TuSDKVideoCameraExtendViewInterface> *_focusTouchView;
     // 相机辅助视图
     TuSDKICGuideRegionView *_guideView;
-    
-    // 重力感应器
-    TuSDKTSMotion *_motion;
-    
     // process benchmark
     BOOL _enableProcessBenchmark;
     
     NSUInteger _numberOfFramesProcessed;
     CFAbsoluteTime _lastFrameTime;
     CFAbsoluteTime _totalFrameTimeDuringProcess;
+    
+    // 设备当前朝向
+    UIDeviceOrientation _deviceOrient;
+    // 设备图像方向
+    UIImageOrientation _imageOrient;
+    // 设备视频方向
+    AVCaptureVideoOrientation _videoOrientation;
+    // 物理感应器方向所对应的视频transform
+    CGAffineTransform _videoInputTransform;
 }
 
 /**
@@ -320,6 +312,8 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
  */
 - (void)removeAllLiveSticker;
 
+/** 设置检测框最小倍数 [取值范围: 0.1 < x < 0.5, 默认: 0.2] 值越大性能越高距离越近 */
+- (void) setDetectScale: (CGFloat) scale;
 #pragma mark - benchmark
 /**
  *  打印性能日志

@@ -52,6 +52,7 @@
 
 - (void) onFaceAligmented:(NSArray<TuSDKFaceAligment *> *)aligments
                      size:(CGSize)size
+               transposed:(BOOL)transposed
                 focusFace:(BOOL)focusFace;
 
 @end

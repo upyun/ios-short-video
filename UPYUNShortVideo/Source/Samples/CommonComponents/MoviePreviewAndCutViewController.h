@@ -12,7 +12,6 @@
 #import "MovieEditorViewController.h"
 #import "CutVideoBottomView.h"
 #import "TopNavBar.h"
-#import "UPSettingConfig.h"
 
 /**
  视频时间选取示例：视频预览，选取裁剪时间范围
@@ -49,12 +48,11 @@
 // 播放点击记录，若点击播放，为YES，再点击暂定，为NO
 @property (nonatomic, assign) BOOL playSelected;
 
-
-@property (nonatomic, strong) UPSettingConfig *config;
-
 // 播放视频
 - (void)playTheVideo;
 // 暂停播放
 - (void)pauseTheVideo;
 
+// 播放结束的通知
+- (void)playerEnd:(AVPlayerItem *)playerItem;
 @end

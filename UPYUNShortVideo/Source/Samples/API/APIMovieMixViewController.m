@@ -20,6 +20,8 @@
     TuSDKTSAudio *firstMixAudio;
     TuSDKTSAudio *secondMixAudio;
     TuSDKTSMovieMixer *movieMixer;
+    // 距离定点距离
+    CGFloat topYDistance;
 }
 
 // 系统播放器
@@ -35,29 +37,11 @@
 // 隐藏状态栏 for IOS7
 - (BOOL)prefersStatusBarHidden;
 {
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        return NO;
+    }
+
     return YES;
-}
-
-// 是否允许旋转 IOS5
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    return NO;
-}
-
-// 是否允许旋转 IOS6
--(BOOL)shouldAutorotate
-{
-    return NO;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
-    return UIInterfaceOrientationPortrait;
 }
 
 #pragma mark - 视图布局方法
@@ -73,15 +57,20 @@
 {
     [super viewWillAppear:animated];
     
-    // 页面设置
-    self.wantsFullScreenLayout = YES;
     [self setNavigationBarHidden:YES animated:NO];
-    [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    if (![UIDevice lsqIsDeviceiPhoneX]) {
+        [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor lsqClorWithHex:@"#F3F3F3"];
+    
+    topYDistance = 0;
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        topYDistance += 44;
+    }
 
     // 顶部栏初始化
     [self initWithTopBar];
@@ -129,7 +118,7 @@
     
     // 开始页面 合成视频btn
     UIButton *mixButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth - sideGapDistance*2, 40)];
-    mixButton.center = CGPointMake(self.view.lsqGetSizeWidth/2, self.view.lsqGetSizeWidth + sideGapDistance*4);
+    mixButton.center = CGPointMake(self.view.lsqGetSizeWidth/2, self.view.lsqGetSizeWidth + sideGapDistance*4 + topYDistance);
     mixButton.backgroundColor = lsqRGB(252, 143, 96);
     [mixButton setTitle:NSLocalizedString(@"lsq_api_mix_movie_audio" , @"合成视频") forState:UIControlStateNormal];
     [mixButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -169,9 +158,9 @@
 {
     // 创建seekBar
      CGFloat sideGapDistance = 50;
-    [self initWithSeekBarAndLabels:NSLocalizedString(@"lsq_api_origin_audio", @"原音") originY:self.view.lsqGetSizeWidth tag:11];
-    [self initWithSeekBarAndLabels:NSLocalizedString(@"lsq_api_first_mix_audio", @"混音一") originY:self.view.lsqGetSizeWidth + sideGapDistance tag:12];
-    [self initWithSeekBarAndLabels:NSLocalizedString(@"lsq_api_second_mix_audio", @"混音二") originY:self.view.lsqGetSizeWidth + sideGapDistance*2 tag:13];
+    [self initWithSeekBarAndLabels:NSLocalizedString(@"lsq_api_origin_audio", @"原音") originY:topYDistance + self.view.lsqGetSizeWidth tag:11];
+    [self initWithSeekBarAndLabels:NSLocalizedString(@"lsq_api_first_mix_audio", @"混音一") originY:topYDistance + self.view.lsqGetSizeWidth + sideGapDistance tag:12];
+    [self initWithSeekBarAndLabels:NSLocalizedString(@"lsq_api_second_mix_audio", @"混音二") originY:topYDistance + self.view.lsqGetSizeWidth + sideGapDistance*2 tag:13];
     
     firstBGMPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:[self filePathName:@"sound_cat.mp3"] error:nil];
     firstBGMPlayer.numberOfLoops = -1;//循环播放
@@ -225,7 +214,7 @@
 // 播放器初始化
 - (void)initWithVideoPlayer;
 {
-    UIView *playerView = [[UIView alloc]initWithFrame:CGRectMake(0, _topBar.lsqGetSizeHeight, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth*9/16)];
+    UIView *playerView = [[UIView alloc]initWithFrame:CGRectMake(0, _topBar.lsqGetSizeHeight + topYDistance, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth*9/16)];
     [playerView setBackgroundColor:[UIColor clearColor]];
     playerView.multipleTouchEnabled = NO;
     [self.view addSubview:playerView];
@@ -246,11 +235,11 @@
 // 顶部栏初始化
 - (void)initWithTopBar;
 {
-    _topBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+    _topBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, topYDistance, self.view.bounds.size.width, 44)];
     [_topBar setBackgroundColor:[UIColor whiteColor]];
     _topBar.topBarDelegate = self;
     [_topBar addTopBarInfoWithTitle:NSLocalizedString(@"lsq_video_bgm", @"视频 + 背景音乐")
-                     leftButtonInfo:@[[NSString stringWithFormat:@"video_style_default_btn_back.png+%@",NSLocalizedString(@"lsq_go_back", @"返回")]]
+                     leftButtonInfo:@[@"video_style_default_btn_back.png"]
                     rightButtonInfo:nil];
     [_topBar.centerTitleLabel lsqSetSizeWidth:_topBar.lsqGetSizeWidth/2];
     _topBar.centerTitleLabel.center = CGPointMake(self.view.lsqGetSizeWidth/2, _topBar.lsqGetSizeHeight/2);

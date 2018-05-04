@@ -30,10 +30,18 @@
 + (CGRect)rotationWithRect:(CGRect)rect rotation:(GPUImageRotationMode)rotation;
 
 /**
- 计算旋转坐标
+ 计算材质旋转坐标
  @param rotation GPUImage方向
  @param rect 归一化区域
  @param coordinates 顶点
  */
-+ (void)rotationWithRotation:(GPUImageRotationMode)rotation rect:(CGRect)rect coordinates:(GLfloat *)coordinates;
++ (void)textureWithRotation:(GPUImageRotationMode)rotation rect:(CGRect)rect coordinates:(GLfloat *)coordinates;
+
+/**
+ 计算显示画面旋转坐标
+ @param rotation GPUImage方向
+ @param rect 归一化区域
+ @param coordinates 顶点
+ */
++ (void)displayWithRotation:(GPUImageRotationMode)rotation rect:(CGRect)rect coordinates:(GLfloat *)coordinates;
 @end

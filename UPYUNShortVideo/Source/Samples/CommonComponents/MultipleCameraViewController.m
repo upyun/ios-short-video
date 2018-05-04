@@ -18,29 +18,10 @@
 // 隐藏状态栏 for IOS7
 - (BOOL)prefersStatusBarHidden;
 {
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        return NO;
+    }
     return YES;
-}
-
-// 是否允许旋转 IOS5
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    return NO;
-}
-
-// 是否允许旋转 IOS6
--(BOOL)shouldAutorotate
-{
-    return NO;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
-    return UIInterfaceOrientationPortrait;
 }
 
 #pragma mark - Layout
@@ -58,10 +39,11 @@
     
     // 获取相机的权限并启动相机
     [self requireCameraPermission];
-    // 设置全屏
-    self.wantsFullScreenLayout = YES;
+
     [self setNavigationBarHidden:YES animated:NO];
-    [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    if (![UIDevice lsqIsDeviceiPhoneX]) {
+        [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    }
 }
 
 -(void)requireAlbumPermission;
@@ -96,10 +78,10 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = lsqRGB(244, 161, 24);
     // 滤镜列表，获取滤镜前往 TuSDK.bundle/others/lsq_tusdk_configs.json
-    // TuSDK 滤镜信息介绍 @see-https://tusdk.com/docs/ios/self-customize-filter
-    _videoFilters =  @[@"SkinPink016",@"SkinJelly016",@"Pink016",@"Fair016",@"Forest017",@"Paul016",@"MintGreen016", @"TinyTimes016", @"Year1950016"];
+    // TuSDK 滤镜信息介绍 @see-https://tutucloud.com/docs/ios/self-customize-filter
+    _videoFilters =@[@"porcelain",@"nature",@"pink",@"jelly",@"ruddy",@"sugar",@"honey",@"clear",@"timber",@"whitening"];
     _videoFilterIndex = 0;   
     _sessionQueue = dispatch_queue_create("org.lasque.tusdkvideo", DISPATCH_QUEUE_SERIAL);
     
@@ -114,29 +96,32 @@
 
 - (void)initRecorderView
 {
-    CGRect rect = [[UIScreen mainScreen] applicationFrame];
     // 预览view的frame 应与 cameraView 的frame 一致
-    _preView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth, self.view.lsqGetSizeHeight)];
+    _preView = [[UIView alloc]init];
     _preView.hidden = YES;
     _preView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:_preView];
 
     // 拍照展示IV   注：拍照得到的图片因方向在展示时不能全屏展示，需要设置 contentMode
-    _takePictureIV = [[UIImageView alloc]initWithFrame:_preView.bounds];
+    _takePictureIV = [[UIImageView alloc]init];
     _takePictureIV.contentMode = UIViewContentModeScaleAspectFit;
     _takePictureIV.hidden = YES;
     [_preView addSubview:_takePictureIV];
     
     // 默认相机顶部控制栏
-    _configBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth, 54)];
+    CGFloat topY = 0;
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        topY = 44;
+    }
+    _configBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, topY, self.view.lsqGetSizeWidth, 54)];
     [_configBar addTopBarInfoWithTitle:nil
-                        leftButtonInfo:@[@"style_default_1.6.0_back_default.png"]
-                       rightButtonInfo:@[@"style_default_1.6.0_lens_overturn.png",@"style_default_1.6.0_flash_closed.png"]];
+                        leftButtonInfo:@[@"style_default_2.0_back_default.png"]
+                       rightButtonInfo:@[@"style_default_2.0_lens_overturn.png",@"style_default_2.0_flash_closed.png"]];
     _configBar.topBarDelegate = self;
     [self.view addSubview:_configBar];
     
     // 默认相机底部控制栏
-    _bottomBar = [[ClickPressBottomBar alloc]initWithFrame:CGRectMake(0, self.view.lsqGetSizeHeight-164, rect.size.width , 164)];
+    _bottomBar = [[ClickPressBottomBar alloc]initWithFrame:CGRectMake(0, self.view.lsqGetSizeHeight-164, self.view.lsqGetSizeWidth , 164)];
     // 该录制模式需和 _camera 中的一致, bottomBar的UI逻辑中，默认为正常模式
     _bottomBar.bottomBarDelegate = self;
     [self.view addSubview:_bottomBar];
@@ -183,11 +168,19 @@
 - (void)startCamera
 {
     if (!_cameraView) {
+//        CGFloat topY = 0;
+//        CGFloat height = self.view.lsqGetSizeHeight;
+//        if ([UIDevice lsqIsDeviceiPhoneX]) {
+//            height = self.view.lsqGetSizeWidth*16/9;
+//            topY = (self.view.lsqGetSizeHeight - height)/2;
+//        }
         _cameraView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth, self.view.lsqGetSizeHeight)];
+        _preView.frame = _cameraView.frame;
+        _takePictureIV.frame = _preView.bounds;
         [self.view insertSubview:_cameraView atIndex:0];
         
         // 使用tapView 做中间的手势响应范围，为了防止和录制按钮的手势时间冲突(偶发)
-        _tapView = [[UIView alloc]initWithFrame:CGRectMake(0, 71, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth)];
+        _tapView = [[UIView alloc]initWithFrame:CGRectMake(0, 88, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth)];
         _tapView.hidden = YES;
         [self.view addSubview:_tapView];
         // 添加手势方法
@@ -205,16 +198,17 @@
     // 设置录制文件格式(默认：lsqFileTypeQuickTimeMovie)
     _camera.fileType = lsqFileTypeMPEG4;
     // 输出视频的画质，主要包含码率、压缩级别等参数 (默认为空，采用系统设置)
-    _camera.videoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium2];
+    _camera.videoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium1];
     // 设置委托
     _camera.videoDelegate = self;
+    _camera.cameraViewRatio = (self.view.lsqGetSizeWidth / self.view.lsqGetSizeHeight);
     // 配置相机参数
     // 禁止触摸聚焦功能 (默认: NO)
     _camera.disableTapFocus = NO;
     // 是否禁用持续自动对焦
     _camera.disableContinueFoucs = NO;
     // 视频覆盖区域颜色 (默认：[UIColor blackColor])
-    _camera.regionViewColor = [UIColor blackColor];
+    _camera.regionViewColor = [UIColor whiteColor];
     // 禁用前置摄像头自动水平镜像 (默认: NO，前置摄像头拍摄结果自动进行水平镜像)
     _camera.disableMirrorFrontFacing = NO;
     // 默认闪光灯模式
@@ -228,15 +222,17 @@
     // 设置水印，默认为空
     _camera.waterMarkImage = [UIImage imageNamed:@"upyun_wartermark.png"];
     // 设置水印图片的位置
-    _camera.waterMarkPosition = lsqWaterMarkTopLeft;
-    // 最大录制时长 10s
-    _camera.maxRecordingTime = 10;
+    _camera.waterMarkPosition = lsqWaterMarkBottomRight;
+    // 最大录制时长 5s
+    _camera.maxRecordingTime = 5;
     // 最小录制时长 0s 在点击拍照、长按录制的UI交互下最小时长设为0
     _camera.minRecordingTime = 0;
     // 正常模式/续拍模式  - 注：Demo中点击拍照、长按录制的UI交互仅适用于正常模式，若需要点击拍照、长按进行续拍，可自行更改
     _camera.recordMode = lsqRecordModeNormal;
-    //  设置使用录制相机最小空间限制,开发者可根据需要自行设置（单位：字节 默认：50M）
+    // 设置使用录制相机最小空间限制,开发者可根据需要自行设置（单位：字节 默认：50M）
     _camera.minAvailableSpaceBytes  = 1024.f*1024.f*50.f;
+    // 设置变速录制的速率  默认：标准   包含：标准、慢速、极慢、快速、极快    注：快慢速录制同样支持断点续拍，可结合具体UI进行调用，示例代码请参考 MovieRecordFullScreenController
+//    _camera.speedMode = lsqSpeedMode_Slow2;
     // 启动相机
     [_camera tryStartCameraCapture];
     
@@ -262,9 +258,9 @@
     NSString *imageName = @"";
     
     if(_flashModeIndex == 1){
-        imageName = @"style_default_1.6.0_flash_open.png";
+        imageName = @"style_default_2.0_flash_open.png";
     }else{
-        imageName = @"style_default_1.6.0_flash_closed.png";
+        imageName = @"style_default_2.0_flash_closed.png";
     }
     UIImage *image = [UIImage imageNamed:imageName];
     [_configBar changeBtnStateWithIndex:1 isLeftbtn:NO withImage:image withEnabled:enabled];
@@ -277,9 +273,17 @@
         // 保存照片
         [TuSDKTSAssetsManager saveWithImage:_takePictureIV.image compress:0 metadata:nil toAblum:nil completionBlock:^(id<TuSDKTSAssetInterface> asset, NSError *error) {
             if (!error) {
-                _takePictureIV.image = nil;
-                _takePictureIV.hidden = YES;
-                [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
+                if (![NSThread isMainThread]) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        _takePictureIV.image = nil;
+                        _takePictureIV.hidden = YES;
+                        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
+                    });
+                }else{
+                    _takePictureIV.image = nil;
+                    _takePictureIV.hidden = YES;
+                    [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
+                }
             }
         } ablumCompletionBlock:nil];
         
@@ -330,9 +334,11 @@
     _videoLayer.frame = _cameraView.bounds;
     _videoLayer.videoGravity = AVLayerVideoGravityResizeAspect;
     [_preView.layer addSublayer:_videoLayer];
-    _preView.hidden = NO;
     [_videoPlayer play];
     
+    // 监听status
+    [_videoItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loopPlayVideo:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 }
 
@@ -344,6 +350,26 @@
         [_videoPlayer play];
     }
 }
+
+/**
+ KVO回调 视频加载状态改变
+ 
+ @param keyPath keyPath description
+ @param object object description
+ @param change change description
+ @param context context description
+ */
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"status"]) {
+        if (_videoItem.status == AVPlayerItemStatusReadyToPlay) {
+            _preView.hidden = NO;
+        }else if (_videoItem.status == AVPlayerItemStatusFailed){
+            NSLog(@"视频加载出错");
+        }
+    }
+}
+
 
 #pragma mark - 点击事件方法
 - (void)cameraTapEvent
@@ -512,9 +538,7 @@
     //  开始录制
     _videoPath = nil;
     if (![_camera isRecording]) {
-        dispatch_async(self.sessionQueue, ^{
-            [_camera startRecording];
-        });
+        [_camera startRecording];
     }
 }
 
@@ -748,6 +772,7 @@
 - (void)destroyVideoPlayer
 {
     if (_videoPlayer) {
+        [_videoItem removeObserver:self forKeyPath:@"status"];
         [_videoItem.asset cancelLoading];
         [_videoItem cancelPendingSeeks];
         [_videoPlayer cancelPendingPrerolls];
@@ -764,6 +789,9 @@
 {
     [self destroyCamera];
     [self destroyVideoPlayer];
+    if (_videoItem) {
+        [_videoItem removeObserver:self forKeyPath:@"status"];
+    }
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 #if !OS_OBJECT_USE_OBJC
     if (_sessionQueue != NULL)

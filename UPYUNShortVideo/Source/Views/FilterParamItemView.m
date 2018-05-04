@@ -48,7 +48,7 @@
 - (instancetype)initWithFrame:(CGRect)frame;
 {
     if (self = [super initWithFrame:frame]) {
-        _mainColor = HEXCOLOR(0x22bbf4);
+        _mainColor = lsqRGB(244, 161, 24);
     }
     return self;
 }

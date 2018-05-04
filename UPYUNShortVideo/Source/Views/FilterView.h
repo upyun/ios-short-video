@@ -38,6 +38,8 @@
 @property (nonatomic, assign) NSInteger currentFilterTag;
 // 是否隐藏大眼、瘦脸参数调节UI   YES：若存在该参数，则不显示
 @property (nonatomic, assign) BOOL isHiddenEyeChinParam;
+// 是否屏蔽磨皮参数的单独调节UI  YES：磨皮参数不单独显示，归类为滤镜参数中    默认：NO
+@property (nonatomic, assign) BOOL isHiddenSmoothingParamSingleAdjust;
 // 美颜参数调节 view 包含 磨皮、大眼、瘦脸
 @property (nonatomic, strong) UIView *beautyParamView;
 // 滤镜选择 View

@@ -19,8 +19,8 @@
 @property (nonatomic, assign) CGFloat minCutTime;
 // 事件代理
 @property (nonatomic, assign) id<VideoClipViewDelegate> clipDelegate;
-// 缩略图数组
-@property (nonatomic, strong) NSArray<UIImage*> *thumbnails;
+// 视频路径URL
+@property (nonatomic, strong) NSURL *videoURL;
 
 
 @end

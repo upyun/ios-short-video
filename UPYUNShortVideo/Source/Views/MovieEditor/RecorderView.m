@@ -46,7 +46,7 @@
     // 录音 view
     _recorderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 64, 64)];
     _recorderView.center = CGPointMake(backView.lsqGetSizeWidth/2, backView.lsqGetSizeHeight/2);
-    _recorderView.backgroundColor = HEXCOLOR(0x22bbf4);
+    _recorderView.backgroundColor = [UIColor lsqClorWithHex:@"#F6A623"];
     _recorderView.layer.cornerRadius = 32;
     [backView addSubview:_recorderView];
     

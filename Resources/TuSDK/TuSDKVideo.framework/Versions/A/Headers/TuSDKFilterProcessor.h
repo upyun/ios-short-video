@@ -40,6 +40,15 @@
      *  如果设置了输出尺寸，则对画面进行等比例缩放，必要时进行裁剪，保证输出尺寸和预设尺寸一致。
      */
     CGSize _outputSize;
+    
+    // 设备当前朝向
+    UIDeviceOrientation _deviceOrient;
+    // 设备图像方向
+    UIImageOrientation _imageOrient;
+    // 设备视频方向
+    AVCaptureVideoOrientation _videoOrientation;
+    // 物理感应器方向所对应的视频transform
+    CGAffineTransform _videoInputTransform;
 }
 
 /**
@@ -57,6 +66,17 @@
  *  默认:lsqFormatTypeBGRA
  */
 @property (nonatomic) lsqFrameFormatType outputPixelFormatType;
+
+/**
+ *  是否调整输出方向，当 isOriginalOrientation 为 YES 时生效;  YES: 调整输出的buffer方向  NO：输出的buffer方向与输入保持一致
+ *  默认:NO
+ */
+@property (nonatomic, assign) BOOL adjustOutputRotation;
+
+/**
+ *  用户界面方向 默认为：UIDeviceOrientationPortrait
+ */
+@property(readwrite, nonatomic) UIInterfaceOrientation interfaceOrientation;
 
 /**
  *  初始化
@@ -142,12 +162,12 @@
  */
 - (void)removeAllLiveSticker;
 
+/** 设置检测框最小倍数 [取值范围: 0.1 < x < 0.5, 默认: 0.2] 值越大性能越高距离越近 */
+- (void) setDetectScale: (CGFloat) scale;
 #pragma mark - destory
 
 /**
  *  销毁
  */
 - (void)destory;
-
-
 @end

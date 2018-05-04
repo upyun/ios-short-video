@@ -20,13 +20,17 @@
 
 - (void)lsqInitView
 {
-    CGRect rect = [[UIScreen mainScreen] applicationFrame];
-    
+    CGRect rect = [UIScreen mainScreen].bounds;
+    self.view.backgroundColor = [UIColor whiteColor];
     // 默认相机顶部控制栏
-    self.configBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, 0, rect.size.width, 44)];
+    CGFloat topY = 0;
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        topY = 44;
+    }
+    self.configBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, topY, rect.size.width, 44)];
     [self.configBar setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.5]];
     self.configBar.topBarDelegate = self;
-    NSString *backBtnTitle = [NSString stringWithFormat:@"video_style_default_btn_back.png+%@",NSLocalizedString(@"lsq_go_back", @"返回")];
+    NSString *backBtnTitle = @"video_style_default_btn_back.png";
     [self.configBar addTopBarInfoWithTitle:NSLocalizedString(@"lsq_cut_video", @"剪辑")
                         leftButtonInfo:@[backBtnTitle]
                        rightButtonInfo:@[NSLocalizedString(@"lsq_next_step", @"下一步")]];
@@ -89,65 +93,21 @@
 - (void)initPlayerView
 {
     // 设置全屏，需要修改以下两个 view 的 frame
-    self.videoScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth, self.view.lsqGetSizeHeight)];
-    self.videoScroll.bounces = NO;
     self.videoView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth, self.view.lsqGetSizeHeight)];
-    [self.view addSubview:self.videoScroll];
-    [self.videoScroll addSubview:self.videoView];
-    [self.view sendSubviewToBack:self.videoScroll];
+    self.videoView.backgroundColor = [UIColor greenColor];
+    [self.view addSubview:self.videoView];
+    [self.view sendSubviewToBack:self.videoView];
     
     // 设置播放项目
     self.item = [[AVPlayerItem alloc]initWithURL:self.inputURL];
     
-    // 注释以下代码，达到比例自适应展示
-    /*
-    AVAssetTrack *videoTrack = [self.item.asset tracksWithMediaType:AVMediaTypeVideo][0];
-    CGSize videoSize = videoTrack.naturalSize;
-    // 根据朝向判断是否需要交换宽高
-    CGAffineTransform transform = videoTrack.preferredTransform;
-    BOOL isNeedSwopWH = NO;
-    if (transform.a == 0 && transform.b == 1.0 && transform.c == -1.0 && transform.d == 0) {
-        // Right
-        isNeedSwopWH = YES;
-    }else if (transform.a == 0 && transform.b == -1.0 && transform.c == 1.0 && transform.d == 0){
-        // Left
-        isNeedSwopWH = YES;
-    }else if (transform.a == -1.0 && transform.b == 0 && transform.c == 0 && transform.d == -1.0){
-        // Down
-        isNeedSwopWH = NO;
-    }else{
-        // Up
-        isNeedSwopWH = NO;
-    }
-    
-    if (isNeedSwopWH) {
-        // 交换宽高
-        videoSize = CGSizeMake(videoSize.height, videoSize.width);
-    }
-    // 此处的宽高计算仅适用于 1：1 情况下，若有其他的适配，请重新修改计算方案
-    if (videoSize.width > videoSize.height) {
-        // 定高适配宽
-        CGSize newSize = CGSizeMake(self.videoView.lsqGetSizeHeight*videoSize.width/videoSize.height, self.videoView.lsqGetSizeHeight);
-        CGFloat offset = (newSize.width - self.videoView.lsqGetSizeWidth)/2;
-        [self.videoView lsqSetSize:newSize];
-        self.videoScroll.contentSize = newSize;
-        self.videoScroll.contentOffset = CGPointMake(offset, 0);
-    }else{
-        // 定宽适配高
-        CGSize newSize = CGSizeMake(self.videoView.lsqGetSizeWidth, self.videoView.lsqGetSizeWidth*videoSize.height/videoSize.width);
-        CGFloat offset = (newSize.height - self.videoView.lsqGetSizeHeight)/2;
-        [self.videoView lsqSetSize:newSize];
-        self.videoScroll.contentSize = newSize;
-        self.videoScroll.contentOffset = CGPointMake(0, offset);
-    }
-    */
     // 初始化player对象
     self.player = [[AVPlayer alloc]initWithPlayerItem:self.item];
     // 设置播放页面
     self.layer = [AVPlayerLayer playerLayerWithPlayer:self.player];
     // 设置播放页面大小
     self.layer.frame = self.videoView.bounds;
-    self.layer.backgroundColor = [UIColor blackColor].CGColor;
+    self.layer.backgroundColor = [UIColor whiteColor].CGColor;
     // 设置播放显示比例
     self.layer.videoGravity = AVLayerVideoGravityResizeAspect;
     // 添加播放视图

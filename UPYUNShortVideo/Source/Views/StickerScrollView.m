@@ -25,8 +25,6 @@
 
 - (void)setCameraStickerType:(lsqCameraStickersType)cameraStickerType;
 {
-//    _cameraStickerType = lsqCameraStickersTypeAll;
-//    [self initStickersData];
     if (_cameraStickerType != cameraStickerType) {
         _cameraStickerType = cameraStickerType;
         [self initStickersData];
@@ -145,7 +143,7 @@
     // 给cell添加选中边框
     StickerCollectionViewCell *cell = (StickerCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     if (cell) {
-        cell.borderColor = HEXCOLOR(0x22bbf4);
+        cell.borderColor = lsqRGB(244, 161, 24);
         _selectedIndexPath = indexPath;
     }
 }
@@ -161,12 +159,10 @@
 {
     if (_selectedIndexPath && _selectedIndexPath.row == indexPath.row) {
         StickerCollectionViewCell *stickerCell = (StickerCollectionViewCell *)cell;
-        stickerCell.borderColor = HEXCOLOR(0x22bbf4);
+        stickerCell.borderColor = lsqRGB(244, 161, 24);
         
         [_collectionView selectItemAtIndexPath:_selectedIndexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-        if (indexPath.row-1 < 0) {
-            return;
-        }
+        
         // 判断贴纸是否存在
         if ([_stickerGroups[indexPath.row-1] isMemberOfClass:[TuSDKPFStickerGroup class]]) {
             // 贴纸已存在

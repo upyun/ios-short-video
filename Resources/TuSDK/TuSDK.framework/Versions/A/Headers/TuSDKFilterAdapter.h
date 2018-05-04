@@ -178,7 +178,10 @@
  */
 - (void)loadFilterThumbWithImageView:(UIImageView *)view option:(TuSDKFilterOption *)option;
 @end
-
+#pragma mark - TuSDKFilterExtend
+@interface GPUImageFilter(TuSDKFilterExtend)
+- (void)setMatrix4fArray:(GLfloat *)matrix forUniform:(GLint)uniform program:(GLProgram *)shaderProgram;
+@end
 #pragma mark - TuSDKFilter
 @interface TuSDKFilter: GPUImageFilter
 /** 缩放大小 (默认为1.0，数值越小性能越高) */

@@ -47,10 +47,10 @@
 /**
  *  更新脸部信息，运行在主线程
  *
- *  @param faces       特征点数据
- *  @param deviceAngle 设备角度
+ *  @param faces  特征点数据
+ *  @param radian 设备弧度
  */
-- (void)updateFaceFeatures:(NSArray<TuSDKFaceAligment *> *)faces angle:(CGFloat)deviceAngle;
+- (void)updateFaceFeatures:(NSArray<TuSDKFaceAligment *> *)faces radian:(CGFloat)radian;
 
 @end
 

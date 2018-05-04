@@ -66,11 +66,11 @@
     CGFloat btnHeight = 50;
     CGFloat btnWidth = 50;
     CGFloat centerX = 35;
-    CGFloat btnFontSize = btnWidth < 35 ? 12 : 14;
+    CGFloat btnFontSize = 12;
     CGFloat centerY = self.lsqGetSizeHeight/2;
     CGFloat interval = (_scrollBackView.lsqGetSizeWidth - centerX)/4;
     
-    if (allCount <= 4 && _isEquallyDisplay) {
+    if (allCount <= 4 || _isEquallyDisplay) {
         interval = self.lsqGetSizeWidth/allCount;
         centerX = interval/2;
     }
@@ -86,7 +86,6 @@
         btn.center = CGPointMake(centerX, centerY);
         btn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
         btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        
         [btn addTarget:self action:@selector(clickBottomButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
         [btn setImage:btnImage forState:UIControlStateNormal];
         [btn setTitle:title forState:UIControlStateNormal];

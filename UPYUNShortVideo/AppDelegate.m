@@ -26,7 +26,7 @@
      *
      *  @param appkey 应用秘钥 (请前往 http://tusdk.com 申请秘钥)
      */
-    [TuSDK initSdkWithAppKey:@"30f2fe79726dfb83-01-dmlup1"];
+    [TuSDK initSdkWithAppKey:@"5e6f5605b2a6dcc9-03-dmlup1"];
     
     /**
      *  指定开发模式,需要与lsq_tusdk_configs.json中masters.key匹配， 如果找不到devType将默认读取master字段

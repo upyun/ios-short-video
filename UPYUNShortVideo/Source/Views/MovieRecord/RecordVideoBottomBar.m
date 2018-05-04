@@ -7,25 +7,22 @@
 //
 
 #import "RecordVideoBottomBar.h"
-#import "TuSDKFramework.h"
 #import "TopNavBar.h"
 
 @interface RecordVideoBottomBar ()
 {
+    // 长按是否开始
+    BOOL _touchBegin;
+    // 手势view
     UIView *_touchView;
-    
     // 滤镜 label
     UILabel *_filterLabel;
-    
     // 贴纸 label
     UILabel *_stickerLabel;
-    
-    // 贴纸 label
+    // 相册 label
     UILabel *_albumLabel;
-    
     // 确认 label
     UILabel *_completeLabel;
-    
     // 撤销 label
     UILabel *_cancelLabel;
 }
@@ -61,7 +58,8 @@
 -(void)lsqInitView;
 {
     CGRect rect = self.bounds;
-    CGFloat buttonWidth = 30;
+    CGFloat buttonWidth = 40;
+    CGFloat buttonHeight = 54;
     CGFloat labelWidth = 60;
     CGFloat labelHeight = 26;
     CGFloat sideDistance = 40;
@@ -76,96 +74,102 @@
     
     CGFloat gapDistance = rect.size.width - buttonWidth - sideDistance* 2;
     
-    // 贴纸按钮
-    _stickerButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, buttonWidth, buttonWidth)];
-    [_stickerButton setCenter:CGPointMake(sideDistance + buttonWidth/2, rect.size.height*3/4)];
-    [_stickerButton setImage:[UIImage imageNamed:@"style_default_btn_sticker"] forState:UIControlStateNormal];
-    [_stickerButton addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_stickerButton];
+    CGFloat stickerBtnCenterY = rect.size.height - buttonHeight/2 - 5 ;
+    CGFloat titleCenterY = rect.size.height - buttonHeight/2 + 10 ;
+    CGFloat albumBtnCenterY = rect.size.height/3 ;
     
-    CGFloat stickerBtnCenterY = rect.size.height*3/4 ;
-    CGFloat stickerLabCenterY = _stickerButton.frame.origin.y +  buttonWidth + labelHeight/2 ;
+    
+    // 确认按钮
+    _completeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, labelWidth, labelHeight)];
+    [_completeLabel setCenter:CGPointMake(rect.size.width - sideDistance - buttonWidth/2, titleCenterY)];
+    _completeLabel.font = [UIFont systemFontOfSize:12];
+    _completeLabel.textColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1];
+    _completeLabel.text =  NSLocalizedString(@"lsq_complete_button_text", @"确认");
+    _completeLabel.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:_completeLabel];
+    
+    _completeButton = [[UIButton alloc]initWithFrame:CGRectMake(0 , 0, buttonWidth, buttonHeight)];
+    [_completeButton setCenter:CGPointMake(_completeLabel.center.x, stickerBtnCenterY)];
+    [_completeButton setImage:[UIImage imageNamed:@"style_default_btn_finish_unselected"] forState:UIControlStateDisabled];
+    [_completeButton setImage:[UIImage imageNamed:@"style_default_btn_finish_selected"] forState:UIControlStateSelected];
+    _completeButton.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+    _completeButton.enabled = NO;
+    [_completeButton addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
+    _completeButton.adjustsImageWhenHighlighted = NO;
+    [self addSubview:_completeButton];
 
+    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) return;
+
+    // 贴纸按钮
     _stickerLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, labelWidth, labelHeight)];
-    [_stickerLabel setCenter:CGPointMake(_stickerButton.center.x, stickerLabCenterY)];
+    [_stickerLabel setCenter:CGPointMake(sideDistance + buttonWidth/2, titleCenterY)];
     _stickerLabel.font = [UIFont systemFontOfSize:12];
-    _stickerLabel.textColor = HEXCOLOR(0x22bbf4);
+    _stickerLabel.textColor = [UIColor colorWithRed:0.95 green:0.6 blue:0.1 alpha:1];
     _stickerLabel.text =  NSLocalizedString(@"lsq_sticker_button_text", @"动态贴纸");
     _stickerLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_stickerLabel];
-    
-    CGFloat albumBtnCenterY = rect.size.height/3 ;
-    
+
+    _stickerButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight)];
+    [_stickerButton setCenter:CGPointMake(_stickerLabel.center.x, stickerBtnCenterY)];
+    [_stickerButton setImage:[UIImage imageNamed:@"style_default_btn_sticker"] forState:UIControlStateNormal];
+    _stickerButton.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+    [_stickerButton addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:_stickerButton];
+
     // 相册按钮
-    _albumButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, buttonWidth, buttonWidth)];
-    [_albumButton setCenter:CGPointMake(sideDistance + buttonWidth/2, albumBtnCenterY)];
-    [_albumButton setImage:[UIImage imageNamed:@"style_default_1.6.0_homepage_import_icon"] forState:UIControlStateNormal];
-    [_albumButton addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
-    _albumButton.adjustsImageWhenHighlighted = NO;
-    [self addSubview:_albumButton];
-
-    CGFloat albumLabCenterY = _albumButton.frame.origin.y +  buttonWidth + labelHeight/2 ;
-
     _albumLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, labelWidth, labelHeight)];
-    [_albumLabel setCenter:CGPointMake(_albumButton.center.x, albumLabCenterY)];
+    [_albumLabel setCenter:CGPointMake(sideDistance + buttonWidth/2, albumBtnCenterY + 15)];
     _albumLabel.font = [UIFont systemFontOfSize:12];
-    _albumLabel.textColor = HEXCOLOR(0x22bbf4);
+    _albumLabel.textColor = [UIColor colorWithRed:0.95 green:0.6 blue:0.1 alpha:1];
     _albumLabel.text =  NSLocalizedString(@"lsq_album_button_text", @"导入相册");
     _albumLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_albumLabel];
     
+    _albumButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight)];
+    [_albumButton setCenter:CGPointMake(_albumLabel.center.x, albumBtnCenterY)];
+    [_albumButton setImage:[UIImage imageNamed:@"style_default_1.7.1_btn_import"] forState:UIControlStateNormal];
+    _albumButton.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+    [_albumButton addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
+    _albumButton.adjustsImageWhenHighlighted = NO;
+    [self addSubview:_albumButton];
+
     // 滤镜按钮
-    _filterButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, buttonWidth, buttonWidth)];
-    [_filterButton setCenter:CGPointMake(sideDistance + buttonWidth/2 + gapDistance/3, stickerBtnCenterY)];
-    [_filterButton setImage:[UIImage imageNamed:@"style_default_btn_filter"] forState:UIControlStateNormal];
-    [_filterButton addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
-    _filterButton.adjustsImageWhenHighlighted = NO;
-    [self addSubview:_filterButton];
-    
     _filterLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, labelWidth, labelHeight)];
-    [_filterLabel setCenter:CGPointMake(_filterButton.center.x, stickerLabCenterY)];
+    [_filterLabel setCenter:CGPointMake(sideDistance + buttonWidth/2 + gapDistance/3, titleCenterY)];
     _filterLabel.font = [UIFont systemFontOfSize:12];
-    _filterLabel.textColor = HEXCOLOR(0x22bbf4);
+    _filterLabel.textColor = [UIColor colorWithRed:0.95 green:0.6 blue:0.1 alpha:1];
     _filterLabel.text =  NSLocalizedString(@"lsq_filter_button_text", @"智能美化");
     _filterLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_filterLabel];
 
-    // 后退按钮
-    _cancelButton = [[UIButton alloc]initWithFrame:CGRectMake(0 , 0, buttonWidth, buttonWidth)];
-    [_cancelButton setCenter:CGPointMake(sideDistance + buttonWidth/2 + gapDistance*2/3, stickerBtnCenterY)];
-    [_cancelButton setImage:[UIImage imageNamed:@"style_default_btn_back_unselected"] forState:UIControlStateDisabled];
-    [_cancelButton setImage:[UIImage imageNamed:@"style_default_btn_back_selected"] forState:UIControlStateSelected];
-    _cancelButton.enabled = NO;
-    [_cancelButton addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
-    _cancelButton.adjustsImageWhenHighlighted = NO;
-    [self addSubview:_cancelButton];
+    _filterButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight)];
+    [_filterButton setCenter:CGPointMake(_filterLabel.center.x, stickerBtnCenterY)];
+    [_filterButton setImage:[UIImage imageNamed:@"style_default_1.7.1_btn_filter_selected"] forState:UIControlStateNormal];
+    _filterButton.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+    [_filterButton addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
+    _filterButton.adjustsImageWhenHighlighted = NO;
+    [self addSubview:_filterButton];
     
+    // 后退按钮
     _cancelLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, labelWidth, labelHeight)];
-    [_cancelLabel setCenter:CGPointMake(_cancelButton.center.x, stickerLabCenterY)];
+    [_cancelLabel setCenter:CGPointMake(sideDistance + buttonWidth/2 + gapDistance*2/3, titleCenterY)];
     _cancelLabel.font = [UIFont systemFontOfSize:12];
     _cancelLabel.textColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1];
     _cancelLabel.text =  NSLocalizedString(@"lsq_cancel_button_text", @"后退");
     _cancelLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_cancelLabel];
 
-    // 确认按钮
-    _completeButton = [[UIButton alloc]initWithFrame:CGRectMake(0 , 0, buttonWidth, buttonWidth)];
-    [_completeButton setCenter:CGPointMake(rect.size.width - sideDistance - buttonWidth/2, stickerBtnCenterY)];
-    [_completeButton setImage:[UIImage imageNamed:@"style_default_btn_finish_unselected"] forState:UIControlStateDisabled];
-    [_completeButton setImage:[UIImage imageNamed:@"style_default_btn_finish_selected"] forState:UIControlStateSelected];
-    _completeButton.enabled = NO;
-    [_completeButton addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
-    _completeButton.adjustsImageWhenHighlighted = NO;
-    [self addSubview:_completeButton];
+    _cancelButton = [[UIButton alloc]initWithFrame:CGRectMake(0 , 0, buttonWidth, buttonHeight)];
+    [_cancelButton setCenter:CGPointMake(_cancelLabel.center.x, stickerBtnCenterY)];
+    [_cancelButton setImage:[UIImage imageNamed:@"style_default_btn_back_unselected"] forState:UIControlStateDisabled];
+    [_cancelButton setImage:[UIImage imageNamed:@"style_default_btn_back_selected"] forState:UIControlStateSelected];
+    _cancelButton.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+    _cancelButton.enabled = NO;
+    [_cancelButton addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
+    _cancelButton.adjustsImageWhenHighlighted = NO;
+    [self addSubview:_cancelButton];
     
     
-    _completeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, labelWidth, labelHeight)];
-    [_completeLabel setCenter:CGPointMake(_completeButton.center.x, stickerLabCenterY)];
-    _completeLabel.font = [UIFont systemFontOfSize:12];
-    _completeLabel.textColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1];
-    _completeLabel.text =  NSLocalizedString(@"lsq_complete_button_text", @"确认");
-    _completeLabel.textAlignment = NSTextAlignmentCenter;
-    [self addSubview:_completeLabel];
 }
 
 // 录制按钮由于需要使用手势，故事件代理在touches 方法中抛出
@@ -175,7 +179,8 @@
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];
     if (CGRectContainsPoint(_touchView.frame, point)) {
-        // 此时被按下；开始录制
+        // 此时被按下 开始录制
+        _touchBegin = YES;
         _recordButton.selected = YES;
         if ([self.bottomBarDelegate respondsToSelector:@selector(onRecordBtnPressStart:)]) {
             [self.bottomBarDelegate onRecordBtnPressStart:_recordButton];
@@ -183,39 +188,20 @@
     }
 }
 
-- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    if (self.recordMode == lsqRecordModeNormal) return;
-
-    UITouch *touch = [touches anyObject];
-    CGPoint point = [touch locationInView:self];
-    if (!CGRectContainsPoint(_touchView.frame, point)) {
-        // 此时手指滑动移开按钮范围； 暂停录制
-        if (_recordButton.selected) {
-            _recordButton.selected = NO;
-            if ([self.bottomBarDelegate respondsToSelector:@selector(onRecordBtnPressEnd:)]) {
-                [self.bottomBarDelegate onRecordBtnPressEnd:_recordButton];
-            }
-        }
-    }
-}
-
-
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     if (self.recordMode == lsqRecordModeNormal) return;
 
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];
-    if (CGRectContainsPoint(_touchView.frame, point)) {
-        // 手指移开； 暂停录制
+    if (_touchBegin) {
+        // 手指移开 暂停录制
         _recordButton.selected = NO;
         if ([self.bottomBarDelegate respondsToSelector:@selector(onRecordBtnPressEnd:)]) {
             [self.bottomBarDelegate onRecordBtnPressEnd:_recordButton];
         }
     }
 }
-
 
 // 按钮点击事件
 - (void)clickBtn:(UIButton*)sender
@@ -233,7 +219,7 @@
     if (enabledCancle) {
         _cancelButton.enabled = YES;
         _cancelButton.selected = YES;
-        _cancelLabel.textColor = HEXCOLOR(0x22bbf4);
+        _cancelLabel.textColor = [UIColor colorWithRed:0.95 green:0.6 blue:0.1 alpha:1];
     }else{
         _cancelButton.enabled = NO;
         _cancelButton.selected = NO;
@@ -249,7 +235,7 @@
     if (enabledComplete) {
         _completeButton.selected = YES;
         _completeButton.enabled = YES;
-        _completeLabel.textColor = HEXCOLOR(0x22bbf4);
+        _completeLabel.textColor = [UIColor colorWithRed:0.95 green:0.6 blue:0.1 alpha:1];
     }else{
         _completeButton.selected = NO;
         _completeButton.enabled = NO;

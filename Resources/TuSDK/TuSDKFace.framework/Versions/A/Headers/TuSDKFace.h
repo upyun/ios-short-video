@@ -12,6 +12,10 @@
 #import "TuSDKFaceImport.h"
 
 #pragma mark - TuSDKFace
+
+/** Video版本号 */
+extern NSString * const lsqFaceVersion;
+
 /**
  *  人脸检测
  */
@@ -19,6 +23,9 @@
 
 // 人脸检测
 + (TuSDKFace *)shared;
+
+/** 设置检测框最小倍数 [取值范围: 0.1 < x < 0.5, 默认: 0.2] 值越大性能越高距离越近 */
++ (void) setDetectScale: (CGFloat) scale;
 
 /**
  *  检测人脸并识别
@@ -30,15 +37,14 @@
 + (NSArray<TuSDKFaceAligment *> *)markFaceWithImage:(UIImage *)image;
 
 /**
- *  根据人脸特征点获取三维角度
- *
- *  @param faceAligment 人脸特征
- *  @param previewSize  视图大小
- *
- *  @return 返回三维角度
+ 对GPU的帧数据检测人脸并识别
+
+ @param width 宽度
+ @param height 高度
+ @param radian 设备旋转弧度
+ @return 返回查找到的人脸
  */
-+ (NSDictionary *)calcFaceAngle:(TuSDKFaceAligment *)faceAligment
-                           previewSize:(CGSize)previewSize;
++ (NSArray<TuSDKFaceAligment *> *)markFaceGL2WithWidth:(int)width height:(int)height radian:(float)radian;
 
 /**
  对相机采集的帧数据检测人脸并识别
@@ -47,7 +53,7 @@
  @param width 宽度
  @param height 高度
  @param ori 朝向
- @param angle 设备旋转角度
+ @param radian 设备旋转弧度
  @param flip 是否水平翻转
  
  @return 返回查找到的人脸
@@ -57,17 +63,17 @@
                                                   height:(int)height
                                                   stride:(int)stride
                                                      ori:(float)ori
-                                                   angle:(float)angle
+                                                  radian:(float)radian
                                                     flip:(BOOL)flip;
 
 /**
  对灰度图数据检测人脸并识别
-
+ 
  @param buffer 灰度
  @param width 宽度
  @param height 高度
  @param ori 朝向
- @param angle 设备旋转角度
+ @param radian 设备旋转弧度
  @param flip 是否水平翻转
  
  @return 返回查找到的人脸
@@ -77,6 +83,6 @@
                                                   height:(int)height
                                                   stride:(int)stride
                                                      ori:(float)ori
-                                                   angle:(float)angle
+                                                  radian:(float)radian
                                                     flip:(BOOL)flip;
 @end

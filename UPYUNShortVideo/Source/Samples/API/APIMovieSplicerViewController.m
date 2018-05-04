@@ -18,6 +18,8 @@
     TuSDKTSMovieSplicer *_movieSplicer;
     // 底部说明 label
     UILabel * explainationLabel;
+    // 距离定点距离
+    CGFloat topYDistance;
 }
 
 // 系统播放器
@@ -34,29 +36,11 @@
 // 隐藏状态栏 for IOS7
 - (BOOL)prefersStatusBarHidden;
 {
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        return NO;
+    }
+
     return YES;
-}
-
-// 是否允许旋转 IOS5
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    return NO;
-}
-
-// 是否允许旋转 IOS6
--(BOOL)shouldAutorotate
-{
-    return NO;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
-    return UIInterfaceOrientationPortrait;
 }
 
 #pragma mark - 视图布局方法
@@ -65,10 +49,10 @@
 {
     [super viewWillAppear:animated];
     
-    // 页面设置
-    self.wantsFullScreenLayout = YES;
     [self setNavigationBarHidden:YES animated:NO];
-    [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    if (![UIDevice lsqIsDeviceiPhoneX]) {
+        [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    }
 }
 
 - (void)viewDidLoad
@@ -76,6 +60,11 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor lsqClorWithHex:@"#F3F3F3"];
 
+    topYDistance = 0;
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        topYDistance += 44;
+    }
+    
     // 顶部栏初始化
     [self initWithTopBar];
     // 视频播放器初始化
@@ -92,7 +81,7 @@
     CGFloat sideGapDistance = 50;
     explainationLabel  = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth - 10, _topBar.lsqGetSizeHeight)];
     explainationLabel.backgroundColor = lsqRGB(236, 236, 236);
-    explainationLabel.center = CGPointMake(self.view.lsqGetSizeWidth/2, self.view.lsqGetSizeHeight - sideGapDistance*0.5);
+    explainationLabel.center = CGPointMake(self.view.lsqGetSizeWidth/2, self.view.lsqGetSizeHeight - sideGapDistance*0.5 - topYDistance);
     explainationLabel.textColor = [UIColor blackColor];
     explainationLabel.text = NSLocalizedString(@"lsq_api_splice_movie_explaination" , @"点击「视频拼接」按钮，将两段视频合为一段视频，保存成功后请去相册查看视频");    
     explainationLabel.numberOfLines = 0;
@@ -109,7 +98,7 @@
     
     // 开始页面 合成视频btn
     UIButton *mixButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, buttonWidth, sideGapDistance)];
-    mixButton.center = CGPointMake(self.view.lsqGetSizeWidth/2, self.view.lsqGetSizeHeight - sideGapDistance*2);
+    mixButton.center = CGPointMake(self.view.lsqGetSizeWidth/2, self.view.lsqGetSizeHeight - sideGapDistance*2 - topYDistance);
     mixButton.backgroundColor =  lsqRGB(252, 143, 96);
     [mixButton setTitle:NSLocalizedString(@"lsq_api_Splice_movie" , @"视频拼接") forState:UIControlStateNormal];
     [mixButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -123,7 +112,7 @@
 - (void)initWithVideoPlayer;
 {
     // 视频素材一播放器
-    UIView *firstPlayerView = [[UIView alloc]initWithFrame:CGRectMake(0, _topBar.lsqGetSizeHeight - 20, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth*9/16)];
+    UIView *firstPlayerView = [[UIView alloc]initWithFrame:CGRectMake(0, _topBar.lsqGetSizeHeight - 20 + topYDistance/2, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth*9/16)];
     [firstPlayerView setBackgroundColor:[UIColor clearColor]];
     firstPlayerView.multipleTouchEnabled = NO;
     [self.view addSubview:firstPlayerView];
@@ -141,7 +130,7 @@
     [_firstPlayer play];
     
     // 视频素材二播放器
-    UIView *secondPlayerView = [[UIView alloc]initWithFrame:CGRectMake(0, _topBar.lsqGetSizeHeight + 80, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth*9/16)];
+    UIView *secondPlayerView = [[UIView alloc]initWithFrame:CGRectMake(0, _topBar.lsqGetSizeHeight + 80 + topYDistance, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth*9/16)];
     [secondPlayerView setBackgroundColor:[UIColor clearColor]];
     secondPlayerView.multipleTouchEnabled = NO;
     [self.view addSubview:secondPlayerView];
@@ -163,11 +152,11 @@
 // 顶部栏初始化
 - (void)initWithTopBar;
 {
-    _topBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+    _topBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0,topYDistance, self.view.bounds.size.width, 44)];
     [_topBar setBackgroundColor:[UIColor whiteColor]];
     _topBar.topBarDelegate = self;
     [_topBar addTopBarInfoWithTitle:NSLocalizedString(@"lsq_video_mixed", @"多视频拼接")
-                     leftButtonInfo:@[[NSString stringWithFormat:@"video_style_default_btn_back.png+%@",NSLocalizedString(@"lsq_go_back", @"返回")]]
+                     leftButtonInfo:@[@"video_style_default_btn_back.png"]
                     rightButtonInfo:nil];
     [_topBar.centerTitleLabel lsqSetSizeWidth:_topBar.lsqGetSizeWidth/2];
     _topBar.centerTitleLabel.center = CGPointMake(self.view.lsqGetSizeWidth/2, _topBar.lsqGetSizeHeight/2);

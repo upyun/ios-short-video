@@ -33,6 +33,9 @@
     TuSDKTSAudio *firstMixAudio;
     TuSDKTSAudio *secondMixAudio;
     UILabel * explainationLabel;
+    
+    // 距离定点距离
+    CGFloat topYDistance;
 }
 
 @end
@@ -44,29 +47,10 @@
 // 隐藏状态栏 for IOS7
 - (BOOL)prefersStatusBarHidden;
 {
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        return NO;
+    }
     return YES;
-}
-
-// 是否允许旋转 IOS5
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    return NO;
-}
-
-// 是否允许旋转 IOS6
--(BOOL)shouldAutorotate
-{
-    return NO;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
-    return UIInterfaceOrientationPortrait;
 }
 
 - (NSURL *)filePathName:(NSString *)fileName
@@ -80,15 +64,21 @@
 {
     [super viewWillAppear:animated];
     
-    // 页面设置
-    self.wantsFullScreenLayout = YES;
     [self setNavigationBarHidden:YES animated:NO];
-    [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    if (![UIDevice lsqIsDeviceiPhoneX]) {
+        [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor lsqClorWithHex:@"#F3F3F3"];
+    
+    topYDistance = 0;
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        topYDistance += 44;
+    }
+
     // 顶部栏初始化
     [self initWithTopBar];
     // 顶部说明 label
@@ -103,7 +93,7 @@
 
 - (void)initWithExplainationLabel;
 {
-    explainationLabel  = [[UILabel alloc]initWithFrame:CGRectMake(0, _topBar.lsqGetSizeHeight, self.view.lsqGetSizeWidth, _topBar.lsqGetSizeHeight*1.5)];
+    explainationLabel  = [[UILabel alloc]initWithFrame:CGRectMake(0, _topBar.lsqGetSizeHeight + topYDistance, self.view.lsqGetSizeWidth, _topBar.lsqGetSizeHeight*1.5)];
     explainationLabel.backgroundColor = lsqRGB(236, 236, 236);
     explainationLabel.textColor = [UIColor blackColor];
     explainationLabel.text = NSLocalizedString(@"lsq_api_mixed_audio_explaination", @"请分别调节以下音乐音量大小，调节完毕后，点击「生成音频」即可生成一段新的混合音乐。记得要打开系统音量哟~");
@@ -147,9 +137,9 @@
 {
     // 创建seekBar
     CGFloat sideGapDistance = 50;
-    [self initWithSeekBarAndLabels:NSLocalizedString(@"lsq_api_origin_audio", @"原音") originY:_topBar.lsqGetSizeHeight*2.5 tag:11];
-    [self initWithSeekBarAndLabels:NSLocalizedString(@"lsq_api_first_mix_audio", @"混音一") originY:_topBar.lsqGetSizeHeight*2.5 + sideGapDistance*1 tag:12];
-    [self initWithSeekBarAndLabels:NSLocalizedString(@"lsq_api_second_mix_audio", @"混音二")  originY:_topBar.lsqGetSizeHeight*2.5 + sideGapDistance*2 tag:13];
+    [self initWithSeekBarAndLabels:NSLocalizedString(@"lsq_api_origin_audio", @"原音") originY:topYDistance + _topBar.lsqGetSizeHeight*2.5 tag:11];
+    [self initWithSeekBarAndLabels:NSLocalizedString(@"lsq_api_first_mix_audio", @"混音一") originY:topYDistance + _topBar.lsqGetSizeHeight*2.5 + sideGapDistance*1 tag:12];
+    [self initWithSeekBarAndLabels:NSLocalizedString(@"lsq_api_second_mix_audio", @"混音二")  originY:topYDistance + _topBar.lsqGetSizeHeight*2.5 + sideGapDistance*2 tag:13];
     firstBGMPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:[self filePathName:@"sound_cat.mp3"] error:nil];
     firstBGMPlayer.numberOfLoops = -1;//循环播放
     firstBGMPlayer.volume = 0;
@@ -209,11 +199,11 @@
 // 顶部栏初始化
 - (void)initWithTopBar;
 {
-    _topBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+    _topBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, topYDistance, self.view.bounds.size.width, 44)];
     [_topBar setBackgroundColor:[UIColor whiteColor]];
     _topBar.topBarDelegate = self;
     [_topBar addTopBarInfoWithTitle:NSLocalizedString(@"lsq_audio_mixed", @"多音轨混合")
-                     leftButtonInfo:@[[NSString stringWithFormat:@"video_style_default_btn_back.png+%@",NSLocalizedString(@"lsq_go_back", @"返回")]]
+                     leftButtonInfo:@[@"video_style_default_btn_back.png"]
                     rightButtonInfo:nil];
     [_topBar.centerTitleLabel lsqSetSizeWidth:_topBar.lsqGetSizeWidth/2];
     _topBar.centerTitleLabel.center = CGPointMake(self.view.lsqGetSizeWidth/2, _topBar.lsqGetSizeHeight/2);
@@ -224,10 +214,9 @@
 - (void)layoutView;
 {
     CGFloat sideGapDistance = 50;
-    CGFloat btnCenterX = self.view.bounds.size.width/2;
     // 开始混合
     UIButton *testBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth - sideGapDistance*2, 40)];
-    testBtn.center = CGPointMake(self.view.lsqGetSizeWidth/2, sideGapDistance *6);
+    testBtn.center = CGPointMake(self.view.lsqGetSizeWidth/2, sideGapDistance *6 + topYDistance);
     testBtn.backgroundColor = lsqRGB(252, 143, 96);
     testBtn.layer.cornerRadius = 3;
     [testBtn setTitle:NSLocalizedString(@"lsq_api_start_mix_audio", @"开始音频混合") forState:UIControlStateNormal];
@@ -237,7 +226,7 @@
     
     // 删除混音
     UIButton *cancelPlayBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth - sideGapDistance*2, 40)];
-    cancelPlayBtn.center = CGPointMake(self.view.lsqGetSizeWidth/2, sideGapDistance *7.5);
+    cancelPlayBtn.center = CGPointMake(self.view.lsqGetSizeWidth/2, sideGapDistance *7.5 + topYDistance);
     cancelPlayBtn.backgroundColor = lsqRGB(252, 143, 96);
     cancelPlayBtn.layer.cornerRadius = 3;
     [cancelPlayBtn setTitle:NSLocalizedString(@"lsq_api_delete_mixed_audio", @"删除混和音频") forState:UIControlStateNormal];
@@ -247,7 +236,7 @@
 
     // 播放结果
     playBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, sideGapDistance*2, 40)];
-    playBtn.center = CGPointMake(sideGapDistance*2, sideGapDistance* 9);
+    playBtn.center = CGPointMake(sideGapDistance*2, sideGapDistance* 9 + topYDistance);
     playBtn.backgroundColor = lsqRGB(252, 143, 96);
     playBtn.layer.cornerRadius = 3;
     [playBtn setTitle:NSLocalizedString(@"lsq_api_play_mixed_audio", @"播放混合音频") forState:UIControlStateNormal];
@@ -258,7 +247,7 @@
     
     // 暂停播放音乐素材
     UIButton *cancelPlayAudiosBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, sideGapDistance*2, 40)];
-    cancelPlayAudiosBtn.center = CGPointMake(self.view.lsqGetSizeWidth - sideGapDistance*2, sideGapDistance *9);
+    cancelPlayAudiosBtn.center = CGPointMake(self.view.lsqGetSizeWidth - sideGapDistance*2, sideGapDistance *9 + topYDistance);
     cancelPlayAudiosBtn.backgroundColor = lsqRGB(252, 143, 96);
     cancelPlayAudiosBtn.layer.cornerRadius = 3;
     [cancelPlayAudiosBtn setTitle:NSLocalizedString(@"lsq_api_pause_mixed_music", @"暂停") forState:UIControlStateNormal];

@@ -52,9 +52,9 @@
  *  更新信息
  *
  *  @param faces  脸
- *  @param angle  设备角度
+ *  @param radian 设备弧度
  */
-- (void)updateFaceFeatures:(NSArray<TuSDKFaceAligment *> *)faces angle:(CGFloat)angle;
+- (void)updateFaceFeatures:(NSArray<TuSDKFaceAligment *> *)faces radian:(CGFloat)radian;
 @end
 
 

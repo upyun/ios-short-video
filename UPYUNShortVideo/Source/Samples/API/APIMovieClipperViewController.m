@@ -31,6 +31,8 @@
     TuSDKMovieClipper *_movieClipper;
     // 说明 label
     UILabel * explainationLabel;
+    // 距离定点距离
+    CGFloat topYDistance;
 }
 // 视频URL
 @property (nonatomic) NSURL *inputURL;
@@ -70,38 +72,20 @@
 // 隐藏状态栏 for IOS7
 - (BOOL)prefersStatusBarHidden;
 {
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        return NO;
+    }
+
     return YES;
-}
-
-// 是否允许旋转 IOS5
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    return NO;
-}
-
-// 是否允许旋转 IOS6
--(BOOL)shouldAutorotate
-{
-    return NO;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
-    return UIInterfaceOrientationPortrait;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    // 设置全屏
-    self.wantsFullScreenLayout = YES;
+
     [self setNavigationBarHidden:YES animated:NO];
-    [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-    
+    if (![UIDevice lsqIsDeviceiPhoneX]) {
+        [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -114,7 +98,12 @@
 {
     [super viewDidLoad];
     _inputURL  = [self filePathName:@"tusdk_sample_video.mov"];
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = [UIColor colorWithRed:0.92 green:0.92 blue:0.92 alpha:1];
+    topYDistance = 0;
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        topYDistance += 44;
+    }
+
     [self lsqInitView];
     [self initPlayerView];
 }
@@ -125,12 +114,11 @@
     CGRect rect = [[UIScreen mainScreen] applicationFrame];
     
     // 默认相机顶部控制栏
-    _configBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, 0, rect.size.width, 44)];
+    _configBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, topYDistance, rect.size.width, 44)];
     [_configBar setBackgroundColor:[UIColor whiteColor]];
     _configBar.topBarDelegate = self;
-    NSString *backBtnTitle = [NSString stringWithFormat:@"video_style_default_btn_back.png+%@",NSLocalizedString(@"lsq_go_back", @"返回")];
     [_configBar addTopBarInfoWithTitle:NSLocalizedString(@"lsq_video_timecut_save", @"视频时间裁剪")
-                        leftButtonInfo:@[backBtnTitle]
+                        leftButtonInfo:@[@"video_style_default_btn_back.png"]
                        rightButtonInfo:@[NSLocalizedString(@"lsq_clip_video", @"裁剪")]];
     
     [_configBar.centerTitleLabel lsqSetSizeWidth:self.view.lsqGetSizeWidth/2];
@@ -138,12 +126,12 @@
     [self.view addSubview:_configBar];
     
     // 底部裁剪栏
-    self.cutVideoView = [[CutVideoBottomView alloc]initWithFrame:CGRectMake(0, rect.size.width + 44, rect.size.width , rect.size.height - rect.size.width - 44)];
+    self.cutVideoView = [[CutVideoBottomView alloc]initWithFrame:CGRectMake(0, topYDistance + rect.size.width + 44, rect.size.width , rect.size.height - rect.size.width - 44)];
     self.cutVideoView.clipView.center = CGPointMake(self.cutVideoView.lsqGetSizeWidth/2, self.cutVideoView.lsqGetSizeHeight/2);
     self.cutVideoView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.cutVideoView];
     self.cutVideoView.userInteractionEnabled = false;
-    // 顶部说明 label
+    // 底部说明 label
     [self initWithExplainationLabel];
     // 修改播放时间的block
     __weak APIMovieClipperViewController * wSelf = self;
@@ -193,7 +181,7 @@
 }
 - (void)initWithExplainationLabel;
 {
-    explainationLabel  = [[UILabel alloc]initWithFrame:CGRectMake(0, self.cutVideoView.lsqGetSizeHeight - 50, self.cutVideoView.lsqGetSizeWidth, 50)];
+    explainationLabel  = [[UILabel alloc]initWithFrame:CGRectMake(0, self.cutVideoView.lsqGetSizeHeight - 50 - topYDistance, self.cutVideoView.lsqGetSizeWidth, 50)];
     explainationLabel.backgroundColor = lsqRGB(236, 236, 236);
     explainationLabel.textColor = [UIColor blackColor];
     explainationLabel.text = NSLocalizedString(@"lsq_api_movie_clipper_explaination",@"请在缩略图预览区域选择裁剪的时间范围，选定后请点击「裁剪」按钮，生成视频");
@@ -205,7 +193,7 @@
 
 - (void)initPlayerView
 {
-    _videoScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 44, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth)];
+    _videoScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 44 + topYDistance, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth)];
     _videoScroll.bounces = NO;
     _videoView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth)];
     [self.view addSubview:_videoScroll];
@@ -221,7 +209,7 @@
     layer = [AVPlayerLayer playerLayerWithPlayer:_player];
     // 设置播放页面大小
     layer.frame = _videoView.bounds;
-    layer.backgroundColor = [UIColor blackColor].CGColor;
+    layer.backgroundColor = [UIColor colorWithRed:0.92 green:0.92 blue:0.92 alpha:1].CGColor;
     // 设置播放显示比例
     layer.videoGravity = AVLayerVideoGravityResizeAspect;
     // 添加播放视图

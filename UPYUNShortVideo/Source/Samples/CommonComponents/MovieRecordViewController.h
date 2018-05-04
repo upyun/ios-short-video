@@ -10,7 +10,6 @@
 #import "TuSDKFramework.h"
 #import "StickerScrollView.h"
 #import "RecordVideoBottomBar.h"
-#import "CustomTuSDKCPRegionHandler.h"
 #import "TopNavBar.h"
 #import "FilterBottomButtonView.h"
 
@@ -87,6 +86,13 @@
 - (void)cameraTapEvent;
 // 初始化贴纸栏
 - (void)createStikerView;
+// 初始化顶部栏和底部栏
+- (void)initRecorderView;
+// 初始化进度烂
+- (void)initProgressView;
+// 初始化滤镜栏
+- (void)createFilterView;
+
 // 销毁对象
 - (void)destroyCamera;
 - (void)dealloc;

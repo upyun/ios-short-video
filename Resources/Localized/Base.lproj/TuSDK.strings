@@ -1,10 +1,10 @@
-/* 
-  TuSDK.strings
-  TuSDKVideoDemo
-
-  Created by Yanlin Qiu on 24/10/2016.
-  Copyright © 2016 TuSDK. All rights reserved.
-*/
+/*
+ TuSDK.strings
+ TuSDKVideoDemo
+ 
+ Created by Yanlin Qiu on 24/10/2016.
+ Copyright © 2016 TuSDK. All rights reserved.
+ */
 
 "lsq_cancel" = "取消";
 "lsq_setting" = "设置";

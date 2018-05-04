@@ -79,6 +79,15 @@
 // 相册按钮 Label
 @property (nonatomic, readonly) UILabel *albumLabel;
 
+// 确认 label
+@property (nonatomic, readonly) UILabel *completeLabel;
+
+// 撤销 label
+@property (nonatomic, readonly) UILabel *cancelLabel;
+
+// 录制按钮事件响应区域
+@property (nonatomic, readonly) UIView *touchView;
+
 // 录制模式
 @property (nonatomic, assign) lsqRecordMode recordMode;
 

@@ -1,10 +1,10 @@
-/* 
-  Localizable.strings
-  TuSDKLiveVideoDemo
-
-  Created by Yanlin on 3/7/16.
-  Copyright © 2016 tusdk.com. All rights reserved.
-*/
+/*
+ Localizable.strings
+ TuSDKLiveVideoDemo
+ 
+ Created by Yanlin on 3/7/16.
+ Copyright © 2016 tusdk.com. All rights reserved.
+ */
 
 "app_name" = "塗圖 TuSDK Video";
 "back" = "返回";
@@ -36,12 +36,14 @@
 
 "lsq_reset" = "重置";
 "lsq_filter_set_smoothing" = "潤滑";
+"lsq_filter_set_vignette" = "圖案";
 "lsq_filter_set_whitening" = "白皙";
 "lsq_filter_set_blurSize" = "強度";
 "lsq_filter_set_mixied" = "效果";
 "lsq_filter_set_distanceFactor" = "半徑";
 "lsq_filter_set_eyeSize" = "大眼";
 "lsq_filter_set_chinSize" = "瘦臉";
+"lsq_filter_set_animation" = "動畫";
 
 // 滤镜 17种
 "lsq_filter_SkinSugar" = "糖水色";
@@ -60,7 +62,7 @@
 "lsq_filter_J5" = "J5";
 "lsq_filter_Newborn" = "新生";
 "lsq_filter_Morning" = "清晨";
-"lsq_filter_Original04" = "原始";
+"lsq_filter_Original" = "原始";
 "lsq_filter_Glaze" = "琉璃";
 "lsq_filter_Snow" = "白雪";
 "lsq_filter_Agar" = "瓊脂";
@@ -68,35 +70,77 @@
 "lsq_filter_Fine" = "晴天";
 
 // new filter
-"lsq_filter_Fair04" = "白皙";
-"lsq_filter_Pink005" = "粉嫩";
-"lsq_filter_Forest04" = "小森林";
-"lsq_filter_Sundown04" = "日不落";
-"lsq_filter_Sakura04" = "樱花草";
-"lsq_filter_Paul04" = "阿寶";
-"lsq_filter_Lavender04" = "薰衣草";
-"lsq_filter_Manhattan04" = "曼哈顿";
-"lsq_filter_Dusk05" = "黄昏";
-"lsq_filter_TinyTimes04" = "小時代";
-"lsq_filter_TinyTimes04" = "小清新";
-"lsq_filter_Year195004" = "1950";
-"lsq_filter_Missing04" = "想你色";
-"lsq_filter_Grapefruit04" = "西柚色";
+"lsq_filter_SkinPink010" = "粉嫩";
+"lsq_filter_SkinJelly010" = "果冻";
+"lsq_filter_Fair010" = "白皙";
+"lsq_filter_Pink010" = "淡雅";
+"lsq_filter_Forest010" = "小森林";
+"lsq_filter_Sundown" = "日不落";
+"lsq_filter_Sakura" = "樱花草";
+"lsq_filter_Paul01" = "阿寶";
+"lsq_filter_Lavender" = "薰衣草";
+"lsq_filter_Manhattan" = "曼哈顿";
+"lsq_filter_Dusk" = "黄昏";
+"lsq_filter_TinyTimes" = "小時代";
+"lsq_filter_Vivid01" = "小清新";
+"lsq_filter_Year1950" = "1950";
+"lsq_filter_Missing01" = "想你色";
+"lsq_filter_Grapefruit01" = "西柚色";
 "lsq_filter_RoseCarmine001" = "玫紅色";
 "lsq_filter_Nude01" = "裸色";
 "lsq_filter_Orange01" = "橘色";
-"lsq_filter_BabyPink004" = "粉色";
+"lsq_filter_BabyPink001" = "粉色";
+// 1.8.0
+"lsq_filter_SkinPink011" = "粉嫩";
+"lsq_filter_SkinJelly011" = "果冻";
+"lsq_filter_Fair011" = "白皙";
+"lsq_filter_Pink011" = "淡雅";
+"lsq_filter_Forest011" = "小森林";
 
-// new filter UPYUN 专业版
-"lsq_filter_SkinPink016" = "粉嫩";
-"lsq_filter_SkinJelly016" = "果冻";
-"lsq_filter_Pink016" = "淡雅";
-"lsq_filter_Fair016" = "白皙";
-"lsq_filter_Forest017" = "小森林";
-"lsq_filter_Paul016" = "阿宝";
-"lsq_filter_MintGreen016" = "薄荷绿";
-"lsq_filter_TinyTimes016" = "小时代";
-"lsq_filter_Year1950016" = "1950";
+"lsq_filter_nature" = "自然";
+"lsq_filter_pink" = "粉嫩";
+"lsq_filter_jelly" = "果凍";
+"lsq_filter_ruddy" = "紅潤";
+"lsq_filter_sugar" = "糖水色";
+"lsq_filter_honey" = "蜜粉";
+"lsq_filter_clear" = "白皙";
+"lsq_filter_timber" = "小森林";
+"lsq_filter_whitening" = "美白";
+"lsq_filter_porcelain" = "青花瓷";
+
+// effect
+"lsq_filter_LiveShake01" = "抖動";
+"lsq_filter_LiveMegrim01" = "幻覺";
+"lsq_filter_EdgeMagic01" = "魔法";
+"lsq_filter_LiveFancy01_1" = "70s";
+"lsq_filter_LiveSoulOut01" = "靈魂出竅";
+"lsq_filter_LiveSignal01" = "信號";
+
+// ParticleEffect
+
+"lsq_filter_snow01" = "雪花";
+"lsq_filter_Love" = "甜心";
+"lsq_filter_Bubbles" = "泡泡";
+"lsq_filter_Music" = "音符";
+"lsq_filter_Star" = "星星";
+"lsq_filter_Surprise" = "驚喜";
+"lsq_filter_Flower" = "花瓣";
+"lsq_filter_Magic" = "鬼火";
+"lsq_filter_Money" = "金幣";
+"lsq_filter_Burning" = "燃燒";
+"lsq_filter_Fireball" = "火球";
+
+// edit
+"lsq_filter_Olympus_1" = "奧林巴斯";
+"lsq_filter_Leica_1" = "萊卡";
+"lsq_filter_Gold_1" = "金黃";
+"lsq_filter_Cheerful_1" = "愉悅";
+"lsq_filter_White_1" = "純白";
+"lsq_filter_s1950_1" = "1950s";
+"lsq_filter_Blurred_1" = "迷離";
+"lsq_filter_Newborn_1" = "新生";
+"lsq_filter_Fade_1" = "褪色";
+"lsq_filter_NewYork_1" = "紐約";
 
 // audio
 "lsq_audio_lively" = "歡快";
@@ -105,14 +149,14 @@
 
 //video
 "lsq_record_preview_editor"= "斷點續拍 + 裁剪 + 編輯";
-"lsq_video_preview_editor" = "相冊導入 + 裁剪 + 编辑";
+"lsq_video_preview_editor" = "相冊導入 + 裁剪 + 编辑，新增場景特效";
 "lsq_capture_record_camera" = "拍照錄製相機";
 "lsq_record_camera" = "斷點續拍相機";
 "lsq_normal_record_camera" = "正常录制相机";
 "lsq_album_video_timecut" = "選擇視頻 + 時間裁剪";
 "lsq_album_video_editor" = "相冊導入 + 視頻編輯";
-"lsq_full_screen_record_preview_editor" = "全屏展示：斷點續拍 + 視頻編輯";
-"lsq_full_screen_record_preview_ratio_editor" = "比例自适应：拍照錄製 + 時間裁剪 + 視頻編輯";
+"lsq_full_screen_record_preview_editor" = "全屏展示：斷點續拍";
+"lsq_full_screen_record_preview_ratio_editor" = "比例自适应：相冊導入 + 時間裁剪 + 視頻編輯";
 "lsq_full_screen_album_video_timecut_editor" = "全屏展示：相冊導入 + 時間裁剪 + 視頻編輯";
 "lsq_audio_mixed" = "多音軌混合";
 "lsq_video_bgm" = "音视频混合";
@@ -124,6 +168,7 @@
 "lsq_custom_components" = "自定义组件示例";
 "lsq_api_usage_example" = "API 示例";
 "lsq_api_usage_record_audio" = "錄製音頻";
+"lsq_video_mainVC_edit" = "編輯視頻";
 "lsq_video_mainVC_record" = "錄製視頻";
 "lsq_video_mainVC_import" = "導入視頻";
 "lsq_video_componentlist" = "功能列表";
@@ -144,13 +189,18 @@
 "lsq_filter_beautyArg" = "美颜";
 "lsq_deleteBtn_title" = "無效果";
 "lsq_record_title" = "自己錄音";
+"lsq_movieEditor_magicBtn" = "魔法";
 "lsq_movieEditor_filterBtn" = "濾鏡";
+"lsq_movieEditor_effect" = "特效";
 "lsq_movieEditor_MVBtn" = "MV";
 "lsq_movieEditor_dubBtn" = "配音";
 "lsq_movieEditor_orignVolume_title" = "原音強度";
 "lsq_movieEditor_dubVolume_title" = "配音強度";
 "lsq_movieEditor_remainSecond_text" = "剩餘%ld秒";
 "lsq_movieEditor_reminder_text" = "長按進行錄製";
+"lsq_movieEditor_effect_back" = "撤銷";
+"lsq_movieEditor_effect_sizeTitle" = "大小";
+"lsq_movieEditor_effect_colorTitle" = "顏色";
 
 "lsq_api_usage_start_recording" = "開始錄音";
 "lsq_api_usage_pause_recording" = "暫停錄音";
@@ -189,7 +239,9 @@
 "lsq_api_reset_volume_mix_again" = "請重新調節音量，進行音頻混合";
 "lsq_api_start_mixing_audio" = "音頻開始混合";
 "lsq_api_status_play_mixed_audio" = "操作完成，请點擊「播放」，播放混合好的音频";
-
+"lsq_api_video_compress" = "視頻壓縮";
+"lsq_api_usage_video_start_compress" = "開始壓縮視頻";
+"lsq_api_compress_movie_compressing" = "壓縮處理中...";
 // reminder
 "lsq_cut_durationTime" = "建議選擇大於3秒，小於60秒的視頻";
 "lsq_movie_saving" = "正在保存";
@@ -217,3 +269,11 @@
 // location
 "lsq_location_error_title" = "無法獲取地理信息";
 "lsq_location_AccessUserDeniedError%@" = "無法獲取地理信息.請在'設置->隱私->定位服務'設置 定位服務以及 %@ 爲打開狀態.";
+
+// album
+"lsq_albumComponent_allOfVideo" = "所有視頻";
+"lsq_albumComponent_albumTitle" = "相冊";
+"lsq_albumComponent_closeButton" = "關閉";
+"lsq_albumComponent_cancelButton" = "取消";
+"lsq_albumComponent_chooseButton" = "選取";
+

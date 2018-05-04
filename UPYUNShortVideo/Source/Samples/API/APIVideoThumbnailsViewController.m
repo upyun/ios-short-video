@@ -17,6 +17,8 @@
     TuSDKVideoImageExtractor *imageExtractor;
     // 返回的缩略图
     NSArray<UIImage*> *thumbnailsArr;
+    // 距离定点距离
+    CGFloat topYDistance;
 }
 
 // 系统播放器
@@ -32,29 +34,11 @@
 // 隐藏状态栏 for IOS7
 - (BOOL)prefersStatusBarHidden;
 {
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        return NO;
+    }
+
     return YES;
-}
-
-// 是否允许旋转 IOS5
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    return NO;
-}
-
-// 是否允许旋转 IOS6
--(BOOL)shouldAutorotate
-{
-    return NO;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
-    return UIInterfaceOrientationPortrait;
 }
 
 #pragma mark - 视图布局方法
@@ -69,16 +53,21 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    // 页面设置
-    self.wantsFullScreenLayout = YES;
+
     [self setNavigationBarHidden:YES animated:NO];
-    [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    if (![UIDevice lsqIsDeviceiPhoneX]) {
+        [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = lsqRGB(217, 217, 217);
+
+    topYDistance = 0;
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        topYDistance += 44;
+    }
 
     // 顶部栏初始化
     [self initWithTopBar];
@@ -104,6 +93,9 @@
         // 获取到返回的视频的缩率图
         thumbnailsArr =  images;
     }];
+    
+    // 获取某一时刻的图片
+    // UIImage *image = [imageExtractor frameImageAtTime:CMTimeMake(7, 1)];
 }
 
 // 界面布局
@@ -112,7 +104,7 @@
     CGFloat sideGapDistance = 50;
     // 获取缩略图
     UIButton *gainThumbButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth - sideGapDistance*2, 40)];
-    gainThumbButton.center = CGPointMake(self.view.lsqGetSizeWidth/2, self.view.lsqGetSizeWidth*9/16 + sideGapDistance *2.5);
+    gainThumbButton.center = CGPointMake(self.view.lsqGetSizeWidth/2, self.view.lsqGetSizeWidth*9/16 + sideGapDistance *2.5 + topYDistance*2);
     gainThumbButton.backgroundColor =  lsqRGB(252, 143, 96);
     gainThumbButton.layer.cornerRadius = 3;
     [gainThumbButton setTitle:NSLocalizedString(@"lsq_api_gain_thumbnail", @"获取缩略图") forState:UIControlStateNormal];
@@ -123,23 +115,23 @@
     // 创建 imageView
     CGFloat sideDistance = self.view.lsqGetSizeWidth;
     
-    [self initImageViewWithFrameOriginX:sideDistance*1/6 originY:self.view.lsqGetSizeWidth*9/16 + sideGapDistance *4 imageViewTag:11];
-    [self initImageViewWithFrameOriginX:sideDistance*2/6 originY:self.view.lsqGetSizeWidth*9/16 + sideGapDistance *4 imageViewTag:12];
-    [self initImageViewWithFrameOriginX:sideDistance*3/6 originY:self.view.lsqGetSizeWidth*9/16 + sideGapDistance *4 imageViewTag:13];
-    [self initImageViewWithFrameOriginX:sideDistance*4/6 originY:self.view.lsqGetSizeWidth*9/16 + sideGapDistance *4 imageViewTag:14];
-    [self initImageViewWithFrameOriginX:sideDistance*5/6 originY:self.view.lsqGetSizeWidth*9/16 + sideGapDistance *4 imageViewTag:15];
+    [self initImageViewWithFrameOriginX:sideDistance*1/6 originY:topYDistance*2 + self.view.lsqGetSizeWidth*9/16 + sideGapDistance *4 imageViewTag:11];
+    [self initImageViewWithFrameOriginX:sideDistance*2/6 originY:topYDistance*2 + self.view.lsqGetSizeWidth*9/16 + sideGapDistance *4 imageViewTag:12];
+    [self initImageViewWithFrameOriginX:sideDistance*3/6 originY:topYDistance*2 + self.view.lsqGetSizeWidth*9/16 + sideGapDistance *4 imageViewTag:13];
+    [self initImageViewWithFrameOriginX:sideDistance*4/6 originY:topYDistance*2 + self.view.lsqGetSizeWidth*9/16 + sideGapDistance *4 imageViewTag:14];
+    [self initImageViewWithFrameOriginX:sideDistance*5/6 originY:topYDistance*2 + self.view.lsqGetSizeWidth*9/16 + sideGapDistance *4 imageViewTag:15];
     
-    [self initImageViewWithFrameOriginX:sideDistance*1/6 originY:self.view.lsqGetSizeWidth*9/16 + sideGapDistance *5.5 imageViewTag:16];
-    [self initImageViewWithFrameOriginX:sideDistance*2/6 originY:self.view.lsqGetSizeWidth*9/16 + sideGapDistance *5.5 imageViewTag:17];
-    [self initImageViewWithFrameOriginX:sideDistance*3/6 originY:self.view.lsqGetSizeWidth*9/16 + sideGapDistance *5.5 imageViewTag:18];
-    [self initImageViewWithFrameOriginX:sideDistance*4/6 originY:self.view.lsqGetSizeWidth*9/16 + sideGapDistance *5.5 imageViewTag:19];
-    [self initImageViewWithFrameOriginX:sideDistance*5/6 originY:self.view.lsqGetSizeWidth*9/16 + sideGapDistance *5.5 imageViewTag:20];
+    [self initImageViewWithFrameOriginX:sideDistance*1/6 originY:topYDistance*2 + self.view.lsqGetSizeWidth*9/16 + sideGapDistance *5.5 imageViewTag:16];
+    [self initImageViewWithFrameOriginX:sideDistance*2/6 originY:topYDistance*2 + self.view.lsqGetSizeWidth*9/16 + sideGapDistance *5.5 imageViewTag:17];
+    [self initImageViewWithFrameOriginX:sideDistance*3/6 originY:topYDistance*2 + self.view.lsqGetSizeWidth*9/16 + sideGapDistance *5.5 imageViewTag:18];
+    [self initImageViewWithFrameOriginX:sideDistance*4/6 originY:topYDistance*2 + self.view.lsqGetSizeWidth*9/16 + sideGapDistance *5.5 imageViewTag:19];
+    [self initImageViewWithFrameOriginX:sideDistance*5/6 originY:topYDistance*2 + self.view.lsqGetSizeWidth*9/16 + sideGapDistance *5.5 imageViewTag:20];
     
-    [self initImageViewWithFrameOriginX:sideDistance*1/6 originY:self.view.lsqGetSizeWidth*9/16 + sideGapDistance *7 imageViewTag:21];
-    [self initImageViewWithFrameOriginX:sideDistance*2/6 originY:self.view.lsqGetSizeWidth*9/16 + sideGapDistance *7 imageViewTag:22];
-    [self initImageViewWithFrameOriginX:sideDistance*3/6 originY:self.view.lsqGetSizeWidth*9/16 + sideGapDistance *7 imageViewTag:23];
-    [self initImageViewWithFrameOriginX:sideDistance*4/6 originY:self.view.lsqGetSizeWidth*9/16 + sideGapDistance *7 imageViewTag:24];
-    [self initImageViewWithFrameOriginX:sideDistance*5/6 originY:self.view.lsqGetSizeWidth*9/16 + sideGapDistance *7 imageViewTag:25];
+    [self initImageViewWithFrameOriginX:sideDistance*1/6 originY:topYDistance*2 + self.view.lsqGetSizeWidth*9/16 + sideGapDistance *7 imageViewTag:21];
+    [self initImageViewWithFrameOriginX:sideDistance*2/6 originY:topYDistance*2 + self.view.lsqGetSizeWidth*9/16 + sideGapDistance *7 imageViewTag:22];
+    [self initImageViewWithFrameOriginX:sideDistance*3/6 originY:topYDistance*2 + self.view.lsqGetSizeWidth*9/16 + sideGapDistance *7 imageViewTag:23];
+    [self initImageViewWithFrameOriginX:sideDistance*4/6 originY:topYDistance*2 + self.view.lsqGetSizeWidth*9/16 + sideGapDistance *7 imageViewTag:24];
+    [self initImageViewWithFrameOriginX:sideDistance*5/6 originY:topYDistance*2 + self.view.lsqGetSizeWidth*9/16 + sideGapDistance *7 imageViewTag:25];
 }
 
 
@@ -171,8 +163,6 @@
             if ([view isMemberOfClass:[UIImageView class]]) {
                 UIImageView *imageView = (UIImageView*)view;
                 [imageView setImage:[thumbnailsArr objectAtIndex:imageView.tag - 11]];
-                NSLog(@"imageViewTag: %ld",(long)imageView.tag);
-                NSLog(@"数组里：%@",thumbnailsArr);
             }
         }
     }
@@ -193,11 +183,11 @@
 // 顶部栏初始化
 - (void)initWithTopBar;
 {
-    _topBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+    _topBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, topYDistance, self.view.bounds.size.width, 44)];
     [_topBar setBackgroundColor:[UIColor whiteColor]];
     _topBar.topBarDelegate = self;
     [_topBar addTopBarInfoWithTitle:NSLocalizedString(@"lsq_api_gain_thumbnail", @"获取缩略图")
-                     leftButtonInfo:@[[NSString stringWithFormat:@"video_style_default_btn_back.png+%@",NSLocalizedString(@"lsq_go_back", @"返回")]]
+                     leftButtonInfo:@[@"video_style_default_btn_back.png"]
                     rightButtonInfo:nil];
     [_topBar.centerTitleLabel lsqSetSizeWidth:_topBar.lsqGetSizeWidth/2];
     _topBar.centerTitleLabel.center = CGPointMake(self.view.lsqGetSizeWidth/2, _topBar.lsqGetSizeHeight/2);
@@ -207,7 +197,7 @@
 // 播放器初始化
 - (void)initWithVideoPlayer;
 {
-    UIView *playerView = [[UIView alloc]initWithFrame:CGRectMake(0, _topBar.lsqGetSizeHeight, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth*9/16)];
+    UIView *playerView = [[UIView alloc]initWithFrame:CGRectMake(0, topYDistance/2 + _topBar.lsqGetSizeHeight, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth*9/16)];
     [playerView setBackgroundColor:[UIColor clearColor]];
     playerView.multipleTouchEnabled = NO;
     [self.view addSubview:playerView];

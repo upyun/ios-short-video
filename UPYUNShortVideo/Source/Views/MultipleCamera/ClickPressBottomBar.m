@@ -82,7 +82,7 @@
     // 进度条的圆环
     _borderProgressLayer = [CAShapeLayer new];
     _borderProgressLayer.lineWidth = _borderBackLayer.lineWidth;
-    _borderProgressLayer.strokeColor = HEXCOLOR(0x22bbf4).CGColor;
+    _borderProgressLayer.strokeColor = [UIColor lsqClorWithHex:@"#F6A623"].CGColor;
     _borderProgressLayer.fillColor = [UIColor clearColor].CGColor;
     UIBezierPath *path2 = [UIBezierPath bezierPathWithArcCenter:_recordButton.center radius:44 startAngle:0 endAngle:2*M_PI clockwise:true];
     _borderProgressLayer.path = path2.CGPath;
@@ -90,6 +90,48 @@
     [_recorderBack.layer addSublayer:_borderProgressLayer];
 
     _recorderBack.transform = CGAffineTransformMakeRotation(-M_PI_2);
+    
+    
+    // 删除按钮
+    _deleteBackView = [[UIView alloc]initWithFrame:CGRectMake(edgeLeft2, 44, 65, 88)];
+    _deleteBackView.hidden = YES;
+    [self addSubview:_deleteBackView];
+    
+    _deleteButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 65, 65)];
+    [_deleteButton setImage:[UIImage imageNamed:@"style_default_1.6.0_del_btn_default"] forState:UIControlStateNormal];
+    [_deleteButton addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
+    _deleteButton.adjustsImageWhenHighlighted = NO;
+    [_deleteBackView addSubview:_deleteButton];
+    
+    UILabel *deleteTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, _deleteBackView.lsqGetSizeHeight - 15, _deleteBackView.lsqGetSizeWidth, 15)];
+    deleteTitle.text = NSLocalizedString(@"lsq_delete_video", @"删除");
+    deleteTitle.textAlignment = NSTextAlignmentCenter;
+    deleteTitle.textColor = [UIColor whiteColor];
+    deleteTitle.font = [UIFont systemFontOfSize:12];
+    deleteTitle.shadowColor = [UIColor colorWithWhite:0 alpha:0.5];
+    [_deleteBackView addSubview:deleteTitle];
+
+    // 保存按钮
+    _saveBackView = [[UIView alloc]initWithFrame:CGRectMake(self.lsqGetSizeWidth - edgeLeft2 - 65, 44, 65, 88)];
+    _saveBackView.hidden = YES;
+    [self addSubview:_saveBackView];
+
+    _saveButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 65, 65)];
+    [_saveButton setImage:[UIImage imageNamed:@"style_default_1.6.0_save_btn_default"] forState:UIControlStateNormal];
+    [_saveButton addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
+    _saveButton.adjustsImageWhenHighlighted = NO;
+    [_saveBackView addSubview:_saveButton];
+    
+    UILabel *saveTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, _saveBackView.lsqGetSizeHeight - 15, _saveBackView.lsqGetSizeWidth, 15)];
+    saveTitle.text = NSLocalizedString(@"lsq_save_video", @"保存");
+    saveTitle.textAlignment = NSTextAlignmentCenter;
+    saveTitle.textColor = [UIColor whiteColor];
+    saveTitle.font = [UIFont systemFontOfSize:12];
+    saveTitle.shadowColor = [UIColor colorWithWhite:0 alpha:0.5];
+    [_saveBackView addSubview:saveTitle];
+    
+    
+    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) return;
     
     // 贴纸按钮
     _stickerBackView = [[UIView alloc]initWithFrame:CGRectMake(edgeLeft1, 52, 60, 58)];
@@ -131,43 +173,7 @@
     _filterLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.5];
     [_filterBackView addSubview:_filterLabel];
     
-    // 删除按钮
-    _deleteBackView = [[UIView alloc]initWithFrame:CGRectMake(edgeLeft2, 44, 65, 88)];
-    _deleteBackView.hidden = YES;
-    [self addSubview:_deleteBackView];
-    
-    _deleteButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 65, 65)];
-    [_deleteButton setImage:[UIImage imageNamed:@"style_default_1.6.0_del_btn_default"] forState:UIControlStateNormal];
-    [_deleteButton addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
-    _deleteButton.adjustsImageWhenHighlighted = NO;
-    [_deleteBackView addSubview:_deleteButton];
-    
-    UILabel *deleteTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, _deleteBackView.lsqGetSizeHeight - 15, _deleteBackView.lsqGetSizeWidth, 15)];
-    deleteTitle.text = NSLocalizedString(@"lsq_delete_video", @"删除");
-    deleteTitle.textAlignment = NSTextAlignmentCenter;
-    deleteTitle.textColor = [UIColor whiteColor];
-    deleteTitle.font = [UIFont systemFontOfSize:12];
-    deleteTitle.shadowColor = [UIColor colorWithWhite:0 alpha:0.5];
-    [_deleteBackView addSubview:deleteTitle];
 
-    // 保存按钮
-    _saveBackView = [[UIView alloc]initWithFrame:CGRectMake(self.lsqGetSizeWidth - edgeLeft2 - 65, 44, 65, 88)];
-    _saveBackView.hidden = YES;
-    [self addSubview:_saveBackView];
-
-    _saveButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 65, 65)];
-    [_saveButton setImage:[UIImage imageNamed:@"style_default_1.6.0_save_btn_default"] forState:UIControlStateNormal];
-    [_saveButton addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
-    _saveButton.adjustsImageWhenHighlighted = NO;
-    [_saveBackView addSubview:_saveButton];
-    
-    UILabel *saveTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, _saveBackView.lsqGetSizeHeight - 15, _saveBackView.lsqGetSizeWidth, 15)];
-    saveTitle.text = NSLocalizedString(@"lsq_save_video", @"保存");
-    saveTitle.textAlignment = NSTextAlignmentCenter;
-    saveTitle.textColor = [UIColor whiteColor];
-    saveTitle.font = [UIFont systemFontOfSize:12];
-    saveTitle.shadowColor = [UIColor colorWithWhite:0 alpha:0.5];
-    [_saveBackView addSubview:saveTitle];
 }
 
 - (void)addGestures
@@ -229,7 +235,7 @@
     _startPressRecorCenter = YES;
     _stickerBackView.hidden = true;
     _filterBackView.hidden = true;
-    _recordButton.backgroundColor = HEXCOLOR(0x22bbf4);
+    _recordButton.backgroundColor = [UIColor lsqClorWithHex:@"#F6A623"];
     [UIView animateWithDuration:0.2 animations:^{
         _recorderBack.transform = CGAffineTransformScale(_recorderBack.transform, 1.2, 1.2);
     }];

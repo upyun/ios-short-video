@@ -12,12 +12,10 @@
 #import "MovieEditerBottomBar.h"
 #import "MovieEditorClipView.h"
 
-#import "UPSettingConfig.h"
-
 /**
  视频编辑示例：对视频进行裁剪，添加滤镜，添加MV效果
  */
-@interface MovieEditorViewController : UIViewController<TuSDKMovieEditorDelegate, TopNavBarDelegate, MovieEditorBottomBarDelegate,VideoClipViewDelegate>
+@interface MovieEditorViewController : UIViewController<TuSDKMovieEditorDelegate, TopNavBarDelegate, MovieEditorBottomBarDelegate>
 
 // 开启编辑器控制器需要传入的参数
 // 视频路径
@@ -33,7 +31,10 @@
 // 视频编辑对象
 @property (nonatomic, strong) TuSDKMovieEditor *movieEditor;
 // 滤镜数组
-@property (nonatomic, strong) NSArray<NSString *> *videoFilters;
+@property (nonatomic, strong) NSArray<NSString *> *videoFilterCodes;
+// 特效数组
+@property (nonatomic, strong) NSArray<NSString *> *videoEffectCodes;
+
 // 当前的滤镜
 @property (nonatomic, strong) TuSDKFilterWrap *currentFilter;
 
@@ -52,8 +53,6 @@
 @property (nonatomic, strong) TopNavBar *topBar;
 
 // MV 相关
-// 当切换为 MV 显示时，顶部的缩略图View
-@property (nonatomic, strong) MovieEditorClipView *topThumbnailView;
 // 此时movieEditor的状态(预览、裁剪)
 @property (nonatomic, assign) lsqMovieEditorStatus movieEditorStatus;
 // 记录MV的开始时间，基于已时长裁剪后的视频长度
@@ -68,6 +67,10 @@
 // 当前的 MV\配音 音量
 @property (nonatomic, assign) CGFloat dubAudioVolume;
 
-@property (nonatomic, strong) UPSettingConfig *config;
-
+// 点击 播放/暂停 按钮事件
+- (void)clickPlayerBtn:(UIButton *)sender;
+// 暂停预览
+- (void)stopPreview;
+// 开始预览
+- (void)startPreview;
 @end

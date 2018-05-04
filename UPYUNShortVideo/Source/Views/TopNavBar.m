@@ -41,16 +41,18 @@
         _centerTitleLabel.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
         _centerTitleLabel.text = title;
         _centerTitleLabel.textAlignment = NSTextAlignmentCenter;
-        _centerTitleLabel.textColor = [UIColor blackColor];
+        _centerTitleLabel.textColor = lsqRGB(62, 62, 57);
         [self addSubview:_centerTitleLabel];
     }
     // 按钮与按钮之间的间隔
     CGFloat btnInterval = 18;
+    // 按钮左右边距
+    CGFloat btnMargin = 0;
     
     // 初始化左侧系列按钮
     if (leftButtons != nil) {
         CGFloat btnCenterY = self.bounds.size.height/2;
-        CGFloat btnCenterX = 14;
+        CGFloat btnCenterX = btnMargin;
         
         for (int i = 0; i < leftButtons.count; i ++) {
             NSString *btnInfo = leftButtons[i];
@@ -70,10 +72,10 @@
                         btnWidth = btnWidth + [titleStr lsqColculateTextSizeWithFont:btn.titleLabel.font maxWidth:100 maxHeihgt:btnHeight].width;
                         
                         [btn setTitle:titleStr forState:UIControlStateNormal];
-                        [btn setTitleColor:HEXCOLOR(0x22bbf4) forState:UIControlStateNormal];
+                        [btn setTitleColor:lsqRGB(244, 161, 24) forState:UIControlStateNormal];
                     }else{
                         btnImage = [UIImage imageNamed:btnInfo];
-                        btnHeight = 36;
+                        btnHeight = 44;
                         btnWidth = [self coculateWidthWithSize:btnImage.size withPositiveHeight:btnHeight];
                         btnWidth = (btnWidth < btnHeight)?btnHeight:btnWidth;
                     }
@@ -83,7 +85,6 @@
                     btnWidth = [self coculateWidthWithSize:btnImage.size withPositiveHeight:btnHeight];
                     btnWidth = (btnWidth < btnHeight)?btnHeight:btnWidth;
                 }
-                
                 btnCenterX = btnCenterX + btnWidth/2;
                 
                 btn.frame = CGRectMake(0, 0, btnWidth, btnHeight);
@@ -98,7 +99,7 @@
                 btn.tag = i;
                 [btn addTarget:self action:@selector(leftBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
                 [btn setTitle:btnInfo forState:UIControlStateNormal];
-                [btn setTitleColor:HEXCOLOR(0x22bbf4) forState:UIControlStateNormal];
+                [btn setTitleColor:lsqRGB(244, 161, 24) forState:UIControlStateNormal];
                 btn.titleLabel.font = [UIFont systemFontOfSize:13];
                 CGFloat btnWidth = [btnInfo lsqColculateTextSizeWithFont:btn.titleLabel.font maxWidth:200 maxHeihgt:200].width;
                 btnCenterX = btnCenterX + btnWidth/2;
@@ -115,7 +116,7 @@
     // 初始化右侧系列按钮
     if (rightButtons != nil) {
         CGFloat btnCenterY = self.bounds.size.height/2;
-        CGFloat btnCenterX = self.bounds.size.width - 24;
+        CGFloat btnCenterX = self.bounds.size.width - 12;
         
         for (int i = 0; i < rightButtons.count; i ++) {
             NSString *btnInfo = rightButtons[i];
@@ -123,7 +124,7 @@
             
             if ([btnInfo containsString:@".png"] || [btnInfo containsString:@".jpg"]) {
                 UIImage *btnImage = [UIImage imageNamed:btnInfo];
-                CGFloat btnHeight = 36;
+                CGFloat btnHeight = 44;
                 CGFloat btnWidth = [self coculateWidthWithSize:btnImage.size withPositiveHeight:btnHeight];
                 btnCenterX = btnCenterX - btnWidth/2;
                 
@@ -139,7 +140,8 @@
                 btn.tag = i + lsqRightTopBtnFirst;
                 [btn addTarget:self action:@selector(rightBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
                 [btn setTitle:btnInfo forState:UIControlStateNormal];
-                [btn setTitleColor:HEXCOLOR(0x22bbf4) forState:UIControlStateNormal];
+                [btn setTitleColor:lsqRGB(244, 161, 24) forState:UIControlStateNormal];
+                btn.titleLabel.font = [UIFont systemFontOfSize:17];
                 CGFloat btnWidth = [btnInfo lsqColculateTextSizeWithFont:btn.titleLabel.font maxWidth:200 maxHeihgt:200].width;
                 btnCenterX = btnCenterX - btnWidth/2;
                 

@@ -49,11 +49,12 @@
     _titleLabel.adjustsFontSizeToFitWidth = true;
     _titleLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _titleLabel.layer.cornerRadius = 3;
-    [_imageView addSubview:_titleLabel];
+    [self addSubview:_titleLabel];
     
     // 布局
     _imageView.frame = CGRectMake(0, 0, ivWidth, viewHeight);
-    _titleLabel.frame = CGRectMake(0, viewHeight - titleHeight, ivWidth, titleHeight);
+    // +1 的边距，是为了调整UI误差引起的缝隙
+    _titleLabel.frame = CGRectMake(-1, viewHeight - titleHeight, self.bounds.size.width + 2, titleHeight + 1);
     _titleLabel.textAlignment = NSTextAlignmentCenter;
     
     // 事件响应以及边框button
@@ -61,6 +62,8 @@
     [_EventView addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
     _EventView.layer.cornerRadius = 3;
     [self addSubview:_EventView];
+    self.layer.cornerRadius = 3;
+    self.clipsToBounds = YES;
 }
 
 // 按钮点击响应事件

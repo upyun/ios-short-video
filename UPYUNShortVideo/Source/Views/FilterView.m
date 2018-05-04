@@ -23,12 +23,10 @@
     UIScrollView *_filterScroll;
     // 参数栏背景view
     UIView *_paramBackView;
-    
     // 美颜按钮
     UIButton *_clearFilterBtn;
     // 美颜的边框view
     UIView *_clearFilterBorderView;
-    
     // 记录参数栏数据源信息
     NSString *_filterDescription;
     NSArray *_args;
@@ -95,7 +93,8 @@
     _clearFilterBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, _clearFilterBorderView.lsqGetSizeWidth, _clearFilterBorderView.lsqGetSizeHeight)];
     _clearFilterBtn.center = CGPointMake(_clearFilterBorderView.lsqGetSizeWidth/2, _clearFilterBorderView.lsqGetSizeHeight/2);
     [_clearFilterBtn addTarget:self action:@selector(clickClearFilterBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [_clearFilterBtn setImage:[UIImage imageNamed:@"video_style_default_btn_sticker_off"] forState:UIControlStateNormal];
+    [_clearFilterBtn setImage:[UIImage imageNamed:@"style_default_1.11_btn_effect_unselect"] forState:UIControlStateNormal];
+    [_clearFilterBtn setImage:[UIImage imageNamed:@"style_default_1.11_btn_effect_select"] forState:UIControlStateSelected];
     [_clearFilterBorderView addSubview:_clearFilterBtn];
     
     // 创建滤镜scroll
@@ -110,7 +109,7 @@
     
     // 创建滤镜view
     NSInteger i = 200;
-    CGFloat itemInterval = 7;
+    CGFloat itemInterval = 12;
     for (NSString *name in _filters) {
         FilterItemView *basicView = [FilterItemView new];
         basicView.frame = CGRectMake(0, 0, filterItemWidth, filterItemHeight);
@@ -123,7 +122,7 @@
         basicView.tag = i;
         [_filterScroll addSubview:basicView];
         if (i == _currentFilterTag) {
-            [basicView refreshClickColor:HEXCOLOR(0x22bbf4)];
+            [basicView refreshClickColor:lsqRGB(244, 161, 24)];
         }
         centerX += filterItemWidth + itemInterval;
         i++;
@@ -134,7 +133,6 @@
 // 选择某个滤镜后创建上面的参数调节view
 - (void)refreshAdjustParameterViewWith:(NSString *)filterDescription filterArgs:(NSArray *)args
 {
-
     _filterDescription = filterDescription;
     _args = args;
     
@@ -152,7 +150,7 @@
     
     NSInteger allCount = args.count;
     for (TuSDKFilterArg *arg in args) {
-        if ([arg.key isEqualToString:@"smoothing"]) {
+        if ([arg.key isEqualToString:@"smoothing"] && !_isHiddenSmoothingParamSingleAdjust) {
             [beautyKeys addObject:arg.key];
             [originProgressArr addObject:@(arg.precent)];
             allCount --;
@@ -185,7 +183,7 @@
         }
 
         // 抽离每个滤镜中的 润滑、大眼、瘦脸，通过beautyView中的参数调节逻辑 进行统一调节设置； 若有其他需求，可自行更改
-        if ([arg.key isEqualToString:@"smoothing"] || [arg.key isEqualToString:@"eyeSize"] || [arg.key isEqualToString:@"chinSize"]) {
+        if (([arg.key isEqualToString:@"smoothing"] && !_isHiddenSmoothingParamSingleAdjust)|| [arg.key isEqualToString:@"eyeSize"] || [arg.key isEqualToString:@"chinSize"]) {
             continue;
         }
         
@@ -200,9 +198,12 @@
         [_paramBackView addSubview:paramItem];
     }
     
+    if (_isHiddenSmoothingParamSingleAdjust && _isHiddenEyeChinParam) return;
+    
     [self createBeautyParameterWith:beautyKeys originProgressArr:originProgressArr];
 }
 
+// 创建美颜参数调节栏，包含 磨皮(润滑)、大眼、瘦脸
 - (void)createBeautyParameterWith:(NSArray *)beautyKeys originProgressArr:(NSArray<NSNumber *> *)originProgressArr;
 {
     if (_beautyParamView) {
@@ -220,7 +221,7 @@
     CGFloat centerY = -parameterHeight/2;
     CGFloat centerX = _paramBackView.lsqGetSizeWidth/2;
     
-    // 创建参数栏,目前Demo中使用的滤镜，只有一个参数，若添加多参数滤镜，需要调整此处布局
+    // 创建参数栏,目前Demo中使用的滤镜，参数统一，若添加更多参数的滤镜，需要调整此处布局
     for (int i = 0; i<beautyKeys.count; i++) {
         NSString *key = beautyKeys[i];
         CGFloat progress = (i >= originProgressArr.count ? 80 : originProgressArr[i].floatValue);
@@ -253,11 +254,9 @@
 // 美颜按钮点击响应事件
 - (void)clickClearFilterBtn:(UIButton *)btn
 {
-    _clearFilterBorderView.layer.borderWidth = 2;
-    _clearFilterBorderView.layer.borderColor = HEXCOLOR(0x22bbf4).CGColor;
     [self enableBeautyParam:NO];
     [_paramBackView removeAllSubviews];
-    
+    [self selectClearBtn:YES];
     // 取消选中滤镜的边框设置
     [self refreshSelectedFilter:-1 lastFilterIndex:_currentFilterTag selectedColor:nil];
     _currentFilterTag = -1;
@@ -268,6 +267,18 @@
     }
 }
 
+- (void)selectClearBtn:(BOOL)selected;
+{
+    if (selected) {
+        _clearFilterBtn.selected = YES;
+        _clearFilterBorderView.layer.borderWidth = 2;
+        _clearFilterBorderView.layer.borderColor = lsqRGB(244, 161, 24).CGColor;
+    }else{
+        _clearFilterBtn.selected = NO;
+        _clearFilterBorderView.layer.borderWidth = 0;
+        _clearFilterBorderView.layer.borderColor = [UIColor clearColor].CGColor;
+    }
+}
 
 /**
  刷新某个滤镜的选中状态
@@ -310,7 +321,7 @@
                     if(_chinSizeLevel != -1) paramItem.progress = _chinSizeLevel;
                 }
                 
-                paramItem.mainColor = HEXCOLOR(0x22bbf4);
+                paramItem.mainColor = [UIColor lsqClorWithHex:@"#f4a11a"];
             }
         }
     }else{
@@ -363,11 +374,9 @@
 - (void)clickBasicViewWith:(NSString *)viewDescription withBasicTag:(NSInteger)tag
 {
     if (_currentFilterTag == tag) return;
-        
-    _clearFilterBorderView.layer.borderWidth = 0;
-    _clearFilterBorderView.layer.borderColor = [UIColor clearColor].CGColor;
+    [self selectClearBtn:NO];
     [self enableBeautyParam:YES];
-    [self refreshSelectedFilter:tag lastFilterIndex:_currentFilterTag selectedColor:HEXCOLOR(0x22bbf4)];
+    [self refreshSelectedFilter:tag lastFilterIndex:_currentFilterTag selectedColor:lsqRGB(244, 161, 24)];
     // 记录新值
     _currentFilterTag = tag;
 
@@ -382,7 +391,7 @@
 // 滑动条调整的响应方法
 - (void)filterParamItemView:(FilterParamItemView *)filterParamItemView changedProgress:(CGFloat)progress;
 {
-    if ([filterParamItemView.paramKey isEqualToString:@"smoothing"]) {
+    if ([filterParamItemView.paramKey isEqualToString:@"smoothing"] && !_isHiddenSmoothingParamSingleAdjust) {
         _smoothingLevel = progress;
     }else if ([filterParamItemView.paramKey isEqualToString:@"eyeSize"]){
         _eyeSizeLevel = progress;
