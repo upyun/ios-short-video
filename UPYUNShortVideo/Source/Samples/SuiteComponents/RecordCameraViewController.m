@@ -402,7 +402,7 @@
     // 启用智能贴纸
     _camera.enableLiveSticker = YES;
     // 设置水印，默认为空
-     _camera.waterMarkImage = [UIImage imageNamed:@"upyun_wartermark.png"];
+     _camera.waterMarkImage = [UIImage imageNamed:@"sample_watermark.png"];
     // 设置水印图片的位置
      _camera.waterMarkPosition = lsqWaterMarkBottomRight;
     // 最大录制时长 8s
@@ -791,7 +791,6 @@
         [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
                  
     }else{
-        // _camera.saveToAlbum = YES; （默认为 ：YES）将自动保存到相册
         [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
     }
     

@@ -22,17 +22,17 @@
 /**
  *  输入视频源 URL > Asset
  */
-@property (nonatomic) NSURL *inputURL;
+@property (nonatomic) NSURL * _Nullable inputURL;
 
 /**
  *  输入视频源 URL > Asset
  */
-@property (nonatomic) AVAsset *inputAsset;
+@property (nonatomic) AVAsset * _Nullable inputAsset;
 
 /**
  *  裁剪范围 （开始时间~持续时间 单位:/s）
  */
-@property (nonatomic) TuSDKTimeRange *cutTimeRange;
+@property (nonatomic) TuSDKTimeRange * _Nullable cutTimeRange;
 
 /**
  *  最小裁剪持续时间 单位:/s  (默认不限制 开发者可根据需要自行配置)
@@ -52,12 +52,12 @@
 /**
  *  保存到系统相册的相册名称
  */
-@property (nonatomic, copy) NSString *saveToAlbumName;
+@property (nonatomic, copy) NSString * _Nullable saveToAlbumName;
 
 /**
  *  视频覆盖区域颜色 (默认：[UIColor blackColor])
  */
-@property (nonatomic, retain) UIColor *regionViewColor;
+@property (nonatomic, retain) UIColor * _Nullable regionViewColor;
 
 /**
  *  导出视频的文件格式（默认:lsqFileTypeMPEG4）
@@ -67,17 +67,12 @@
 /**
  *  设置编码时视频的画质
  */
-@property (nonatomic, strong) TuSDKVideoQuality *encodeVideoQuality;
-
-/**
- *  裁剪导出的视频质量 默认 AVAssetExportPresetHighestQuality
- */
-@property (nonatomic, strong) NSString *exportPresetQuality;
+@property (nonatomic, strong) TuSDKVideoQuality * _Nullable encodeVideoQuality;
 
 
 /** 是否按照实际速度预览 默认：YES
  */
-@property(readwrite, nonatomic) BOOL playAtActualSpeed;
+@property(readwrite, nonatomic) BOOL playAtActualSpeed DEPRECATED_MSG_ATTRIBUTE("Not recommended, use time effects");
 
 /**
  *  视频裁剪区域，当为 CGRectZero 时，区域无效
@@ -96,7 +91,27 @@
  */
 @property (nonatomic,assign) BOOL enableVideoSound;
 
+/**
+ 是否开启转码 默认：YES 开启后 SDK 将会根据视频信息优化视频。
+ 如果使用时间特效，该配置项建议启用。
+ @since v3.0
+ */
+@property (nonatomic) BOOL enableTranscoding;
 
-+ (TuSDKMovieEditorOptions *) defaultOptions;
+
+#pragma mark - waterMark
+
+/**
+ *  设置水印图片，最大边长不宜超过 500
+ */
+@property (nonatomic) UIImage * _Nullable waterMarkImage;
+
+/**
+ *  水印位置，默认 lsqWaterMarkBottomRight
+ */
+@property (nonatomic) lsqWaterMarkPosition waterMarkPosition;
+
+
++ (TuSDKMovieEditorOptions *_Nonnull) defaultOptions;
 
 @end

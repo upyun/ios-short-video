@@ -55,4 +55,8 @@
 
 // 播放结束的通知
 - (void)playerEnd:(AVPlayerItem *)playerItem;
+
+// 销毁播放器
+- (void)destroyPlayer;
+
 @end

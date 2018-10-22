@@ -20,11 +20,17 @@
  */
 - (NSMutableArray *)getBottomNormalImages;
 {
-    NSMutableArray *normalImages = [NSMutableArray arrayWithArray:@[@"style_default_2.0_btn_magic_unselected",
-                                                                    @"style_default_1.11_btn_filter_unselected",
-                                                                    @"style_default_1.11_edit_effect_default",
-                                                                    @"style_default_1.11_btn_mv_unselected",
-                                                                    @"style_default_1.11_sound_default"]];
+    NSMutableArray *normalImages =
+    @[
+      @"tab_ic_time_g",
+      @"style_default_2.0_btn_magic_unselected",
+      @"style_default_1.11_btn_filter_unselected",
+      @"style_default_1.11_edit_effect_default",
+      @"tab_ic_text_normal",
+      @"style_default_1.11_btn_mv_unselected",
+      @"style_default_1.11_sound_default",
+      ].mutableCopy;
+    
     // iPad 中不显示滤镜栏
     if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [normalImages removeObjectAtIndex:1];
     return normalImages;
@@ -35,11 +41,16 @@
  */
 - (NSMutableArray *)getBottomSelectImages;
 {
-    NSMutableArray *selectImages = [NSMutableArray arrayWithArray:@[@"style_default_2.0_btn_magic",
-                                                                    @"style_default_1.11_btn_filter",
-                                                                    @"style_default_1.11_edit_effect_select",
-                                                                    @"style_default_1.11_btn_mv",
-                                                                    @"style_default_1.11_sound_selected"]];
+    NSMutableArray *selectImages =
+    @[
+      @"tab_ic_time_y",
+      @"style_default_2.0_btn_magic",
+      @"style_default_1.11_btn_filter",
+      @"style_default_1.11_edit_effect_select",
+      @"tab_ic_text_selected",
+      @"style_default_1.11_btn_mv",
+      @"style_default_1.11_sound_selected",
+      ].mutableCopy;
     // iPad 中不显示滤镜栏
     if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [selectImages removeObjectAtIndex:1];
 
@@ -51,11 +62,16 @@
  */
 - (NSMutableArray *)getBottomTitles;
 {
-    NSMutableArray *titles = [NSMutableArray arrayWithArray:@[NSLocalizedString(@"lsq_movieEditor_magicBtn", @"魔法"),
-                                                              NSLocalizedString(@"lsq_movieEditor_filterBtn", @"滤镜"),
-                                                              NSLocalizedString(@"lsq_movieEditor_effect", @"特效"),
-                                                              NSLocalizedString(@"lsq_movieEditor_MVBtn", @"MV"),
-                                                              NSLocalizedString(@"lsq_movieEditor_dubBtn", @"配音")]];
+    NSMutableArray *titles =
+    @[
+      NSLocalizedString(@"lsq_movieEditor_timeBtn", @"时光"),
+      NSLocalizedString(@"lsq_movieEditor_magicBtn", @"魔法"),
+      NSLocalizedString(@"lsq_movieEditor_filterBtn", @"滤镜"),
+      NSLocalizedString(@"lsq_movieEditor_effect", @"特效"),
+      NSLocalizedString(@"lsq_movieEditor_text",  "文字"),
+      NSLocalizedString(@"lsq_movieEditor_MVBtn", @"MV"),
+      NSLocalizedString(@"lsq_movieEditor_dubBtn", @"配音"),
+      ].mutableCopy;
     // iPad 中不显示滤镜栏
     if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [titles removeObjectAtIndex:1];
     return titles;
@@ -67,13 +83,16 @@
 - (void)initContentView;
 {
     [super initContentView];
-    // 默认不显示滤镜栏
-    self.filterView.hidden = YES;
 
     _particleView = [[ParticleEffectView alloc]initWithFrame:self.filterView.frame];
     _particleView.currentParticleTag = 200;
     _particleView.particleEventDelegate = self;
     [self.contentBackView addSubview:_particleView];
+    
+    [self bottomButton:nil clickIndex:0];
+    
+    self.contentBackView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+    self.bottomDisplayView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
 }
 
 /**
@@ -81,28 +100,19 @@
  */
 - (void)bottomButton:(BottomButtonView *)bottomButtonView clickIndex:(NSInteger)index;
 {
-    if (index == 0) {
-        // 点击魔法
-        _particleView.hidden = NO;
-        self.effectsView.hidden = YES;
-        self.filterView.hidden = YES;
-        self.dubView.hidden = YES;
-        self.mvView.hidden = YES;
-        self.volumeBackView.hidden = YES;
-        self.topThumbnailView.hidden = YES;
-        
-        if ([self.fullScreenBottomBarDelegate respondsToSelector:@selector(movieEditorFullScreenBottom_selectParticleView:)]) {
-            [self.fullScreenBottomBarDelegate movieEditorFullScreenBottom_selectParticleView:YES];
-        }
-        [self adjustLayout];
-
-    }else{
-        _particleView.hidden = YES;
-        [super bottomButton:bottomButtonView clickIndex:index - 1];
-        if ([self.fullScreenBottomBarDelegate respondsToSelector:@selector(movieEditorFullScreenBottom_selectParticleView:)]) {
-            [self.fullScreenBottomBarDelegate movieEditorFullScreenBottom_selectParticleView:NO];
-        }
+    self.contentBackView.hidden = NO;
+    // 点击魔法
+    self.particleView.hidden = index != 1;
+    if ([self.fullScreenBottomBarDelegate respondsToSelector:@selector(movieEditorFullScreenBottom_selectParticleView:)]) {
+        [self.fullScreenBottomBarDelegate movieEditorFullScreenBottom_selectParticleView:index == 1];
     }
+    
+    // 点击文字
+    if (index == 4 && [self.fullScreenBottomBarDelegate respondsToSelector:@selector(movieEditorFullScreenBottom_addTextEffect)]) {
+        [self.fullScreenBottomBarDelegate movieEditorFullScreenBottom_addTextEffect];
+    }
+    
+    [super bottomButton:bottomButtonView clickIndex:index];
 }
 
 #pragma mark - ParticleMagicViewEventDelegate

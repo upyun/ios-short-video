@@ -13,4 +13,6 @@
  */
 @interface APIMovieSplicerViewController : UIViewController
 
+@property (nonatomic, strong) NSMutableArray<NSURL *> *urlArray;
+
 @end

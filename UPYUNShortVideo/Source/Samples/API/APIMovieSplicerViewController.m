@@ -11,15 +11,17 @@
 #import "APIMovieSplicerViewController.h"
 #import "TopNavBar.h"
 
-@interface APIMovieSplicerViewController ()<TopNavBarDelegate, TuSDKMovieSplicerDelegate>{
+@interface APIMovieSplicerViewController ()<TopNavBarDelegate, TuSDKAssetVideoComposerDelegate>{
     // 编辑页面顶部控制栏视图
     TopNavBar *_topBar;
     // 拼接对象
-    TuSDKTSMovieSplicer *_movieSplicer;
+    TuSDKAssetVideoComposer *_movieComposer;
     // 底部说明 label
     UILabel * explainationLabel;
     // 距离定点距离
     CGFloat topYDistance;
+    // 拼接进度 label
+    UILabel * progressLabel;
 }
 
 // 系统播放器
@@ -27,6 +29,9 @@
 @property (nonatomic, strong) AVPlayerItem *firstPlayerItem;
 @property (strong, nonatomic) AVPlayer *secondPlayer;
 @property (nonatomic, strong) AVPlayerItem *secondPlayerItem;
+@property (nonatomic, weak) UIView *firstPlayerView;
+@property (nonatomic, weak) UIView *secondPlayerView;
+
 @end
 
 @implementation APIMovieSplicerViewController
@@ -48,7 +53,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+
     [self setNavigationBarHidden:YES animated:NO];
     if (![UIDevice lsqIsDeviceiPhoneX]) {
         [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
@@ -73,6 +78,23 @@
     [self initWithSplicerButton];
     // 底部说明 label
     [self initWithExplainationLabel];
+    
+    // 添加后台、前台切换的通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(enterBackFromFront) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(enterFrontFromBack) name:UIApplicationWillEnterForegroundNotification object:nil];
+}
+
+#pragma mark - 后台前台切换
+// 进入后台
+- (void)enterBackFromFront
+{
+  [self cancelComposing];
+}
+
+// 后台到前台
+- (void)enterFrontFromBack
+{
+    [[TuSDK shared].messageHub dismiss];
 }
 
 // 底部说明 label
@@ -83,7 +105,7 @@
     explainationLabel.backgroundColor = lsqRGB(236, 236, 236);
     explainationLabel.center = CGPointMake(self.view.lsqGetSizeWidth/2, self.view.lsqGetSizeHeight - sideGapDistance*0.5 - topYDistance);
     explainationLabel.textColor = [UIColor blackColor];
-    explainationLabel.text = NSLocalizedString(@"lsq_api_splice_movie_explaination" , @"点击「视频拼接」按钮，将两段视频合为一段视频，保存成功后请去相册查看视频");    
+    explainationLabel.text = NSLocalizedString(@"lsq_api_splice_movie_explaination" , @"点击「视频拼接」按钮，将多段视频合为一段视频，保存成功后请去相册查看视频");
     explainationLabel.numberOfLines = 0;
     explainationLabel.textAlignment = NSTextAlignmentCenter;
     explainationLabel.font = [UIFont systemFontOfSize:15];
@@ -104,44 +126,64 @@
     [mixButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [mixButton lsqSetCornerRadius:10];
     mixButton.adjustsImageWhenHighlighted = NO;
-    [mixButton addTouchUpInsideTarget: self action:@selector(movieSplicer)];
+    [mixButton addTouchUpInsideTarget: self action:@selector(startComposing)];
     [self.view addSubview:mixButton];
+    
+    
+    progressLabel  = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMinY(mixButton.frame) - 60, self.view.lsqGetSizeWidth, sideGapDistance)];
+    progressLabel.backgroundColor = lsqRGB(236, 236, 236);
+    progressLabel.textColor = [UIColor blackColor];
+    progressLabel.text = @"拼接进度：";
+    progressLabel.numberOfLines = 0;
+    progressLabel.textAlignment = NSTextAlignmentCenter;
+    progressLabel.font = [UIFont systemFontOfSize:15];
+    [self.view addSubview:progressLabel];
+    
 }
 
 // 播放器初始化
 - (void)initWithVideoPlayer;
 {
+    if (_urlArray.count == 0) {
+        return;
+    }
+    if (_urlArray.count == 1) {
+        NSURL *url = _urlArray[0];
+        [_urlArray addObject:url];
+    }
     // 视频素材一播放器
-    UIView *firstPlayerView = [[UIView alloc]initWithFrame:CGRectMake(0, _topBar.lsqGetSizeHeight - 20 + topYDistance/2, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth*9/16)];
+    UIView *firstPlayerView = [[UIView alloc]initWithFrame:CGRectMake(0, _topBar.lsqGetSizeHeight + topYDistance, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth*9/16)];
     [firstPlayerView setBackgroundColor:[UIColor clearColor]];
     firstPlayerView.multipleTouchEnabled = NO;
+    _firstPlayerView = firstPlayerView;
     [self.view addSubview:firstPlayerView];
     // 添加视频资源
-    _firstPlayerItem = [[AVPlayerItem alloc]initWithURL:[self filePathName:@"tusdk_sample_video.mov"]];
+    _firstPlayerItem = [[AVPlayerItem alloc]initWithURL:_urlArray[0]];
     // 播放
     _firstPlayer = [[AVPlayer alloc]initWithPlayerItem:_firstPlayerItem];
     _firstPlayer.volume = 0.5;
     // 播放视频需要在AVPlayerLayer上进行显示
     AVPlayerLayer *firstPlayerLayer = [AVPlayerLayer playerLayerWithPlayer:_firstPlayer];
-    firstPlayerLayer.frame = firstPlayerView.frame;
+    firstPlayerLayer.frame = firstPlayerView.bounds;
     [firstPlayerView.layer addSublayer:firstPlayerLayer];
     // 循环播放的通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(playSampleOneVideoCycling) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     [_firstPlayer play];
-    
+
     // 视频素材二播放器
-    UIView *secondPlayerView = [[UIView alloc]initWithFrame:CGRectMake(0, _topBar.lsqGetSizeHeight + 80 + topYDistance, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth*9/16)];
+    UIView *secondPlayerView = [[UIView alloc]initWithFrame:CGRectMake(0, firstPlayerView.lsqGetOriginY + firstPlayerView.lsqGetSizeHeight + 10, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth*9/16)];
     [secondPlayerView setBackgroundColor:[UIColor clearColor]];
     secondPlayerView.multipleTouchEnabled = NO;
+    _secondPlayerView = secondPlayerView;
     [self.view addSubview:secondPlayerView];
     // 添加视频资源
-    _secondPlayerItem = [[AVPlayerItem alloc]initWithURL:[self filePathName:@"tusdk_sample_splice_video.mov"]];
+    _secondPlayerItem = [[AVPlayerItem alloc]initWithURL:_urlArray[1]];
     // 播放
     _secondPlayer = [[AVPlayer alloc]initWithPlayerItem:_secondPlayerItem];
     _secondPlayer.volume = 0.5;
     // 播放视频需要在AVPlayerLayer上进行显示
     AVPlayerLayer *secondPlayerLayer = [AVPlayerLayer playerLayerWithPlayer:_secondPlayer];
-    secondPlayerLayer.frame = secondPlayerView.frame;
+    secondPlayerLayer.frame = secondPlayerView.bounds;
     [secondPlayerView.layer addSublayer:secondPlayerLayer];
     // 循环播放的通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(playSampleTwoVideoCycling) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
@@ -163,71 +205,119 @@
     [self.view addSubview:_topBar];
 }
 
-- (void)movieSplicer;
+/**
+ * 启动视频合成
+ */
+- (void)startComposing;
 {
-    if (!_movieSplicer) {
-        _movieSplicer = [TuSDKTSMovieSplicer createSplicer];
-        _movieSplicer.splicerDelegate = self;
+    if (!_movieComposer && _movieComposer.status == TuSDKAssetVideoComposerStatusStarted) return;
+    
+    if (_urlArray.count == 0) {
+        return;
     }
-
-    NSURL *sampleOneURL = [self filePathName:@"tusdk_sample_splice_video.mov"];
-    NSURL *sampleTwoURL = [self filePathName:@"tusdk_sample_video.mov"];
+    if (_urlArray.count == 1) {
+        NSURL *url = _urlArray[0];
+        [_urlArray addObject:url];
+    }
     
-    NSString *moviePath1 = sampleOneURL.path;
-    TuSDKTimeRange *timeRange1 = [TuSDKTimeRange makeTimeRangeWithStartSeconds:0 endSeconds:8];
-    TuSDKMoiveFragment *fragment1 = [[TuSDKMoiveFragment alloc]initWithMoviePath:moviePath1 atTimeRange:timeRange1];
+    [self destroyPlayer];
     
-    NSString *moviePath2 = sampleTwoURL.path;
-    TuSDKTimeRange *timeRange2 = [TuSDKTimeRange makeTimeRangeWithStartSeconds:0 endSeconds:15];
-    TuSDKMoiveFragment *fragment2 = [[TuSDKMoiveFragment alloc]initWithMoviePath:moviePath2 atTimeRange:timeRange2];
-
-    [[TuSDK shared].messageHub setStatus:NSLocalizedString(@"正在合并...", @"正在合并...")];
-    
-    _movieSplicer.movies = [NSArray arrayWithObjects:fragment1, fragment2, nil];
-    [_movieSplicer startSplicingWithCompletionHandler:^(NSString *filePath, lsqMovieSplicerSessionStatus status) {
-        if (status == lsqMovieSplicerSessionStatusCompleted){
-            // 操作成功 保存到相册
-            UISaveVideoAtPathToSavedPhotosAlbum(filePath, nil, nil, nil);
-        }else if(status == lsqMovieSplicerSessionStatusFailed || status == lsqMovieSplicerSessionStatusCancelled || status == lsqMovieSplicerSessionStatusUnknown){
-            // 其他操作
+    if (!_movieComposer)
+    {
+       
+        _movieComposer = [[TuSDKAssetVideoComposer alloc] initWithAsset:nil];
+        _movieComposer.delegate = self;
+        // 指定输出文件格式
+        _movieComposer.outputFileType = lsqFileTypeMPEG4;
+        // 指定输出文件的码率
+        _movieComposer.outputVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Low1];
+        // 指定输出文件的尺寸，设定后会根据输出尺寸对原视频进行裁剪
+        // _movieComposer.outputSize = CGSizeMake(720, 1280);
+        for (NSURL *url in _urlArray) {
+            NSDictionary *options = @{ AVURLAssetPreferPreciseDurationAndTimingKey : @YES };
+            AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:options];
+            [_movieComposer addInputAsset:asset];
         }
-    }];
+    }
+
+  [_movieComposer startComposing];
 
 }
 
-#pragma mark - TuSDKMovieSplicerDelegate
+/**
+ 取消视频合成
+ */
+- (void)cancelComposing
+{
+    if (_movieComposer)
+        [_movieComposer cancelComposing];
+    
+    _movieComposer = nil;
+}
+
+#pragma mark - TuSDKAssetVideoComposerDelegate
 
 /**
- 状态通知代理
-
- @param editor editor TuSDKTSMovieSplicer
- @param status status lsqMovieSplicerSessionStatus
+ 合成状态改变事件
+ 
+ @param composer TuSDKAssetVideoComposer
+ @param status lsqAssetVideoComposerStatus 当前状态
  */
-- (void)onMovieSplicer:(TuSDKTSMovieSplicer *)editor statusChanged:(lsqMovieSplicerSessionStatus)status;
+-(void)assetVideoComposer:(TuSDKAssetVideoComposer *)composer statusChanged:(TuSDKAssetVideoComposerStatus)status
 {
-    if (status == lsqMovieSplicerSessionStatusCompleted) {
-        // 操作完成
-        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_api_splice_movie_success", @"操作完成，请去相册查看视频")];
-    }else if (status == lsqMovieSplicerSessionStatusFailed) {
-        // 操作失败
-        [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_api_splice_movie_failed", @"操作失败，无法生成视频文件")];
-    }else if (status == lsqMovieSplicerSessionStatusCancelled) {
-        // 操作取消
-        [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_api_splice_movie_cancelled", @"出现问题，操作被取消")];
+    switch (status)
+    {
+        case TuSDKAssetVideoComposerStatusStarted:
+             [[TuSDK shared].messageHub setStatus:NSLocalizedString(@"正在合并...", @"正在合并...")];
+            break;
+        case TuSDKAssetVideoComposerStatusCompleted:
+        {
+            [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_api_splice_movie_success", @"操作完成，请去相册查看视频")];
+            [self initWithVideoPlayer];
+        }
+            break;
+        case TuSDKAssetVideoComposerStatusFailed:
+        {
+            [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_api_splice_movie_failed", @"操作失败，无法生成视频文件")];
+            [self initWithVideoPlayer];
+        }
+            break;
+        case TuSDKAssetVideoComposerStatusCancelled:
+        {
+            [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_api_splice_movie_cancelled", @"出现问题，操作被取消")];
+            [self initWithVideoPlayer];
+        }
+            break;
+        default:
+            break;
     }
 }
 
 /**
- 结果通知代理
-
- @param editor editor TuSDKTSMovieSplicer
- @param result result TuSDKVideoResult
+ 合成进度事件
+ 
+ @param composer TuSDKAssetVideoComposer
+ @param progress 处理进度
+ @param index 当前正在处理的视频索引
  */
-- (void)onMovieSplicer:(TuSDKTSMovieSplicer *)editor result:(TuSDKVideoResult *)result;
+-(void)assetVideoComposer:(TuSDKAssetVideoComposer *)composer processChanged:(float)progress assetIndex:(NSUInteger)index
 {
-    NSLog(@"result   path: %@   duration : %f",result.videoPath,result.duration);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        progressLabel.text = [NSString stringWithFormat:@"拼接进度%.0f%%", progress * 100];
+    });
 }
 
+/**
+ 视频合成完毕
+ 
+ @param composer TuSDKAssetVideoComposer
+ @param result TuSDKVideoResult
+ */
+-(void)assetVideoComposer:(TuSDKAssetVideoComposer *)composer saveResult:(TuSDKVideoResult *)result
+{
+    // 视频处理结果
+     NSLog(@"result path: %@ ",result.videoAsset);
+}
 
 #pragma mark - TopNavBarDelegate
 
@@ -273,30 +363,25 @@
     if (!_firstPlayer) {
         return;
     }
-    [_firstPlayer cancelPendingPrerolls];
-    [_firstPlayerItem cancelPendingSeeks];
-    [_firstPlayerItem.asset cancelLoading];
+   
     [_firstPlayer pause];
-    _firstPlayerItem = [[AVPlayerItem alloc]initWithURL:[NSURL URLWithString:@""]];
-    // 初始化player对象
-    self.firstPlayer = [[AVPlayer alloc]initWithPlayerItem:_firstPlayerItem];
-    
+    [_firstPlayer replaceCurrentItemWithPlayerItem:nil];
     _firstPlayer = nil;
     _firstPlayerItem = nil;
     
     if (!_secondPlayer) {
         return;
     }
-    [_secondPlayer cancelPendingPrerolls];
-    [_secondPlayerItem cancelPendingSeeks];
-    [_firstPlayerItem.asset cancelLoading];
+   
     [_secondPlayer pause];
-    _secondPlayerItem = [[AVPlayerItem alloc]initWithURL:[NSURL URLWithString:@""]];
-    // 初始化player对象
-    self.secondPlayer = [[AVPlayer alloc]initWithPlayerItem:_secondPlayerItem];
-    
+    [_secondPlayer replaceCurrentItemWithPlayerItem:nil];
     _secondPlayer = nil;
     _secondPlayerItem = nil;
+    
+    [_firstPlayerView removeFromSuperview];
+    [_secondPlayerView removeFromSuperview];
+    _firstPlayerView = nil;
+    _secondPlayerView = nil;
 }
 
 @end

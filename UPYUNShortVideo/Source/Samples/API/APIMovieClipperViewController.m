@@ -34,8 +34,7 @@
     // 距离定点距离
     CGFloat topYDistance;
 }
-// 视频URL
-@property (nonatomic) NSURL *inputURL;
+
 // 编辑页面顶部控制栏视图
 @property (nonatomic, strong) TopNavBar *configBar;
 // 底部裁剪view
@@ -97,7 +96,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _inputURL  = [self filePathName:@"tusdk_sample_video.mov"];
     self.view.backgroundColor = [UIColor colorWithRed:0.92 green:0.92 blue:0.92 alpha:1];
     topYDistance = 0;
     if ([UIDevice lsqIsDeviceiPhoneX]) {
@@ -288,7 +286,7 @@
     }
 
     if (!_movieClipper) {
-        _movieClipper =  [[TuSDKMovieClipper alloc] initWithMoviePath:_inputURL.path];
+        _movieClipper =  [[TuSDKMovieClipper alloc] initWithMovieURL:_inputURL];
         _movieClipper.enableVideoSound = YES;
         _movieClipper.clipDelegate = self;
         _movieClipper.outputFileType = lsqFileTypeQuickTimeMovie;
@@ -305,7 +303,6 @@
             
         }
     }];
-    
 }
 
 #pragma mark - TuSDKMovieClipperDelegate

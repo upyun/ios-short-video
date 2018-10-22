@@ -174,6 +174,22 @@ extern NSString * const lsqNormalFilterCode;
 - (NSUInteger)groupFilterTypeWithGroupID:(uint64_t)groupID;
 
 /**
+ 根据滤镜组id获取滤镜分组
+ 
+ @param groupID 滤镜组id
+ @return TuSDKFilterGroup
+ */
+- (TuSDKFilterGroup *)groupWithGroupID:(uint64_t)groupID;
+
+/**
+ 根据 SDK 类型获取滤镜分组
+ 
+ @param ationScen SDK 类型获取滤镜分组
+ @return 分组列表
+ */
+- (NSArray<TuSDKFilterGroup *> *)groupsByAtionScen:(lsqAtionScenSDKType)ationScen;
+
+/**
  *  获取滤镜组默认滤镜代号
  *
  *  @param group 滤镜分组

@@ -16,6 +16,7 @@
 
 #define lsqRightTopBtnFirst 10
 #define lsqRightTopBtnSecond 11
+#define lsqRightTopBtnThird 12
 
 #pragma mark - TopNavBarDelegate
 

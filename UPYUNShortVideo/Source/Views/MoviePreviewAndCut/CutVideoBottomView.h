@@ -23,10 +23,10 @@
 // 缩略图
 @property (nonatomic, strong) NSArray<UIImage*> *thumbnails;
 // 拖动改变的block
-@property (nonatomic, strong)  void(^slipChangeTimeBlock)(CGFloat,lsqClipViewStyle);
+@property (nonatomic, copy)  void(^slipChangeTimeBlock)(CGFloat,lsqClipViewStyle);
 // 拖动结束的block
-@property (nonatomic, strong)  void(^slipEndBlock)(void);
+@property (nonatomic, copy)  void(^slipEndBlock)(void);
 // 拖动开始的block； 参数表示拖动的是起始按钮
-@property (nonatomic, strong)  void(^slipBeginBlock)(void);
+@property (nonatomic, copy)  void(^slipBeginBlock)(void);
 
 @end

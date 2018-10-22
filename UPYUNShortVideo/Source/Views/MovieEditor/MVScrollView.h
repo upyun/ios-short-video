@@ -20,7 +20,7 @@
 
  @param mvData MV贴纸的数据
  */
-- (void)clickMVListViewWith:(TuSDKMVStickerAudioEffectData *)mvData;
+- (void)clickMVListViewWith:(TuSDKMediaStickerAudioEffectData *)mvData;
 @end
 
 

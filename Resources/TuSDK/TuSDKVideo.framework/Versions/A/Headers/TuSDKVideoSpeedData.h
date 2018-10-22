@@ -38,3 +38,16 @@
 - (instancetype)initWithStartTime:(CMTime)startTime  endTime:(CMTime)endTime  speedMode:(lsqSpeedMode)speedMode;
 
 @end
+
+@interface TuSDKAudioPitchData : TuSDKVideoSpeedData
+
+/**
+ 初始化方法
+ 
+ @param startTime 开始时间
+ @param endTime 结束时间
+ @return TuSDKAudioPitchData
+ */
+- (instancetype)initWithStartTime:(CMTime)startTime  endTime:(CMTime)endTime;
+
+@end

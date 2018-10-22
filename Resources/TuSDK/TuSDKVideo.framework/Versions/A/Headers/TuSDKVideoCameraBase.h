@@ -18,10 +18,14 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
 {
     /** 输出 BGRA 格式 (kCVPixelFormatType_32BGRA)*/
     lsqFormatTypeBGRA,
-    /** 输出 YUV 格式 (kCVPixelFormatType_420YpCbCr8BiPlanarFullRange，即 NV12，YYYYYYYY UVUV) */
-    lsqFormatTypeYUV420F,
+    /** 输出 YUV 格式 (NV12，YYYYYYYY UVUV) */
+    lsqFormatTypeNV12,
     /** 输出 YUV 格式 (NV21， YYYYYYYY VUVU) 注：无法用于预览，仅供推流时使用 */
     lsqFormatTypeNV21,
+    /** 输出 YUV 格式 (I420: YYYYYYYY UU VV ) */
+    lsqFormatTypeI420,
+    /** 输出 YUV 格式 (YV12: YYYYYYYY VV UU ) */
+    lsqFormatTypeYV12,
     /** 输出基于 BGRA 格式的原始数据 */
     lsqFormatTypeRawData,
 };
@@ -289,6 +293,13 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
  @param result 拍摄照片
  */
 - (void)notifyCaptureResult:(UIImage *)result;
+
+/**
+ 获取图片
+ 
+ @return  得到的图片对象
+ */
+- (UIImage *)syncCaptureImage;
 
 #pragma mark - live sticker
 

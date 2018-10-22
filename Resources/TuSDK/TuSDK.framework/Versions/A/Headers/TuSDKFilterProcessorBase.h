@@ -16,7 +16,7 @@
  */
 @interface TuSDKFilterProcessorBase : GPUImageOutput
 {
-    GPUImageRotationMode outputRotation, internalRotation , bufferRotation;
+    GPUImageRotationMode internalRotation , bufferRotation;
 }
 
 /**
@@ -35,6 +35,7 @@
 /// These properties determine whether or not the two camera orientations should be mirrored. By default, both are NO.
 @property(readwrite, nonatomic) BOOL horizontallyMirrorFrontFacingCamera, horizontallyMirrorRearFacingCamera;
 
+@property (nonatomic) GPUImageRotationMode outputRotation;
 /**
  *  初始化
  *

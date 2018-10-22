@@ -10,6 +10,7 @@
 #import "TuSDKFramework.h"
 #import "EffectsDisplayView.h"
 
+
 @class ParticleEffectEditView;
 
 #pragma mark - ParticleEffectEditViewDelegate
@@ -94,11 +95,30 @@
 @property (nonatomic, assign) id<ParticleEffectEditViewDelegate> particleDelegate;
 // 缩略图展示view
 @property (nonatomic, strong) EffectsDisplayView *displayView;
+// 播放按钮
+@property (nonatomic, readonly) UIButton *playBtn;
 // 添加特效时的展示图颜色
 @property (nonatomic, strong) UIColor *selectColor;
 // 视频 progress
-@property (nonatomic, assign) CGFloat videoProgress;
+@property (nonatomic, assign,readonly) CGFloat videoProgress;
 
+// 粒子特效大小
+@property (nonatomic, assign,readonly) CGFloat particleSize;
+// 粒子特效颜色
+@property (nonatomic, strong,readonly) UIColor *particleColor;
+
+
+/**
+ 停止编辑
+ */
+- (void)makeFinish;
+
+/**
+ 设置当前进度
+ @param videoProgress 视频进度
+ @param playMode 当前播放模式
+ */
+-(void)setVideoProgress:(CGFloat)videoProgress;
 
 /**
  移除上一个添加的粒子特效

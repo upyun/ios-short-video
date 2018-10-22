@@ -48,6 +48,6 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) NSInteger currentStickesIndex;
 
 // 贴纸栏事件代理
-@property (nonatomic, assign) id<StickerViewClickDelegate> stickerDelegate;
+@property (nonatomic, weak) id<StickerViewClickDelegate> stickerDelegate;
 
 @end

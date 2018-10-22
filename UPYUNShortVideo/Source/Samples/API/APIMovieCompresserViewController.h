@@ -10,4 +10,7 @@
 
 @interface APIMovieCompresserViewController : UIViewController
 
+// 视频url
+@property (nonatomic, strong) NSURL  *inputURL;
+
 @end

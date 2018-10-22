@@ -128,6 +128,7 @@
         i++;
     }
     _filterScroll.contentSize = CGSizeMake(centerX - filterItemWidth/2, _filterScroll.bounds.size.height);
+    [self clickClearFilterBtn:nil];
 }
 
 // 选择某个滤镜后创建上面的参数调节view
@@ -149,6 +150,18 @@
     NSMutableArray<NSNumber *> *originProgressArr = [[NSMutableArray alloc]init];
     
     NSInteger allCount = args.count;
+    
+//    参数   smoothing: 润滑
+//          eyeSize: 大眼
+//          chinSize: 瘦脸
+//          noseSize: 瘦鼻
+//          mouthWidth: 嘴型
+//          eyeAngle: 眼角
+//          archEyebrow: 细眉
+//          jawSize: 下巴
+//          whitening: 白皙
+//          mixied: 效果
+    // demo创建smoothing，eyeSize，chinSize，whitening，mixied参数调节栏，用户可自定义其他参数调节栏的创建
     for (TuSDKFilterArg *arg in args) {
         if ([arg.key isEqualToString:@"smoothing"] && !_isHiddenSmoothingParamSingleAdjust) {
             [beautyKeys addObject:arg.key];
@@ -166,6 +179,18 @@
                 [originProgressArr addObject:@(arg.precent)];
             }
             allCount --;
+        }else if([arg.key isEqualToString:@"noseSize"]){
+            allCount --;
+        }else if([arg.key isEqualToString:@"mouthWidth"]){
+            allCount --;
+        }else if([arg.key isEqualToString:@"eyeDis"]){
+            allCount --;
+        }else if([arg.key isEqualToString:@"eyeAngle"]){
+            allCount --;
+        }else if([arg.key isEqualToString:@"archEyebrow"]){
+            allCount --;
+        }else if([arg.key isEqualToString:@"jawSize"]){
+            allCount --;
         }
     }
     
@@ -181,21 +206,25 @@
         if ([filterDescription isEqualToString:@"Original"]) {
             break;
         }
-
+        
         // 抽离每个滤镜中的 润滑、大眼、瘦脸，通过beautyView中的参数调节逻辑 进行统一调节设置； 若有其他需求，可自行更改
         if (([arg.key isEqualToString:@"smoothing"] && !_isHiddenSmoothingParamSingleAdjust)|| [arg.key isEqualToString:@"eyeSize"] || [arg.key isEqualToString:@"chinSize"]) {
             continue;
         }
         
-        centerY += parameterHeight;
-        
-        FilterParamItemView *paramItem = [[FilterParamItemView alloc]initWithFrame:CGRectMake(0, 0, _paramBackView.lsqGetSizeWidth, itemHeight)];
-        paramItem.center = CGPointMake(centerX, centerY);
-        NSString *title = [NSString stringWithFormat:@"lsq_filter_set_%@", arg.key];
-        [paramItem initParamViewWith:NSLocalizedString(title,@"效果") originProgress:((TuSDKFilterArg *)args[i]).precent];
-        paramItem.paramKey = arg.key;
-        paramItem.itemDelegate = self;
-        [_paramBackView addSubview:paramItem];
+        // demo中只创建白皙和效果参数调节栏，更多参数调节栏可自定义创建
+        if ([arg.key isEqualToString:@"mixied"] || [arg.key isEqualToString:@"whitening"]) {
+            
+            centerY += parameterHeight;
+            
+            FilterParamItemView *paramItem = [[FilterParamItemView alloc]initWithFrame:CGRectMake(0, 0, _paramBackView.lsqGetSizeWidth, itemHeight)];
+            paramItem.center = CGPointMake(centerX, centerY);
+            NSString *title = [NSString stringWithFormat:@"lsq_filter_set_%@", arg.key];
+            [paramItem initParamViewWith:NSLocalizedString(title,@"效果") originProgress:((TuSDKFilterArg *)args[i]).precent];
+            paramItem.paramKey = arg.key;
+            paramItem.itemDelegate = self;
+            [_paramBackView addSubview:paramItem];
+        }
     }
     
     if (_isHiddenSmoothingParamSingleAdjust && _isHiddenEyeChinParam) return;
@@ -391,17 +420,29 @@
 // 滑动条调整的响应方法
 - (void)filterParamItemView:(FilterParamItemView *)filterParamItemView changedProgress:(CGFloat)progress;
 {
+    // 调节参数限制，参数值越大，效果不一定越好，可根据场景选择最适合参数值
     if ([filterParamItemView.paramKey isEqualToString:@"smoothing"] && !_isHiddenSmoothingParamSingleAdjust) {
-        _smoothingLevel = progress;
+        _smoothingLevel = progress * 0.7;
     }else if ([filterParamItemView.paramKey isEqualToString:@"eyeSize"]){
-        _eyeSizeLevel = progress;
+        _eyeSizeLevel = progress * 0.7;
     }else if ([filterParamItemView.paramKey isEqualToString:@"chinSize"]){
-        _chinSizeLevel = progress;
+        _chinSizeLevel = progress * 0.4;
     }
     
     for (TuSDKFilterArg *arg in _args) {
         if ([arg.key isEqualToString:filterParamItemView.paramKey]) {
-            arg.precent = progress;
+            
+            if([arg.key isEqualToString:@"mixied"]){
+                arg.precent = progress * 0.7;
+            }else if([arg.key isEqualToString:@"whitening"]){
+                arg.precent = progress * 0.6;
+            }else if([arg.key isEqualToString:@"smoothing"]){
+                arg.precent = progress * 0.7;
+            }else if([arg.key isEqualToString:@"eyeSize"]){
+                arg.precent = progress * 0.7;
+            }else if([arg.key isEqualToString:@"chinSize"]){
+                arg.precent = progress * 0.4;
+            }
         }
     }
     

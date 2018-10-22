@@ -56,7 +56,7 @@ static NSString *cellFooterId = @"photoCellFooterId";
     flowLayout.minimumLineSpacing = 5;
     flowLayout.footerReferenceSize = CGSizeMake(width, 40);
     
-    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 5, width, heght - 50) collectionViewLayout:flowLayout];
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 5, width, heght) collectionViewLayout:flowLayout];
     collectionView.dataSource = self;
     collectionView.delegate = self;
     collectionView.alwaysBounceVertical = YES;
@@ -66,11 +66,6 @@ static NSString *cellFooterId = @"photoCellFooterId";
     
     [collectionView registerClass:[TuPhotosPreviewViewCell class] forCellWithReuseIdentifier:cellId];
     [collectionView registerClass:[TuPhotosFooterView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:cellFooterId];
-    
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, heght - 45, width, 45)];
-    
-    [self.view addSubview:bottomView];
-    
 }
 
 #pragma mark - collection delegate
@@ -91,23 +86,25 @@ static NSString *cellFooterId = @"photoCellFooterId";
         NSIndexPath *indexPt = [collectionView indexPathForCell:cell];
         TuVideoModel *model = weakSelf.allPhotosArray[indexPt.row];
         
-        if (self.isPreviewVideo) {
-            
-            TuVideoContainerViewController *vc = [[TuVideoContainerViewController alloc] init];
-            vc.model = model;
-            vc.didSelectedBlock = ^(TuVideoModel *selectedModel) {
-                if (selectedModel && [weakSelf.selectedDelegate respondsToSelector:@selector(selectedModel:)]) {
-                    [self.selectedDelegate selectedModel:selectedModel];
+//         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (weakSelf.isPreviewVideo) {
+                
+                TuVideoContainerViewController *vc = [[TuVideoContainerViewController alloc] init];
+                vc.model = model;
+                vc.didSelectedBlock = ^(TuVideoModel *selectedModel) {
+                    if (selectedModel && [weakSelf.selectedDelegate respondsToSelector:@selector(selectedModel:)]) {
+                        [weakSelf.selectedDelegate selectedModel:selectedModel];
+                    }
+                };
+                [weakSelf.navigationController pushViewController:vc animated:YES];
+                
+            }else{
+                if ([weakSelf.selectedDelegate respondsToSelector:@selector(selectedModel:)]) {
+                    [weakSelf.selectedDelegate selectedModel:model];
                 }
-            };
-            [weakSelf.navigationController pushViewController:vc animated:YES];
-            
-        }else{
-            if ([weakSelf.selectedDelegate respondsToSelector:@selector(selectedModel:)]) {
-                [self.selectedDelegate selectedModel:model];
+                [weakSelf closeAlbum];
             }
-            [self closeAlbum];
-        }
+//        });
         
     }];
     

@@ -82,7 +82,7 @@
 // 初始化视频缩略图提取器
 - (void)initWithVideoThumbnailsExtractor;
 {
-    NSURL *videoURL  = [self filePathName:@"tusdk_sample_video.mov"];
+    NSURL *videoURL  = _inputURL;
     imageExtractor = [TuSDKVideoImageExtractor createExtractor];
     imageExtractor.videoPath = videoURL;
     // 输出缩略图的数量
@@ -202,7 +202,7 @@
     playerView.multipleTouchEnabled = NO;
     [self.view addSubview:playerView];
     // 添加视频资源
-    _playerItem = [[AVPlayerItem alloc]initWithURL:[self filePathName:@"tusdk_sample_video.mov"]];
+    _playerItem = [[AVPlayerItem alloc]initWithURL:_inputURL];
     // 播放
     _player = [[AVPlayer alloc]initWithPlayerItem:_playerItem];
     _player.volume = 0.5;

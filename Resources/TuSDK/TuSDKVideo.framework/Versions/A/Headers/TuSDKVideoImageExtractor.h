@@ -11,7 +11,7 @@
 #import <UIKit/UIKit.h>
 
 typedef void(^TuSDKVideoImageExtractorBlock)(NSArray<UIImage *> *);
-
+typedef void(^TuSDKVideoImageExtractorStepImageBlock)(UIImage *image, NSUInteger index);
 
 /**
  * 提取视频帧
@@ -19,48 +19,59 @@ typedef void(^TuSDKVideoImageExtractorBlock)(NSArray<UIImage *> *);
  */
 @interface TuSDKVideoImageExtractor : NSObject
 
-
 /**
  创建TuSDKVideoImageExtractor
 
  @return TuSDKVideoImageExtractor
  */
-+ (TuSDKVideoImageExtractor *) createExtractor;
++ (TuSDKVideoImageExtractor *)createExtractor;
 
+/**
+ 视频资源
+ */
+@property (nonatomic, strong) AVAsset *videoAsset;
 
 /**
     视频地址
  */
-@property (nonatomic) NSURL *videoPath;
+@property (nonatomic, copy) NSURL *videoPath;
 
 /**
  * 提取的视频帧数，自动根据视频长度均匀获取 (mExtractFrameCount 和 mExtractFrameInterval 都设置时 优先使用mExtractFrameCount)
  */
-@property (nonatomic) NSUInteger extractFrameCount;
+@property (nonatomic, assign) NSUInteger extractFrameCount;
 
 /**
  * 提取帧的时间间隔 (单位：s) 张数不固定
  */
-@property (nonatomic) CGFloat extractFrameTimeInterval;
+@property (nonatomic, assign) CGFloat extractFrameTimeInterval;
 
 /**
- * 输出的图片尺寸 默认（80*80）
+ 输出的图片尺寸，不设置则按视频宽高比例计算
+ 注意：要得到清晰图像，需要宽高分别乘以 [UIScreen mainScreen].scale。
  */
-@property (nonatomic) CGSize outputMaxImageSize;
+@property (nonatomic, assign) CGSize outputMaxImageSize;
 
 /**
- 提取视频帧
+ 是否需要精确时间帧获取图片, 默认NO
+ @since 2.2.0
+ */
+@property (nonatomic, assign) BOOL isAccurate;
+
+/**
+ 同步提取视频帧
  @return 视频帧数据列表
  */
-- (NSArray<UIImage *> *) extractImageList;
+- (NSArray<UIImage *> *)extractImageList;
 
 /**
  *  异步获取视频帧
  */
-- (void) asyncExtractImageList:(TuSDKVideoImageExtractorBlock)  handler;
+- (void)asyncExtractImageList:(TuSDKVideoImageExtractorBlock)handler;
+- (void)asyncExtractImageWithHandler:(TuSDKVideoImageExtractorStepImageBlock)handler;
 
 /**
- 获取指定时间的视频帧
+ 同步获取指定时间的视频帧
  
  @param time 帧所在时间
  @return 视频帧
@@ -68,4 +79,3 @@ typedef void(^TuSDKVideoImageExtractorBlock)(NSArray<UIImage *> *);
 - (UIImage *)frameImageAtTime:(CMTime)time;
 
 @end
-

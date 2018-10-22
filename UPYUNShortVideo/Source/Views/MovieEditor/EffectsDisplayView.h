@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "TuSDKFramework.h"
 /**
  缩略图事件代理
  
@@ -40,24 +40,23 @@
 /**
  添加一个显示片段
 
- @param startLocation 开始位置
+ @param progress 开始进度 （0-1）
  @param color 片段显示的颜色
  @return 是否添加成功
  */
-- (BOOL)addSegmentViewBeginWithStartLocation:(CGFloat)startLocation WithColor:(UIColor *)color;
+- (BOOL)addSegmentViewBeginWithProgress:(CGFloat)progress WithColor:(UIColor *)color;
+
+/**
+ 当前正在添加的片段增加到某一位置
+ 
+ @param progress 当前进度
+ */
+-(void)updateLastSegmentViewWithProgress:(CGFloat)progress;
 
 /**
  结束正在添加的位置
  */
-- (void)addSegmentViewEnd;
-
-/**
- 当前正在添加的片段增加到某一位置
-
- @param currentLocation 截止位置
- */
-- (void)addSegmentViewMoveToLocation:(CGFloat)currentLocation;
-
+- (void)makeFinish;
 
 /**
  移除上一个添加的片段

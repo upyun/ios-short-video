@@ -173,6 +173,14 @@
 - (BOOL)videoEditorParticleEffectsFilterSupport;
 
 /**
+  video editor text effects support 编辑视频 是否支持文字特效
+
+ @return true/false
+ @sinace 2.2.0
+ */
+- (BOOL)videoEditorTextEffectsSupport;
+
+/**
  *  解密文本
  *
  *  @param txt 加密文本

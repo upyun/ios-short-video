@@ -282,7 +282,7 @@
     // 设置后退和确认按钮
     [_bottomBar enabledBtnWithCancle: (_nodesLocation.count>0 ? YES : NO)];
     [_bottomBar enabledBtnWithComplete: ([_aboveView lsqGetSizeWidth]>_minSecondView.center.x ? YES : NO)];
-
+    
 }
 
 #pragma mark - TuSDK Camera
@@ -327,7 +327,7 @@
     // _camera.outputSize = CGSizeMake(640, 640);
     
     // 输出视频的画质，主要包含码率、分辨率等参数 (默认为空，采用系统设置)
-    _camera.videoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium2];
+    _camera.videoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium1];
     // 禁止触摸聚焦功能 (默认: NO)
     _camera.disableTapFocus = NO;
     // 是否禁用持续自动对焦
@@ -345,11 +345,11 @@
     // 启用智能贴纸
     _camera.enableLiveSticker = YES;
     // 设置水印，默认为空
-    _camera.waterMarkImage = [UIImage imageNamed:@"upyun_wartermark.png"];
+    _camera.waterMarkImage = [UIImage imageNamed:@"sample_watermark.png"];
     // 设置水印图片的位置
     _camera.waterMarkPosition = lsqWaterMarkBottomRight;
     // 最大录制时长 8s
-    _camera.maxRecordingTime = 8;
+    _camera.maxRecordingTime = 15;
     // 最小录制时长 2s
     _camera.minRecordingTime = 1;
     // 正常模式/续拍模式  - 注：该录制模式需和 _bottomBar 中的一致, 若不使用这套UI逻辑，可进行自定义交互操作
@@ -691,20 +691,20 @@
 {
     // 通过相机初始化设置  _camera.saveToAlbum = NO;  result.videoPath 拿到视频的临时文件路径
     if (result.videoPath) {
+        //        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_record_complete", @"录制完成")];
+
         // 进行自定义操作，例如保存到相册
         UISaveVideoAtPathToSavedPhotosAlbum(result.videoPath, nil, nil, nil);
         [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
-        
-        
-        
-        
+
+
         //UPYUN短视频 上传到云存储
         NSString *saveKey = [NSString stringWithFormat:@"short_video_record_test_%d.mp4", arc4random() % 10];
-        
+
         NSString *imgSaveKey = [NSString stringWithFormat:@"short_video_record_jietu_%d.jpg", arc4random() % 10];
         [[UPYUNConfig sharedInstance] uploadFilePath:result.videoPath saveKey:saveKey success:^(NSHTTPURLResponse *response, NSDictionary *responseBody) {
             [[TuSDK shared].messageHub showSuccess:@"上传成功"];
-            
+
             NSLog(@"file url：http://%@.b0.upaiyun.com/%@",[UPYUNConfig sharedInstance].DEFAULT_BUCKET, saveKey);
             //            视频同步截图方法
             //            /// source   需截图的视频相对地址,   save_as 保存截图的相对地址, point 截图时间点 hh:mm:ss 格式
@@ -716,23 +716,20 @@
             //            } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
             //                NSLog(@"截图失败-error==%@--response==%@, responseBody==%@", error,  response, responseBody);
             //            }];
-            
-            
+
+
         } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
             [[TuSDK shared].messageHub showSuccess:@"上传失败"];
             NSLog(@"上传失败 error：%@", error);
             NSLog(@"上传失败 code=%ld, responseHeader：%@", (long)response.statusCode, response.allHeaderFields);
             NSLog(@"上传失败 message：%@", responseBody);
         } progress:^(int64_t completedBytesCount, int64_t totalBytesCount) {
-            
         }];
-
-        
-    }else{
+    } else {
         // _camera.saveToAlbum = YES; （默认为 ：YES）将自动保存到相册
         [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
     }
-    
+
     if (_camera && _camera.recordMode == lsqRecordModeNormal) {
         [_bottomBar recordBtnIsRecordingStatu:NO];
     }
@@ -769,12 +766,15 @@
     
     if (state == lsqRecordStateRecordingCompleted) {
         // 录制完成
-        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_record_complete", @"录制完成")];
-    }else if (state == lsqRecordStateRecording){
+        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_record_complete", @"录制完成,请保存视频")];
+    }else if (state == lsqRecordStateRecording)
+    {
         // 正在录制
-    }else if (state == lsqRecordStatePaused){
+    }else if (state == lsqRecordStatePaused)
+    {
         // 暂停录制
-    }else if (state == lsqRecordStateMerging){
+    }else if (state == lsqRecordStateMerging)
+    {
         // 正在合成视频
     }else if (state == lsqRecordStateCanceled){
         // 取消录制 同时 重置UI

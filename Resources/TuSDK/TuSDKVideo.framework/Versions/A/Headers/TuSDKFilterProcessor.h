@@ -8,6 +8,19 @@
 
 #import "TuSDKVideoImport.h"
 #import "TuSDKVideoCameraBase.h"
+#import "TuSDKMediaEffectData.h"
+#import "TuSDKMediaVideoEffectsSync.h"
+
+/**
+ * 人脸信息检测结果类型
+ */
+typedef NS_ENUM(NSUInteger,lsqVideoProcesserFaceDetectionResultType) {
+    /** Succeed */
+    lsqVideoProcesserFaceDetectionResultTypeFaceDetected,
+    /** No face is detected */
+    lsqVideoProcesserFaceDetectionResultTypeNoFaceDetected,
+};
+
 
 #pragma mark - TuSDKFilterProcessorDelegate
 
@@ -16,15 +29,65 @@
  *  视频处理事件委托
  */
 @protocol TuSDKFilterProcessorDelegate <NSObject>
+
+@optional
+
 /**
  *  滤镜改变 (如需操作UI线程， 请检查当前线程是否为主线程)
  *
  *  @param processor 视频处理对象
  *  @param newFilter 新的滤镜对象
  */
-- (void)onVideoProcessor:(TuSDKFilterProcessor *)processor filterChanged:(TuSDKFilterWrap *)newFilter;
+- (void)onVideoProcessor:(TuSDKFilterProcessor *)processor filterChanged:(TuSDKFilterWrap *)newFilter DEPRECATED_MSG_ATTRIBUTE("Please use TuSDKFilterProcessorMediaEffectDelegate");
 
 @end
+
+/**
+ *  人脸检测事件委托
+ */
+@protocol TuSDKFilterProcessorFaceDetectionDelegate <NSObject>
+
+@optional
+
+/**
+ *  人脸检测事件委托 (如需操作UI线程， 请检查当前线程是否为主线程)
+ *
+ *  @param processor 视频处理对象
+ *  @param type 人脸信息
+ *  @param count 检测到的人脸数量
+ */
+- (void)onVideoProcessor:(TuSDKFilterProcessor *)processor faceDetectionResultType:(lsqVideoProcesserFaceDetectionResultType)type faceCount:(NSUInteger)count;
+
+@end
+
+/**
+ 特效事件委托
+ @since 2.2.0
+ */
+@protocol TuSDKFilterProcessorMediaEffectDelegate <NSObject>
+
+@optional
+
+/**
+ 一个新的特效正在被应用
+
+ @param processor 视频处理对象
+ @param mediaEffectData 应用的特效信息
+ @since 2.2.0
+ */
+- (void)onVideoProcessor:(TuSDKFilterProcessor *)processor didApplyingMediaEffect:(TuSDKMediaEffectData *)mediaEffectData;
+
+/**
+ 特效数据移除
+ 
+ @param processor 视频处理对象
+ @param mediaEffects 被移除的特效列表
+ @since 2.2.0
+ */
+- (void)onVideoProcessor:(TuSDKFilterProcessor *)processor didRemoveMediaEffects:(NSArray<TuSDKMediaEffectData *> *)mediaEffectDatas;
+
+@end
+
 
 #pragma mark - TuSDKFilterProcessor
 
@@ -52,6 +115,22 @@
 }
 
 /**
+ *  初始化
+ *
+ *  支持： kCVPixelFormatType_420YpCbCr8BiPlanarFullRange | kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange kCVPixelFormatType_32BGRA
+ *
+ *  @param pixelFormatType          原始采样的pixelFormat Type
+ *  @param isOriginalOrientation    传入图像的方向是否为原始朝向，SDK 将依据该属性来调整人脸检测时图片的角度。如果没有对图片进行旋转，则为 YES
+ *  @param outputSize                输出尺寸
+ *
+ *  @return instance
+ */
+- (instancetype)initWithFormatType:(OSType)pixelFormatType
+        isOriginalOrientation:(BOOL)isOriginalOrientation
+               videoSize:(CGSize)outputSize;
+
+
+/**
  *  是否开启动态贴纸 (默认: NO)
  */
 @property (nonatomic) BOOL enableLiveSticker;
@@ -59,7 +138,18 @@
 /**
  *  处理器事件委托
  */
-@property (nonatomic, weak) id<TuSDKFilterProcessorDelegate> delegate;
+@property (nonatomic,weak) id<TuSDKFilterProcessorDelegate> delegate DEPRECATED_MSG_ATTRIBUTE("Please use mediaEffectDelegate");
+
+/**
+ * 人脸检测事件委托
+ */
+@property (nonatomic, weak) id<TuSDKFilterProcessorFaceDetectionDelegate> faceDetectionDelegate;
+
+/**
+ * 特效事件委托
+ */
+@property (nonatomic, weak) id<TuSDKFilterProcessorMediaEffectDelegate> mediaEffectDelegate;
+
 
 /**
  *  输出 PixelBuffer 格式，可选: lsqFormatTypeBGRA | lsqFormatTypeYUV420F | lsqFormatTypeRawData
@@ -78,20 +168,20 @@
  */
 @property(readwrite, nonatomic) UIInterfaceOrientation interfaceOrientation;
 
+/** 特效播放类 */
+@property (nonatomic,strong) TuSDKMediaVideoEffectsSync *mediaEffectsSync;
+
+/** 特效播放类 */
+@property (nonatomic,readonly) TuSDKComboFilterWrapChain *filterWrapChain;
+
+
 /**
- *  初始化
- *
- *  支持： kCVPixelFormatType_420YpCbCr8BiPlanarFullRange | kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange kCVPixelFormatType_32BGRA
- *
- *  @param pixelFormatType          原始采样的pixelFormat Type
- *  @param isOriginalOrientation    传入图像的方向是否为原始朝向，SDK 将依据该属性来调整人脸检测时图片的角度。如果没有对图片进行旋转，则为 YES
- *  @param videoSize                输出尺寸
- *
- *  @return instance
+ Process a video sample and return result soon
+ 
+ @param sampleBuffer sampleBuffer sampleBuffer Buffer to process
+ @return Video PixelBuffer
  */
-- (instancetype)initWithFormatType:(OSType)pixelFormatType
-        isOriginalOrientation:(BOOL)isOriginalOrientation
-               videoSize:(CGSize)outputSize;
+- (CVPixelBufferRef)syncProcessVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer frameTime:(CMTime)currentTime;
 
 /**
  Process a video sample and return result soon
@@ -113,7 +203,7 @@
  Process pixelBuffer and return result soon
  
  @param pixelBuffer pixelBuffer
- @param frameTime frameTime
+ @param currentTime frameTime
  @return PixelBuffer
  */
 - (CVPixelBufferRef)syncProcessPixelBuffer:(CVPixelBufferRef)pixelBuffer frameTime:(CMTime)currentTime;
@@ -132,37 +222,8 @@
 - (void)destroyFrameData;
 
 /**
- *  切换滤镜
- *
- *  @param code 滤镜代号
- *
- *  @return 是否成功切换滤镜
+ 设置检测框最小倍数 [取值范围: 0.1 < x < 0.5, 默认: 0.2] 值越大性能越高距离越近
  */
-- (BOOL)switchFilterWithCode:(NSString *)code;
-
-#pragma mark - live sticker
-
-/**
- *  显示一组动态贴纸。当显示一组贴纸时，会清除画布上的其它贴纸
- *
- *  @param groupSticker 动态贴纸对象
- */
-- (void)showGroupSticker:(TuSDKPFStickerGroup *)groupSticker;
-
-/**
- *  动态贴纸组是否已在使用
- *
- *  @param groupSticker 动态贴纸组对象
- *  @return 　是否使用
- */
-- (BOOL)isGroupStickerUsed:(TuSDKPFStickerGroup *)groupSticker;
-
-/**
- *  清除动态贴纸
- */
-- (void)removeAllLiveSticker;
-
-/** 设置检测框最小倍数 [取值范围: 0.1 < x < 0.5, 默认: 0.2] 值越大性能越高距离越近 */
 - (void) setDetectScale: (CGFloat) scale;
 #pragma mark - destory
 
@@ -170,4 +231,96 @@
  *  销毁
  */
 - (void)destory;
+
+@end
+
+#pragma mark - 特效管理
+
+/**
+ * 特效管理
+ */
+@interface TuSDKFilterProcessor (MediaEffectManager)
+
+/**
+ *  切换滤镜
+ *
+ *  @param code 滤镜代号
+ *
+ *  @return 是否成功切换滤镜
+ */
+- (BOOL)switchFilterWithCode:(NSString *)code DEPRECATED_MSG_ATTRIBUTE("Please call addMediaEffect:");
+
+#pragma mark - live sticker
+
+/**
+ *  显示一组动态贴纸。当显示一组贴纸时，会清除画布上的其它贴纸
+ *
+ *  @param groupSticker 动态贴纸对象
+ *
+ */
+- (void)showGroupSticker:(TuSDKPFStickerGroup *)groupSticker DEPRECATED_MSG_ATTRIBUTE("Please call addMediaEffect:");
+
+/**
+ *  动态贴纸组是否已在使用
+ *
+ *  @param groupSticker 动态贴纸组对象
+ *  @return 　是否使用
+ */
+- (BOOL)isGroupStickerUsed:(TuSDKPFStickerGroup *)groupSticker DEPRECATED_MSG_ATTRIBUTE();
+
+/**
+ *  清除动态贴纸
+ */
+- (void)removeAllLiveSticker DEPRECATED_MSG_ATTRIBUTE("Please use removeMediaEffectsWithType:TuSDKMediaEffectDataTypeSticker");
+
+/**
+ 验证 TuSDKFilterProcessor 当前是否支持该特效类型
+ @param mediaEffectType 特效类型
+ @return true/false
+ @since      v2.2.0
+ */
+-(BOOL)isSupportedMediaEffectType:(TuSDKMediaEffectDataType)mediaEffectType;
+
+/**
+ 添加一个多媒体特效。该方法不会自动设置触发时间.
+ 如果已有特效和该特效不能同时共存，已有旧特效将被移除.
+ 
+ @param mediaEffect 特效数据
+ @since      v2.2.0
+ */
+- (BOOL)addMediaEffect:(TuSDKMediaEffectData *)mediaEffect;
+
+/**
+ 移除特效数据
+ 
+ @param mediaEffect 特效数据
+ @since      v2.2.0
+ */
+- (void)removeMediaEffect:(TuSDKMediaEffectData *)mediaEffect;
+
+/**
+ 移除指定类型的特效信息
+
+ @param effectType 特效类型
+ @since      v2.2.0
+ */
+- (void)removeMediaEffectsWithType:(TuSDKMediaEffectDataType)effectType;
+
+/**
+ 移除所有特效数据
+ 
+ @since      v2.2.0
+ */
+- (void)removeAllMediaEffect;
+
+/**
+ 获取指定类型的特效信息
+ @since      v3.0
+ @param effectType 特效数据类型
+ @return 特效列表
+ @since      v2.2.0
+ */
+- (NSArray<TuSDKMediaEffectData *> *)mediaEffectsWithType:(TuSDKMediaEffectDataType)effectType;
+
+
 @end

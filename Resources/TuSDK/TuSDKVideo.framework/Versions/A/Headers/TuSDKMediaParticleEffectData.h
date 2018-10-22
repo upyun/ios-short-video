@@ -15,9 +15,26 @@
 @interface TuSDKMediaParticleEffectData : TuSDKMediaEffectData
 
 /**
+ 构建粒子特效实例
+ 
+ @param effectCode 粒子特效code
+ @param timeRange 生效时间
+ @return TuSDKMediaParticleEffectData
+ */
+-(instancetype)initWithEffectsCode:(NSString *)effectsCode atTimeRange:(TuSDKTimeRange *)timeRange;
+
+/**
+ 构建粒子特效实例
+ 
+ @param effectCode 粒子特效code
+ @return TuSDKMediaParticleEffectData
+ */
+- (instancetype)initWithEffectsCode:(NSString *)effectsCode;
+
+/**
  特效code
  */
-@property (nonatomic, copy) NSString * effectsCode;
+@property (nonatomic,copy,readonly) NSString * effectsCode;
 
 /**
  特效的大小 0 ~ 1   0：原始默认大小  1：最大放大倍数后的大小
@@ -30,44 +47,56 @@
 @property (nonatomic, strong) UIColor *particleColor;
 
 /**
- 特效设置是否有效  YES:有效    -   结束时间 <= 开始时间 或 特效code不存在 则被认为是无效设置
- */
-@property (nonatomic, assign, readonly) BOOL isValid;
-
-/**
  轨迹记录数组
  */
-@property (nonatomic, strong) NSMutableDictionary<NSValue *,NSValue *> *recordPathDic;
+@property (nonatomic,strong) NSMutableDictionary<NSValue *,NSValue *> *recordPathDic;
 
+
+@end
+
+#pragma mark ParticleEmitPosition
+
+@interface TuSDKMediaParticleEffectData (ParticleEmitPosition)
 
 /**
  更新当前正在添加的粒子特效的发射器位置
  
  @param point 粒子发射器位置  左上角为(0,0)  右下角为(1,1)
+ @since      v3.0
  */
 - (void)updateParticleEmitPosition:(CGPoint)point withCurrentTime:(CMTime)time;
+/**
+ 更新粒子特效的发射器位置
+ 
+ @param point 粒子发射器位置  左上角为(0,0)  右下角为(1,1)
+ @since      v3.0
+ */
+- (void)updateParticleEmitPosition:(CGPoint)point;
 
 /**
  判断某一时刻是否有对应的轨迹点
-
+ 
  @param time 时间
  @return YES：该时刻有对应的轨迹点
+ @since      v3.0
  */
 - (BOOL)hasPointWithTime:(CMTime)time;
 
 /**
  获得某一时刻对应的轨迹点  无对应点时返回 (0,0)
-
+ 
  @param time 时间
- @return 时间对应的点
+ @return 触发的坐标点
  */
 - (CGPoint)getPointWithTime:(CMTime)time;
 
 /**
- 克隆一个新的粒子特效对象
+ 获得某一时刻对应的粗略轨迹点  无对应点时返回 (0,0)
  
- @return 返回新的相同内容的粒子特效对象
+ @param time 当前时间
+ @return 触发的坐标点
+ @since      v3.0
  */
-- (TuSDKMediaParticleEffectData *)clone;
+- (CGPoint)getPointWithRoughTime:(CMTime)time;
 
 @end

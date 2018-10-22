@@ -8,6 +8,8 @@
 
 #import "GPUImageImport.h"
 #import "TuSDKFilterParameter.h"
+#import "TuSDKFilterOption.h"
+
 /**
  *  ArtBrush
  */
@@ -16,4 +18,14 @@
  *  混合 (设值范围0.0-1.0)
  */
 @property(readwrite, nonatomic) CGFloat mix;
+
+/**
+ *  初始化
+ *
+ *  @param option TuSDKFilterOption
+ *
+ *  @return instancetype
+ */
+- (instancetype)initWithOption:(TuSDKFilterOption *)option;
+
 @end

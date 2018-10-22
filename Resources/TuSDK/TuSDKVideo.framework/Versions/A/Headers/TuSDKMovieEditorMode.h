@@ -16,12 +16,18 @@ typedef NS_ENUM(NSInteger, lsqMovieEditorStatus)
 {
     //  未知
     lsqMovieEditorStatusUnknow,
+    // 加载中
+    lsqMovieEditorStatusLoading,
     // 加载失败
     lsqMovieEditorStatusLoadFailed,
     // 加载完成
     lsqMovieEditorStatusLoaded,
     // 正在播放
     lsqMovieEditorStatusPreviewing,
+    // 预览完成
+    lsqMovieEditorStatusPreviewingCompleted,
+    // 暂停预览
+    lsqMovieEditorStatusPreviewingPause,
     // 正在录制
     lsqMovieEditorStatusRecording,
     // 录制完成
@@ -30,10 +36,7 @@ typedef NS_ENUM(NSInteger, lsqMovieEditorStatus)
     lsqMovieEditorStatusRecordingFailed,
     // 取消录制
     lsqMovieEditorStatusRecordingCancelled,
-    // 预览完成
-    lsqMovieEditorStatusPreviewingCompleted,
-    // 暂停预览
-    lsqMovieEditorStatusPreviewingPause,
+
 };
 
 /**
@@ -61,6 +64,4 @@ typedef NS_ENUM(NSInteger,lsqMovieEditorEffectMode)
     // 粒子特效
     lsqMovieEditorEffectMode_Particle,
 };
-
-
 

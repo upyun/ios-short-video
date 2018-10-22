@@ -35,7 +35,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
-    if ([super initWithFrame:frame]) {
+    if (self = [super initWithFrame:frame]) {
         [self createStickerCollection];
     }
     return self;
@@ -71,6 +71,7 @@
 
 - (void)initStickersData;
 {
+   
     // 获取贴纸组数据源
     NSArray<TuSDKPFStickerGroup *> *allStickes = [[TuSDKPFStickerLocalPackage package] getSmartStickerGroups];
     NSString *jsonFileName = @"";
@@ -108,7 +109,7 @@
     }];
 
     _stickerGroups = nil;
-    _stickerGroups = [NSArray arrayWithArray:stickerArr];
+    _stickerGroups = stickerArr.copy;
     
     [_collectionView reloadData];
 }
@@ -164,6 +165,9 @@
         [_collectionView selectItemAtIndexPath:_selectedIndexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
         
         // 判断贴纸是否存在
+        if (indexPath.row == 0) {
+            return;
+        }
         if ([_stickerGroups[indexPath.row-1] isMemberOfClass:[TuSDKPFStickerGroup class]]) {
             // 贴纸已存在
             [self.stickerDelegate clickStickerViewWith:_stickerGroups[indexPath.row-1]];

@@ -124,11 +124,15 @@
 #import "TuSDKPFBrushLocalPackage.h"
 #import "TuSDKLiveStickerManager.h"
 #import "TuSDKSkinFilterAPI.h"
+#import "TuSDKFilterWrap.h"
 #import "TuSDKFilterProcessorBase.h"
 #import "TuSDKTKStatistics.h"
 
 #import "TuSDKOnlineStickerFetcher.h"
 #import "TuSDKOnlineStickerDownloader.h"
+
+#import "TuSDKTextStickerImage.h"
+
 
 #import "TuSDKNKNetworkEngine.h"
 #import "UIImageView+TuSDKNetworkAdditions.h"

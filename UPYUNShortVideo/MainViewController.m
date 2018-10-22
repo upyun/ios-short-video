@@ -25,9 +25,6 @@
 
 @interface MainViewController ()<TuSDKFilterManagerDelegate,TuVideoSelectedDelegate>
 
-
-
-
 @end
 
 @implementation MainViewController
@@ -122,7 +119,7 @@
     if (button.tag == 100) {
 
         MovieRecordFullScreenController *vc = [MovieRecordFullScreenController new];
-        vc.inputRecordMode = lsqRecordModeKeep;
+        vc.inputRecordMode = lsqRecordModeNormal;
         [self.navigationController pushViewController:vc animated:YES];
     } else if (button.tag == 101) {
         [TuAssetManager sharedManager].ifRefresh = YES;
@@ -135,7 +132,9 @@
 
     } else {
         UPLivePlayerVC *vc = [[UPLivePlayerVC alloc] init];
-        vc.url = @"http://uprocess.b0.upaiyun.com/demo/short_video/UPYUN_0.mp4";
+//        vc.url = @"http://upyun-xiuxiuquan-ios.test.upcdn.net/MGLBBOITWNMXVPBS.mp4";
+        vc.url = @"http://aicdn.baozibaozi.cn/video/20180807/78ce51a44cea4433ec2f084f0a32aadc.mp4";
+
 
         [self presentViewController:vc animated:YES completion:nil];
     }

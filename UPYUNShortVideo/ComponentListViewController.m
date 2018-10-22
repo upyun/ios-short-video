@@ -15,8 +15,6 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MovieRecordFullScreenController.h"
 #import "MoviePreviewAndCutFullScreenController.h"
-#import "MoviePreviewAndCutRatioAdaptedController.h"
-#import "MovieEditorRatioAdaptedController.h"
 #import "RecordCameraViewController.h"
 #import "APIAudioMixViewController.h"
 #import "APIMovieMixViewController.h"
@@ -27,6 +25,8 @@
 #import "APIMovieCompresserViewController.h"
 #import "TuAssetManager.h"
 #import "TuAlbumViewController.h"
+#import "MultiVideoPicker.h"
+
 
 #pragma mark - ComponentListView
 /**
@@ -44,13 +44,13 @@
 @interface ComponentListView : UIView<UITableViewDelegate,UITableViewDataSource>
 {
     // 表格视图
-//    TuSDKICTableView *_tableView;
+    //    TuSDKICTableView *_tableView;
     UITableView *_tableView;
     // 缓存标记
     NSString *_cellIdentifier;
     // 演示列表
     NSArray *_sectionTitle;
-    
+
     NSArray<NSArray*> *_cellTitles;
 }
 
@@ -58,6 +58,7 @@
  * 演示选择
  */
 @property (nonatomic, assign) id<DemoChooseDelegate> delegate;
+
 
 @end
 
@@ -77,14 +78,14 @@
     _cellIdentifier = @"MainViewCellIdentify";
     // 演示列表
     _sectionTitle = @[NSLocalizedString(@"lsq_composite_components", @"功能组合展示"),NSLocalizedString(@"lsq_common_components", @"功能单个展示"),NSLocalizedString(@"lsq_custom_components", @"自定义组件示例"),NSLocalizedString(@"lsq_api_usage_example", @"功能 API 展示")];
-    
+
     _cellTitles = @[
-                   @[NSLocalizedString(@"lsq_video_mainVC_record" , @"录制视频"),NSLocalizedString(@"lsq_video_preview_editor", @"给定视频 + 视频编辑")],
-                   @[NSLocalizedString(@"lsq_normal_record_camera", @"正常录制相机"),NSLocalizedString(@"lsq_record_camera", @"断点续拍相机"),NSLocalizedString(@"lsq_capture_record_camera", @"拍照录制相机"),NSLocalizedString(@"lsq_album_video_editor", @"选择视频+添加滤镜保存")],
-                   @[NSLocalizedString(@"lsq_full_screen_record_preview_editor", @"全屏展示：断点续拍"),NSLocalizedString(@"lsq_full_screen_album_video_timecut_editor", @"全屏展示：相册导入 + 时间裁剪 + 视频编辑"),NSLocalizedString(@"lsq_full_screen_record_preview_ratio_editor", @"全屏展示：拍照录制+视频编辑（视频自适应比例）")],
-                   @[NSLocalizedString(@"lsq_audio_mixed", @"音频混合"),NSLocalizedString(@"lsq_video_bgm", @"视频 + 背景音乐"),NSLocalizedString(@"lsq_gain_thumbnail", @"获取缩略图"),NSLocalizedString(@"lsq_video_mixed", @"视频拼接"),NSLocalizedString(@"lsq_video_timecut_save", @"时间裁剪保存"),NSLocalizedString(@"lsq_record_audio_save", @"录制音频"),NSLocalizedString(@"lsq_api_video_compress", @"视频压缩")],
-                   ];
-    
+                    @[NSLocalizedString(@"lsq_video_mainVC_record" , @"录制视频")],
+                    @[NSLocalizedString(@"lsq_normal_record_camera", @"正常录制相机"),NSLocalizedString(@"lsq_record_camera", @"断点续拍相机"),NSLocalizedString(@"lsq_capture_record_camera", @"拍照录制相机")],
+                    @[NSLocalizedString(@"lsq_full_screen_record_preview_editor", @"全屏展示：断点续拍"),NSLocalizedString(@"lsq_full_screen_album_video_timecut_editor", @"全屏展示：相册导入 + 时间裁剪 + 视频编辑")],
+                    @[NSLocalizedString(@"lsq_audio_mixed", @"音频混合"),NSLocalizedString(@"lsq_video_bgm", @"视频 + 背景音乐"),NSLocalizedString(@"lsq_gain_thumbnail", @"获取缩略图"),NSLocalizedString(@"lsq_video_mixed", @"视频拼接"),NSLocalizedString(@"lsq_video_timecut_save", @"时间裁剪保存"),NSLocalizedString(@"lsq_record_audio_save", @"录制音频"),NSLocalizedString(@"lsq_api_video_compress", @"视频压缩")],
+                    ];
+
     // 表格视图
     CGFloat height = lsqScreenHeight;
     if ([UIDevice lsqIsDeviceiPhoneX]) {
@@ -125,7 +126,7 @@
     titleLabel.font = [UIFont boldSystemFontOfSize:18];
     [titleView addSubview:titleLabel];
     titleView.backgroundColor = [UIColor lsqClorWithHex:@"#F3F3F3"];
-    
+
     return titleView;
 }
 
@@ -168,7 +169,6 @@
  */
 @property (nonatomic,assign) int enableOpenVCType;
 
-
 @end
 
 @implementation ComponentListViewController
@@ -190,27 +190,27 @@
 - (void)loadView;
 {
     [super loadView];
-    
+
     [self setNavigationBarHidden:NO animated:NO];
     [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-    
+
     self.view = [ComponentListView initWithFrame:CGRectMake(0, 0, lsqScreenWidth, lsqScreenHeight)];
     self.view.backgroundColor = lsqRGB(255, 255, 255);
     self.view.delegate = self;
-    
+
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.title = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"app_name", @"TuSDK 涂图"), lsqVideoVersion ];
-    
+
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
                                              initWithTitle:NSLocalizedString(@"back", @"返回")
                                              style:UIBarButtonItemStylePlain
                                              target:self
                                              action:@selector(backActionHadAnimated)];
-    
+
 }
 
 #pragma mark - DemoChooseDelegate
@@ -228,11 +228,6 @@
             case 0:
                 // 首页录制视频
                 [self openVideoEditor];
-                break;
-            case 1:
-                // 相册导入 + 视频编辑
-                _enableOpenVCType = 0;
-                [self openImportVideo];
                 break;
             default:
                 break;
@@ -254,11 +249,6 @@
                 // 拍照录制相机
                 [self openClickPressCamera];
                 break;
-            case 3:
-                // 选择视频 + 添加滤镜保存视频
-                _enableOpenVCType = 1;
-                [self openImportVideo];
-                break;
             default:
                 break;
         }
@@ -276,11 +266,6 @@
                 _enableOpenVCType = 2;
                 [self openImportVideo];
                 break;
-            case 2:
-                // 比例自适应：相册导入 + 时间裁剪 + 视频编辑（视频比例自适应）
-                _enableOpenVCType = 3;
-                [self openImportVideo];
-                break;
             default:
                 break;
         }
@@ -288,7 +273,7 @@
     {
         switch (indexPath.row)
         {
-            // API 使用示例
+                // API 使用示例
             case 0:
                 // 音频混合
                 [self openAudioMixer];
@@ -299,6 +284,7 @@
                 break;
             case 2:
                 // 获取缩略图
+                _enableOpenVCType = 4;
                 [self openGetThumbnail];
                 break;
             case 3:
@@ -307,6 +293,7 @@
                 break;
             case 4:
                 // 相册选择 + 时间裁剪保存视频
+                _enableOpenVCType = 5;
                 [self openMovieClipper];
                 break;
             case 5:
@@ -315,6 +302,7 @@
                 break;
             case 6:
                 // 压缩视频
+                _enableOpenVCType = 6;
                 [self openMovieCompresser];
                 break;
             default:
@@ -408,29 +396,27 @@
 // 获取缩略图
 - (void)openGetThumbnail;
 {
-    APIVideoThumbnailsViewController *vc = [APIVideoThumbnailsViewController new];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self openImportVideo];
 }
 
-// 压缩视频
-- (void)openMovieCompresser;
-{
-    APIMovieCompresserViewController *vc = [APIMovieCompresserViewController new];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-// 视频合成
+// 多视频拼接
 - (void)openMovieSplicer;
 {
-    APIMovieSplicerViewController *vc = [APIMovieSplicerViewController new];
-    [self.navigationController pushViewController:vc animated:YES];
+    MultiVideoPicker *picker = [[MultiVideoPicker alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:picker];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 // 相册选择 + 时间裁剪保存视频
 - (void)openMovieClipper;
 {
-    APIMovieClipperViewController *vc = [APIMovieClipperViewController new];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self openImportVideo];
+}
+
+// 压缩视频
+- (void)openMovieCompresser;
+{
+    [self openImportVideo];
 }
 
 #pragma mark - TuVideoSelectedDelegate
@@ -439,31 +425,40 @@
 {
     ComponentListViewController *wSelf = self;
     NSURL *url = model.url;
-    
+
     if (_enableOpenVCType == 0) {
-        // 相册导入 + 裁剪 + 视频编辑
+
+        //  裁剪 + 视频编辑
         MoviePreviewAndCutViewController *vc = [MoviePreviewAndCutViewController new];
         vc.inputURL = url;
         [wSelf.navigationController pushViewController:vc animated:YES];
-    }else if (_enableOpenVCType == 1)
-    {
-        // 相册导入 + 视频编辑
-        AVAsset *avasset = [AVAsset assetWithURL:url];
-        MovieEditorRatioAdaptedController *vc = [MovieEditorRatioAdaptedController new];
-        vc.inputURL = url;
-        vc.startTime = 0;
-        vc.endTime = CMTimeGetSeconds(avasset.duration);
-        [wSelf.navigationController pushViewController:vc animated:YES];
-    } else if (_enableOpenVCType == 2) {
-        // 全屏显示，相册导入 + 时间裁剪 + 视频编辑
+    }else if (_enableOpenVCType == 2) {
+
+        // 全屏显示，时间裁剪 + 视频编辑
         MoviePreviewAndCutFullScreenController *vc = [MoviePreviewAndCutFullScreenController new];
         vc.inputURL = url;
         [wSelf.navigationController pushViewController:vc animated:YES];
-    }else if (_enableOpenVCType == 3){
-        MoviePreviewAndCutRatioAdaptedController *vc = [MoviePreviewAndCutRatioAdaptedController new];
+
+    }else if (_enableOpenVCType == 4){
+
+        // 获取视频缩略图
+        APIVideoThumbnailsViewController *vc = [APIVideoThumbnailsViewController new];
+        vc.inputURL = url;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if (_enableOpenVCType == 5){
+
+        // 视频裁剪
+        APIMovieClipperViewController *vc = [APIMovieClipperViewController new];
+        vc.inputURL = url;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if (_enableOpenVCType == 6){
+
+        // 视频压缩
+        APIMovieCompresserViewController *vc = [APIMovieCompresserViewController new];
         vc.inputURL = url;
         [self.navigationController pushViewController:vc animated:YES];
     }
+
 }
 
 @end

@@ -19,9 +19,9 @@
     
     // 数据源
     // 贴纸组的数组
-    NSMutableArray<TuSDKMVStickerAudioEffectData *> *_mvArr;
+    NSMutableArray<TuSDKMediaStickerAudioEffectData *> *_mvArr;
     // 记录上一次点击的时间
-    CGFloat _lastTapTime;
+    NSTimeInterval _lastTapTime;
     // 记录当前选中MV的index
     NSIndexPath *_currentSelectIndexPath;
 }
@@ -33,7 +33,7 @@
 #pragma mark - 视图布局方法
 - (instancetype)initWithFrame:(CGRect)frame
 {
-    if ([super initWithFrame:frame]) {
+    if (self = [super initWithFrame:frame]) {
         [self createStickerCollection];
     }
     return self;
@@ -67,7 +67,7 @@
     int i = 0;
     for (TuSDKPFStickerGroup *sticker in stickers) {
         NSURL *audioURL = [self getAudioURLWithStickerIdt:sticker.idt];
-        TuSDKMVStickerAudioEffectData *mvData =  [[TuSDKMVStickerAudioEffectData alloc] initWithAudioURL:audioURL stickerGroup:sticker];
+        TuSDKMediaStickerAudioEffectData *mvData =  [[TuSDKMediaStickerAudioEffectData alloc] initWithAudioURL:audioURL stickerGroup:sticker];
         [_mvArr addObject:mvData];
         i++;
     }
@@ -78,7 +78,9 @@
     NSDictionary *fileNameDic = @{@(1420):@"sound_cat",
                                   @(1427):@"sound_crow",
                                   @(1432):@"sound_tangyuan",
-                                  @(1446):@"sound_children"};
+                                  @(1470):@"sound_oldmovie",
+                                  @(1469) : @"sound_relieve",
+                                  };
     
     NSString *audioFileName = fileNameDic[@(stickerIdt)];
     NSURL *audioURL = !audioFileName ? nil : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:audioFileName ofType:@"mp3"]];
@@ -101,7 +103,7 @@
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath;
 {
-    CGFloat currentTime = [[NSDate date] timeIntervalSince1970];
+    NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
     
     if ([_collectionView.indexPathsForSelectedItems isEqual:indexPath] || (currentTime - _lastTapTime) <= 0.5) {
         return NO;
@@ -229,7 +231,7 @@
         [cell addSubview:backIV];
 
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cell.lsqGetSizeWidth, 20)];
-        label.text = _mvArr[indexPath.row-1].stickerGroup.name;
+        label.text = _mvArr[indexPath.row-1].stickerEffect.stickerGroup.name;
         label.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = [UIColor whiteColor];
@@ -237,7 +239,7 @@
         label.adjustsFontSizeToFitWidth = YES;
         label.tag = 103;
         // 获取对应贴纸的缩略图
-        [[TuSDKPFStickerLocalPackage package] loadThumbWithStickerGroup:_mvArr[indexPath.row-1].stickerGroup imageView:iv];
+        [[TuSDKPFStickerLocalPackage package] loadThumbWithStickerGroup:_mvArr[indexPath.row-1].stickerEffect.stickerGroup imageView:iv];
         [cell addSubview:iv];
         label.center = CGPointMake(iv.lsqGetSizeWidth/2, cell.lsqGetSizeHeight-10);
         [cell addSubview:label];

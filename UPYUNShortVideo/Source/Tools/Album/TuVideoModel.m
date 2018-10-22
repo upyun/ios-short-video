@@ -34,5 +34,11 @@
     return _url;
 }
 
+- (void)setAsset:(ALAsset *)asset
+{
+    _asset = asset;
+    _url = [[_asset defaultRepresentation] url];
+}
+
 @end
 

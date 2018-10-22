@@ -73,6 +73,8 @@ typedef struct LSQParticleRadius LSQParticleRadius;
 @property(readwrite, nonatomic) CGFloat deltaRotation;
 /** 粒子生存时间*/
 @property(readwrite, nonatomic) CGFloat timeToLive;
+/** 使用材质的子索引 */
+@property(readwrite, nonatomic) NSInteger tileIndex;
 /** 重力模式数据 */
 @property(readwrite, nonatomic) LSQParticleGravity gravityMode;
 /** 径向模式数据 */
@@ -137,6 +139,8 @@ typedef struct LSQParticleRadius LSQParticleRadius;
 @property (nonatomic, copy) NSString *configName;
 /** 材质名称*/
 @property (nonatomic, copy) NSString *texture;
+/** 材质包含子材质数目 */
+@property(nonatomic) NSInteger textureTiles;
 /** 生存时间 单位：秒*/
 @property(nonatomic) CGFloat life;
 /** 生存时间浮动值 单位：秒*/

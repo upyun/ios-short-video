@@ -8,17 +8,17 @@
 
 #import "MovieEditorClipView.h"
 
+/// 左右手势view 宽度
+static const CGFloat kThumbWidth = 20;
+/// 顶部边距线高度
+static const CGFloat kBorderHeight = 2;
+
 @interface MovieEditorClipView (){
     // 数据源
     // 拖拽控件的宽度
     CGFloat _intervalWidth;
     // 可见视图的左右边距(留够触摸范围)
     CGFloat _edgeInterval;
-    // 左右手势view 宽度
-    CGFloat _touchWidth;
-    // 顶部边距线高度
-    CGFloat _upLineHeight;
-
     
     // 视图布局
     // 整体内容背景view
@@ -38,27 +38,33 @@
     // 显示间隔时间view
     UIView *_currentTimeView;
     // 缩略图背景view
-    UIView *_backView;
+    UIView *_thumbnailsView;
     // 顶部选中遮罩层view
     UIView *_shadowView;
+    // 独立白色滑块，与左右滑块互斥
+    UIView *_blockTouchView;
     
-    // 当前拖动的是否为起始控件
+    // 当前拖动的是否为时间控件
     BOOL _isSlipEndBtn;
     // 最小间隔间距
     CGFloat _minCutRectWidth;
+    // 开始触摸的视图
+    UIView *_touchBeginView;
 }
 
 @end
 
 @implementation MovieEditorClipView
 
-#pragma mark - setter getter方法；
+#pragma mark - property
+
+// 设置光标进度
 - (void)setCurrentTime:(CGFloat)currentTime
 {
     // 设置当前时间，同时调整当前时间条(白色条)的位置
     _currentTime = currentTime;
     if (!_isSlipEndBtn) {
-        [_currentTimeView lsqSetOriginX:_leftTouchView.lsqGetSizeWidth + (self.lsqGetSizeWidth - _leftTouchView.lsqGetSizeWidth*2)*_currentTime/_timeInterval];
+        [_currentTimeView lsqSetOriginX:_leftTouchView.lsqGetSizeWidth + (self.lsqGetSizeWidth - _leftTouchView.lsqGetSizeWidth*2)*_currentTime/_duration];
     }
 }
 
@@ -70,8 +76,9 @@
         __weak MovieEditorClipView * wSelf = self;
         TuSDKVideoImageExtractor *imageExtractor = [TuSDKVideoImageExtractor createExtractor];
         imageExtractor.videoPath = _videoURL;
+        imageExtractor.outputMaxImageSize = CGSizeMake(40, 40);
         // 缩略图个数结合滑动栏宽高计算，若需求不同，可另外更改
-        int num = (int)ceilf(_backView.lsqGetSizeWidth/(_backView.lsqGetSizeHeight*3/5));
+        int num = (int)ceilf(_thumbnailsView.lsqGetSizeWidth/(_thumbnailsView.lsqGetSizeHeight*3/5));
         imageExtractor.extractFrameCount = num + 2;
         [imageExtractor asyncExtractImageList:^(NSArray<UIImage *> * images) {
             [wSelf addThumbnails:images];
@@ -79,10 +86,56 @@
     }
 }
 
-- (void)setTimeInterval:(CGFloat)timeInterval
+- (void)setDuration:(CGFloat)totalDuration
 {
-    _timeInterval = timeInterval;
-    _minCutRectWidth = _backView.lsqGetSizeWidth * (_minCutTime/timeInterval);
+    if (isnan(totalDuration)) return;
+    
+    _duration = totalDuration;
+    if (_minCutTime) {
+        _minCutRectWidth = _thumbnailsView.lsqGetSizeWidth * (_minCutTime/totalDuration);
+    }
+    if (CMTIMERANGE_IS_EMPTY(_clipTimeRange)) {
+        _clipTimeRange = CMTimeRangeMake(kCMTimeZero, CMTimeMakeWithSeconds(totalDuration, USEC_PER_SEC));
+    }
+    [self updateLayoutWithDuration:totalDuration];
+}
+
+- (void)setMinCutTime:(CGFloat)minCutTime
+{
+     if (isnan(minCutTime)) return;
+    
+    _minCutTime = minCutTime;
+    if (_duration) {
+        _minCutRectWidth = _thumbnailsView.lsqGetSizeWidth * (_minCutTime/_duration);
+    }
+}
+
+- (void)setClipTimeRange:(CMTimeRange)clipRange {
+    _clipTimeRange = clipRange;
+    
+    [self updateLayoutWithDuration:_duration];
+}
+
+/// 根据给定的视频时长与选择区间成员变量重新布局
+- (void)updateLayoutWithDuration:(CGFloat)duration {
+
+   if (isnan(duration) || duration <= 0) return;
+
+    //[self hideLeftRightTouchView:NO];
+    CGFloat rangeStart = CMTimeGetSeconds(_clipTimeRange.start);
+    CGFloat rangeDuration = CMTimeGetSeconds(_clipTimeRange.duration);
+    
+    CGFloat leftX =  rangeStart/_duration*(_contentView.lsqGetSizeWidth - _leftTouchView.lsqGetSizeWidth*2) + _leftTouchView.lsqGetSizeWidth/2;
+    CGFloat rightX = (rangeStart + rangeDuration )/_duration*(_contentView.lsqGetSizeWidth - _rightTouchView.lsqGetSizeWidth*2) + _rightTouchView.lsqGetSizeWidth/2 + _leftTouchView.lsqGetSizeWidth;
+    
+    CGFloat y = _leftTouchView.center.y;
+    [self updateClipRangeLeftViewPoint:CGPointMake(leftX, y) rightX:rightX];
+    [self updateClipRangeRightViewPoint:CGPointMake(rightX, y)];
+    
+    CGRect blockFrame = _blockTouchView.frame;
+    blockFrame.size.width = CMTimeGetSeconds(_clipTimeRange.duration) / _duration * CGRectGetWidth(_thumbnailsView.frame);
+    blockFrame.origin.x = CMTimeGetSeconds(_clipTimeRange.start) / _duration * CGRectGetWidth(_thumbnailsView.frame) + CGRectGetMinX(_thumbnailsView.frame);
+    _blockTouchView.frame = blockFrame;
 }
 
 #pragma mark - 视图布局方法；
@@ -97,86 +150,103 @@
 
 - (void)createCustomView
 {
-    _touchWidth = 20;
-    _upLineHeight = 2;
+    _clipTimeRange = kCMTimeRangeZero;
     _intervalWidth = 0;
-    _edgeInterval = (_touchWidth - _intervalWidth*2);
-    
+    _edgeInterval = (kThumbWidth - _intervalWidth*2);
+
     // 内容背景view
-    _contentView = [[UIView alloc]initWithFrame:CGRectMake(0, 4, self.lsqGetSizeWidth, self.lsqGetSizeHeight - 8)];
+    _contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 4, self.lsqGetSizeWidth, self.lsqGetSizeHeight - 8)];
     [self addSubview:_contentView];
 
     // 缩略图背景View
-    _backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, _contentView.lsqGetSizeWidth, _contentView.lsqGetSizeHeight)];
-    _backView.clipsToBounds = true;
-    _backView.backgroundColor = lsqRGB(240, 240, 240);
-    [_contentView addSubview:_backView];
+    _thumbnailsView = [[UIView alloc] initWithFrame:CGRectMake(kThumbWidth, 0, _contentView.lsqGetSizeWidth - kThumbWidth*2, _contentView.lsqGetSizeHeight)];
+    _thumbnailsView.clipsToBounds = true;
+    _thumbnailsView.backgroundColor = lsqRGB(240, 240, 240);
+    [_contentView addSubview:_thumbnailsView];
     
     // 左侧手势范围view + 左侧边界view
-    _leftTouchView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, _touchWidth, _contentView.lsqGetSizeHeight)];
+    _leftTouchView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kThumbWidth, _contentView.lsqGetSizeHeight)];
     [_contentView addSubview:_leftTouchView];
     
     _leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _leftTouchView.lsqGetSizeWidth, _contentView.lsqGetSizeHeight)];
     _leftView.backgroundColor = kCustomYellowColor;
     [_leftTouchView addSubview:_leftView];
     
-    UIImageView *leftIV = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, _leftView.lsqGetSizeWidth/2, _leftView.lsqGetSizeWidth/2)];
+    UIImageView *leftIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _leftView.lsqGetSizeWidth/2, _leftView.lsqGetSizeWidth/2)];
     leftIV.center = CGPointMake(_leftView.lsqGetSizeWidth/2, _leftView.lsqGetSizeHeight/2);
     leftIV.image = [UIImage imageNamed:@"video_style_default_crop_btn_triangle"];
     leftIV.contentMode = UIViewContentModeScaleAspectFit;
     [_leftView addSubview:leftIV];
     
     // 右侧手势范围view + 右侧边界view
-    _rightTouchView = [[UIView alloc]initWithFrame:CGRectMake(_contentView.lsqGetSizeWidth - _leftTouchView.lsqGetSizeWidth, 0, _touchWidth, _contentView.lsqGetSizeHeight)];
+    _rightTouchView = [[UIView alloc] initWithFrame:CGRectMake(_contentView.lsqGetSizeWidth - _leftTouchView.lsqGetSizeWidth, 0, kThumbWidth, _contentView.lsqGetSizeHeight)];
     [_contentView addSubview:_rightTouchView];
     
-    _rightView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, _rightTouchView.lsqGetSizeWidth, _contentView.lsqGetSizeHeight)];
+    _rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _rightTouchView.lsqGetSizeWidth, _contentView.lsqGetSizeHeight)];
     _rightView.backgroundColor = kCustomYellowColor;
     _leftView.contentMode = UIViewContentModeScaleAspectFill;
     [_rightTouchView addSubview:_rightView];
     
-    UIImageView *rightIV = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, _leftView.lsqGetSizeWidth/2, _leftView.lsqGetSizeWidth/2)];
+    UIImageView *rightIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _leftView.lsqGetSizeWidth/2, _leftView.lsqGetSizeWidth/2)];
     rightIV.center = CGPointMake(_rightView.lsqGetSizeWidth/2, _rightView.lsqGetSizeHeight/2);
     rightIV.contentMode = UIViewContentModeScaleAspectFit;
     rightIV.image = [UIImage imageNamed:@"video_style_default_crop_btn_triangle_right"];
     [_rightView addSubview:rightIV];
     
     // 上侧边界view
-    _upLine = [[UIView alloc] initWithFrame:CGRectMake(_edgeInterval, 0, _backView.lsqGetSizeWidth, _upLineHeight)];
+    _upLine = [[UIView alloc] initWithFrame:CGRectMake(kThumbWidth, 0, _thumbnailsView.lsqGetSizeWidth, kBorderHeight)];
     _upLine.backgroundColor = kCustomYellowColor;
     [_contentView addSubview:_upLine];
     
     // 下侧边界view
-    _downLine = [[UIView alloc] initWithFrame:CGRectMake(_edgeInterval, _contentView.lsqGetSizeHeight - _upLineHeight, _backView.lsqGetSizeWidth, _upLineHeight)];
+    _downLine = [[UIView alloc] initWithFrame:CGRectMake(kThumbWidth, _contentView.lsqGetSizeHeight - kBorderHeight, _thumbnailsView.lsqGetSizeWidth, kBorderHeight)];
     _downLine.backgroundColor = kCustomYellowColor;
     [_contentView addSubview:_downLine];
     
     // 顶部阴影遮罩view
-    _shadowView = [[UIView alloc]initWithFrame:CGRectMake(_leftTouchView.lsqGetOriginX + _leftTouchView.lsqGetSizeWidth, _upLine.lsqGetOriginY + _upLineHeight, _rightTouchView.lsqGetOriginX - _leftTouchView.lsqGetOriginX - _leftTouchView.lsqGetSizeWidth, _contentView.lsqGetSizeHeight - _upLineHeight*2)];
+    _shadowView = [[UIView alloc] initWithFrame:CGRectMake(_leftTouchView.lsqGetOriginX + _leftTouchView.lsqGetSizeWidth, _upLine.lsqGetOriginY + kBorderHeight, _rightTouchView.lsqGetOriginX - _leftTouchView.lsqGetOriginX - _leftTouchView.lsqGetSizeWidth, _contentView.lsqGetSizeHeight - kBorderHeight*2)];
     _shadowView.backgroundColor = lsqRGBA(255, 255, 255, 0.6);
     [_contentView addSubview:_shadowView];
     
     // 当前时间进度条
-    _currentTimeView = [[UIView alloc]initWithFrame:CGRectMake(30, -4, 3, self.lsqGetSizeHeight)];
+    _currentTimeView = [[UIView alloc] initWithFrame:CGRectMake(kThumbWidth, -4, 3, self.lsqGetSizeHeight)];
     _currentTimeView.backgroundColor = kCustomYellowColor;
     _currentTimeView.layer.cornerRadius = 1.5;
     [_contentView addSubview:_currentTimeView];
+    
+    // 独立滑块
+    _blockTouchView = [[UIView alloc] initWithFrame:CGRectMake(kThumbWidth, 0, kThumbWidth, _contentView.lsqGetSizeHeight)];
+    [_contentView addSubview:_blockTouchView];
+    _blockTouchView.backgroundColor = lsqRGBA(255, 255, 255, 0.6);
+    _blockTouchView.layer.borderWidth = kBorderHeight;
+    _blockTouchView.layer.borderColor = kCustomYellowColor.CGColor;
+    _blockTouchView.hidden = YES;
 }
 
 // 添加缩略图
 - (void)addThumbnails:(NSArray<UIImage *> *)images
 {
-    [_backView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [_thumbnailsView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj removeFromSuperview];
     }];
 
     for (int i = 0; i < images.count; i++) {
-        UIImageView *iv = [[UIImageView alloc]initWithFrame:CGRectMake(i * (_contentView.lsqGetSizeHeight *3/5), 0, _contentView.lsqGetSizeHeight * 3/5, _contentView.lsqGetSizeHeight)];
+        UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(i * (_contentView.lsqGetSizeHeight *3/5), 0, _contentView.lsqGetSizeHeight * 3/5, _contentView.lsqGetSizeHeight)];
         iv.image = images[i];
         iv.contentMode = UIViewContentModeScaleAspectFill;
         iv.clipsToBounds = true;
-        [_backView addSubview:iv];
+        [_thumbnailsView addSubview:iv];
     }
+}
+
+- (void)hideLeftRightTouchView:(BOOL)isHidden{
+    _leftTouchView.hidden = isHidden;
+    _rightTouchView.hidden = isHidden;
+    _shadowView.hidden = isHidden;
+}
+
+- (void)setBlockTouchViewHidden:(BOOL)hidden {
+    _blockTouchView.hidden = hidden;
 }
 
 #pragma mark - 拖动手势方法 touches method
@@ -184,30 +254,30 @@
 {
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];
-    if (CGRectContainsPoint(_leftTouchView.frame, point)) {
-        // 1 0 表示选中左边调节view
+    
+    if (CGRectContainsPoint(_leftTouchView.frame, point) &&  !_leftTouchView.hidden) {
+        _isSlipEndBtn = true;
         _leftTouchView.tag = 1;
         _rightTouchView.tag = 0;
         if ([self.clipDelegate respondsToSelector:@selector(slipBeginEvent)]) {
             [self.clipDelegate slipBeginEvent];
         }
-    }else if (CGRectContainsPoint(_rightTouchView.frame, point)) {
-        // 0 1 表示选中右边调节view
+        _touchBeginView = _leftTouchView;
+    } else if (CGRectContainsPoint(_rightTouchView.frame, point) && !_rightTouchView.hidden) {
         _rightTouchView.tag = 1;
         _leftTouchView.tag = 0;
         _isSlipEndBtn = true;
         if ([self.clipDelegate respondsToSelector:@selector(slipBeginEvent)]) {
             [self.clipDelegate slipBeginEvent];
         }
-    }else if (CGRectContainsPoint(_backView.frame, point)){
-        // 1 1 表示进行调节中间白条
-        _rightTouchView.tag = 1;
-        _leftTouchView.tag = 1;
-        [self refreshLeftOrRightViewLocationWithMovePoint:point];
-    }else{
-        // 0 0 表示不进行任何调节
-        _rightTouchView.tag = 0;
-        _leftTouchView.tag = 0;
+        _touchBeginView = _rightTouchView;
+    } else if (CGRectContainsPoint(_blockTouchView.frame, point) && !_blockTouchView.hidden) {
+        _touchBeginView = _blockTouchView;
+        if ([self.clipDelegate respondsToSelector:@selector(slipBeginEvent)]) {
+            [self.clipDelegate slipBeginEvent];
+        }
+    } else {
+        _touchBeginView = _currentTimeView;
     }
 }
 
@@ -215,7 +285,19 @@
 {
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];
-    [self refreshLeftOrRightViewLocationWithMovePoint:point];
+    
+    if (_touchBeginView == _leftTouchView) {
+        [self updateTimeWithClipRangeLeftViewPoint:point rightX:0];
+        _isSlipEndBtn = YES;
+    } else if (_touchBeginView == _rightTouchView) {
+        [self updateTimeWithClipRangeRightViewPoint:point];
+        _isSlipEndBtn = YES;
+    } else if (_touchBeginView == _blockTouchView) {
+        [self updateBlockTouchViewPositionWithTouchPoint:point];
+    } else if (_touchBeginView == _currentTimeView) {
+        [self updateCurrentProgressViewPoint:point];
+        _isSlipEndBtn = NO;
+    }
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -225,50 +307,89 @@
             [self.clipDelegate slipEndEvent];
         }
     }
-    _isSlipEndBtn = false;
+    _isSlipEndBtn = NO;
     _leftTouchView.tag = 0;
     _rightTouchView.tag = 0;
 }
 
-
-/**
- 根据当前手势响应的point，调整左右边界view显示的位置
- 
- @param point 手势响应的 point
- */
-- (void)refreshLeftOrRightViewLocationWithMovePoint:(CGPoint)point
+- (void)updateTimeWithClipRangeLeftViewPoint:(CGPoint)point rightX:(CGFloat)rightX;
 {
+    [self updateClipRangeLeftViewPoint:point rightX:rightX];
+    [self chooseChangedWith:_leftTouchView.lsqGetOriginX + _leftTouchView.lsqGetSizeWidth withState:lsqClipViewStyleLeft];
+}
+
+- (void)updateClipRangeLeftViewPoint:(CGPoint)point rightX:(CGFloat)rightX{
     CGFloat touchViewWidth = _leftTouchView.lsqGetSizeWidth;
-    if (_leftTouchView.tag == 1 && _rightTouchView.tag == 0) {
-        if (point.x >= _edgeInterval/2 && point.x <= _rightTouchView.center.x - touchViewWidth - _minCutRectWidth) {
-            _leftTouchView.center = CGPointMake(point.x, _leftTouchView.center.y);
-        }else if (point.x < _edgeInterval/2) {
-            _leftTouchView.center = CGPointMake(_leftTouchView.lsqGetSizeWidth/2, _leftTouchView.center.y);
-        }else {
-            _leftTouchView.center = CGPointMake(_rightTouchView.center.x - touchViewWidth - _minCutRectWidth, _leftTouchView.center.y);
-        }
-        [self chooseChangedWith:_leftTouchView.lsqGetOriginX + _leftTouchView.lsqGetSizeWidth withState:lsqClipViewStyleLeft];
-        [self setUpDownLine];
-        
-    }else if (_rightTouchView.tag == 1 && _leftTouchView.tag == 0) {
-        if (point.x <= _contentView.lsqGetSizeWidth - _edgeInterval/2 && point.x >= _leftTouchView.center.x + touchViewWidth + _minCutRectWidth) {
-            _rightTouchView.center = CGPointMake(point.x, _rightTouchView.center.y);
-        }else if (point.x > _contentView.lsqGetSizeWidth - _edgeInterval/2) {
-            _rightTouchView.center = CGPointMake(_contentView.lsqGetSizeWidth - touchViewWidth/2, _rightTouchView.center.y);
-        }else {
-            _rightTouchView.center = CGPointMake(_leftTouchView.center.x + touchViewWidth + _minCutRectWidth, _rightTouchView.center.y);
-        }
-        [self chooseChangedWith:_rightTouchView.lsqGetOriginX withState:lsqClipViewStyleRight];
-        [self setUpDownLine];
-    }else if (_rightTouchView.tag == 1 && _leftTouchView.tag == 1){
-        CGFloat time = _timeInterval * (point.x - _leftTouchView.lsqGetSizeWidth)/(_contentView.lsqGetSizeWidth - _leftTouchView.lsqGetSizeWidth*2);
-        self.currentTime = time;
-        if ([self.clipDelegate respondsToSelector:@selector(chooseTimeWith:withState:)]) {
-            [self.clipDelegate chooseTimeWith:time withState:lsqClipViewStyleCurrent];
-        }
+    if (rightX) {
+        _rightTouchView.center = CGPointMake(rightX, _rightTouchView.center.y);
+    }
+    if (point.x >= _edgeInterval/2 && point.x <= _rightTouchView.center.x - touchViewWidth - _minCutRectWidth) {
+        _leftTouchView.center = CGPointMake(point.x, _leftTouchView.center.y);
+    }else if (point.x < _edgeInterval/2) {
+        _leftTouchView.center = CGPointMake(_leftTouchView.lsqGetSizeWidth/2, _leftTouchView.center.y);
+    }else {
+        _leftTouchView.center = CGPointMake(_rightTouchView.center.x - touchViewWidth - _minCutRectWidth, _leftTouchView.center.y);
+    }
+    [self setUpDownLine];
+}
+
+- (void)updateTimeWithClipRangeRightViewPoint:(CGPoint)point;
+{
+    [self updateClipRangeRightViewPoint:point];
+    [self chooseChangedWith:_rightTouchView.lsqGetOriginX withState:lsqClipViewStyleRight];
+}
+
+- (void)updateClipRangeRightViewPoint:(CGPoint)point{
+    CGFloat touchViewWidth = _leftTouchView.lsqGetSizeWidth;
+    if (point.x <= _contentView.lsqGetSizeWidth - _edgeInterval/2 && point.x >= _leftTouchView.center.x + touchViewWidth + _minCutRectWidth) {
+        _rightTouchView.center = CGPointMake(point.x, _rightTouchView.center.y);
+    }else if (point.x > _contentView.lsqGetSizeWidth - _edgeInterval/2) {
+        _rightTouchView.center = CGPointMake(_contentView.lsqGetSizeWidth - touchViewWidth/2, _rightTouchView.center.y);
+    }else {
+        _rightTouchView.center = CGPointMake(_leftTouchView.center.x + touchViewWidth + _minCutRectWidth, _rightTouchView.center.y);
+    }
+    [self setUpDownLine];
+}
+
+- (void)updateCurrentProgressViewPoint:(CGPoint)point;
+{
+    if (_duration <= 0) return;
+    
+    CGFloat time = _duration * (point.x - _leftTouchView.lsqGetSizeWidth)/(_contentView.lsqGetSizeWidth - _leftTouchView.lsqGetSizeWidth*2);
+    if (time < 0) {
+        time = 0;
+    }else if (time > _duration){
+        time = _duration;
+    }
+    self.currentTime = time;
+    if ([self.clipDelegate respondsToSelector:@selector(chooseTimeWith:withState:)]) {
+        [self.clipDelegate chooseTimeWith:time withState:lsqClipViewStyleCurrent];
     }
 }
 
+- (void)updateBlockTouchViewPositionWithTouchPoint:(CGPoint)point {
+    if (_blockTouchView.hidden) return;
+    
+    CGFloat touchX = point.x;
+    CGRect touchBounds = [_thumbnailsView.superview convertRect:_thumbnailsView.frame toView:self];
+    CGFloat maxTouchX = CGRectGetMaxX(touchBounds) - _blockTouchView.lsqGetSizeWidth / 2;
+    CGFloat minTouchX = CGRectGetMinX(touchBounds) + _blockTouchView.lsqGetSizeWidth / 2;
+    if (touchX > maxTouchX) touchX = maxTouchX;
+    if (touchX < minTouchX) touchX = minTouchX;
+    
+    CGPoint center = _blockTouchView.center;
+    center.x = touchX;
+    _blockTouchView.center = center;
+    
+    CGRect blcokTouchRect = [_blockTouchView.superview convertRect:_blockTouchView.frame toView:_thumbnailsView];
+    CGFloat startSeconds = CGRectGetMinX(blcokTouchRect) / CGRectGetWidth(_thumbnailsView.frame) * _duration;
+    //CGFloat rangeDurationSeconds = CGRectGetWidth(blcokTouchRect) / CGRectGetWidth(_thumbnailsView.frame) * _duration;
+    _clipTimeRange = CMTimeRangeMake(CMTimeMakeWithSeconds(startSeconds, USEC_PER_SEC), _clipTimeRange.duration);
+    
+    if ([self.clipDelegate respondsToSelector:@selector(chooseTimeWith:withState:)]) {
+        [self.clipDelegate chooseTimeWith:startSeconds withState:lsqClipViewStyleCurrent];
+    }
+}
 
 #pragma mark - 事件响应方法
 
@@ -277,9 +398,9 @@
  */
 - (void)setUpDownLine
 {
-    _upLine.frame = CGRectMake(_leftTouchView.lsqGetOriginX + _leftTouchView.lsqGetSizeWidth, 0, _rightTouchView.lsqGetOriginX - _leftTouchView.lsqGetOriginX - _leftTouchView.lsqGetSizeWidth, _upLineHeight);
-    _downLine.frame = CGRectMake(_upLine.lsqGetOriginX, _contentView.lsqGetSizeHeight - _upLineHeight, _upLine.lsqGetSizeWidth, _upLineHeight);
-    _shadowView.frame = CGRectMake(_leftTouchView.lsqGetOriginX + _leftTouchView.lsqGetSizeWidth, _upLine.lsqGetOriginY + _upLineHeight, _rightTouchView.lsqGetOriginX - _leftTouchView.lsqGetOriginX - _leftTouchView.lsqGetSizeWidth, _contentView.lsqGetSizeHeight - _upLineHeight*2);
+//    _upLine.frame = CGRectMake(_leftTouchView.lsqGetOriginX + _leftTouchView.lsqGetSizeWidth, 0, _rightTouchView.lsqGetOriginX - _leftTouchView.lsqGetOriginX - _leftTouchView.lsqGetSizeWidth, kBorderHeight);
+//    _downLine.frame = CGRectMake(_upLine.lsqGetOriginX, _contentView.lsqGetSizeHeight - kBorderHeight, _upLine.lsqGetSizeWidth, kBorderHeight);
+    _shadowView.frame = CGRectMake(_leftTouchView.lsqGetOriginX + _leftTouchView.lsqGetSizeWidth, _upLine.lsqGetOriginY + kBorderHeight, _rightTouchView.lsqGetOriginX - _leftTouchView.lsqGetOriginX - _leftTouchView.lsqGetSizeWidth, _contentView.lsqGetSizeHeight - kBorderHeight*2);
 }
 
 
@@ -289,21 +410,31 @@
  @param currentX 当前位置x
  @param isStartStatus 当前拖动的是否为开始按钮 true:开始按钮  false:拖动结束按钮
  */
-- (void)chooseChangedWith:(CGFloat)currentX withState:(lsqClipViewStyle)isStartStatus
+- (void)chooseChangedWith:(CGFloat)currentX withState:(lsqClipViewStyle)viewStyle
 {
-    CGFloat time = _timeInterval * (currentX - _leftTouchView.lsqGetSizeWidth)/(_contentView.lsqGetSizeWidth - _leftTouchView.lsqGetSizeWidth*2);
-    
+    CGFloat time = _duration * (currentX - _leftTouchView.lsqGetSizeWidth)/(_contentView.lsqGetSizeWidth - _leftTouchView.lsqGetSizeWidth*2);
+   
     if (time < 0) {
         time = 0;
-    }else if (time > _timeInterval){
-        time = _timeInterval;
-    }
-    if (isStartStatus) {
-        self.currentTime = time;
+    }else if (time > _duration){
+        time = _duration;
     }
     
+    switch (viewStyle) {
+        case lsqClipViewStyleLeft:{
+            _clipTimeRange = CMTimeRangeMake(CMTimeMakeWithSeconds(time, USEC_PER_SEC), _clipTimeRange.duration);
+        } break;
+        case lsqClipViewStyleRight:{
+            _clipTimeRange = CMTimeRangeFromTimeToTime(_clipTimeRange.start, CMTimeMakeWithSeconds(time, USEC_PER_SEC));
+        } break;
+        case lsqClipViewStyleCurrent:{
+            
+        } break;
+    }
+    
+    
     if ([self.clipDelegate respondsToSelector:@selector(chooseTimeWith:withState:)]) {
-        [self.clipDelegate chooseTimeWith:time withState:isStartStatus];
+        [self.clipDelegate chooseTimeWith:time withState:viewStyle];
     }
 }
 

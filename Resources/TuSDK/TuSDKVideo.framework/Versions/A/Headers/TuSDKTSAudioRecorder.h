@@ -81,7 +81,7 @@ typedef NS_ENUM(NSInteger,lsqAudioRecordingStatus)
 // 已录制的时长
 @property (nonatomic, readonly ,assign) CGFloat duration;
 // 录制时的设置 若有需要可自定义设置 默认包括 录音格式：kAudioFormatLinearPCM   采样率：8000   声道：双声道   采样点位数：8  是否采用浮点数采样：YES
-@property (nonatomic, assign) NSDictionary *recorderSettings;
+@property (nonatomic, strong) NSDictionary *recorderSettings;
 
 /**
   开始录音

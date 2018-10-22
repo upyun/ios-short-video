@@ -11,12 +11,20 @@
 
 /** 粒子发射器永远存在 */
 extern NSInteger const lsqParticleDurationInfinty;
-
 /** 粒子的起始大小等于结束大小 */
 extern NSInteger const lsqParticleStartSizeEqualToEndSize;
-
 /** 粒子的起始半径等于结束半径 */
 extern NSInteger const lsqParticleStartRadiusEqualToEndRadius;
+/** 顶点一组总数 默认2 */
+extern GLint const lsqParticleVertexPostionSize;
+/** 粒子颜色一组总数 默认4 */
+extern GLint const lsqParticleVertexColorSize;
+/** 粒子表现一组总数 默认4 */
+extern GLint const lsqParticleVertexAppearSize;
+/** 顶点步长 */
+extern GLint const lsqParticleVertexStride;
+/** 粒子表现顶点开始索引*/
+extern GLint const lsqParticleVertexOffsetAppear;
 
 /** 粒子系统*/
 @interface TuSDKParticleManager : NSObject{
@@ -54,19 +62,10 @@ extern NSInteger const lsqParticleStartRadiusEqualToEndRadius;
 - (void)updateParticleEmitSize:(CGFloat)size;
 /** 更新粒子特效颜色*/
 - (void)updateParticleEmitColor:(UIColor *)color;
-
-/** 顶点一组总数 默认2*/
-@property(readonly) GLint positionSize;
-/** 粒子颜色一组总数 默认4*/
-@property(readonly) GLint colorSize;
-/** 粒子表现一组总数 默认2*/
-@property(readonly) GLint appearSize;
 /** 绘制粒子总数*/
 - (NSInteger)drawTotal;
-/** 粒子顶点数组 */
-- (const GLfloat *)positions;
-/** 粒子颜色数组 */
-- (const GLfloat *)colors;
-/** 粒子表现数组 */
-- (const GLfloat *)appears;
+/** 材质贴图参数 [0: 放大倍数, 1: 放大后子贴图中心距离] */
+- (const GLfloat *)textureTile;
+/** 刷新VBO数据 */
+- (void) freshVBO;
 @end

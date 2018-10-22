@@ -180,6 +180,12 @@
 @property (nonatomic) BOOL videoEditorParticleEffectsFilterSupport;
 
 /**
+ video editor text effect support 文字特效
+ @since 2.2.0
+ */
+@property (nonatomic) BOOL videoEditorTextEffectsSupport;
+
+/**
  *  Filter list which could be used by FilterAPI
  */
 @property (nonatomic) NSArray *filterAPIList;

@@ -52,6 +52,7 @@
     _basicTag = 200;
     _normalImageNames = normalImageNames;
     _selectImageNames = selectImageNames;
+    _titles = titles;
     
     if (!_scrollBackView) {
         _scrollBackView = [[UIScrollView alloc]initWithFrame:self.bounds];
@@ -103,7 +104,7 @@
         centerX += interval;
     }
     
-    _scrollBackView.contentSize = CGSizeMake(centerX - interval + btnWidth/2 + 10, _scrollBackView.lsqGetSizeHeight);
+//    _scrollBackView.contentSize = CGSizeMake(centerX - interval + btnWidth/2 + 10, _scrollBackView.lsqGetSizeHeight);
     
 }
 
@@ -140,6 +141,17 @@
 
 - (void)clickBottomButtonEvent:(UIButton *)btn;
 {
+    // 针对文字选中做特殊处理
+     NSInteger index = _currentSelectedIndex - _basicTag;
+    if ([_titles[index] isEqualToString: NSLocalizedString(@"lsq_movieEditor_text",  "文字")]) {
+        btn.selected = !btn.selected;
+        [self refreshSelectStateWith:btn];
+        if ([self.clickDelegate respondsToSelector:@selector(bottomButton:clickIndex:)]) {
+            [self.clickDelegate bottomButton:self clickIndex:btn.tag - _basicTag];
+        }
+        return;
+    }
+    
     if (_currentSelectedIndex == btn.tag) return;
     btn.selected = !btn.selected;
     [self refreshSelectStateWith:btn];
@@ -147,6 +159,5 @@
         [self.clickDelegate bottomButton:self clickIndex:btn.tag - _basicTag];
     }
 }
-
 
 @end

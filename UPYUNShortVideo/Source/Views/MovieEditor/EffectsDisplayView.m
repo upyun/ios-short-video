@@ -171,16 +171,20 @@
 /**
  添加一个显示片段
  
- @param startLocation 开始位置
+ @param progress 当前进度
  @param color 片段显示的颜色
  @return 是否添加成功
  */
-- (BOOL)addSegmentViewBeginWithStartLocation:(CGFloat)startLocation WithColor:(UIColor *)color;
+- (BOOL)addSegmentViewBeginWithProgress:(CGFloat)progress WithColor:(UIColor *)color;
 {
-    if (startLocation>=1 || startLocation < 0) return NO;
+    if (progress >= 1 || progress < 0) {
+        lsqLError(@"addSegmentViewBeginWithProgress failed  progress : %f",progress);
+        return NO;
+    }
+    
     _isAdding = YES;
     _lastViewTag ++;
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake((_shadowBackView.lsqGetSizeWidth)*startLocation, 0, 1, _shadowBackView.lsqGetSizeHeight)];
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake((_shadowBackView.lsqGetSizeWidth)*progress, 0, 1, _shadowBackView.lsqGetSizeHeight)];
     view.tag = _lastViewTag;
     view.backgroundColor = color;
     [_shadowBackView addSubview:view];
@@ -191,7 +195,7 @@
 /**
  结束正在添加的位置
  */
-- (void)addSegmentViewEnd;
+- (void)makeFinish;
 {
     _isAdding = NO;
     _lastView = nil;
@@ -200,13 +204,13 @@
 /**
  当前正在添加的片段增加到某一位置
  
- @param currentLocation 截止位置
+ @param progress 截止位置
  */
-- (void)addSegmentViewMoveToLocation:(CGFloat)currentLocation;
+-(void)updateLastSegmentViewWithProgress:(CGFloat)progress
 {
-    if (_lastView) {
-        [_lastView lsqSetSizeWidth:currentLocation*_backView.lsqGetSizeWidth - _lastView.lsqGetOriginX];
-    }
+    if (!_lastView) return;
+ 
+    [_lastView lsqSetSizeWidth:progress*_backView.lsqGetSizeWidth - _lastView.lsqGetOriginX];
 }
 
 /**
@@ -214,7 +218,7 @@
  */
 - (void)removeAllSegment;
 {
-    [_backView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [_shadowBackView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (obj.tag > _basicTag) {
             [obj removeFromSuperview];
         }

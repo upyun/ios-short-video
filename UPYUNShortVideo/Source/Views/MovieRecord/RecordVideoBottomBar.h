@@ -50,7 +50,7 @@
 @interface RecordVideoBottomBar : UIView
 
 // 代理对象
-@property (nonatomic, assign) id<BottomBarDelegate> bottomBarDelegate;
+@property (nonatomic, weak) id<BottomBarDelegate> bottomBarDelegate;
 
 // 录制按钮
 @property (nonatomic, readonly) UIButton *recordButton;

@@ -7,8 +7,12 @@
 //
 
 //#import "TuSDKICGuideRegionView.h"
-#import <TuSDK/TuSDKICGuideRegionView.h>
-
+//#ifdef ENABLE_FACE_LIB
 //#import "TuSDKFace.h"
-#import <TuSDKFace/TuSDKFace.h>
+//#else
+//#import "TuSDK.h"
+//#endif
 
+#import <TuSDK/TuSDKICGuideRegionView.h>
+#import <TuSDKFace/TuSDKFace.h>
+#import <TuSDK/TuSDK.h>

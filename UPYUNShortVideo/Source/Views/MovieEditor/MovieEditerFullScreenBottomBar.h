@@ -31,6 +31,10 @@
  */
 - (void)movieEditorFullScreenBottom_selectParticleView:(BOOL)isParticle;
 
+/**
+ 添加文字特效
+ */
+- (void)movieEditorFullScreenBottom_addTextEffect;
 
 @end
 

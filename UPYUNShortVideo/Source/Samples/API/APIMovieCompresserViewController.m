@@ -10,15 +10,13 @@
 #import "TopNavBar.h"
 #import "TuSDKFramework.h"
 
-@interface APIMovieCompresserViewController ()<TopNavBarDelegate, TuSDKMovieCompresserDelegate>{
+@interface APIMovieCompresserViewController ()<TopNavBarDelegate, TuSDKAssetVideoComposerDelegate, TuSDKICSeekBarDelegate>{
     // 编辑页面顶部控制栏视图
     TopNavBar *_topBar;
     // 视频图像提取器
-    TuSDKTSMovieCompresser *_movieCompresser;
+    TuSDKAssetVideoComposer *_movieCompresser;
     // 距离定点距离
     CGFloat topYDistance;
-    // 原视频路径
-    NSString *_filePath;
     
     // 原始视频label
     UILabel *_originLabel;
@@ -29,6 +27,9 @@
 // 系统播放器
 @property (strong, nonatomic) AVPlayer *player;
 @property (nonatomic, strong) AVPlayerItem *playerItem;
+@property (nonatomic, assign) CGFloat progress;
+@property (nonatomic, strong) CADisplayLink *displayLink;
+@property (nonatomic, weak) UIView *playerView;
 
 @end
 
@@ -108,18 +109,29 @@
 - (void)layoutView;
 {
     CGFloat sideGapDistance = 50;
-    NSInteger fileSize = [[NSFileManager defaultManager] attributesOfItemAtPath:_filePath error:nil].fileSize;
-    CGFloat newFileSize = fileSize/1024.0/1024.0;
+    [[[ALAssetsLibrary alloc] init] assetForURL:_inputURL resultBlock:^(ALAsset *asset) {
+        if ([[asset valueForProperty:ALAssetPropertyType] isEqualToString:ALAssetTypeVideo]) {
+            NSInteger fileSize = [[asset defaultRepresentation] size];
+            CGFloat newFileSize = fileSize/1024.0/1024.0;
+            _originLabel.text = [NSString stringWithFormat:@"原视频：%.2f M", newFileSize];
+        }
+    } failureBlock:^(NSError *error) {
+    }];
+   
     _originLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 150, 30)];
-    _originLabel.center = CGPointMake(120,  self.view.lsqGetSizeWidth*9/16 + sideGapDistance *2.5 + topYDistance*2);
-    _originLabel.text = [NSString stringWithFormat:@"原视频：%.2f M", newFileSize];
+    _originLabel.center = CGPointMake(90,  self.view.lsqGetSizeWidth*9/16 + sideGapDistance *2.5 + topYDistance*2);
+    _originLabel.textAlignment = NSTextAlignmentLeft;
+    _originLabel.text = [NSString stringWithFormat:@"原视频： "];
     [self.view addSubview:_originLabel];
     
     _resultLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 150, 30)];
-    _resultLabel.center = CGPointMake(self.view.lsqGetSizeWidth - 80,  _originLabel.center.y);
+    _resultLabel.center = CGPointMake(self.view.lsqGetSizeWidth - 90,  _originLabel.center.y);
+    _resultLabel.textAlignment = NSTextAlignmentRight;
     _resultLabel.text = @"压缩后： ";
     [self.view addSubview:_resultLabel];
-    // 获取缩略图
+    
+     [self initWithSeekBarAndLabels:@"压缩比" originY:_resultLabel.lsqGetOriginY + 40 tag:11];
+    
     UIButton *compressButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth - sideGapDistance*2, 40)];
     compressButton.center = CGPointMake(self.view.lsqGetSizeWidth/2, _originLabel.center.y + 100);
     compressButton.backgroundColor =  lsqRGB(252, 143, 96);
@@ -130,19 +142,70 @@
     [self.view addSubview:compressButton];
 }
 
+/**
+ 创建拖动条
+ 
+ @param titleLabelText 左侧 Label 的 title
+ @param originY 组件显示的纵坐标
+ @param seekBarTag 组件的 tag
+ */
+- (void)initWithSeekBarAndLabels:(NSString *)titleLabelText originY:(CGFloat)originY tag:(NSInteger)seekBarTag;
+{
+    CGFloat sideGapDistance = 50;
+    
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, originY, sideGapDistance, sideGapDistance)];
+    titleLabel.text = titleLabelText;
+    titleLabel.textColor = [UIColor blackColor];
+    titleLabel.font = [UIFont systemFontOfSize:15];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:titleLabel];
+    
+    UILabel * argValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.view.lsqGetSizeWidth - sideGapDistance, originY, sideGapDistance, sideGapDistance)];
+    argValueLabel.text = @"0%";
+    argValueLabel.textColor = lsqRGB(252, 143, 96);
+    argValueLabel.font = [UIFont systemFontOfSize:15];
+    argValueLabel.textAlignment = NSTextAlignmentCenter;
+    argValueLabel.tag = seekBarTag;
+    [self.view addSubview:argValueLabel];
+    
+    TuSDKICSeekBar *originalAudioVolumeBar = [TuSDKICSeekBar initWithFrame:CGRectMake(sideGapDistance, originY, self.view.lsqGetSizeWidth - sideGapDistance *2 , 50)];
+    originalAudioVolumeBar.delegate = self;
+    originalAudioVolumeBar.progress = 0;
+    originalAudioVolumeBar.aboveView.backgroundColor = lsqRGB(252, 143, 96);
+    originalAudioVolumeBar.belowView.backgroundColor = lsqRGB(213, 213, 213);
+    originalAudioVolumeBar.dragView.backgroundColor = lsqRGB(252, 143, 96);
+    originalAudioVolumeBar.tag = seekBarTag;
+    [self.view addSubview: originalAudioVolumeBar];
+}
+
+/**
+ 开始压缩视频
+ */
 - (void)startCompress;
 {
+    [self destroyPlayer];
+    
     if (!_movieCompresser) {
-        _movieCompresser = [[TuSDKTSMovieCompresser alloc]initWithMoviePath:_filePath];
-        _movieCompresser.compressDelegate = self;
+        _movieCompresser = [[TuSDKAssetVideoComposer alloc] initWithAsset:nil];
+        _movieCompresser.delegate = self;
+        // 指定输出文件格式
         _movieCompresser.outputFileType = lsqFileTypeMPEG4;
+        NSURL *sampleOneURL = _inputURL;
+        
+        // 添加待压缩的视频源
+        [_movieCompresser addInputAsset:[AVAsset assetWithURL:sampleOneURL]];
     }
     
-    // 压缩比，范围 0-1
-    // _movieCompresser.videoBitRateScale = 0.5;
-    // 设置码率，设置后「压缩比」参数不再生效
-    _movieCompresser.videoBitRate = 3000 * 1000;
-    [_movieCompresser startCompressing];
+    // 指定输出文件的码率
+//     _movieCompresser.outputVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_High2];
+    
+    // 指定压缩比 outputVideoQuality 和 outputCompressionScale 可二选一。
+    // 同时设置时优先使用 outputVideoQuality。
+    
+    // 压缩比为0和1时,输出原视频码率AVVideoProfileLevelH264Main41级别的视频,建议压缩比范围1%-99%。
+    _movieCompresser.outputCompressionScale = self.progress;
+
+    [_movieCompresser startComposing];
 }
 
 // 重新获取
@@ -177,12 +240,11 @@
     UIView *playerView = [[UIView alloc]initWithFrame:CGRectMake(0, topYDistance/2 + _topBar.lsqGetSizeHeight, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth*9/16)];
     [playerView setBackgroundColor:[UIColor clearColor]];
     playerView.multipleTouchEnabled = NO;
+    _playerView = playerView;
     [self.view addSubview:playerView];
     
-    _filePath = [[NSBundle mainBundle]pathForResource:@"tusdk_compression_video" ofType:@"mp4"];
-    
     // 添加视频资源
-    _playerItem = [[AVPlayerItem alloc]initWithURL:[NSURL fileURLWithPath:_filePath]];
+    _playerItem = [[AVPlayerItem alloc]initWithURL:_inputURL];
     // 播放
     _player = [[AVPlayer alloc]initWithPlayerItem:_playerItem];
     _player.volume = 0.5;
@@ -193,45 +255,6 @@
     // 循环播放的通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(playVideoCycling) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     [_player play];
-}
-
-// 状态通知代理
-- (void)onMovieCompresser:(TuSDKTSMovieCompresser *)compresser statusChanged:(lsqMovieCompresserSessionStatus)status;
-{
-    NSLog(@"TuSDKTSMovieCompresser 的目前的状态是 ： %ld",(long)status);
-    
-    if (status == lsqMovieCompresserSessionStatusCompleted)
-    {
-        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_api_splice_movie_success", @"操作完成，请去相册查看视频")];
-    }else if (status == lsqMovieCompresserSessionStatusFailed)
-    {
-        [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_api_splice_movie_failed", @"操作失败，无法生成视频文件")];
-    }else if(status == lsqMovieCompresserSessionStatusCancelled)
-    {
-        [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_api_splice_movie_cancelled", @"出现问题，操作被取消")];
-    }else if (status == lsqMovieCompresserSessionStatusCompressing)
-    {
-        [[TuSDK shared].messageHub showToast:NSLocalizedString(@"lsq_api_compress_movie_compressing", @"正在压缩...")];
-    }
-}
-
-// 结果通知代理
-- (void)onMovieCompresser:(TuSDKTSMovieCompresser *)compresser result:(TuSDKVideoResult *)result;
-{
-    if (result.videoPath) {
-        NSLog(@"result path : %@",result.videoPath);
-        // 操作成功 保存到相册
-        NSInteger fileSize = [[NSFileManager defaultManager] attributesOfItemAtPath:result.videoPath error:nil].fileSize;
-        CGFloat newFileSize = fileSize/1000.0/1000.0;
-        _resultLabel.text = [NSString stringWithFormat:@"压缩后：%.2f M", newFileSize];
-        // gain bits sample code
-        // NSURL *videoURL = [NSURL fileURLWithPath:result.videoPath];
-        // AVAsset *videoAsset =[AVAsset assetWithURL:videoURL];
-        // AVAssetTrack *videoTrack = [[videoAsset tracksWithMediaType:AVMediaTypeVideo] firstObject];
-        // CGFloat videoDataBits = [videoTrack estimatedDataRate];
-        // NSLog(@"生成视频的码率： %lf",videoDataBits);    
-        UISaveVideoAtPathToSavedPhotosAlbum(result.videoPath, nil, nil, nil);
-    }
 }
 
 #pragma mark - TopNavBarDelegate
@@ -246,6 +269,99 @@
 {
     // 返回按钮
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - TuSDKICSeekBarDelegate
+
+/**
+ 压缩比拖动事件
+ 
+ @param seekbar 拖动条
+ @param progress 压缩比
+ */
+- (void)onTuSDKICSeekBar:(TuSDKICSeekBar *)seekbar changedProgress:(CGFloat)progress{
+    for (UIView*view in self.view.subviews ) {
+        if (view.tag == seekbar.tag) {
+            if ([view isMemberOfClass:[UILabel class]])
+            {
+                UILabel *label = (UILabel*)view;
+                label.text =  [NSString stringWithFormat:@"%d%%",(int)(seekbar.progress*100)];
+            }
+        }
+    }
+    
+    if (seekbar.tag == 11)
+    {
+        self.progress = progress;
+    }
+}
+
+
+
+#pragma mark - TuSDKAssetVideoComposerDelegate
+
+/**
+ 压缩状态改变事件
+ 
+ @param composer TuSDKAssetVideoComposer
+ @param status lsqAssetVideoComposerStatus 当前状态
+ */
+-(void)assetVideoComposer:(TuSDKAssetVideoComposer *)composer statusChanged:(TuSDKAssetVideoComposerStatus)status
+{
+    switch (status)
+    {
+        case TuSDKAssetVideoComposerStatusStarted:
+             [[TuSDK shared].messageHub showToast:NSLocalizedString(@"lsq_api_compress_movie_compressing", @"正在压缩...")];
+            break;
+        case TuSDKAssetVideoComposerStatusCompleted:
+        {
+            [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_api_splice_movie_success", @"操作完成，请去相册查看视频")];
+            [self initWithVideoPlayer];
+            break;
+        }
+        case TuSDKAssetVideoComposerStatusFailed:
+            [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_api_splice_movie_failed", @"操作失败，无法生成视频文件")];
+            [self initWithVideoPlayer];
+            break;
+        case TuSDKAssetVideoComposerStatusCancelled:
+            [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_api_splice_movie_cancelled", @"出现问题，操作被取消")];
+            [self initWithVideoPlayer];
+            break;
+        default:
+            break;
+    }
+}
+
+/**
+ 压缩进度事件
+ 
+ @param composer TuSDKAssetVideoComposer
+ @param progress 处理进度
+ @param index 当前正在处理的视频索引
+ */
+-(void)assetVideoComposer:(TuSDKAssetVideoComposer *)composer processChanged:(float)progress assetIndex:(NSUInteger)index
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _resultLabel.text = [NSString stringWithFormat:@"压缩进度 %.0f%%", progress * 100];
+    });
+}
+
+/**
+ 视频压缩完毕
+ 
+ @param composer TuSDKAssetVideoComposer
+ @param result TuSDKVideoResult
+ */
+-(void)assetVideoComposer:(TuSDKAssetVideoComposer *)composer saveResult:(TuSDKVideoResult *)result
+{
+    // 视频处理结果
+    NSLog(@"result path : %@",result.videoPath);
+    NSInteger fileSize = [[NSFileManager defaultManager] attributesOfItemAtPath:result.videoPath error:nil].fileSize;
+    CGFloat newFileSize = fileSize/1000.0/1000.0;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _resultLabel.text = [NSString stringWithFormat:@"压缩后：%.2f M", newFileSize];
+    });
+    NSLog(@"result path: %@ ",result.videoAsset);
 }
 
 - (void)playVideoCycling;
@@ -272,12 +388,11 @@
     [_playerItem cancelPendingSeeks];
     [_playerItem.asset cancelLoading];
     [_player pause];
-    _playerItem = [[AVPlayerItem alloc]initWithURL:[NSURL URLWithString:@""]];
-    // 初始化player对象
-    self.player = [[AVPlayer alloc]initWithPlayerItem:_playerItem];
-    
+    [_player replaceCurrentItemWithPlayerItem:nil];
     _player = nil;
     _playerItem = nil;
+    [_playerView removeFromSuperview];
+    _playerView = nil;
 }
 
 @end

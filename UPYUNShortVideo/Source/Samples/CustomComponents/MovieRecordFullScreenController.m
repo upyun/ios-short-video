@@ -15,7 +15,12 @@
 @interface MovieRecordFullScreenController()<SpeedSegmentViewDelegate>{
     // 速率选择控件对象
     SpeedSegmentView *_speedSegment;
+    
+    // 屏幕比例数组
+    NSArray<NSNumber *> *_cameraRatioArr;
+    NSInteger _currentRatioIndex;
 }
+
 @end
 
 
@@ -44,7 +49,7 @@
     self.topBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, topY + 4, self.view.lsqGetSizeWidth, 44)];
     [self.topBar addTopBarInfoWithTitle:nil
                      leftButtonInfo:@[@"style_default_2.0_back_default.png"]
-                    rightButtonInfo:@[@"style_default_2.0_lens_overturn.png",@"style_default_2.0_flash_closed.png"]];
+                    rightButtonInfo:@[@"style_default_2.0_lens_overturn.png",@"style_default_2.0_flash_closed.png",@"nav_ic_scale9-16_w.png"]];
     self.topBar.topBarDelegate = self;
     self.topBar.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.topBar];
@@ -166,6 +171,8 @@
 // 初始化camera
 - (void)startCamera
 {
+    _cameraRatioArr = @[@(lsqRatioOrgin), @(lsqRatio_1_1), @(lsqRatio_3_4)];
+    
     if (!self.cameraView) {
         self.cameraView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth, self.view.lsqGetSizeHeight)];
         [self.view insertSubview:self.cameraView atIndex:0];
@@ -197,13 +204,13 @@
         offset = 118/self.view.lsqGetSizeHeight;
     }
     self.camera.regionHandler.offsetPercentTop = offset;
-    // 输出 1:1 画幅视频
+    // 输出 全屏画幅视频
     self.camera.cameraViewRatio = 0;
     // 指定比例后，如不指定尺寸，SDK 会根据设备情况自动输出适应比例的尺寸
     // self.camera.outputSize = CGSizeMake(640, 640);
 
     // 输出视频的画质，主要包含码率、分辨率等参数 (默认为空，采用系统设置)
-    self.camera.videoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium2];
+    self.camera.videoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium1];
     // 禁止触摸聚焦功能 (默认: NO)
     self.camera.disableTapFocus = NO;
     // 是否禁用持续自动对焦
@@ -221,11 +228,11 @@
     // 启用智能贴纸
     self.camera.enableLiveSticker = YES;
     // 设置水印，默认为空
-    self.camera.waterMarkImage = [UIImage imageNamed:@"upyun_wartermark.png"];
+    self.camera.waterMarkImage = [UIImage imageNamed:@"sample_watermark.png"];
     // 设置水印图片的位置
     self.camera.waterMarkPosition = lsqWaterMarkBottomRight;
     // 最大录制时长 8s
-    self.camera.maxRecordingTime = 8;
+    self.camera.maxRecordingTime = 15;
     // 最小录制时长 2s
     self.camera.minRecordingTime = 1;
     // 正常模式/续拍模式  - 注：该录制模式需和 self.bottomBar 中的一致, 若不使用这套UI逻辑，可进行自定义交互操作
@@ -260,6 +267,78 @@
 {
     _speedSegment.hidden = NO;
     [super cameraTapEvent];
+}
+
+// 点击相机比例按钮
+- (void)clickChangeRatioBtn;
+{
+    _currentRatioIndex = _currentRatioIndex+1 >= _cameraRatioArr.count ? 0 : _currentRatioIndex + 1;
+    lsqRatioType ratioType = (lsqRatioType)_cameraRatioArr[_currentRatioIndex].integerValue;
+    
+    [self updateCameraRatioStateWithType:ratioType];
+
+    // 修改选区的顶部偏移
+    if (ratioType == lsqRatio_1_1) {
+        self.camera.regionHandler.offsetPercentTop = 0.1;
+    }else {
+        self.camera.regionHandler.offsetPercentTop = 0;
+    }
+
+    [self.camera changeCameraViewRatio:[TuSDKRatioType ratio:ratioType]];
+}
+
+// 更新相机比例按钮状态
+- (void)updateCameraRatioStateWithType:(lsqRatioType)ratioType;
+{
+    NSString *imageName;
+    switch (ratioType) {
+        case lsqRatio_3_4:
+            imageName = @"nav_ic_scale3-4_w";
+            break;
+        case lsqRatio_1_1:
+            imageName = @"nav_ic_scale1-1_w";
+            break;
+        default:
+            imageName = @"nav_ic_scale9-16_w";
+            break;
+    }
+    [self updateButtonImage:imageName];
+}
+
+/**
+ 更新按钮显示
+ 
+ @param type 按钮类型
+ @param imageName 新的按钮图片
+ @param title 新的按钮title
+ */
+- (void)updateButtonImage:(NSString *)imageName;
+{
+    [self.topBar changeBtnStateWithIndex:2 isLeftbtn:NO withImage:[UIImage imageNamed:imageName] withEnabled:YES];
+}
+
+/**
+ 右侧按钮点击事件
+ 
+ @param btn 按钮对象
+ @param navBar 导航条
+ */
+- (void)onRightButtonClicked:(UIButton*)btn navBar:(TopNavBar *)navBar;
+{
+    [super onRightButtonClicked:btn navBar:navBar];
+    
+    // 开始录制后不可更改比例
+    if (!self.camera.canChangeRatio) return;
+    
+    switch (btn.tag) {
+        case lsqRightTopBtnThird:
+        {
+            [self clickChangeRatioBtn];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - SpeedSegmentViewDelegate

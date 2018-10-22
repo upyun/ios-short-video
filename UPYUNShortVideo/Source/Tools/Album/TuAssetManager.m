@@ -36,9 +36,12 @@ static BOOL ifOne = YES;
 
 - (ALAssetsLibrary *)assetsLibrary
 {
-    if (!_assetsLibrary) {
-        _assetsLibrary = [[ALAssetsLibrary alloc] init];
+    if (_assetsLibrary) {
+        _assetsLibrary = nil;
     }
+    
+    _assetsLibrary = [[ALAssetsLibrary alloc] init];
+
     return _assetsLibrary;
 }
 
@@ -100,10 +103,9 @@ static BOOL ifOne = YES;
                         
                         if (result) {
                             TuVideoModel *model = [[TuVideoModel alloc] init];
-                            NSTimeInterval duration = [[result valueForProperty:ALAssetPropertyDuration] integerValue];
-                            NSString *timeLength = [NSString stringWithFormat:@"%0.0f",duration];
-                            model.videoTime = [self getNewTimeFromDurationSecond:timeLength.integerValue];
-                            
+                            NSTimeInterval duration = [[result valueForProperty:ALAssetPropertyDuration] doubleValue];
+                            model.videoTime = [self getNewTimeFromDurationSecond:round(duration)];
+                            model.duration = duration;
                             model.asset = result;
                             
                             [ay addObject:model];

@@ -104,10 +104,10 @@
 
 - (NSString *)formatterTime:(CGFloat)second
 {
+    NSInteger integerSecond = (NSInteger)round(second);
     // 注意：最小单位为秒
-    int medium = (int)floor(second);
-    int theMinute = floor(medium/60);
-    int theSecond = medium % 60;
+    int theMinute = (int)(integerSecond / 60);
+    int theSecond = integerSecond % 60;
     
     NSString *formatterTime = [NSString stringWithFormat:@"%02d:%02d",theMinute,theSecond];
     return formatterTime;

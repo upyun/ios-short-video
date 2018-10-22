@@ -58,7 +58,7 @@ typedef enum : NSUInteger {
 // 最小剪切时间，用来控制两端的间隔
 @property (nonatomic, assign) CGFloat minCutTime;
 // 事件代理
-@property (nonatomic, assign) id<VideoClipViewDelegate> clipDelegate;
+@property (nonatomic, weak) id<VideoClipViewDelegate> clipDelegate;
 // 缩略图数组
 @property (nonatomic, strong) NSArray<UIImage*> *thumbnails;
 

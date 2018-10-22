@@ -10,9 +10,8 @@
 #import <UIKit/UIkit.h>
 #import "TuSDKTimeRange.h"
 
-
 /**
- 音频数据类
+ 音频数据实体类
  */
 @interface TuSDKTSAudio : NSObject
 
@@ -24,6 +23,8 @@
 @property (nonatomic, strong) AVAssetTrack *audioTrack;
 // 音频片段所在时间, 默认 整个音频的时间范围
 @property (nonatomic,strong) TuSDKTimeRange *atTimeRange;
+// 裁切
+@property (nonatomic,strong) TuSDKTimeRange *catTimeRange;
 // 音量设置
 @property (nonatomic,assign) CGFloat audioVolume;
 

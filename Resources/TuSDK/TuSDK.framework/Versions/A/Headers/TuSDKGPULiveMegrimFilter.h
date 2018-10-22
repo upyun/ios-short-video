@@ -12,4 +12,18 @@
 /** Live Megrim Filter*/
 @interface TuSDKGPULiveMegrimFilter : GPUImageFilterGroup
 
+/**
+ 启用隔离滤镜
+ @since 2.2.0
+ */
+- (void)enableSeprarate;
+
+/**
+ *  初始化
+ *
+ *  @param option TuSDKFilterOption
+ *
+ *  @return instancetype
+ */
+- (instancetype)initWithOption:(TuSDKFilterOption *)option;
 @end

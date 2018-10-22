@@ -83,7 +83,7 @@ typedef NS_ENUM (NSUInteger, TuSDKRecordVideoQuality)
 /**
  默认视频配置
  
- @return
+ @return 默认配置
  */
 + (instancetype)defaultQuality;
 

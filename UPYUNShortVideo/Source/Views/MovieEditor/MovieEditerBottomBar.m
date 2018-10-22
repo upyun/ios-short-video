@@ -8,10 +8,8 @@
 
 #import "MovieEditerBottomBar.h"
 
-@interface MovieEditerBottomBar ()<FilterViewEventDelegate, MVViewClickDelegate, DubViewClickDelegate, TuSDKICSeekBarDelegate, BottomButtonViewDelegate, VideoClipViewDelegate, EffectsViewEventDelegate>{
+@interface MovieEditerBottomBar ()<FilterViewEventDelegate, MVViewClickDelegate, DubViewClickDelegate, TuSDKICSeekBarDelegate, BottomButtonViewDelegate, VideoClipViewDelegate, EffectsViewEventDelegate, TimeScrollViewDelegate>{
 
-    // 底部按钮以及分割线的父视图
-    UIView *_bottomDisplayView;
     // 底部按钮View
     BottomButtonView *_bottomButtonView;
     // 原音音量 数值显示 UILabel
@@ -25,6 +23,8 @@
     CGFloat _originVolume;
     // 配音音量
     CGFloat _audioVolume;
+    //文字特效
+    UIButton * _addText;
 }
 
 // 录音View
@@ -47,6 +47,7 @@
 {
     _videoURL = videoURL;
     _topThumbnailView.videoURL = videoURL;
+    _timeEffectThumbnailView.videoURL = videoURL;
     _effectsView.videoURL = videoURL;
 }
 
@@ -102,7 +103,8 @@
  */
 - (NSArray *)getBottomTitles;
 {
-    NSMutableArray *titles = [NSMutableArray arrayWithArray:@[NSLocalizedString(@"lsq_movieEditor_filterBtn", @"滤镜"),
+    NSMutableArray *titles = [NSMutableArray arrayWithArray:@[
+                                                              NSLocalizedString(@"lsq_movieEditor_filterBtn", @"滤镜"),
                                                               NSLocalizedString(@"lsq_movieEditor_effect", @"特效"),
                                                               NSLocalizedString(@"lsq_movieEditor_MVBtn", @"MV"),
                                                               NSLocalizedString(@"lsq_movieEditor_dubBtn", @"配音")]];
@@ -137,6 +139,18 @@
     [_bottomDisplayView addSubview:_bottomButtonView];
 }
 
+-(void)setBottomBarDelegate:(id<MovieEditorBottomBarDelegate>)bottomBarDelegate;
+{
+    _bottomBarDelegate = bottomBarDelegate;
+}
+
+-(void)setVideoDuration:(CGFloat)videoDuration
+{
+    _videoDuration = videoDuration;
+    _topThumbnailView.duration = videoDuration;
+    _timeEffectThumbnailView.duration = videoDuration;
+}
+
 /**
  初始化视图调节内容
  */
@@ -152,7 +166,7 @@
     _filterView.isHiddenEyeChinParam = YES;
     _filterView.isHiddenSmoothingParamSingleAdjust = YES;
     // 注： currentFilterTag 基于200 即： = 200 + 滤镜列表中某滤镜的对应下标
-    _filterView.currentFilterTag = 200;
+//    _filterView.currentFilterTag = 200;
     [_contentBackView addSubview:_filterView];
     
     // MV View
@@ -161,12 +175,14 @@
     _mvView.mvDelegate = self;
     _mvView.hidden = YES;
     [_contentBackView addSubview:_mvView];
+    [_mvView selectItemWithIndex:[NSIndexPath indexPathForItem:0 inSection:0]];
 
     // 配音 View
     _dubView = [[DubScrollView alloc]initWithFrame:_mvView.frame];
     _dubView.dubDelegate = self;
     _dubView.hidden = YES;
     [_contentBackView addSubview:_dubView];
+    [_dubView selectItemWithIndex:[NSIndexPath indexPathForItem:0 inSection:0]];
     
     // MV、配音 缩略图栏
     _topThumbnailView = [[MovieEditorClipView alloc]initWithFrame:CGRectMake(0, 0, _contentBackView.lsqGetSizeWidth, 44)];
@@ -177,11 +193,24 @@
     [_contentBackView addSubview:_topThumbnailView];
     _topThumbnailView.hidden = YES;
 
+    // 时间特效缩略图时码线
+    _timeEffectThumbnailView = [[MovieEditorClipView alloc] initWithFrame:_topThumbnailView.frame];
+    _timeEffectThumbnailView.clipDelegate = self;
+    [_contentBackView addSubview:_timeEffectThumbnailView];
+    [_timeEffectThumbnailView hideLeftRightTouchView:YES];
+    // 设置时间特效默认范围
+    _timeEffectThumbnailView.clipTimeRange = CMTimeRangeMake(kCMTimeZero, CMTimeMakeWithSeconds(0.5f, USEC_PER_SEC));
+    
     // 特效 View
     _effectsView = [[EffectsView alloc]initWithFrame: _filterView.bounds];
     _effectsView.effectEventDelegate = self;
     _effectsView.hidden = YES;
     [_contentBackView addSubview:_effectsView];
+    
+    // 时间特效列表
+    _timeView = [[TimeScrollView alloc] initWithFrame:_mvView.frame];
+    [_contentBackView addSubview:_timeView];
+    _timeView.delegate = self;
 }
 
 - (void)initVolumeView;
@@ -285,54 +314,40 @@
  */
 - (void)bottomButton:(BottomButtonView *)bottomButtonView clickIndex:(NSInteger)index;
 {
-    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other && index > 0) {
+    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other && index == 2) {
         // iPad 中不显示滤镜栏
-        index++;
+        return;
     }
-   
-    if (index == 0) {
-        // 点击滤镜
-        _filterView.hidden = NO;
-        _mvView.hidden = YES;
-        _dubView.hidden = YES;
-        _volumeBackView.hidden = YES;
-        _topThumbnailView.hidden = YES;
-        _effectsView.hidden = YES;
-        
+    
+    // 0 时光
+    _timeView.hidden = index != 0;
+    _timeEffectThumbnailView.hidden = index != 0;
+    BOOL blockTouchViewHidden = _timeView.selectedIndex == 0 || _timeView.selectedIndex == 3;
+    [_timeEffectThumbnailView setBlockTouchViewHidden:blockTouchViewHidden];
+    if (index == 0 && [self.bottomBarDelegate respondsToSelector:@selector(movieEditorBottom_timeEffectViewDisplay)]) {
+        [self.bottomBarDelegate movieEditorBottom_timeEffectViewDisplay];
+    }
+    
+    // 2 滤镜
+    _filterView.hidden = index != 2;
+    if (index == 2) {
         _filterView.beautyParamView.hidden = YES;
         _filterView.filterChooseView.hidden = NO;
-
-    }else if (index == 1){
-        // 点击 特效
-        _effectsView.hidden = NO;
-        _filterView.hidden = YES;
-        _dubView.hidden = YES;
-        _mvView.hidden = YES;
-        _volumeBackView.hidden = YES;
-        _topThumbnailView.hidden = YES;
-        
-        if ([self.bottomBarDelegate respondsToSelector:@selector(movieEditorBottom_effectsViewDisplay)]) {
-            [self.bottomBarDelegate movieEditorBottom_effectsViewDisplay];
-        }
-        
-    }else if (index == 2){
-        // 点击 MV
-        _mvView.hidden = NO;
-        _volumeBackView.hidden = NO;
-        _topThumbnailView.hidden = NO;
-        _filterView.hidden = YES;
-        _dubView.hidden = YES;
-        _effectsView.hidden = YES;
-        
-    }else if (index == 3){
-        // 点击 配音
-        _dubView.hidden = NO;
-        _volumeBackView.hidden = NO;
-        _topThumbnailView.hidden = NO;
-        _mvView.hidden = YES;
-        _filterView.hidden = YES;
-        _effectsView.hidden = YES;
     }
+    
+    // 3 特效
+    _effectsView.hidden = index != 3;
+    if (index == 3 && [self.bottomBarDelegate respondsToSelector:@selector(movieEditorBottom_effectsViewDisplay)]) {
+        [self.bottomBarDelegate movieEditorBottom_effectsViewDisplay];
+    }
+    
+    // 5 MV
+    _mvView.hidden = index != 5;
+    _volumeBackView.hidden = index != 5 && index != 6;
+    _topThumbnailView.hidden = index != 5 && index != 6;
+    
+    // 6 配音
+    _dubView.hidden = index != 6;
     
     [self adjustLayout];
 }
@@ -356,7 +371,7 @@
 
 #pragma mark -  StickerViewClickDelegate
 // 切换选中的 MV item 
-- (void)clickMVListViewWith:(TuSDKMVStickerAudioEffectData *)mvData
+- (void)clickMVListViewWith:(TuSDKMediaStickerAudioEffectData *)mvData
 {
     if (!_mvView.hidden && _dubView.collectionView.indexPathsForSelectedItems.count > 0 && _dubView.collectionView.indexPathsForSelectedItems[0].row != 0) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
@@ -458,7 +473,7 @@
         [self.bottomBarDelegate movieEditorBottom_slipThumbnailViewSlipBeginEvent];
     }
 }
-    
+
 #pragma mark - EffectsViewEventDelegate
 // 选中特效
 - (void)effectsSelectedWithCode:(NSString *)effectCode;
@@ -490,6 +505,14 @@
         [self.bottomBarDelegate movieEditorBottom_effectsMoveVideoProgress:newProgress];
     }
 
+}
+
+#pragma mark - TimeScrollViewDelegate
+
+- (void)timeScrollView:(TimeScrollView *)timeScrollView didSelectedIndex:(NSInteger)index {
+    if ([self.bottomBarDelegate respondsToSelector:@selector(movieEditorBottom_timeEffectSelectedWithIndex:)]) {
+        [self.bottomBarDelegate movieEditorBottom_timeEffectSelectedWithIndex:index];
+    }
 }
 
 @end

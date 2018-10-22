@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TuSDKFramework.h"
+#import "TimeScrollView.h"
 #import "FilterView.h"
 #import "MVScrollView.h"
 #import "DubScrollView.h"
@@ -49,7 +50,7 @@ typedef NS_ENUM (NSUInteger,MovieEditorBottomButtonType)
 
  @param mvData MV 数据
  */
-- (void)movieEditorBottom_clickStickerMVWith:(TuSDKMVStickerAudioEffectData *)mvData;
+- (void)movieEditorBottom_clickStickerMVWith:(TuSDKMediaStickerAudioEffectData *)mvData;
 
 /**
  切换 配音音乐
@@ -110,9 +111,19 @@ typedef NS_ENUM (NSUInteger,MovieEditorBottomButtonType)
  */
 - (void)movieEditorBottom_effectsMoveVideoProgress:(CGFloat)newProgress;
 
+/**
+ 时间特效选中回调
+
+ @param index 特效索引
+ */
+- (void)movieEditorBottom_timeEffectSelectedWithIndex:(NSInteger)index;
+
+/**
+ 时间特效面板显示回调
+ */
+- (void)movieEditorBottom_timeEffectViewDisplay;
+
 @end
-
-
 
 #pragma mark - class MovieEditerBottomBar
 
@@ -127,6 +138,8 @@ typedef NS_ENUM (NSUInteger,MovieEditorBottomButtonType)
 @property (nonatomic, assign) id<MovieEditorBottomBarDelegate> bottomBarDelegate;
 // 视频URL
 @property (nonatomic, strong) NSURL *videoURL;
+// 时间特效列表
+@property (nonatomic, strong) TimeScrollView *timeView;
 // 滤镜view
 @property (nonatomic, retain) FilterView *filterView;
 // MV View
@@ -137,13 +150,16 @@ typedef NS_ENUM (NSUInteger,MovieEditorBottomButtonType)
 @property (nonatomic, retain) UIView *volumeBackView;
 // 当切换为 MV、配音 显示时，顶部的缩略图View
 @property (nonatomic, strong) MovieEditorClipView *topThumbnailView;
+// 时间特效顶部缩略图时码线
+@property (nonatomic, strong) MovieEditorClipView *timeEffectThumbnailView;
 // 特效View
 @property (nonatomic, retain) EffectsView *effectsView;
 // 视频时长
 @property (nonatomic, assign) CGFloat videoDuration;
 // 底部 滤镜栏、贴纸栏、配音栏 的 背景view
 @property (nonatomic, strong) UIView *contentBackView;
-
+// 底部按钮以及分割线的父视图
+@property (nonatomic, strong) UIView *bottomDisplayView;
 
 // 更新对应的参数列表
 - (void)refreshFilterParameterViewWith:(NSString *)filterDescription filterArgs:(NSArray *)args;

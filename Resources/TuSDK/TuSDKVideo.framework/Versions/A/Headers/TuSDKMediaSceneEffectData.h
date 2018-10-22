@@ -14,19 +14,25 @@
 @interface TuSDKMediaSceneEffectData : TuSDKMediaEffectData
 
 /**
- 特效code
+ 构建场景特效实例
+ 
+ @param effectCode 场景特效code
+ @param timeRange 生效时间
+ @return TuSDKMediaSceneEffectData
  */
-@property (nonatomic, copy) NSString * effectsCode;
-/**
- 特效设置是否有效  YES:有效    -   结束时间 <= 开始时间 或 特效code不存在 则被认为是无效设置
-*/
-@property (nonatomic, assign, readonly) BOOL isValid;
+- (instancetype)initWithEffectsCode:(NSString *)effectsCode atTimeRange:(TuSDKTimeRange *)timeRange;
 
 /**
- 克隆一个新的场景特效对象
+ 构建场景特效实例
  
- @return 返回新的相同内容的场景特效对象
+ @param effectCode 场景特效code
+ @return TuSDKMediaSceneEffectData
  */
-- (TuSDKMediaSceneEffectData *)clone;
+- (instancetype)initWithEffectsCode:(NSString *)effectsCode;
+
+/**
+ 特效code
+ */
+@property (nonatomic, copy,readonly) NSString * effectsCode;
 
 @end

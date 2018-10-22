@@ -16,14 +16,32 @@
 @interface TuSDKMediaStickerEffectData : TuSDKMediaEffectData
 
 /**
+ 初始化贴纸特效数据模型
+
+ @param stickerGroup 贴纸对象
+ @return TuSDKPFStickerGroup
+ */
+- (instancetype)initWithStickerGroup:(TuSDKPFStickerGroup *)stickerGroup;
+
+/**
+ 初级滤镜code初始化
+ 
+ @param stickerGroup 贴纸组
+ @return TuSDKMediaStickerEffectData
+ @since v3.0
+ */
+- (instancetype)initWithStickerGroup:(TuSDKPFStickerGroup *)stickerGroup atTimeRange:(TuSDKTimeRange *)timeRange;
+
+/**
  贴纸数据
  */
 @property (nonatomic,readonly,strong) TuSDKPFStickerGroup *stickerGroup;
 
-
 /**
- 初始化方法
+ 设置是否开启大眼瘦脸 默认：NO
+ @since      v3.0
  */
-- (instancetype)initWithStickerGroup:(TuSDKPFStickerGroup *)stickerGroup;
+@property (nonatomic) BOOL enablePlastic;
+
 
 @end

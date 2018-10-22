@@ -16,8 +16,6 @@
     UIView *_contentBackView;
     // touchView
     UIView *_touchView;
-    // 播放按钮
-    UIButton *_playBtn;
     // 返回按钮
     UIButton *_backBtn;
     // 撤销按钮
@@ -50,12 +48,15 @@
     [self refreshContentView];
 }
 
-- (void)setVideoProgress:(CGFloat)videoProgress;
+
+- (void)setVideoProgress:(CGFloat)videoProgress
 {
     _videoProgress = videoProgress;
     _displayView.currentLocation = videoProgress;
+    
     if (_isAddingParticle) {
-        [_displayView addSegmentViewMoveToLocation:videoProgress];
+         NSLog(@"setVideoProgress = %f",videoProgress);
+        [_displayView updateLastSegmentViewWithProgress:videoProgress];
     }
 }
 
@@ -92,6 +93,7 @@
     
     // touchView 上面添加点击手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickTapGesture)];
+    tap.cancelsTouchesInView = NO;
     [_touchView addGestureRecognizer:tap];
     
     // 播放按钮
@@ -184,6 +186,11 @@
     colorTitlelabel.textColor = _sizeParamItemView.mainColor;
     colorTitlelabel.textAlignment = NSTextAlignmentCenter;
     [_colorBackView addSubview:colorTitlelabel];
+    
+    
+    _particleSize = 0;
+    _particleColor = [self getColorFromGradientImageWithProgress:0];
+    
 }
 
 /**
@@ -285,26 +292,38 @@
         [self.particleDelegate particleEffectEditView_startParticleEffect];
     }
     _isAddingParticle = YES;
-    [_displayView addSegmentViewBeginWithStartLocation:_videoProgress WithColor:_selectColor];
+    [_displayView addSegmentViewBeginWithProgress:_videoProgress WithColor:_selectColor];
 }
 
 // 结束添加
 - (void)endCurrentParticleEffect;
 {
-    _playBtn.selected = NO;
+    if (!_isAddingParticle) return;
+
     if ([self.particleDelegate respondsToSelector:@selector(particleEffectEditView_endParticleEffect)]) {
         [self.particleDelegate particleEffectEditView_endParticleEffect];
     }
+}
+
+/**
+ 停止编辑
+ */
+- (void)makeFinish;
+{
+    if (!_isAddingParticle) return;
     _isAddingParticle = NO;
-    [_displayView addSegmentViewEnd];
+    _playBtn.selected = NO;
+    [_displayView makeFinish];
     [self updateRemoveBtnEnableState];
 }
 
 // 取消添加
 - (void)cancleAddingParticleEffect;
 {
+ 
+    _isAddingParticle = NO;
     if (_displayView.isAdding) {
-        [_displayView addSegmentViewEnd];
+        [_displayView makeFinish];
         [_displayView removeLastSegment];
     }
     if ([self.particleDelegate respondsToSelector:@selector(particleEffectEditView_cancleParticleEffect)]) {
@@ -325,6 +344,8 @@
 // 根据progress 取图片中对应点的位置
 - (UIColor *)getColorFromGradientImageWithProgress:(CGFloat)progress;
 {
+    if (progress <= 0) return lsqRGBA(244, 161, 24, 0.7);
+    
 #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_6_1
     int bitmapInfo = kCGBitmapByteOrderDefault | kCGImageAlphaPremultipliedLast;
 #else
@@ -361,11 +382,22 @@
 // 因为要区分点击事件  故  不在touchesBegin 中开始操作
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event;
 {
+    if (!touches || touches.count > 1)
+    {
+        lsqLError(@"Only single touch is supported");
+        [self endCurrentParticleEffect];
+        return;
+    }
+    
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:_contentBackView];
     if (CGRectContainsPoint(_touchView.frame, point)) {
         CGPoint percentPosition = CGPointMake(point.x/self.lsqGetSizeWidth, point.y/self.lsqGetSizeHeight);
+       
         if (!_isAddingParticle) {
+            if (_videoProgress == 1.0) {
+                _videoProgress = 0.0;
+            }
             [self startParticleEffect];
         }
         [self updatePoint:percentPosition];
@@ -405,6 +437,7 @@
     if (filterParamItemView == _sizeParamItemView) {
         if ([self.particleDelegate respondsToSelector:@selector(particleEffectEditView_particleViewUpdateSize:)]) {
             [self.particleDelegate particleEffectEditView_particleViewUpdateSize:progress];
+            _particleSize = progress;
         }
     }
 }
@@ -414,13 +447,10 @@
 // 颜色滑动条调整的响应方法
 - (void)onTuSDKICSeekBar:(TuSDKICSeekBar *)seekbar changedProgress:(CGFloat)progress
 {
-    UIColor *newColor = nil;
-    if (progress != 0){
-        newColor = [self getColorFromGradientImageWithProgress:progress];
-        _colorSeekBar.dragView.backgroundColor = newColor;
-    }else{
-        _colorSeekBar.dragView.backgroundColor = lsqRGBA(244, 161, 24, 0.7);
-    }
+    UIColor *newColor = [self getColorFromGradientImageWithProgress:progress];;
+    _colorSeekBar.dragView.backgroundColor = newColor;
+    _particleColor = newColor;
+    
     
     if ([self.particleDelegate respondsToSelector:@selector(particleEffectEditView_particleViewUpdateColor:)]) {
         [self.particleDelegate particleEffectEditView_particleViewUpdateColor:newColor];

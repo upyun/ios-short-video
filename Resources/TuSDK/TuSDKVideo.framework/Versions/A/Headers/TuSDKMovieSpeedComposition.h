@@ -108,4 +108,10 @@ typedef NS_ENUM(NSInteger,lsqMovieSpeedCompositionStatus)
  */
 - (void)cancelComposition;
 
+/**
+ * 开始裁剪音频
+ */
+- (void)startAudioCompositionWithCompletionHandler:(void (^)(NSString* outputFilePath, lsqMovieSpeedCompositionStatus status))handler;
 @end
+
+

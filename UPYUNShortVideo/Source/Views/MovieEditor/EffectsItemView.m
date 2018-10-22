@@ -105,7 +105,7 @@
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event;
 {
-    [self touchEndEvent];
+//    [self touchEndEvent];
 }
 
 @end

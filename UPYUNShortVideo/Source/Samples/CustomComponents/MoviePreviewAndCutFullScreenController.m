@@ -51,7 +51,7 @@
             int32_t timescale = wSelf.item.duration.timescale;
             CMTime time2 = CMTimeMake(time*timescale, timescale);
             [wSelf.item seekToTime:time2 toleranceBefore:CMTimeMake(0, timescale) toleranceAfter:CMTimeMake(0, timescale)];
-            
+
             if (isStartStatus == lsqClipViewStyleLeft) {
                 wSelf.startTime = time;
             }else if(isStartStatus == lsqClipViewStyleRight){
@@ -59,7 +59,7 @@
             }
         }
     };
-    
+
     // 拖动结束的block
     __weak MoviePreviewAndCutFullScreenController * wSelf2 = self;
     self.cutVideoView.slipEndBlock = ^{
@@ -70,7 +70,7 @@
             [wSelf2.item seekToTime:time2 toleranceBefore:CMTimeMake(0, timescale) toleranceAfter:CMTimeMake(0, timescale)];
         }
     };
-    
+
     // 拖动开始的block 解决拖动和播放冲突
     self.cutVideoView.slipBeginBlock = ^(){
         // 拖动开始就暂定视频播放
@@ -94,32 +94,8 @@
 {
     // 设置全屏，需要修改以下两个 view 的 frame
     self.videoView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth, self.view.lsqGetSizeHeight)];
-    self.videoView.backgroundColor = [UIColor greenColor];
     [self.view addSubview:self.videoView];
     [self.view sendSubviewToBack:self.videoView];
-    
-    // 设置播放项目
-    self.item = [[AVPlayerItem alloc]initWithURL:self.inputURL];
-    
-    // 初始化player对象
-    self.player = [[AVPlayer alloc]initWithPlayerItem:self.item];
-    // 设置播放页面
-    self.layer = [AVPlayerLayer playerLayerWithPlayer:self.player];
-    // 设置播放页面大小
-    self.layer.frame = self.videoView.bounds;
-    self.layer.backgroundColor = [UIColor whiteColor].CGColor;
-    // 设置播放显示比例
-    self.layer.videoGravity = AVLayerVideoGravityResizeAspect;
-    // 添加播放视图
-    [self.videoView.layer addSublayer:self.layer];
-    // 播放设置
-    self.player.volume = 1.0;
-    
-    // 监听status
-    [self.item addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
-    
-    // 设置通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:self.item];
 }
 
 /**
@@ -139,11 +115,13 @@
             
             MovieEditorFullScreenController *vc = [MovieEditorFullScreenController new];
             vc.inputURL = self.inputURL;
-            vc.startTime = self.startTime;
-            vc.endTime = self.endTime;
+            vc.cutTimeRange = CMTimeRangeMake(CMTimeMakeWithSeconds(self.startTime, USEC_PER_SEC), CMTimeMakeWithSeconds(self.endTime - self.startTime, USEC_PER_SEC));
+            
             // 区域设置为 CGRectMake(0, 0, 0, 0) movieEditor 将不会进行区域限制
             vc.cropRect = CGRectMake(0, 0, 0, 0);
             [self.navigationController pushViewController:vc animated:true];
+            
+            [self destroyPlayer];
         }
         break;
             

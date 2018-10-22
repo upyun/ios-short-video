@@ -127,6 +127,12 @@
 @property (nonatomic, strong) TuSDKVideoQuality *videoQuality;
 
 /**
+ 验证当前相机状态是否可以切换比例
+ @since 2.2.0
+ */
+@property (nonatomic,readonly) BOOL canChangeRatio;
+
+/**
  *  开始视频录制
  */
 - (void)startRecording;

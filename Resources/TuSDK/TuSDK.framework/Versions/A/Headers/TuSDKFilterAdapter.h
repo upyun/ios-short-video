@@ -118,6 +118,23 @@
  */
 - (NSUInteger)groupFilterTypeWithGroupID:(uint64_t)groupID;
 
+
+/**
+ 根据滤镜组id获取滤镜分组
+
+ @param groupID 滤镜组id
+ @return TuSDKFilterGroup
+ */
+- (TuSDKFilterGroup *)groupWithGroupID:(uint64_t)groupID;
+
+/**
+ 根据 SDK 类型获取滤镜分组
+
+ @param ationScen SDK 类型获取滤镜分组
+ @return 分组列表
+ */
+- (NSArray<TuSDKFilterGroup *> *)groupsByAtionScen:(lsqAtionScenSDKType)ationScen;
+
 /**
  *  获取滤镜组默认滤镜代号
  *
@@ -186,22 +203,58 @@
 @interface TuSDKFilter: GPUImageFilter
 /** 缩放大小 (默认为1.0，数值越小性能越高) */
 @property (nonatomic) CGFloat scale;
+
+/**
+ *  初始化
+ *
+ *  @param option TuSDKFilterOption
+ *
+ *  @return instancetype
+ */
+- (instancetype)initWithOption:(TuSDKFilterOption *)option;
 @end
 
 #pragma mark - TuSDKTwoInputFilter
 @interface TuSDKTwoInputFilter: GPUImageTwoInputFilter
 /** 缩放大小 (默认为1.0，数值越小性能越高) */
 @property (nonatomic) CGFloat scale;
+
+/**
+ *  初始化
+ *
+ *  @param option TuSDKFilterOption
+ *
+ *  @return instancetype
+ */
+- (instancetype)initWithOption:(TuSDKFilterOption *)option;
 @end
 
 #pragma mark - TuSDKThreeInputFilter
 @interface TuSDKThreeInputFilter: GPUImageThreeInputFilter
 /** 缩放大小 (默认为1.0，数值越小性能越高) */
 @property (nonatomic) CGFloat scale;
+
+/**
+ *  初始化
+ *
+ *  @param option TuSDKFilterOption
+ *
+ *  @return instancetype
+ */
+- (instancetype)initWithOption:(TuSDKFilterOption *)option;
 @end
 
 #pragma mark - TuSDKTwoPassTextureSamplingFilter
 @interface TuSDKTwoPassTextureSamplingFilter : GPUImageTwoPassTextureSamplingFilter
 /** 缩放大小 (默认为1.0，数值越小性能越高) */
 @property (nonatomic) CGFloat scale;
+
+/**
+ *  初始化
+ *
+ *  @param option TuSDKFilterOption
+ *
+ *  @return instancetype
+ */
+- (instancetype)initWithOption:(TuSDKFilterOption *)option;
 @end
