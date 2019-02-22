@@ -620,7 +620,49 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
     if (result.videoPath) {
         // 进行自定义操作，例如保存到相册
         UISaveVideoAtPathToSavedPhotosAlbum(result.videoPath, nil, nil, nil);
+
+        /// 上传到UPYUN 存储空间
+        NSString *saveKey = [NSString stringWithFormat:@"short_video_edit_%d.mp4", arc4random() % 10];
+        NSString *imgSaveKey = [NSString stringWithFormat:@"short_video_edit_jietu_%d.jpg", arc4random() % 10];
+        [[UPYUNConfig sharedInstance] uploadFilePath:result.videoPath saveKey:saveKey success:^(NSHTTPURLResponse *response, NSDictionary *responseBody) {
+            NSLog(@"file url：http://%@.b0.upaiyun.com/%@",[UPYUNConfig sharedInstance].DEFAULT_BUCKET, saveKey);
+            //            [[TuSDK shared].messageHub showSuccess:@"上传成功"];
+            /// 视频同步截图方法
+            //            /// 相对地址前需要加上'/'表示根目录   source 需截图的视频相对地址,   save_as 保存截图的相对地址, point 截图时间点 hh:mm:ss 格式
+            //            NSDictionary *task = @{@"source": [NSString stringWithFormat:@"/%@", saveKey], @"save_as": [NSString stringWithFormat:@"/%@", imgSaveKey], @"point": @"00:00:00"};
+            //            [[UPYUNConfig sharedInstance] fileTask:task success:^(NSHTTPURLResponse *response, NSDictionary *responseBody) {
+            //                NSLog(@"截图成功--%@", responseBody);
+            //                NSLog(@"截图 图片 url：http://%@.b0.upaiyun.com/%@",[UPYUNConfig sharedInstance].DEFAULT_BUCKET, imgSaveKey);
+            //            } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
+            //                NSLog(@"截图失败-error==%@--response==%@, responseBody==%@", error,  response, responseBody);
+            //            }];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[TuSDK shared].messageHub showSuccess:@"上传失败"];
+                [[TuSDK shared].messageHub showSuccess:@"上传成功"];
+                [self popToRootViewControllerAnimated:YES];
+            });
+
+        } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
+
+            NSLog(@"上传失败 error：%@", error);
+            NSLog(@"上传失败 code=%ld, responseHeader：%@", (long)response.statusCode, response.allHeaderFields);
+            NSLog(@"上传失败 message：%@", responseBody);
+
+            //            [[TuSDK shared].messageHub showSuccess:@"上传失败"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[TuSDK shared].messageHub showSuccess:@"上传失败"];
+
+                [self popToRootViewControllerAnimated:YES];
+            });
+
+        } progress:^(int64_t completedBytesCount, int64_t totalBytesCount) {
+        }];
+
+
         [[TuSDK shared].messageHub showSuccess:NSLocalizedStringFromTable(@"tu_保存成功", @"VideoDemo", @"保存成功")];
+
+
     } else {
         // _movieEditor.saveToAlbum = YES; （默认为 ：YES）将自动保存到相册
         [[TuSDK shared].messageHub showSuccess:NSLocalizedStringFromTable(@"tu_保存成功", @"VideoDemo", @"保存成功")];
