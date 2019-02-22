@@ -1,5 +1,5 @@
 //
-//  TuSDKMediaTimeEffect.h
+//  TuSDKMediaTimeEffectCore.h
 //  TuSDKVideo
 //
 //  Created by sprint on 27/08/2018.
@@ -15,27 +15,7 @@
  
  @since v3.0
  */
-@interface TuSDKMediaTimeEffect : NSObject
-
-/**
- 根据开始时间和结束时间初始化时间范围。
- 
- @param start 开始时间
- @param end 结束时间
- @return TuSDKTimeEffect
- @since      v3.0
- */
-- (instancetype)initWithStart:(CMTime)start end:(CMTime)end;
-
-/**
- 根据开始时间和结束时间初始化时间范围。
- 
- @param timeRange 时间区间
-
- @return TuSDKTimeEffect
- @since      v3.0
- */
-- (instancetype)initWithTimeRange:(CMTimeRange)timeRange;
+@protocol TuSDKMediaTimeEffect <NSObject>
 
 /**
  时间特效
@@ -43,15 +23,6 @@
  @since v3.0
  */
 @property (nonatomic,readonly) TuSDKMediaTimeRange *timeRange;
-
-/**
- 应用某些时间特效后，视频总时长会被增加 ( overTime 属性可查询累加的视频时长  ），通过该属性可以明确告知 SDK 是否从尾部丢弃累加的 overTime 时长。
- true : 从原视频尾部丢弃特效累加的时长，视频总时长将不变。（ 注意：如果应用特效后总时长大于元视频时长该配置将忽略 ）
- false : 禁止丢弃尾部视频，总时长将增加。
- 
- @since v3.0
- */
-@property (nonatomic)BOOL dropOverTime;
 
 /**
  应用特效后被累加的视频时间.
@@ -63,10 +34,20 @@
 
 /**
  获取时间特效片段
-
+ 
  @return NSArray<TuSDKMediaTimelineSlice *>
  @since v3.0
  */
-- (NSArray<TuSDKMediaTimelineSlice *> *) timeSlices;
+@property (nonatomic,readonly) NSArray<TuSDKMediaTimelineSlice *> *timeSlices;
+
+/**
+ 应用某些时间特效后，视频总时长会被增加 ( overTime 属性可查询累加的视频时长  ），通过该属性可以明确告知 SDK 是否从尾部丢弃累加的 overTime 时长。
+ true : 从原视频尾部丢弃特效累加的时长，视频总时长将不变。（ 注意：如果应用特效后总时长大于元视频时长该配置将忽略 ）
+ false : 禁止丢弃尾部视频，总时长将增加。
+ 
+ @since v3.0
+ */
+@property (nonatomic)BOOL dropOverTime;
+
 
 @end

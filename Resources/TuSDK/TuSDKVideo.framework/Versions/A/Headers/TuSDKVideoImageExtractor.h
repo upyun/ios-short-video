@@ -10,39 +10,61 @@
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 
-typedef void(^TuSDKVideoImageExtractorBlock)(NSArray<UIImage *> *);
-typedef void(^TuSDKVideoImageExtractorStepImageBlock)(UIImage *image, NSUInteger index);
+typedef void(^TuSDKVideoImageExtractorBlock)(NSArray<UIImage *> *_Nullable frameImages);
+typedef void(^TuSDKVideoImageExtractorStepImageBlock)(UIImage *_Nonnull frameImage, NSUInteger index);
 
 /**
- * 提取视频帧
- *
+ * 视频缩略图提取器
  */
 @interface TuSDKVideoImageExtractor : NSObject
 
 /**
- 创建TuSDKVideoImageExtractor
+ 创建 TuSDKVideoImageExtractor
 
  @return TuSDKVideoImageExtractor
  */
-+ (TuSDKVideoImageExtractor *)createExtractor;
++ (TuSDKVideoImageExtractor * _Nonnull)createExtractor;
 
 /**
  视频资源
+ 
+ @since v1.0.0
  */
-@property (nonatomic, strong) AVAsset *videoAsset;
+@property (nonatomic, strong, nullable) AVAsset *videoAsset;
 
 /**
-    视频地址
+ 一组视频资源
+ 
+ @since v3.1.0
  */
-@property (nonatomic, copy) NSURL *videoPath;
+@property (nonatomic, strong, nullable) NSArray<AVAsset *> *videoAssets;
 
 /**
- * 提取的视频帧数，自动根据视频长度均匀获取 (mExtractFrameCount 和 mExtractFrameInterval 都设置时 优先使用mExtractFrameCount)
+ 输入的视频地址
+ 
+ @since v1.0.0
+ */
+@property (nonatomic, copy, nullable) NSURL *videoPath;
+
+/**
+ 指定视频轨道图像提取指令，仅为单个视频时有效
+ 
+ @since v3.0.1
+ */
+@property (nonatomic, copy, nullable) AVVideoComposition *videoComposition;
+
+
+/**
+ 提取的视频帧数，自动根据视频长度均匀获取 (mExtractFrameCount 和 mExtractFrameInterval 都设置时 优先使用mExtractFrameCount)
+ 
+ @since v1.0.0
  */
 @property (nonatomic, assign) NSUInteger extractFrameCount;
 
 /**
- * 提取帧的时间间隔 (单位：s) 张数不固定
+ 提取帧的时间间隔 (单位：s) 张数不固定
+ 
+ @since v1.0.0
  */
 @property (nonatomic, assign) CGFloat extractFrameTimeInterval;
 
@@ -54,21 +76,33 @@ typedef void(^TuSDKVideoImageExtractorStepImageBlock)(UIImage *image, NSUInteger
 
 /**
  是否需要精确时间帧获取图片, 默认NO
+ 
  @since 2.2.0
  */
 @property (nonatomic, assign) BOOL isAccurate;
 
 /**
  同步提取视频帧
+ 
  @return 视频帧数据列表
  */
-- (NSArray<UIImage *> *)extractImageList;
+- (NSArray<UIImage *> * _Nullable)extractImageList;
 
 /**
- *  异步获取视频帧
+ 异步获取视频缩略图
+ 
+ @param handler 所有缩略图获取完成后处理器
+ @since v1.0.0
  */
-- (void)asyncExtractImageList:(TuSDKVideoImageExtractorBlock)handler;
-- (void)asyncExtractImageWithHandler:(TuSDKVideoImageExtractorStepImageBlock)handler;
+- (void)asyncExtractImageList:(TuSDKVideoImageExtractorBlock _Nonnull)handler;
+
+/**
+ 异步获取视频缩略图
+
+ @param handler 获取到每帧缩略图时的处理回调
+ @since v1.0.0
+ */
+- (void)asyncExtractImageWithHandler:(TuSDKVideoImageExtractorStepImageBlock _Nonnull)handler;
 
 /**
  同步获取指定时间的视频帧
@@ -76,6 +110,6 @@ typedef void(^TuSDKVideoImageExtractorStepImageBlock)(UIImage *image, NSUInteger
  @param time 帧所在时间
  @return 视频帧
  */
-- (UIImage *)frameImageAtTime:(CMTime)time;
+- (UIImage * _Nullable)frameImageAtTime:(CMTime)time;
 
 @end

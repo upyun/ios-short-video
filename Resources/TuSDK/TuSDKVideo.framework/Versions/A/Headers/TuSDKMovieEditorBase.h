@@ -9,16 +9,12 @@
 #import "TuSDKVideoImport.h"
 #import "TuSDKVideoResult.h"
 #import "TuSDKMovieEditorOptions.h"
-#import "TuSDKMediaEffectData.h"
 #import "TuSDKMovieEditorMode.h"
-#import "TuSDKMovieEditorMediaEffectsSync.h"
 #import "TuSDKMediaTimelineAssetMoviePlayer.h"
-#import "TuSDKMediaMovieEditorExportSession.h"
+#import "TuSDKMediaMovieEditorSaver.h"
 #import "TuSDKMediaTimeEffect.h"
-#import "TuSDKMediaSpeedTimeEffect.h"
-#import "TuSDKMediaRepeatTimeEffect.h"
-#import "TuSDKMediaReverseTimeEffect.h"
-
+#import "TuSDKMediaEffectSync.h"
+#import "TuSDKMediaMovieEditor.h"
 
 @protocol TuSDKMovieEditorLoadDelegate;
 @protocol TuSDKMovieEditorSaveDelegate;
@@ -29,8 +25,9 @@
  */
 @interface TuSDKMovieEditorBase : NSObject
                                         <
+                                            TuSDKMediaMovieEditor,
                                             TuSDKMediaTimelineAssetMoviePlayerDelegate,
-                                            TuSDKMovieEditorExportSessionDelegate,
+                                            TuSDKMediaMovieEditorSaverDelegate,
                                             TuSDKMediaVideoRender
                                         >
 
@@ -44,99 +41,39 @@
 - (instancetype _Nonnull )initWithPreview:(UIView *_Nonnull)holderView options:(TuSDKMovieEditorOptions *_Nonnull)options;
 
 /**
- *  输入视频源 URL > Asset
- */
-@property (nonatomic,readonly) NSURL * _Nullable inputURL;
-
-/**
- *  输入视频源 URL > Asset
+ 输入的资产信息
+ @since v1.0.0
  */
 @property (nonatomic,readonly) AVAsset * _Nullable inputAsset;
 
 /**
  获取视频信息，视频加载完成后可用
+ 
  @since      v3.0
  */
 @property (nonatomic,readonly)TuSDKMediaAssetInfo * _Nullable inputAssetInfo;
 
 /**
- 应用特效后的输出总时长 单位：秒
- @since v3.0
- */
-@property(nonatomic,readonly) float duration DEPRECATED_MSG_ATTRIBUTE("Please use timelineOutputDuraiton");
-
-/**
- 视频原始时长 (不包含时间特效） 单位：秒
- */
-@property(nonatomic,readonly) float actualDuration DEPRECATED_MSG_ATTRIBUTE("Please use inputDuration");
-
-/**
- 媒体的真实时长
- @since      v3.0
- */
-@property (nonatomic,readonly) CMTime inputDuration;
-
-/**
- *  TuSDKMovieEditor 状态
+ TuSDKMovieEditor 状态
+ 
+ @since v1.0.0
  */
 @property (assign,readonly) lsqMovieEditorStatus status;
 
 /**
- *  是否正在切换滤镜
+ 裁剪范围 （开始时间~持续时间）
+ 
+ @since v3.0.1
  */
-@property (nonatomic, readonly) BOOL isFilterChanging;
+@property (nonatomic,strong,readonly) TuSDKTimeRange * _Nullable cutTimeRange;
 
 /**
- *  裁剪范围 （开始时间~持续时间）
- */
-@property (nonatomic,strong) TuSDKTimeRange * _Nullable cutTimeRange;
-
-/**
- *  最小裁剪持续时间
- */
-@property (nonatomic, assign) NSUInteger minCutDuration DEPRECATED_MSG_ATTRIBUTE("Please use options");
-
-/**
- *  最大裁剪持续时间
- */
-@property (nonatomic, assign) NSUInteger maxCutDuration DEPRECATED_MSG_ATTRIBUTE("Please use options");
-
-/**
- *  保存到系统相册 (默认保存, 当设置为NO时, 保存到临时目录)
- */
-@property (nonatomic) BOOL saveToAlbum DEPRECATED_MSG_ATTRIBUTE("Please use options");
-
-/**
- *  保存到系统相册的相册名称
- */
-@property (nonatomic, copy) NSString * _Nullable saveToAlbumName DEPRECATED_MSG_ATTRIBUTE("Please use options");
-
-/**
- *  视频覆盖区域颜色 (默认：[UIColor blackColor])
- */
-@property (nonatomic, retain) UIColor * _Nullable regionViewColor DEPRECATED_MSG_ATTRIBUTE("Please use options");
-
-/**
- *  导出视频的文件格式（默认:lsqFileTypeMPEG4）
- */
-@property (nonatomic, assign) lsqFileType fileType DEPRECATED_MSG_ATTRIBUTE("Please use options");
-
-/**
- *  预览时视频原音音量， 默认 1.0  注：仅在 option 中的 enableSound 为 YES 时有效
+ 预览时视频原音音量， 默认 1.0  注：仅在 option 中的 enableSound 为 YES 时有效
+ 
+ @since v1.0.0
  */
 @property (nonatomic, assign) CGFloat videoSoundVolume ;
 
-#pragma mark - waterMark
-
-/**
- *  设置水印图片，最大边长不宜超过 500
- */
-@property (nonatomic) UIImage * _Nullable waterMarkImage;
-
-/**
- *  水印位置，默认 lsqWaterMarkBottomRight
- */
-@property (nonatomic) lsqWaterMarkPosition waterMarkPosition;
 
 #pragma mark - Load/Save
 
@@ -162,11 +99,6 @@
 @property (nonatomic, weak) id <TuSDKMovieEditorSaveDelegate> _Nullable saveDelegate;
 
 /**
- *  加载视频，显示第一帧
- */
-- (void)loadVideo;
-
-/**
  *  通知视频编辑器状态
  *
  *  @param status 状态信息
@@ -181,73 +113,7 @@
  */
 - (void) updatePreViewFrame:(CGRect)frame;
 
-#pragma mark - destroy
-
-/**
- *  销毁
- */
-- (void)destroy;
-
 @end
-
-
-/** 播放控制 */
-#pragma mark - MediaPlayControl
-/**
- 播放预览控制
- @since 3.0
- */
-@interface TuSDKMovieEditorBase  (MediaPlayControl)
-
-/**
- 启动预览
- @since 1.0
- */
-- (void)startPreview;
-
-/**
- 停止预览
- @since 1.0
- */
-- (void)stopPreview;
-
-/**
-  停止并重新开始预览
-  如果你需要 stopPreView 紧接着使用 startPreView 再次启动预览，你首选的方案应为 rePreview，rePreview会根据内部状态在合适的时间启动预览
-  @since 1.0
- */
-- (void)rePreview;
-
-/**
-  暂停预览
-  @since 1.0
- */
-- (void)pausePreView;
-
-/**
-  是否正在预览视频
-  @return true/false
-  @since 1.0
- */
-- (BOOL)isPreviewing;
-
-/**
- 跳转至某一时间节点
- 
- @param time 当前视频的时间节点(若以设置过裁剪时间段，该时间表示裁剪后时间表示)
- */
-- (void)seekToPreviewWithTime:(CMTime)time DEPRECATED_MSG_ATTRIBUTE("Please call seekToTime:");
-
-/**
- 在指定的时间范围内设置当前回放时间。
- 
- @param outputTime 输出时间
- @since v3.0
- */
-- (void)seekToTime:(CMTime)outputTime;
-
-@end
-
 
 /**
  时间轴
@@ -257,18 +123,26 @@
 @interface TuSDKMovieEditorBase (Timeline)
 
 /**
+ 将当前回放时间设置为指定的输入时间
+
+ @param inputTime 输入时间
+ @sicne v3.0.1
+ */
+- (void)seekToInputTime:(CMTime)inputTime;
+
+/**
+ 媒体的真实时长
+ 
+ @since      v3.0
+ */
+- (CMTime)inputDuration;
+
+/**
  应用特效后的输出总时长
  
  @since v3.0
  */
-- (CMTime)timelineOutputDuraiton;
-
-/**
- 获取当前视频帧时间
- 
- @return CMTime
- */
-- (CMTime)getCurrentSampleTime DEPRECATED_MSG_ATTRIBUTE("Please call outputTimeAtTimeline:");
+- (CMTime)outputDuraiton;
 
 /**
  当前已经播放时长
@@ -290,59 +164,21 @@
 @end
 
 
-/** 播放控制 */
-#pragma mark - Recording
-/**
- 播放预览控制
- @since 3.0
- */
-@interface TuSDKMovieEditorBase  (Recording)
-
-/**
- *  开始录制视频 将被存储至文件
- */
-- (void)startRecording;
-
-/**
- *  取消录制
- */
-- (void)cancelRecording;
-
-/**
- *  是否正在录制视频
- *
- *  @return true/false
- */
-- (Boolean)isRecording;
-
-@end
-
-
-
 #pragma mark -  MediaEffectManager
 
 /**
  * 特效管理
  */
-@interface TuSDKMovieEditorBase  (MediaEffectManager) <TuSDKMediaVideoEffectsSyncDelegate>
-
-/**
- *  切换滤镜
- *
- *  @param code 滤镜代号
- *
- *  @return BOOL 是否成功切换滤镜
- */
-- (BOOL)switchFilterWithCode:(NSString *_Nonnull)code DEPRECATED_MSG_ATTRIBUTE("Please call addMediaEffect:");
+@interface TuSDKMovieEditorBase  (MediaEffectManager) <TuSDKMediaEffectSyncDelegate>
 
 /**
  添加一个多媒体特效。该方法不会自动设置触发时间.
  
- @since      v2.0
- @param mediaEffect
+ @param mediaEffect 特效数据
  @discussion 如果已有特效和该特效不能同时共存，已有旧特效将被移除.
+ @since    v2.0
  */
-- (BOOL)addMediaEffect:(TuSDKMediaEffectData *_Nonnull)mediaEffect;
+- (BOOL)addMediaEffect:(id<TuSDKMediaEffect> _Nonnull)mediaEffect;
 
 /**
  移除特效数据
@@ -351,7 +187,7 @@
  
  @param mediaEffect TuSDKMediaEffectData
  */
-- (void)removeMediaEffect:(TuSDKMediaEffectData *_Nonnull)mediaEffect;
+- (void)removeMediaEffect:(id<TuSDKMediaEffect> _Nonnull)mediaEffect;
 
 /**
  移除指定类型的特效信息
@@ -359,7 +195,7 @@
  @since      v2.1
  @param effectType 特效类型
  */
-- (void)removeMediaEffectsWithType:(TuSDKMediaEffectDataType)effectType;
+- (void)removeMediaEffectsWithType:(NSUInteger)effectType;
 
 /**
  @since      v2.0
@@ -374,7 +210,7 @@
  @param mediaEffect TuSDKMediaEffectData
  @discussion  当调用该方法时SDK内部将会设置特效开始时间为当前视频时间。
  */
-- (void)applyMediaEffect:(TuSDKMediaEffectData *_Nonnull)mediaEffect;
+- (void)applyMediaEffect:(id<TuSDKMediaEffect> _Nonnull)mediaEffect;
 
 /**
  停止编辑特效.
@@ -383,7 +219,7 @@
  @param mediaEffect TuSDKMediaEffectData
  @discussion 当调用该方法时SDK内部将会设置特效结束时间为当前视频时间。
  */
-- (void)unApplyMediaEffect:(TuSDKMediaEffectData *_Nonnull)mediaEffect;
+- (void)unApplyMediaEffect:(id<TuSDKMediaEffect> _Nonnull)mediaEffect;
 
 /**
  获取指定类型的特效信息
@@ -392,7 +228,7 @@
  @param effectType 特效数据类型
  @return 特效列表
  */
-- (NSArray<TuSDKMediaEffectData *> *_Nonnull)mediaEffectsWithType:(TuSDKMediaEffectDataType)effectType;
+- (NSArray<id<TuSDKMediaEffect>> *_Nonnull)mediaEffectsWithType:(NSUInteger)effectType;
 
 @end
 
@@ -409,7 +245,15 @@
  
  @since v3.0
  */
-- (void)addMediaTimeEffect:(TuSDKMediaTimeEffect *)timeEffect;
+- (void)addMediaTimeEffect:(id<TuSDKMediaTimeEffect> _Nonnull)timeEffect;
+
+/**
+ 获取设置的时间特效信息
+ 
+ @since      v3.0.1
+ @return 已添加时间特效列表
+ */
+- (NSArray<id<TuSDKMediaTimeEffect>> * _Nonnull)mediaTimeEffects;
 
 /**
  清除所有时间特效
@@ -481,7 +325,7 @@
  视频加载完成
  
  @param editor TuSDKMovieEditor
- @param movieInfo 视频信息
+ @param assetInfo 视频信息
  */
 - (void)mediaMovieEditor:(TuSDKMovieEditorBase *_Nonnull)editor assetInfoReady:(TuSDKMediaAssetInfo * _Nullable)assetInfo error:(NSError *_Nullable)error;
 
@@ -508,7 +352,7 @@
 - (void)mediaMovieEditor:(TuSDKMovieEditorBase *_Nonnull)editor progressChanged:(CGFloat)percent outputTime:(CMTime)outputTime;
 
 /**
- 播放进度改变事件
+ 播放状态改变事件
  
  @param editor MovieEditor
  @param status 当前播放状态

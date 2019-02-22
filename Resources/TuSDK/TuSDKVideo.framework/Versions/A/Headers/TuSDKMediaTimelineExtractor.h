@@ -17,6 +17,25 @@
  */
 @protocol TuSDKMediaTimelineExtractor <TuSDKMediaExtractor,TuSDKMediaTimeline>
 
+/*!
+ @property mediaSync
+ 分离同步器
+ @since      v3.0
+ */
+@property (nonatomic, weak) id<TuSDKMediaExtractorSync> _Nullable mediaSync;
+
+/**
+ 当前正在分离的媒体数据片段
+ @since      v3.0
+ */
+- (TuSDKMediaTimeSliceEntity *_Nullable) extractingSlice;
+
+/**
+ 当前正在输出的媒体数据片段
+ @since      v3.0
+ */
+- (TuSDKMediaTimeSliceEntity *_Nullable) outputSlice;
+
 /**
  验证当前分离器是否支持倒序输出
  
@@ -24,17 +43,5 @@
  @since      v3.0
  */
 - (BOOL)canSupportedReverseSlice;
-
-/**
- 当前正在分离的媒体数据片段
- @since      v3.0
- */
-- (TuSDKMediaTimeSliceEntity *) extractingSlice;
-
-/**
- 当前正在输出的媒体数据片段
- @since      v3.0
- */
-- (TuSDKMediaTimeSliceEntity *) outputSlice;
 
 @end

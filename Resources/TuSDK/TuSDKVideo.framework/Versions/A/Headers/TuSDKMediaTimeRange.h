@@ -53,18 +53,24 @@
  持续时间
  @since      v3.0
  */
-@property (nonatomic,readonly) CMTime duration;
+@property (nonatomic, readonly) CMTime duration;
+
+/**
+ CMTimeRange 值
+ @since      v3.0
+ */
+@property (nonatomic, readonly) CMTimeRange cmTimeRange;
 
 /**
  标识该时间区间是否为倒序
  @since      v3.0
  */
-@property (nonatomic,readonly) BOOL isReverse;
+@property (nonatomic, readonly) BOOL isReverse;
 
 /**
  标识该时间区间是否有效
  @since      v3.0
  */
-@property (nonatomic,readonly) BOOL isValid;
+@property (nonatomic, readonly) BOOL isValid;
 
 @end

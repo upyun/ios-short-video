@@ -7,7 +7,6 @@
 //
 
 #import "TuSDKResult.h"
-#import "TuSDKTSMath.h"
 #import "TuSDKCPRegionHandler.h"
 #import "TuSDKTSFaceHelper.h"
 #import "TuSDKFilterAdapter.h"
@@ -256,7 +255,7 @@ typedef NS_ENUM(NSInteger, lsqCameraState)
 /**
  *  是否支持曝光模式
  *
- *  @param focusMode 曝光模式
+ *  @param exposureMode 曝光模式
  *
  *  @return BOOL 是否支持曝光模式
  */
@@ -294,7 +293,7 @@ typedef NS_ENUM(NSInteger, lsqCameraState)
 /**
  *  改变视频视图显示比例 (使用动画)
  *
- *  @param regionRatio 范围比例
+ *  @param cameraViewRatio 范围比例
  */
 - (void)changeCameraViewRatio:(CGFloat)cameraViewRatio;
 
@@ -335,13 +334,15 @@ typedef NS_ENUM(NSInteger, lsqCameraState)
  *
  *  @return BOOL 是否成功切换滤镜
  */
-- (BOOL)switchFilterWithCode:(NSString *)code;
+- (BOOL)switchFilterWithCode:(NSString *)code DEPRECATED_MSG_ATTRIBUTE("Pelease use addMediaEffect:");
 
 /**
  *  销毁
  */
 - (void)destory;
+
 @end
+
 
 #pragma mark - TuSDKStillCameraDelegate
 /**
@@ -375,6 +376,8 @@ typedef NS_ENUM(NSInteger, lsqCameraState)
 - (void)onStillCamera:(id<TuSDKStillCameraInterface>)camera filterChanged:(TuSDKFilterWrap *)newFilter;
 
 @end
+
+
 #pragma mark - TuSDKStillCameraDelegate
 /**
  *  拍照相机接口
@@ -385,6 +388,8 @@ typedef NS_ENUM(NSInteger, lsqCameraState)
  */
 @property (nonatomic, weak) id<TuSDKStillCameraDelegate> captureDelegate;
 @end
+
+
 
 #pragma mark - TuSDKVideoCameraExtendViewInterface
 /**

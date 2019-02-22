@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Nzn-Uh-G09">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment version="2304" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--多音轨混合-->
+        <scene sceneID="SCE-Ea-uPB">
+            <objects>
+                <viewController title="多音轨混合" id="Nzn-Uh-G09" customClass="APIAudioMixViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tZd-8w-dXp"/>
+                        <viewControllerLayoutGuide type="bottom" id="sDk-68-fKz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Geo-fr-wQb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="34" translatesAutoresizingMaskIntoConstraints="NO" id="ona-ya-2AX">
+                                <rect key="frame" x="48" y="298" width="224" height="262"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gyD-6w-LmM">
+                                        <rect key="frame" x="0.0" y="0.0" width="224" height="40"/>
+                                        <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="MH3-9j-CeT"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="开始音频混合"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="startAudiosMixing" destination="Nzn-Uh-G09" eventType="touchUpInside" id="Xtl-Hj-dyx"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rvS-LC-uEL">
+                                        <rect key="frame" x="0.0" y="74" width="224" height="40"/>
+                                        <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="UW8-R6-aLK"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="删除混合音频"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="deleteMixedAudioAndPlay" destination="Nzn-Uh-G09" eventType="touchUpInside" id="pHJ-Zj-mb6"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lVZ-ZP-GDG">
+                                        <rect key="frame" x="0.0" y="148" width="224" height="40"/>
+                                        <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="x9A-3s-fA0"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="播放音频"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="playMixedAudio" destination="Nzn-Uh-G09" eventType="touchUpInside" id="sR1-hC-CCI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gHh-FK-7Mj">
+                                        <rect key="frame" x="0.0" y="222" width="224" height="40"/>
+                                        <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="p9g-fC-uJG"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="暂停音频"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="pauseMixedAudioPlay" destination="Nzn-Uh-G09" eventType="touchUpInside" id="hXW-9i-YXb"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="rvS-LC-uEL" firstAttribute="width" secondItem="ona-ya-2AX" secondAttribute="width" id="3CE-1Y-D2v"/>
+                                    <constraint firstItem="lVZ-ZP-GDG" firstAttribute="width" secondItem="ona-ya-2AX" secondAttribute="width" id="Dk7-7G-OAS"/>
+                                    <constraint firstItem="gyD-6w-LmM" firstAttribute="width" secondItem="ona-ya-2AX" secondAttribute="width" id="QU3-0G-isv"/>
+                                    <constraint firstItem="gHh-FK-7Mj" firstAttribute="width" secondItem="ona-ya-2AX" secondAttribute="width" id="sjE-DK-7MQ"/>
+                                </constraints>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请分别调节以下音乐音量大小，调节完毕后，点击「开始音频混合」即可生成一段新的混合音乐。记得要打开系统音量呦~" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8RF-dd-kr1">
+                                <rect key="frame" x="16" y="25.5" width="288" height="50.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="highlightedColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="opu-AC-tsL">
+                                <rect key="frame" x="16" y="122" width="288" height="130"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Xhe-4O-Hab">
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="原音" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bgs-8a-mUL">
+                                                <rect key="frame" x="0.0" y="0.0" width="27" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="GgB-fv-xul" customClass="CustomSlider">
+                                                <rect key="frame" x="41" y="0.0" width="193" height="31"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <connections>
+                                                    <action selector="volumeSliderAction:" destination="Nzn-Uh-G09" eventType="valueChanged" id="Js6-gW-ONA"/>
+                                                </connections>
+                                            </slider>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4rc-Ri-EFZ">
+                                                <rect key="frame" x="248" y="0.0" width="40" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="RCL-U7-MJX"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="RDg-7D-2jC">
+                                        <rect key="frame" x="0.0" y="50" width="288" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="素材一" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4s-db-v7w">
+                                                <rect key="frame" x="0.0" y="0.0" width="27" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="huq-GB-Lxc" customClass="CustomSlider">
+                                                <rect key="frame" x="41" y="0.0" width="193" height="31"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <connections>
+                                                    <action selector="volumeSliderAction:" destination="Nzn-Uh-G09" eventType="valueChanged" id="63u-Hi-QdO"/>
+                                                </connections>
+                                            </slider>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jDN-i1-Ms2">
+                                                <rect key="frame" x="248" y="0.0" width="40" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="Ubo-9W-rI8"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="vK3-b5-tvl">
+                                        <rect key="frame" x="0.0" y="100" width="288" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="素材二" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GKr-FC-bjw">
+                                                <rect key="frame" x="0.0" y="0.0" width="27" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Wh5-zH-1oW" customClass="CustomSlider">
+                                                <rect key="frame" x="41" y="0.0" width="193" height="31"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <connections>
+                                                    <action selector="volumeSliderAction:" destination="Nzn-Uh-G09" eventType="valueChanged" id="sQL-ZJ-qTx"/>
+                                                </connections>
+                                            </slider>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SWc-ux-LWA">
+                                                <rect key="frame" x="248" y="0.0" width="40" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="BS4-g3-8SU"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="g4s-db-v7w" firstAttribute="width" secondItem="GKr-FC-bjw" secondAttribute="width" id="Qbg-iG-BKD"/>
+                                    <constraint firstItem="Bgs-8a-mUL" firstAttribute="width" secondItem="g4s-db-v7w" secondAttribute="width" id="RLb-wP-d01"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="opu-AC-tsL" firstAttribute="leading" secondItem="Geo-fr-wQb" secondAttribute="leadingMargin" id="0KJ-s6-Pdo"/>
+                            <constraint firstAttribute="trailing" secondItem="ona-ya-2AX" secondAttribute="trailing" constant="48" id="A1e-Ye-c3O"/>
+                            <constraint firstItem="opu-AC-tsL" firstAttribute="top" secondItem="8RF-dd-kr1" secondAttribute="bottom" constant="46" id="D8S-0U-uTJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8RF-dd-kr1" secondAttribute="trailing" id="PG7-1X-2MD"/>
+                            <constraint firstItem="8RF-dd-kr1" firstAttribute="leading" secondItem="Geo-fr-wQb" secondAttribute="leadingMargin" id="dec-Eh-b3X"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="opu-AC-tsL" secondAttribute="trailing" id="dh9-bo-msn"/>
+                            <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="ona-ya-2AX" secondAttribute="bottom" constant="8" id="due-ri-qb1"/>
+                            <constraint firstItem="8RF-dd-kr1" firstAttribute="top" secondItem="tZd-8w-dXp" secondAttribute="bottom" priority="500" constant="64" id="g3x-hO-b9x"/>
+                            <constraint firstItem="ona-ya-2AX" firstAttribute="leading" secondItem="Geo-fr-wQb" secondAttribute="leading" constant="48" id="lTI-5U-OrN"/>
+                            <constraint firstItem="8RF-dd-kr1" firstAttribute="top" secondItem="tZd-8w-dXp" secondAttribute="bottom" priority="250" constant="10" id="lna-Tq-hDi"/>
+                            <constraint firstItem="ona-ya-2AX" firstAttribute="top" secondItem="opu-AC-tsL" secondAttribute="bottom" constant="46" id="pqX-dr-dyx"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="playButton" destination="lVZ-ZP-GDG" id="jAg-c0-laD"/>
+                        <outlet property="usageLabel" destination="8RF-dd-kr1" id="osJ-TM-doP"/>
+                        <outletCollection property="volumeSliders" destination="GgB-fv-xul" id="hIo-6e-3Qh"/>
+                        <outletCollection property="volumeLabels" destination="4rc-Ri-EFZ" id="zZb-dh-gzZ"/>
+                        <outletCollection property="volumeLabels" destination="jDN-i1-Ms2" id="Kss-nx-A3C"/>
+                        <outletCollection property="volumeLabels" destination="SWc-ux-LWA" id="n9G-Hs-fzv"/>
+                        <outletCollection property="volumeSliders" destination="huq-GB-Lxc" id="PgV-x5-DuH"/>
+                        <outletCollection property="volumeSliders" destination="Wh5-zH-1oW" id="5dH-uy-X42"/>
+                        <outletCollection property="actionButtons" destination="gyD-6w-LmM" id="PUe-fg-FQW"/>
+                        <outletCollection property="actionButtons" destination="rvS-LC-uEL" id="F3b-WS-pzB"/>
+                        <outletCollection property="actionButtons" destination="lVZ-ZP-GDG" id="kBY-Lk-dlb"/>
+                        <outletCollection property="actionButtons" destination="gHh-FK-7Mj" id="mIz-m3-G5g"/>
+                        <outletCollection property="audioTitleLabels" destination="Bgs-8a-mUL" id="vaY-Du-XQA"/>
+                        <outletCollection property="audioTitleLabels" destination="g4s-db-v7w" id="Ex9-6d-ggx"/>
+                        <outletCollection property="audioTitleLabels" destination="GKr-FC-bjw" id="Am9-2n-jOx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="atJ-by-Bcg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="112.5" y="1655.2816901408451"/>
+        </scene>
+    </scenes>
+</document>

@@ -112,7 +112,7 @@
 /**
  rotation
  */
-@property(nonatomic, readonly) GPUImageRotationMode orientation;
+@property(nonatomic, readonly) LSQGPUImageRotationMode orientation;
 
 
 

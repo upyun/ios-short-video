@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GsV-jE-bN5">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment version="2304" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--多视频拼接-->
+        <scene sceneID="XNp-3s-a41">
+            <objects>
+                <viewController title="多视频拼接" id="GsV-jE-bN5" customClass="APIMovieSpliceViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VXi-kB-SHJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ur8-yp-CUg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wCU-zh-3cc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eo8-N2-Jk2" customClass="PlayerView">
+                                <rect key="frame" x="0.0" y="20" width="320" height="180"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="eo8-N2-Jk2" secondAttribute="height" multiplier="16:9" id="5rG-5p-tkk"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZMZ-Gc-anf" customClass="PlayerView">
+                                <rect key="frame" x="0.0" y="200" width="320" height="180"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ZMZ-Gc-anf" secondAttribute="height" multiplier="16:9" id="XGZ-f7-i2L"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IwA-pv-gES">
+                                <rect key="frame" x="48" y="480" width="224" height="40"/>
+                                <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="hO0-HZ-iuD"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="视频拼接"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="startComposing" destination="GsV-jE-bN5" eventType="touchUpInside" id="rGf-3f-b0Q"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击「视频拼接」按钮，将两段视频合为一段视频，保存成功后请前往相册查看。" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQ4-4j-wqR">
+                                <rect key="frame" x="16" y="400" width="288" height="33.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="highlightedColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ZMZ-Gc-anf" secondAttribute="trailing" id="4JX-kU-JtQ"/>
+                            <constraint firstAttribute="trailing" secondItem="IwA-pv-gES" secondAttribute="trailing" constant="48" id="Dl0-Bs-b0B"/>
+                            <constraint firstItem="eo8-N2-Jk2" firstAttribute="top" secondItem="VXi-kB-SHJ" secondAttribute="bottom" id="EbP-ui-0tg"/>
+                            <constraint firstItem="FQ4-4j-wqR" firstAttribute="top" secondItem="ZMZ-Gc-anf" secondAttribute="bottom" constant="20" id="N2P-Ru-D3g"/>
+                            <constraint firstItem="ZMZ-Gc-anf" firstAttribute="top" secondItem="eo8-N2-Jk2" secondAttribute="bottom" id="SsD-DC-BmX"/>
+                            <constraint firstItem="IwA-pv-gES" firstAttribute="leading" secondItem="wCU-zh-3cc" secondAttribute="leading" constant="48" id="iX3-EL-YV8"/>
+                            <constraint firstItem="Ur8-yp-CUg" firstAttribute="top" secondItem="IwA-pv-gES" secondAttribute="bottom" constant="48" id="pH2-e8-GPj"/>
+                            <constraint firstItem="FQ4-4j-wqR" firstAttribute="leading" secondItem="wCU-zh-3cc" secondAttribute="leadingMargin" id="wKd-hB-R59"/>
+                            <constraint firstItem="eo8-N2-Jk2" firstAttribute="leading" secondItem="wCU-zh-3cc" secondAttribute="leading" id="wrz-Es-kUf"/>
+                            <constraint firstAttribute="trailing" secondItem="eo8-N2-Jk2" secondAttribute="trailing" id="wtg-Ec-PpK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FQ4-4j-wqR" secondAttribute="trailing" id="xaf-XE-1Sb"/>
+                            <constraint firstItem="ZMZ-Gc-anf" firstAttribute="leading" secondItem="wCU-zh-3cc" secondAttribute="leading" id="y6g-MG-Yd5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="firstPlayerView" destination="eo8-N2-Jk2" id="bhp-0u-pDF"/>
+                        <outlet property="secondPlayerView" destination="ZMZ-Gc-anf" id="hA2-OV-grc"/>
+                        <outlet property="usageLabel" destination="FQ4-4j-wqR" id="O99-hr-8VU"/>
+                        <outletCollection property="actionButtons" destination="IwA-pv-gES" id="7T8-Nm-dPg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WS7-Ra-RRU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2136" y="1653"/>
+        </scene>
+    </scenes>
+</document>

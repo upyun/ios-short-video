@@ -6,7 +6,7 @@
 //  Copyright © 2016 TuSDK. All rights reserved.
 //
 
-#import "GPUImageImport.h"
+#import "SLGPUImage.h"
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMedia/CoreMedia.h>
@@ -14,9 +14,9 @@
 /**
  A GPU Output that provides frames from external source
  */
-@interface TuSDKFilterProcessorBase : GPUImageOutput
+@interface TuSDKFilterProcessorBase : SLGPUImageOutput
 {
-    GPUImageRotationMode internalRotation , bufferRotation;
+    LSQGPUImageRotationMode internalRotation , bufferRotation;
 }
 
 /**
@@ -35,7 +35,9 @@
 /// These properties determine whether or not the two camera orientations should be mirrored. By default, both are NO.
 @property(readwrite, nonatomic) BOOL horizontallyMirrorFrontFacingCamera, horizontallyMirrorRearFacingCamera;
 
-@property (nonatomic) GPUImageRotationMode outputRotation;
+// 视频的输出方向
+@property (nonatomic) LSQGPUImageRotationMode outputRotation;
+
 /**
  *  初始化
  *
@@ -47,6 +49,14 @@
  *  @return instance
  */
 - (id)initWithFormatType:(OSType)pixelFormatType isOriginalOrientation:(BOOL)isOriginalOrientation;
+
+/**
+ *  初始化 处理textureID时使用此方法初始化
+ *
+ *  @param sharegroup 共享组
+ *  @return instance
+ */
+- (id)initWithSharegroup:(EAGLSharegroup *)sharegroup;
 
 /**
  *  初始化
@@ -70,6 +80,13 @@
  *  @param cameraFrame pixelBuffer to process
  */
 - (void)processPixelBuffer:(CVPixelBufferRef)cameraFrame frameTime:(CMTime)currentTime;
+
+/**
+ *  Process a pixelBuffer
+ *
+ *  @param texture textureID to process
+ */
+- (void)processTexture:(GLuint)texture textureSize:(CGSize)size;
 
 /// @name Benchmarking
 

@@ -39,16 +39,6 @@ extern NSString * const lsqFaceVersion;
 /**
  对GPU的帧数据检测人脸并识别
 
- @param width 宽度
- @param height 高度
- @param radian 设备旋转弧度
- @return 返回查找到的人脸
- */
-+ (NSArray<TuSDKFaceAligment *> *)markFaceGL2WithWidth:(int)width height:(int)height radian:(float)radian;
-
-/**
- 对GPU的帧数据检测人脸并识别
-
  @param buffer 帧数据
  @param width 宽度
  @param height 高度

@@ -23,7 +23,6 @@
 /**
  同步多媒体数据 [解码后]
 
- @param sampleBuffer CMSampleBufferRef
  @since      v3.0
  */
 - (void)syncExtractor;

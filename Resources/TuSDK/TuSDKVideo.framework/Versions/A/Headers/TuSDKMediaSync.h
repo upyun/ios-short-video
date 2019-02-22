@@ -18,13 +18,13 @@
  当前已播放时长
  @since      v3.0
  */
-@property (nonatomic,readonly) CMTime outputDuration;
+@property (nonatomic,readonly) CMTime outputTime;
 
 /**
  最终输出持续时间
  @since      v3.0
  */
-@property (nonatomic,readonly) CMTime timelineOutputDuraiton;
+@property (nonatomic,readonly) CMTime outputDuraiton;
 
 /**
  重置媒体同步器

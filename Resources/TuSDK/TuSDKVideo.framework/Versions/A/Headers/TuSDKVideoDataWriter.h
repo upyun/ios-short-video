@@ -17,6 +17,13 @@
  */
 typedef void (^VideoFrameDataBlock)(CVPixelBufferRef pixelBuffer, CMTime frameTime);
 
+/**
+ 帧数据结果
+ 
+ @param texture 处理后的texture
+ */
+typedef void (^VideoFrameTextureBlock)(GLuint texture);
+
 #pragma mark - TuSDKVideoWriterDelegate
 
 @protocol TuSDKVideoDataWriterDelegate <NSObject>
@@ -66,6 +73,11 @@ typedef void (^VideoFrameDataBlock)(CVPixelBufferRef pixelBuffer, CMTime frameTi
  帧数据输出回调
  */
 @property (nonatomic, strong) VideoFrameDataBlock frameDataBlock;
+
+/**
+ 帧数据输出回调
+ */
+@property (nonatomic, strong) VideoFrameTextureBlock frameTextureBlock;
 
 /**
  自动回收帧数据 (默认: YES)

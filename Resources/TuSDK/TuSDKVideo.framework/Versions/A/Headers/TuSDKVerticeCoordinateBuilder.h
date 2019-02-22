@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <GPUImage/GPUImage.h>
 
 #import "TuSDKOpenGLAssistant.h"
 
@@ -16,6 +15,6 @@
 
 - (void)setOutputSize:(CGSize)outputSize;
 
-- (BOOL)calculate:(CGSize) size orientation:(GPUImageRotationMode) orientation verticesCoordinates:(GLfloat[]) verticesCoordinates textureCoorinates:(GLfloat[])textureBuffer;
+- (BOOL)calculate:(CGSize) size orientation:(LSQGPUImageRotationMode) orientation verticesCoordinates:(GLfloat[]) verticesCoordinates textureCoorinates:(GLfloat[])textureBuffer;
 
 @end

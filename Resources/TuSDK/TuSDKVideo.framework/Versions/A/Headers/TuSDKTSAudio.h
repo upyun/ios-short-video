@@ -23,6 +23,10 @@
 @property (nonatomic, strong) AVAssetTrack *audioTrack;
 // 音频片段所在时间, 默认 整个音频的时间范围
 @property (nonatomic,strong) TuSDKTimeRange *atTimeRange;
+
+// 整个音频的时间范围
+@property (nonatomic,strong) TuSDKTimeRange *audioTimeRange;
+
 // 裁切
 @property (nonatomic,strong) TuSDKTimeRange *catTimeRange;
 // 音量设置

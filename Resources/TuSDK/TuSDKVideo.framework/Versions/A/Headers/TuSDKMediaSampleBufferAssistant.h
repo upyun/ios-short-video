@@ -63,6 +63,9 @@
  */
 + (CMSampleBufferRef)adjustPTS:(CMSampleBufferRef)sample byOffset:(CMTime)offset;
 
+
++ (CMSampleBufferRef)copySampleBuffer:(CMSampleBufferRef)sampleBuffer outputTime:(CMTime)outputTime;
+
 /**
  深拷贝sampleBuffer
  @param sampleBuffer CMSampleBufferRef

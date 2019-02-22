@@ -32,7 +32,7 @@
  获取设置信息
  @since      v3.0
  */
-@property (nonatomic,readonly)TuSDKMediaAssetExtractorSettings * _Nullable outputSettings;
+@property (nonatomic)TuSDKMediaAssetExtractorSettings * _Nullable outputSettings;
 
 /**
  分离的轨道数据类型
@@ -70,6 +70,13 @@
 @property (nonatomic,readonly) CMTime outputDuration;
 
 /**
+ 获取当前视频帧原始时间
+ @return 视频帧时间
+ @since      v3.0
+ */
+@property (nonatomic,readonly) CMTime outputPresentationTime;
+
+/**
  获取实时帧间隔时间
  
  @return 视频帧间隔
@@ -78,11 +85,23 @@
 @property (nonatomic,readonly)CMTime frameInterval;
 
 /**
- 获取当前视频帧原始时间
- @return 视频帧时间
- @since      v3.0
+ The value of the extractorFrameDuration property is set to a value short enough to accommodate the greatest nominal frame rate value among the asset’s video tracks, as indicated by the nominalFrameRate property of each track. If all of the asset tracks have a nominal frame rate of 0, a frame rate of 30 frames per second is used, with the frame duration set accordingly.
+ extractorFrameDuration属性的值被设置为一个足够短的值，以容纳资产的视频轨道中最大的名义帧速率值，这是由每条轨道的名义上的属性所指示的。如果所有资产跟踪的名义帧速率为0，则使用每秒30帧的帧速率，并相应地设置帧持续时间。
+ @since v3.0
  */
-@property (nonatomic,readonly) CMTime samplePresentationTime;
+@property (nonatomic) CMTime extractorFrameDuration;
+
+/*!
+ @property videoComposition
+ @abstract
+ The composition of video used by the receiver.
+ 
+ @discussion
+ The value of this property is an AVVideoComposition that can be used to specify the visual arrangement of video frames read from each source track over the timeline of the source asset.
+ 
+ This property cannot be set after reading has started.
+ */
+@property (nonatomic, copy, nullable) AVVideoComposition *videoComposition;
 
 /**
  开始读取

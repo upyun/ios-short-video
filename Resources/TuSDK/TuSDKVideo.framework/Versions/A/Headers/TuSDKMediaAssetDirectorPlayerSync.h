@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "TuSDKMediaAssetTimeline.h"
 #import "TuSDKMediaSync.h"
-#import "TuSDKMediaTimelineAssetExtractor.h"
+#import "TuSDKMediaTimelineExtractor.h"
 #import "TuSDKMediaExtractorSync.h"
 #import "TuSDKMediaAssetExtractorAudioSync.h"
 #import "TuSDKMediaAssetExtractorVideoSync.h"
@@ -28,7 +28,7 @@
  @param audioExtractor 音频数据分离器
  @return TuSDKMediaAssetDirectorPlayerSync
  */
-- (instancetype)initWithVideoExtractor:(TuSDKMediaTimelineAssetExtractor *)videoExtractor audioExtractor:(TuSDKMediaTimelineAssetExtractor *)audioExtractor;
+- (instancetype)initWithVideoExtractor:(id<TuSDKMediaTimelineExtractor>)videoExtractor audioExtractor:(id<TuSDKMediaTimelineExtractor>)audioExtractor;
 
 /**
  视频数据分离器

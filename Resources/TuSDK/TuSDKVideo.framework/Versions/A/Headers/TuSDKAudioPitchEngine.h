@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, TuSDKSoundPitchType) {
 
 /**
  * TuSDKAudioPitchEngine初始化
- * @param info 音频输入样式
+ * @param inputInfo 音频输入样式
  * @return TuSDKAudioPitchEngine
  * @since v3.0
  */

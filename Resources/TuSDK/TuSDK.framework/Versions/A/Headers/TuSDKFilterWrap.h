@@ -7,15 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GPUImageImport.h"
+#import "SLGPUImage.h"
 #import "TuSDKFilterOption.h"
 #import "TuSDKFilterParameter.h"
 #import "TuSDKParticleFilterInterface.h"
 
 /** 滤镜对象包装*/
 @interface TuSDKFilterWrap : NSObject{
-    GPUImageOutput <GPUImageInput> *_filter;
-    GPUImageOutput <GPUImageInput> *_lastFilter;
+    SLGPUImageOutput <SLGPUImageInput> *_filter;
+    SLGPUImageOutput <SLGPUImageInput> *_lastFilter;
 }
 
 /** 滤镜配置选项*/
@@ -25,10 +25,10 @@
 @property (nonatomic, readonly, nullable) NSString *code;
 
 /** 滤镜对象*/
-@property (nonatomic, readonly, nullable) GPUImageOutput <GPUImageInput> *filter;
+@property (nonatomic, readonly, nullable) SLGPUImageOutput <SLGPUImageInput> *filter;
 
 /** 最后一个滤镜*/
-@property (nonatomic, readonly, nullable) GPUImageOutput <GPUImageInput> *lastFilter;
+@property (nonatomic, readonly, nullable) SLGPUImageOutput <SLGPUImageInput> *lastFilter;
 
 /** 滤镜配置选项*/
 @property (nonatomic, readwrite, nullable) TuSDKFilterParameter *filterParameter;
@@ -67,23 +67,23 @@
 - (void)changeOption:(nullable TuSDKFilterOption *)opt;
 
 /** 添加输出*/
-- (void)addTarget:(nullable id<GPUImageInput>)newTarget atTextureLocation:(NSInteger)textureLocation;
+- (void)addTarget:(nullable id<SLGPUImageInput>)newTarget atTextureLocation:(NSInteger)textureLocation;
 
 /** 删除输出*/
-- (void)removeTarget:(nullable id<GPUImageInput>)targetToRemove;
+- (void)removeTarget:(nullable id<SLGPUImageInput>)targetToRemove;
 
 /**
  *  绑定视频视图
  *
  *  @param view 视频视图
  */
-- (void)bindWithCameraView:(nullable UIView <GPUImageInput> *)view;
+- (void)bindWithCameraView:(nullable UIView <SLGPUImageInput> *)view;
 
 /** 添加输入*/
-- (void)addOrgin:(nullable GPUImageOutput *)newOrgin;
+- (void)addOrgin:(nullable SLGPUImageOutput *)newOrgin;
 
 /** 删除输入*/
-- (void)removeOrgin:(nullable GPUImageOutput *)newOrgin;
+- (void)removeOrgin:(nullable SLGPUImageOutput *)newOrgin;
 
 /** 处理材质*/
 - (void)processImage;

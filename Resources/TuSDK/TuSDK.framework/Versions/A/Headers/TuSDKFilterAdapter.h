@@ -7,10 +7,10 @@
 //
 
 #import "TuSDKNKDownloadAdapter.h"
+#import "SLGPUImage.h"
 #import "TuSDKFilterOption.h"
 #import "TuSDKFilterGroup.h"
 #import "TuSDKConfig.h"
-#import "GPUImageImport.h"
 
 @protocol TuSDKFilterConfigDelegate;
 
@@ -169,7 +169,7 @@
  *
  *  @return filterOption 获取滤镜实例
  */
-- (GPUImageOutput <GPUImageInput> *)filterWithOption:(TuSDKFilterOption *)option;
+- (SLGPUImageOutput <SLGPUImageInput> *)filterWithOption:(TuSDKFilterOption *)option;
 #pragma mark - imageLoad
 /**
  *  加载滤镜组预览图
@@ -196,11 +196,11 @@
 - (void)loadFilterThumbWithImageView:(UIImageView *)view option:(TuSDKFilterOption *)option;
 @end
 #pragma mark - TuSDKFilterExtend
-@interface GPUImageFilter(TuSDKFilterExtend)
-- (void)setMatrix4fArray:(GLfloat *)matrix forUniform:(GLint)uniform program:(GLProgram *)shaderProgram;
+@interface SLGPUImageFilter(TuSDKFilterExtend)
+- (void)setMatrix4fArray:(GLfloat *)matrix forUniform:(GLint)uniform program:(SLGLProgram *)shaderProgram;
 @end
 #pragma mark - TuSDKFilter
-@interface TuSDKFilter: GPUImageFilter
+@interface TuSDKFilter: SLGPUImageFilter
 /** 缩放大小 (默认为1.0，数值越小性能越高) */
 @property (nonatomic) CGFloat scale;
 
@@ -215,7 +215,7 @@
 @end
 
 #pragma mark - TuSDKTwoInputFilter
-@interface TuSDKTwoInputFilter: GPUImageTwoInputFilter
+@interface TuSDKTwoInputFilter: SLGPUImageTwoInputFilter
 /** 缩放大小 (默认为1.0，数值越小性能越高) */
 @property (nonatomic) CGFloat scale;
 
@@ -230,7 +230,7 @@
 @end
 
 #pragma mark - TuSDKThreeInputFilter
-@interface TuSDKThreeInputFilter: GPUImageThreeInputFilter
+@interface TuSDKThreeInputFilter: SLGPUImageThreeInputFilter
 /** 缩放大小 (默认为1.0，数值越小性能越高) */
 @property (nonatomic) CGFloat scale;
 
@@ -245,7 +245,7 @@
 @end
 
 #pragma mark - TuSDKTwoPassTextureSamplingFilter
-@interface TuSDKTwoPassTextureSamplingFilter : GPUImageTwoPassTextureSamplingFilter
+@interface TuSDKTwoPassTextureSamplingFilter : SLGPUImageTwoPassTextureSamplingFilter
 /** 缩放大小 (默认为1.0，数值越小性能越高) */
 @property (nonatomic) CGFloat scale;
 

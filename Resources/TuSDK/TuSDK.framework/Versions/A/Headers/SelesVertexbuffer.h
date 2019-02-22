@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GPUImageImport.h"
+#import "SLGPUImage.h"
 
 /** 顶点缓存 VBO对象 */
 @interface SelesVertexbuffer : NSObject

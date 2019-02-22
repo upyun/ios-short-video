@@ -39,11 +39,11 @@
  *  视频流输出处理
  */
 
-@interface TuSDKVideoRawDataWriter : NSObject <TuSDKVideoOutputWriter, GPUImageInput>
+@interface TuSDKVideoRawDataWriter : NSObject <TuSDKVideoOutputWriter, SLGPUImageInput>
 {
     @protected
     
-    GPUImageFramebuffer *firstInputFramebuffer, *outputFramebuffer, *retainedFramebuffer;
+    SLGPUImageFramebuffer *firstInputFramebuffer, *outputFramebuffer, *retainedFramebuffer;
     
     // YUV
     uint8_t* yBytes;

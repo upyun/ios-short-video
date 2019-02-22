@@ -6,14 +6,14 @@
 //  Copyright © 2016年 tusdk.com. All rights reserved.
 //
 
-#import "GPUImageImport.h"
+#import "SLGPUImage.h"
 #import "TuSDKFilterParameter.h"
 #import "TuSDKFilterOption.h"
 
 /**
  *  ArtBrush
  */
-@interface TuSDKGPUArtBrushFilter : GPUImageFilterGroup<TuSDKFilterParameterProtocol, TuSDKFilterTexturesProtocol>
+@interface TuSDKGPUArtBrushFilter : SLGPUImageFilterGroup<TuSDKFilterParameterProtocol, TuSDKFilterTexturesProtocol>
 /**
  *  混合 (设值范围0.0-1.0)
  */

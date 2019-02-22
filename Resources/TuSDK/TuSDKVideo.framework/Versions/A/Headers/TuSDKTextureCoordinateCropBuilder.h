@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
-#import <GPUImage/GPUImage.h>
 
 #import "TuSDKVideoImport.h"
 

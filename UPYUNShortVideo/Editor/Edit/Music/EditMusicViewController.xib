@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina3_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14113"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditMusicViewController">
+            <connections>
+                <outlet property="musicListView" destination="kNL-4i-5qT" id="GoW-Pd-Kb5"/>
+                <outlet property="paramtersView" destination="6cc-KB-ysm" id="yw3-sT-laR"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kNL-4i-5qT" customClass="MusicListView">
+                    <rect key="frame" x="0.0" y="348" width="320" height="92"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="92" id="Je6-OC-91W"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="Aaz-P4-yRH"/>
+                    </connections>
+                </view>
+                <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="128" translatesAutoresizingMaskIntoConstraints="NO" id="6cc-KB-ysm" customClass="ParametersAdjustView">
+                    <rect key="frame" x="16" y="196" width="295" height="128"/>
+                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="kNL-4i-5qT" firstAttribute="top" secondItem="6cc-KB-ysm" secondAttribute="bottom" constant="24" id="OoX-22-lEp"/>
+                <constraint firstAttribute="trailing" secondItem="kNL-4i-5qT" secondAttribute="trailing" id="Qr2-kZ-E31"/>
+                <constraint firstItem="kNL-4i-5qT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="RLS-u0-7Ty"/>
+                <constraint firstItem="6cc-KB-ysm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="UVS-bs-Wk7"/>
+                <constraint firstAttribute="trailing" secondItem="6cc-KB-ysm" secondAttribute="trailing" constant="9" id="qCp-gX-ORT"/>
+                <constraint firstAttribute="bottomMargin" secondItem="kNL-4i-5qT" secondAttribute="bottom" constant="40" id="rDP-GV-Prw"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

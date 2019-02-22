@@ -6,7 +6,7 @@
 //  Copyright © 2018 tusdk.com. All rights reserved.
 //
 
-#import "TuSDKFilterWrap.h"
+#import "TuSDKVideoImport.h"
 
 /**
  粒子特效FilterWrap

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina3_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment version="2304" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CameraViewController">
+            <connections>
+                <outlet property="cameraView" destination="YzL-fr-lZx" id="nzU-HN-QpQ"/>
+                <outlet property="controlMaskView" destination="fa0-nH-1hQ" id="3n8-Nx-sbO"/>
+                <outlet property="view" destination="iN0-l3-epB" id="7Gs-1q-W8h"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YzL-fr-lZx">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fa0-nH-1hQ" customClass="CameraControlMaskView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="XfV-MI-5eX" userLabel="顶部工具栏">
+                            <rect key="frame" x="0.0" y="20" width="320" height="64"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8WK-wt-hHi">
+                                    <rect key="frame" x="0.0" y="18" width="64" height="28"/>
+                                    <state key="normal" image="video_nav_ic_close"/>
+                                    <connections>
+                                        <action selector="backButtonAction:" destination="-1" eventType="touchUpInside" id="g1r-Jf-Jmf"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mUN-xd-G5I">
+                                    <rect key="frame" x="64" y="18" width="64" height="28"/>
+                                    <state key="normal" image="video_nav_ic_turn"/>
+                                    <connections>
+                                        <action selector="switchCameraButtonAction:" destination="-1" eventType="touchUpInside" id="xRq-4b-rjA"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9vW-GY-vYk">
+                                    <rect key="frame" x="128" y="18" width="64" height="28"/>
+                                    <state key="normal" image="video_nav_ic_beauty"/>
+                                    <state key="selected" image="video_nav_ic_beauty_selected"/>
+                                    <connections>
+                                        <action selector="beautyButtonAction:" destination="fa0-nH-1hQ" eventType="touchUpInside" id="90Y-Ob-Kua"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWE-q0-bwb">
+                                    <rect key="frame" x="192" y="18" width="64" height="28"/>
+                                    <state key="normal" image="video_nav_ic_speed"/>
+                                    <state key="selected" image="video_nav_ic_speed_selected"/>
+                                    <connections>
+                                        <action selector="speedButtonAction:" destination="fa0-nH-1hQ" eventType="touchUpInside" id="JAB-Xe-w6a"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jyv-gq-kkW">
+                                    <rect key="frame" x="256" y="18" width="64" height="28"/>
+                                    <state key="normal" image="video_nav_ic_more"/>
+                                    <state key="selected" image="video_nav_ic_more_selected"/>
+                                    <connections>
+                                        <action selector="moreButtonAction:" destination="fa0-nH-1hQ" eventType="touchUpInside" id="BR9-pQ-Eze"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="64" id="NYA-I0-mfi"/>
+                            </constraints>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="QHQ-jb-gs1" userLabel="左下工具栏">
+                            <rect key="frame" x="22" y="369" width="80" height="40"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPB-Zl-9ut">
+                                    <rect key="frame" x="0.0" y="0.0" width="80" height="40"/>
+                                    <state key="normal" image="video_ic_sticker"/>
+                                    <connections>
+                                        <action selector="stickerButtonAction:" destination="fa0-nH-1hQ" eventType="touchUpInside" id="O4O-bt-M5s"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="W3o-3h-1hc" userLabel="右下工具栏">
+                            <rect key="frame" x="218" y="369" width="80" height="40"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wzY-3z-rBF">
+                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                    <state key="normal" image="video_ic_filter"/>
+                                    <connections>
+                                        <action selector="filterButtonAction:" destination="fa0-nH-1hQ" eventType="touchUpInside" id="sqL-2o-luB"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IN5-uW-Ws8">
+                                    <rect key="frame" x="40" y="0.0" width="40" height="40"/>
+                                    <state key="normal" image="video_ic_save"/>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qIC-DO-fWX">
+                            <rect key="frame" x="144" y="436.5" width="32" height="32"/>
+                            <state key="normal" image="video_ic_undo"/>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MDl-Kv-o0L" userLabel="相机模式切换" customClass="TextPageControl">
+                            <rect key="frame" x="0.0" y="425" width="320" height="55"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="55" id="lzr-B7-mBk"/>
+                            </constraints>
+                            <connections>
+                                <action selector="captureModeChangeAction:" destination="-1" eventType="valueChanged" id="r17-vr-Mkr"/>
+                            </connections>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="滤镜名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7aN-Oc-ulo">
+                            <rect key="frame" x="119" y="116" width="82" height="24"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <size key="shadowOffset" width="2" height="2"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                    <size key="value" width="0.0" height="0.0"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                    <integer key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                    <real key="value" value="0.59999999999999998"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oO8-OH-WOo" customClass="RecordButton">
+                            <rect key="frame" x="124" y="353" width="72" height="72"/>
+                            <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="oO8-OH-WOo" secondAttribute="height" multiplier="1:1" id="1ll-QH-jXY"/>
+                                <constraint firstAttribute="width" constant="72" id="VrL-BR-3ZO"/>
+                            </constraints>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstItem="XfV-MI-5eX" firstAttribute="top" secondItem="fa0-nH-1hQ" secondAttribute="topMargin" constant="-8" id="9DD-2D-aI7"/>
+                        <constraint firstAttribute="trailing" secondItem="XfV-MI-5eX" secondAttribute="trailing" id="AwQ-he-fNM"/>
+                        <constraint firstItem="7aN-Oc-ulo" firstAttribute="top" secondItem="fa0-nH-1hQ" secondAttribute="topMargin" constant="88" id="E3Q-xJ-eUJ"/>
+                        <constraint firstItem="XfV-MI-5eX" firstAttribute="leading" secondItem="fa0-nH-1hQ" secondAttribute="leading" id="Fnv-sm-Dte"/>
+                        <constraint firstAttribute="trailing" secondItem="MDl-Kv-o0L" secondAttribute="trailing" id="I6E-u4-xuZ"/>
+                        <constraint firstItem="qIC-DO-fWX" firstAttribute="centerX" secondItem="fa0-nH-1hQ" secondAttribute="centerX" id="J5e-Th-t48"/>
+                        <constraint firstAttribute="bottomMargin" secondItem="W3o-3h-1hc" secondAttribute="centerY" constant="83" id="Jbk-P9-mwb"/>
+                        <constraint firstAttribute="bottomMargin" secondItem="MDl-Kv-o0L" secondAttribute="bottom" constant="-8" id="L32-3h-JUV"/>
+                        <constraint firstItem="W3o-3h-1hc" firstAttribute="centerX" secondItem="fa0-nH-1hQ" secondAttribute="centerX" multiplier="1.5" constant="18" id="VRh-J9-hKn"/>
+                        <constraint firstAttribute="bottomMargin" secondItem="QHQ-jb-gs1" secondAttribute="centerY" constant="83" id="acs-UP-clo"/>
+                        <constraint firstItem="QHQ-jb-gs1" firstAttribute="leading" secondItem="fa0-nH-1hQ" secondAttribute="leading" constant="22" id="dfu-nf-0q3"/>
+                        <constraint firstAttribute="bottomMargin" secondItem="qIC-DO-fWX" secondAttribute="centerY" constant="19.5" id="ivo-LE-ikY"/>
+                        <constraint firstAttribute="bottomMargin" secondItem="oO8-OH-WOo" secondAttribute="centerY" constant="83" id="l82-Or-neT"/>
+                        <constraint firstItem="QHQ-jb-gs1" firstAttribute="centerX" secondItem="fa0-nH-1hQ" secondAttribute="centerX" multiplier="0.5" constant="-18" id="ldY-Qi-jkb"/>
+                        <constraint firstItem="oO8-OH-WOo" firstAttribute="centerX" secondItem="fa0-nH-1hQ" secondAttribute="centerX" id="nLz-AF-T7o"/>
+                        <constraint firstItem="7aN-Oc-ulo" firstAttribute="centerX" secondItem="fa0-nH-1hQ" secondAttribute="centerX" id="ovG-Fu-kIM"/>
+                        <constraint firstAttribute="trailing" secondItem="W3o-3h-1hc" secondAttribute="trailing" constant="22" id="pqL-YA-TYN"/>
+                        <constraint firstItem="MDl-Kv-o0L" firstAttribute="leading" secondItem="fa0-nH-1hQ" secondAttribute="leading" id="xig-Rt-0Gl"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="backButton" destination="8WK-wt-hHi" id="uaq-K8-jcg"/>
+                        <outlet property="beautyButton" destination="9vW-GY-vYk" id="5Y3-s3-FLd"/>
+                        <outlet property="captureButton" destination="oO8-OH-WOo" id="htY-w6-vQO"/>
+                        <outlet property="captureModeControl" destination="MDl-Kv-o0L" id="4Ch-65-BFi"/>
+                        <outlet property="delegate" destination="-1" id="Pje-33-Zna"/>
+                        <outlet property="doneButton" destination="IN5-uW-Ws8" id="slC-wd-B7Y"/>
+                        <outlet property="filterButton" destination="wzY-3z-rBF" id="FKd-od-QKD"/>
+                        <outlet property="filterNameLabel" destination="7aN-Oc-ulo" id="b7o-cf-wdg"/>
+                        <outlet property="filterPanelDataSource" destination="-1" id="1aJ-L3-ezA"/>
+                        <outlet property="filterPanelDelegate" destination="-1" id="D8u-z4-afV"/>
+                        <outlet property="leftBottomToolBar" destination="QHQ-jb-gs1" id="HPb-H8-ieT"/>
+                        <outlet property="markableProgressView" destination="Ogb-ZY-G3P" id="Ko9-gH-KTE"/>
+                        <outlet property="moreButton" destination="Jyv-gq-kkW" id="wIE-w1-rUY"/>
+                        <outlet property="moreMenuDelegate" destination="-1" id="dFI-1X-8m0"/>
+                        <outlet property="rightBottomToolBar" destination="W3o-3h-1hc" id="csu-Jb-emL"/>
+                        <outlet property="speedButton" destination="fWE-q0-bwb" id="7hO-Ar-mkD"/>
+                        <outlet property="stickerButton" destination="hPB-Zl-9ut" id="63y-Cr-TkM"/>
+                        <outlet property="stickerPaneldelegate" destination="-1" id="7ky-D3-JWk"/>
+                        <outlet property="switchCameraButton" destination="mUN-xd-G5I" id="eBM-Kc-CWe"/>
+                        <outlet property="topToolBar" destination="XfV-MI-5eX" id="dWi-wS-3YP"/>
+                        <outlet property="undoButton" destination="qIC-DO-fWX" id="F5o-oa-cwu"/>
+                        <outletCollection property="gestureRecognizers" destination="kMk-BN-14x" appends="YES" id="k90-fM-MqY"/>
+                    </connections>
+                </view>
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ogb-ZY-G3P" customClass="MarkableProgressView">
+                    <rect key="frame" x="0.0" y="20" width="320" height="4"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="4" id="8d3-rg-F6e"/>
+                    </constraints>
+                </progressView>
+            </subviews>
+            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="fa0-nH-1hQ" secondAttribute="bottom" id="39I-9R-E6i"/>
+                <constraint firstAttribute="trailing" secondItem="YzL-fr-lZx" secondAttribute="trailing" id="J5w-zh-JFp"/>
+                <constraint firstItem="Ogb-ZY-G3P" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="KRE-n8-LqT"/>
+                <constraint firstAttribute="trailing" secondItem="fa0-nH-1hQ" secondAttribute="trailing" id="Rra-Ga-our"/>
+                <constraint firstAttribute="bottom" secondItem="YzL-fr-lZx" secondAttribute="bottom" id="VSm-I9-jSP"/>
+                <constraint firstAttribute="trailing" secondItem="Ogb-ZY-G3P" secondAttribute="trailing" id="co4-QZ-YRa"/>
+                <constraint firstItem="Ogb-ZY-G3P" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="eUJ-bS-8HA"/>
+                <constraint firstItem="YzL-fr-lZx" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="hZF-E9-qnQ"/>
+                <constraint firstItem="fa0-nH-1hQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="swS-vP-wlY"/>
+                <constraint firstItem="fa0-nH-1hQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="xDX-OA-Yod"/>
+                <constraint firstItem="YzL-fr-lZx" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="zZB-Po-xIv"/>
+            </constraints>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="xY8-cx-fYh" appends="YES" id="EcU-bF-QdW"/>
+                <outletCollection property="gestureRecognizers" destination="9Pr-0P-BIR" appends="YES" id="E5O-XU-mvU"/>
+                <outletCollection property="gestureRecognizers" destination="x1C-UK-V4f" appends="YES" id="Xeo-ZK-SBs"/>
+            </connections>
+            <point key="canvasLocation" x="-151" y="31"/>
+        </view>
+        <tapGestureRecognizer id="kMk-BN-14x" userLabel="点击空白处">
+            <connections>
+                <action selector="tapAction:" destination="fa0-nH-1hQ" id="f2M-8h-vMH"/>
+                <outlet property="delegate" destination="fa0-nH-1hQ" id="ORC-72-ay8"/>
+            </connections>
+        </tapGestureRecognizer>
+        <swipeGestureRecognizer direction="right" id="xY8-cx-fYh" userLabel="右滑">
+            <connections>
+                <action selector="rightSwipeAction:" destination="-1" id="TLs-Xw-Qxe"/>
+                <outlet property="delegate" destination="-1" id="tFA-Od-rGU"/>
+            </connections>
+        </swipeGestureRecognizer>
+        <swipeGestureRecognizer direction="left" id="9Pr-0P-BIR" userLabel="左滑">
+            <connections>
+                <action selector="leftSwipeAction:" destination="-1" id="YVM-dh-CMq"/>
+                <outlet property="delegate" destination="-1" id="X4V-F2-b78"/>
+            </connections>
+        </swipeGestureRecognizer>
+        <pinchGestureRecognizer id="x1C-UK-V4f" userLabel="捏合">
+            <connections>
+                <action selector="pinchAction:" destination="fa0-nH-1hQ" id="K12-dn-mSe"/>
+            </connections>
+        </pinchGestureRecognizer>
+    </objects>
+    <resources>
+        <image name="video_ic_filter" width="40" height="40"/>
+        <image name="video_ic_save" width="40" height="40"/>
+        <image name="video_ic_sticker" width="40" height="40"/>
+        <image name="video_ic_undo" width="32" height="32"/>
+        <image name="video_nav_ic_beauty" width="28" height="28"/>
+        <image name="video_nav_ic_beauty_selected" width="28" height="28"/>
+        <image name="video_nav_ic_close" width="28" height="28"/>
+        <image name="video_nav_ic_more" width="28" height="28"/>
+        <image name="video_nav_ic_more_selected" width="28" height="28"/>
+        <image name="video_nav_ic_speed" width="28" height="28"/>
+        <image name="video_nav_ic_speed_selected" width="28" height="28"/>
+        <image name="video_nav_ic_turn" width="28" height="28"/>
+    </resources>
+</document>

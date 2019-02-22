@@ -55,6 +55,7 @@
 @end
 
 #pragma mark - TuSDKRecordVideoCamera
+
 /**
  *  视频录制相机 (采集 + 处理 + 录制)
  */
@@ -117,6 +118,13 @@
 @property (nonatomic, assign) lsqSpeedMode speedMode;
 
 /**
+ 设置音频变声器类型 默认：lsqSoundPitchNormal
+ 
+ @since v3.0.1
+ */
+@property (nonatomic, assign) lsqSoundPitch soundPitch;
+
+/**
  *  相机当前状态
  */
 @property (nonatomic, assign) lsqRecordState videoCameraStatue;
@@ -150,7 +158,7 @@
 /**
  *  是否正在录制
  *
- *  @return 
+ *  @return BOOL YES 正在录制
  */
 - (BOOL)isRecording;
 

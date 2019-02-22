@@ -223,7 +223,7 @@ extern NSString * const lsqNormalFilterCode;
  *
  *  @return option 获取滤镜实例
  */
-- (GPUImageOutput <GPUImageInput> *)filterWithOption:(TuSDKFilterOption *)option;
+- (SLGPUImageOutput <SLGPUImageInput> *)filterWithOption:(TuSDKFilterOption *)option;
 #pragma mark - imageLoad
 /**
  *  加载滤镜组预览图

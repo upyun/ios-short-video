@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina3_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SceneEffectViewController">
+            <connections>
+                <outlet property="effectListView" destination="Vs7-ZM-gVW" id="riG-cG-5kl"/>
+                <outlet property="playButton" destination="nqr-bl-v2u" id="uu5-pf-5wK"/>
+                <outlet property="trimmerView" destination="vGa-Wd-SwF" id="hB9-n5-K8o"/>
+                <outlet property="undoButton" destination="3Cc-GC-wfy" id="EXC-Hm-9Xw"/>
+                <outlet property="view" destination="knm-Hz-ayf" id="9eC-qB-xFp"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="knm-Hz-ayf">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vGa-Wd-SwF" customClass="ScrollVideoTrimmerView">
+                    <rect key="frame" x="76" y="308" width="244" height="32"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="3D1-ei-1i6"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="2DR-yp-b6E"/>
+                    </connections>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqr-bl-v2u">
+                    <rect key="frame" x="0.0" y="308" width="76" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="7tP-4z-HUH"/>
+                        <constraint firstAttribute="width" constant="76" id="BZJ-sG-hdA"/>
+                    </constraints>
+                    <state key="normal" image="edit_ic_play"/>
+                    <state key="selected" image="edit_ic_pause"/>
+                    <connections>
+                        <action selector="playButtonAction:" destination="-1" eventType="touchUpInside" id="rsK-Ky-5hf"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vs7-ZM-gVW" customClass="SceneEffectListView">
+                    <rect key="frame" x="76" y="348" width="244" height="92"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="92" id="HXS-gG-vZd"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="EGM-qc-d3F"/>
+                    </connections>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CHA-Hm-Zu5">
+                    <rect key="frame" x="0.0" y="348" width="76" height="92"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Cc-GC-wfy">
+                            <rect key="frame" x="18" y="26" width="40" height="40"/>
+                            <state key="normal" image="edit_ic_undo"/>
+                            <connections>
+                                <action selector="undoButtonAction:" destination="-1" eventType="touchUpInside" id="Cqd-Ec-dbJ"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="3Cc-GC-wfy" firstAttribute="centerX" secondItem="CHA-Hm-Zu5" secondAttribute="centerX" id="9pf-1w-dbh"/>
+                        <constraint firstItem="3Cc-GC-wfy" firstAttribute="centerY" secondItem="CHA-Hm-Zu5" secondAttribute="centerY" id="Gxt-hw-nSB"/>
+                        <constraint firstAttribute="width" constant="76" id="Kof-SN-pgo"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="vGa-Wd-SwF" firstAttribute="leading" secondItem="nqr-bl-v2u" secondAttribute="trailing" id="2v6-hg-lV4"/>
+                <constraint firstItem="CHA-Hm-Zu5" firstAttribute="leading" secondItem="knm-Hz-ayf" secondAttribute="leading" id="2ys-YO-MYh"/>
+                <constraint firstItem="Vs7-ZM-gVW" firstAttribute="leading" secondItem="CHA-Hm-Zu5" secondAttribute="trailing" id="AvS-L0-eq0"/>
+                <constraint firstAttribute="trailing" secondItem="Vs7-ZM-gVW" secondAttribute="trailing" id="EV6-Iy-6UP"/>
+                <constraint firstItem="CHA-Hm-Zu5" firstAttribute="height" secondItem="Vs7-ZM-gVW" secondAttribute="height" id="L1k-fK-efS"/>
+                <constraint firstAttribute="bottomMargin" secondItem="Vs7-ZM-gVW" secondAttribute="bottom" constant="40" id="PQH-LY-kQh"/>
+                <constraint firstAttribute="trailing" secondItem="vGa-Wd-SwF" secondAttribute="trailing" id="pC7-FM-oei"/>
+                <constraint firstItem="nqr-bl-v2u" firstAttribute="leading" secondItem="knm-Hz-ayf" secondAttribute="leading" id="r1I-9P-1x8"/>
+                <constraint firstItem="Vs7-ZM-gVW" firstAttribute="top" secondItem="vGa-Wd-SwF" secondAttribute="bottom" constant="8" id="rUE-38-Obn"/>
+                <constraint firstItem="Vs7-ZM-gVW" firstAttribute="bottom" secondItem="CHA-Hm-Zu5" secondAttribute="bottom" id="rZ6-Xu-sXa"/>
+                <constraint firstItem="nqr-bl-v2u" firstAttribute="bottom" secondItem="vGa-Wd-SwF" secondAttribute="bottom" id="vGC-KW-a2w"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="edit_ic_pause" width="36" height="36"/>
+        <image name="edit_ic_play" width="36" height="36"/>
+        <image name="edit_ic_undo" width="40" height="40"/>
+    </resources>
+</document>

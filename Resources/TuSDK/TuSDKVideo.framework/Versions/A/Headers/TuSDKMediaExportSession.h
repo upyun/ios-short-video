@@ -18,19 +18,37 @@
  开始导出
  @since     v3.0
  */
-- (void)startRecording;
+- (void)startRecording DEPRECATED_MSG_ATTRIBUTE("Pelease use startExport");
 
 /**
  完成导出
  @since     v3.0
  */
-- (void)stopRecording;
+- (void)stopRecording DEPRECATED_MSG_ATTRIBUTE("Pelease use stopExport");
 
 /**
  取消导出
  @since     v3.0
  */
-- (void)cancelRecording;
+- (void)cancelRecording DEPRECATED_MSG_ATTRIBUTE("Pelease use cancelExport");
+
+/**
+ 开始导出
+ @since     v3.1.0
+ */
+- (void)startExport;
+
+/**
+ 完成导出
+ @since     v3.1.0
+ */
+- (void)stopExport;
+
+/**
+ 取消导出
+ @since     v3.1.0
+ */
+- (void)cancelExport;
 
 /**
  销毁

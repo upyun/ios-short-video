@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina3_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditMVViewController">
+            <connections>
+                <outlet property="mvListView" destination="bbH-bc-DDe" id="Off-6j-MMb"/>
+                <outlet property="paramtersView" destination="9NB-UE-fFq" id="OCc-0B-ca4"/>
+                <outlet property="playButton" destination="bc8-AJ-fpP" id="t9s-Li-HsN"/>
+                <outlet property="trimmerView" destination="OOL-e9-XNX" id="Vhf-hP-h7n"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bbH-bc-DDe" customClass="MVListView">
+                    <rect key="frame" x="0.0" y="348" width="320" height="92"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="92" id="3ox-7n-Obn"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="j4L-9S-04m"/>
+                    </connections>
+                </view>
+                <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="128" translatesAutoresizingMaskIntoConstraints="NO" id="9NB-UE-fFq" customClass="ParametersAdjustView">
+                    <rect key="frame" x="16" y="132" width="295" height="128"/>
+                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OOL-e9-XNX" customClass="ScrollVideoTrimmerView">
+                    <rect key="frame" x="76" y="308" width="244" height="32"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="SuD-xp-53y"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="Ov5-PQ-IvP"/>
+                    </connections>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bc8-AJ-fpP">
+                    <rect key="frame" x="0.0" y="308" width="76" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="76" id="2Jt-eR-NRM"/>
+                        <constraint firstAttribute="height" constant="32" id="MZl-sK-MWW"/>
+                    </constraints>
+                    <state key="normal" image="edit_ic_play"/>
+                    <state key="selected" image="edit_ic_pause"/>
+                    <connections>
+                        <action selector="playButtonAction:" destination="-1" eventType="touchUpInside" id="p95-O2-jBe"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="9NB-UE-fFq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="1kL-w4-B1v"/>
+                <constraint firstAttribute="trailing" secondItem="bbH-bc-DDe" secondAttribute="trailing" id="EwF-OJ-uoQ"/>
+                <constraint firstAttribute="trailing" secondItem="OOL-e9-XNX" secondAttribute="trailing" id="I5Q-gz-gho"/>
+                <constraint firstItem="bbH-bc-DDe" firstAttribute="top" secondItem="OOL-e9-XNX" secondAttribute="bottom" constant="8" id="Oov-DD-hKi"/>
+                <constraint firstItem="bbH-bc-DDe" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="WS4-2u-AlJ"/>
+                <constraint firstAttribute="trailing" secondItem="9NB-UE-fFq" secondAttribute="trailing" constant="9" id="hzw-Oh-Zfe"/>
+                <constraint firstItem="bc8-AJ-fpP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="kUL-ZB-fxv"/>
+                <constraint firstItem="OOL-e9-XNX" firstAttribute="leading" secondItem="bc8-AJ-fpP" secondAttribute="trailing" id="l9o-fc-7Cz"/>
+                <constraint firstAttribute="bottomMargin" secondItem="bbH-bc-DDe" secondAttribute="bottom" constant="40" id="lUA-Cw-5nW"/>
+                <constraint firstItem="OOL-e9-XNX" firstAttribute="bottom" secondItem="bc8-AJ-fpP" secondAttribute="bottom" id="qA5-JV-bsD"/>
+                <constraint firstAttribute="bottomMargin" secondItem="9NB-UE-fFq" secondAttribute="bottom" constant="220" id="r7V-tY-46P"/>
+            </constraints>
+            <point key="canvasLocation" x="24.5" y="51.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="edit_ic_pause" width="36" height="36"/>
+        <image name="edit_ic_play" width="36" height="36"/>
+    </resources>
+</document>

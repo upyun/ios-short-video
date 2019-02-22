@@ -14,9 +14,9 @@ extern NSString *const kTuVideoGPUImageColorSwizzlingFragmentShaderString;
 
 @interface TuSDKVideoDataOutputBase : NSObject <TuSDKVideoOutputWriter>
 {
-    GPUImageContext *_movieWriterContext;
+    SLGPUImageContext *_movieWriterContext;
     
-    GPUImageRotationMode _inputRotation;
+    LSQGPUImageRotationMode _inputRotation;
     
     @protected
     
@@ -38,7 +38,7 @@ extern NSString *const kTuVideoGPUImageColorSwizzlingFragmentShaderString;
     lsqWaterMarkPosition _waterMarkPosition;
     
     // 帧缓冲对象
-    GPUImageFramebuffer *firstInputFramebuffer;
+    SLGPUImageFramebuffer *firstInputFramebuffer;
 }
 
 
@@ -89,13 +89,13 @@ extern NSString *const kTuVideoGPUImageColorSwizzlingFragmentShaderString;
 /**
  输出方向 (默认: kGPUImageNoRotation)
  */
-@property (nonatomic) GPUImageRotationMode outputRotation;
+@property (nonatomic) LSQGPUImageRotationMode outputRotation;
 
 - (void)initGLContext;
 
 - (void)initGLProgram;
 
-- (void)renderAtInternalSizeUsingFramebuffer:(GPUImageFramebuffer *)inputFramebufferToUse;
+- (void)renderAtInternalSizeUsingFramebuffer:(SLGPUImageFramebuffer *)inputFramebufferToUse;
 
 - (void)newFrameReadyAtTime:(CMTime)frameTime atIndex:(NSInteger)textureIndex;
 

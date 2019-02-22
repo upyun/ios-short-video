@@ -21,7 +21,7 @@
  @param orginNode 原始输入节点
  @since v2.2.0
  */
-- (void)setOrginNode:(nullable GPUImageOutput *)orginNode;
+- (void)setOrginNode:(nullable SLGPUImageOutput *)orginNode;
 
 /**
  为 TuSDKComboFilterWrapChain  添加一个新的最终输出节点（支持多路输出）
@@ -29,7 +29,7 @@
  @param terminalNode 终点节点
  @since v2.2.0
  */
-- (void)addTerminalNode:(nullable id<GPUImageInput>)terminalNode;
+- (void)addTerminalNode:(nullable id<SLGPUImageInput>)terminalNode;
 
 /**
  移除输出节点
@@ -37,7 +37,7 @@
  @param terminalNode 终点节点
  @since v2.2.0
  */
-- (void)removeTerminalNode:(nullable id<GPUImageInput>)terminalNode;
+- (void)removeTerminalNode:(nullable id<SLGPUImageInput>)terminalNode;
 
 /**
  为 TuSDKComboFilterWrapChain 添加一个新的 TuSDKFilterWrap 节点
@@ -69,6 +69,14 @@
  @since v2.2.0
  */
 - (void)removeAllFilterWrapNode;
+
+/**
+ 最后一个节点
+
+ @return TuSDKFilterWrap
+ @since v3.2.0
+ */
+- (TuSDKFilterWrap *)lastFilterWrapNode;
 
 /**
  旋转材质到图片方向

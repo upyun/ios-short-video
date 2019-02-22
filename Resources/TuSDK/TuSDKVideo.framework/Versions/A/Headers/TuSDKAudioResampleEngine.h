@@ -15,7 +15,6 @@
 
 /**
  * 改变音频播放速度
- * @param speed 0 > speed
  * @since v3.0
  */
 @property (nonatomic) float speed;
@@ -28,14 +27,12 @@
 
 /**
  * 改变音频序列
- * @param reverse 是否倒序
  * @since v3.0
  */
 @property (nonatomic) BOOL reverse;
 
 /**
  * 音频的原始信息
- * @param inputInfo 原始信息
  * @since v3.0
  */
 @property (nonatomic, strong) TuSDKAudioTrackInfo *inputInfo;

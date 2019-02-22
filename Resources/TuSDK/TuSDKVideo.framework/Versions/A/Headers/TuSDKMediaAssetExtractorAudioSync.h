@@ -23,18 +23,18 @@
  @param audioExtractor 音频数据分离器
  @return TuSDKMediaAssetExtractorAudioSync
  */
-- (instancetype)initExtractor:(TuSDKMediaTimelineAssetExtractor *)audioExtractor;
+- (instancetype)initExtractor:(id<TuSDKMediaTimelineExtractor>)audioExtractor;
 
 /**
  视频数据分离器
  @since      v3.0
  */
-@property (nonatomic,readonly) TuSDKMediaTimelineAssetExtractor *audioExtractor;
+@property (nonatomic,readonly) id<TuSDKMediaTimelineExtractor> audioExtractor;
 
 /**
  当前已播放时长
  @since      v3.0
  */
-@property (nonatomic,readonly) CMTime outputDuration;
+@property (nonatomic,readonly) CMTime outputTime;
 
 @end

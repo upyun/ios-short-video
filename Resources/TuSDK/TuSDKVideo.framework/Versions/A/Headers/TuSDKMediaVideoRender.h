@@ -21,26 +21,29 @@
  处理渲染完成后的图像格式
  支持： kCVPixelFormatType_420YpCbCr8BiPlanarFullRange | kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange kCVPixelFormatType_32BGRA
  @return OSType
+ 
  @since v3.0
  */
-- (OSType)renderInputPixelFormatType;
+- (OSType)renderOutputPixelFormatType;
 
 /**
  图像方向，开发者需要根据方向信息自行纠正
 
- @param rotationMode GPUImageRotationMode
+ @param rotationMode LSQGPUImageRotationMode
  @since v3.0
  */
-- (void)renderImageRotationMode:(GPUImageRotationMode)rotationMode;
+- (void)renderImageRotationMode:(LSQGPUImageRotationMode)rotationMode;
 
 /**
- 渲染一帧视频
+ 请求渲染视频数据
 
  @param sampleBuffer  解码视频数据
  @param outputTime    输出视频时间
+ @param shouldRelease SDK 是否负责释放处理后的 pixelBufferRef 默认： NO
+
  @return 渲染后的音频数据
  @since v3.0
  */
-- (CVPixelBufferRef)renderPixelBufferRef:(CVPixelBufferRef)pixelBufferRef outputTime:(CMTime) outputTime;
+- (CVPixelBufferRef)renderPixelBufferRef:(CVPixelBufferRef)pixelBufferRef outputTime:(CMTime)outputTime shouldRelease:(BOOL*) shouldRelease;
 
 @end

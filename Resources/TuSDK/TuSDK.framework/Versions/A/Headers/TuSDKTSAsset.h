@@ -53,6 +53,11 @@ typedef void (^TuSDKTSAssetProgressBlock)(UIImage *image, double progress, NSErr
 @property (nonatomic, readonly) UIImage *thumbnailImage;
 
 /**
+ 异步获取缩略图
+ */
+- (void)requestThumbnailImageWithCompletion:(void (^)(UIImage *thumbnailImage))completion;
+
+/**
  *  获取屏幕大小图片对象
  */
 @property (nonatomic, readonly) UIImage *fullScreenImage;
@@ -115,7 +120,11 @@ typedef NS_ENUM(NSInteger, lsqAssetSortKeyType)
     /**
      * 根据修改时间排序（iOS8.0及以上可用）
      */
-    lsqAssetSortKeyModificationDate = 1
+    lsqAssetSortKeyModificationDate = 1,
+    /**
+     * 默认顺序，与系统相册所有照片排序一致
+     */
+    lsqAssetSortKeyDefault,
 };
 
 /**

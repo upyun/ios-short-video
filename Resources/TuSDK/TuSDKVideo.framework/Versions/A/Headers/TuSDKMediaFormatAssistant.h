@@ -23,6 +23,14 @@
 + (CGSize)safeVideoSize:(CGSize)videoSize;
 
 /**
+ 根据 videoSize 获取安全的size
+ 
+ @param videoSize videoSize
+ @return CGSize
+ */
++ (CGSize)preferredVideoSize:(CGSize)videoSize;
+
+/**
  根据 AVAsset 创建一个安全视频解码器输出
 
  @param asset 视频资源

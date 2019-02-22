@@ -48,12 +48,18 @@
  */
 - (instancetype _Nullable )initWithAsset:(AVAsset *_Nonnull)asset outputTrackMediaType:(AVMediaType _Nonnull )mediaType outputSettings:(TuSDKMediaAssetExtractorSettings*_Nullable)outputSettings;
 
+
 /*!
- @property mediaSync
- 分离同步器
- @since      v3.0
+ @property videoComposition
+ @abstract
+ The composition of video used by the receiver.
+ 
+ @discussion
+ The value of this property is an AVVideoComposition that can be used to specify the visual arrangement of video frames read from each source track over the timeline of the source asset.
+ 
+ This property cannot be set after reading has started.
  */
-@property (nonatomic, weak) id<TuSDKMediaExtractorSync> _Nullable mediaSync;
+@property (nonatomic, copy, nullable) AVVideoComposition *videoComposition;
 
 @end
 
@@ -73,6 +79,7 @@
 
 @interface TuSDKMediaTimelineAssetExtractor (Cache)
 
+
 /**
  缓存数据帧
 
@@ -80,39 +87,6 @@
  @since      v3.0
  */
 - (BOOL)cacheSamplebuffers;
-
-/**
- 读取某段视频帧
- 
- @param reverse 是否反转视频
- @since      v3.0
- */
-- (CFMutableArrayRef _Nonnull)copySampleBuffers:(CMTimeRange)range reverse:(BOOL)reverse;
-
-/**
- 根据当前时间读取下一个时间范围
- 
- @return 当前时间
- @since v3.0
- */
-- (TuSDKMediaTimeSliceEntity *_Nonnull)firstExtractSlice;
-
-/**
- 请求下一个分离的媒体片段
- 
- @return true : 请求成功 存在有效的媒体片段
- @since v3.0
- */
-- (BOOL)nextExtractSlice;
-
-/**
- 根据选择的时间段创建一个媒体数据输出
-
- @param timeRange 读取的时间区间
- @return return AVAssetReaderOutput
- @since v3.0
- */
-- (AVAssetReader *_Nonnull)readerWithTimeRange:(CMTimeRange)timeRange;
 
 @end
 

@@ -67,7 +67,7 @@
 @property (nonatomic,readonly) BOOL isReverse;
 
 /**
- 速率调整 取值范围：> 0 && <=2. 默认：1 ( > 1 快速播放  < 1 慢速播放)
+ 速率调整 取值范围：> 0 && <=4. 默认：1 ( > 1 快速播放  < 1 慢速播放)
  @since  v3.0
  */
 @property (nonatomic) CGFloat speedRate;

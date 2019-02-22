@@ -8,8 +8,9 @@
 
 #import "TuSDKVideoImport.h"
 #import "TuSDKVideoCameraBase.h"
-#import "TuSDKMediaEffectData.h"
-#import "TuSDKMediaVideoEffectsSync.h"
+#import "TuSDKMediaEffectCore.h"
+#import "TuSDKMediaEffectSync.h"
+#import "TuSDKComboFilterWrapChain.h"
 
 /**
  * 人脸信息检测结果类型
@@ -75,7 +76,7 @@ typedef NS_ENUM(NSUInteger,lsqVideoProcesserFaceDetectionResultType) {
  @param mediaEffectData 应用的特效信息
  @since 2.2.0
  */
-- (void)onVideoProcessor:(TuSDKFilterProcessor *)processor didApplyingMediaEffect:(TuSDKMediaEffectData *)mediaEffectData;
+- (void)onVideoProcessor:(TuSDKFilterProcessor *)processor didApplyingMediaEffect:(id<TuSDKMediaEffect>)mediaEffectData;
 
 /**
  特效数据移除
@@ -84,7 +85,7 @@ typedef NS_ENUM(NSUInteger,lsqVideoProcesserFaceDetectionResultType) {
  @param mediaEffects 被移除的特效列表
  @since 2.2.0
  */
-- (void)onVideoProcessor:(TuSDKFilterProcessor *)processor didRemoveMediaEffects:(NSArray<TuSDKMediaEffectData *> *)mediaEffectDatas;
+- (void)onVideoProcessor:(TuSDKFilterProcessor *)processor didRemoveMediaEffects:(NSArray<id<TuSDKMediaEffect>> *)mediaEffectDatas;
 
 @end
 
@@ -94,7 +95,7 @@ typedef NS_ENUM(NSUInteger,lsqVideoProcesserFaceDetectionResultType) {
 /**
  滤镜引擎，实时处理帧数据，并返回处理的结果
  */
-@interface TuSDKFilterProcessor : TuSDKFilterProcessorBase
+@interface TuSDKFilterProcessor : TuSDKFilterProcessorBase 
 {
     @protected
     
@@ -136,11 +137,6 @@ typedef NS_ENUM(NSUInteger,lsqVideoProcesserFaceDetectionResultType) {
 @property (nonatomic) BOOL enableLiveSticker;
 
 /**
- *  处理器事件委托
- */
-@property (nonatomic,weak) id<TuSDKFilterProcessorDelegate> delegate DEPRECATED_MSG_ATTRIBUTE("Please use mediaEffectDelegate");
-
-/**
  * 人脸检测事件委托
  */
 @property (nonatomic, weak) id<TuSDKFilterProcessorFaceDetectionDelegate> faceDetectionDelegate;
@@ -169,7 +165,7 @@ typedef NS_ENUM(NSUInteger,lsqVideoProcesserFaceDetectionResultType) {
 @property(readwrite, nonatomic) UIInterfaceOrientation interfaceOrientation;
 
 /** 特效播放类 */
-@property (nonatomic,strong) TuSDKMediaVideoEffectsSync *mediaEffectsSync;
+@property (nonatomic,strong) id<TuSDKMediaEffectSync> mediaEffectsSync;
 
 /** 特效播放类 */
 @property (nonatomic,readonly) TuSDKComboFilterWrapChain *filterWrapChain;
@@ -209,6 +205,14 @@ typedef NS_ENUM(NSUInteger,lsqVideoProcesserFaceDetectionResultType) {
 - (CVPixelBufferRef)syncProcessPixelBuffer:(CVPixelBufferRef)pixelBuffer frameTime:(CMTime)currentTime;
 
 /**
+ 在OpenGL线程中调用，在这里可以进行采集图像的二次处理
+ @param texture    纹理ID
+ @param size      纹理尺寸
+ @return           返回的纹理
+ */
+- (GLuint)syncProcessTexture:(GLuint)texture textureSize:(CGSize)size;
+
+/**
  将 CVPixelBufferRef 数据从 srcPixelBuffer 复制到 destPixelBuffer
  
  @param pixelBuffer srcPixelBuffer
@@ -224,7 +228,7 @@ typedef NS_ENUM(NSUInteger,lsqVideoProcesserFaceDetectionResultType) {
 /**
  设置检测框最小倍数 [取值范围: 0.1 < x < 0.5, 默认: 0.2] 值越大性能越高距离越近
  */
-- (void) setDetectScale: (CGFloat) scale;
+- (void)setDetectScale: (CGFloat) scale;
 #pragma mark - destory
 
 /**
@@ -288,7 +292,7 @@ typedef NS_ENUM(NSUInteger,lsqVideoProcesserFaceDetectionResultType) {
  @param mediaEffect 特效数据
  @since      v2.2.0
  */
-- (BOOL)addMediaEffect:(TuSDKMediaEffectData *)mediaEffect;
+- (BOOL)addMediaEffect:(id<TuSDKMediaEffect>)mediaEffect;
 
 /**
  移除特效数据
@@ -296,7 +300,7 @@ typedef NS_ENUM(NSUInteger,lsqVideoProcesserFaceDetectionResultType) {
  @param mediaEffect 特效数据
  @since      v2.2.0
  */
-- (void)removeMediaEffect:(TuSDKMediaEffectData *)mediaEffect;
+- (void)removeMediaEffect:(id<TuSDKMediaEffect>)mediaEffect;
 
 /**
  移除指定类型的特效信息
@@ -304,7 +308,7 @@ typedef NS_ENUM(NSUInteger,lsqVideoProcesserFaceDetectionResultType) {
  @param effectType 特效类型
  @since      v2.2.0
  */
-- (void)removeMediaEffectsWithType:(TuSDKMediaEffectDataType)effectType;
+- (void)removeMediaEffectsWithType:(NSUInteger)effectType;
 
 /**
  移除所有特效数据
@@ -315,12 +319,20 @@ typedef NS_ENUM(NSUInteger,lsqVideoProcesserFaceDetectionResultType) {
 
 /**
  获取指定类型的特效信息
- @since      v3.0
+
  @param effectType 特效数据类型
  @return 特效列表
  @since      v2.2.0
  */
-- (NSArray<TuSDKMediaEffectData *> *)mediaEffectsWithType:(TuSDKMediaEffectDataType)effectType;
+- (NSArray<id<TuSDKMediaEffect>> *)mediaEffectsWithType:(NSUInteger)effectType;
+
+/**
+ 获取所有特效
+ 
+ @return NSArray<id<TuSDKMediaEffect> *
+ @since      v3.0.1
+ */
+- (NSArray<__kindof id<TuSDKMediaEffect>> *)mediaEffects;
 
 
 @end

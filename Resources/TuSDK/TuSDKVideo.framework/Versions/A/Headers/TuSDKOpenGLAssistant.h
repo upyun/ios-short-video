@@ -45,38 +45,38 @@ static GLfloat lsqImageVertices[] = {
  * @param rotationMode 方向
  * @return 坐标信息
  */
-static GLfloat* textureCoordinatesFromOrientation(GPUImageRotationMode rotationMode)
+static GLfloat* textureCoordinatesFromOrientation(LSQGPUImageRotationMode rotationMode)
 {
     
     switch (rotationMode) {
-        case kGPUImageRotateLeft:
+        case LSQKGPUImageRotateLeft:
             return lsqRotateLeftTextureCoordinates;
-        case kGPUImageRotateRight:
+        case LSQKGPUImageRotateRight:
             return lsqRotateRightTextureCoordinates;
-        case kGPUImageFlipVertical:
+        case LSQKGPUImageFlipVertical:
             return lsqVerticalFlipTextureCoordinates;
-        case kGPUImageFlipHorizonal:
+        case LSQKGPUImageFlipHorizonal:
             return lsqHorizontalFlipTextureCoordinates;
-        case kGPUImageRotateRightFlipVertical:
+        case LSQKGPUImageRotateRightFlipVertical:
             return lsqRotateRightVerticalFlipTextureCoordinates;
-        case kGPUImageRotateRightFlipHorizontal:
+        case LSQKGPUImageRotateRightFlipHorizontal:
             return lsqRotateRightHorizontalFlipTextureCoordinates;
-        case kGPUImageRotate180:
+        case LSQKGPUImageRotate180:
             return lsqRotate180TextureCoordinates;
-        case kGPUImageNoRotation:
+        case LSQKGPUImageNoRotation:
         default:
             return lsqNoRotationTextureCoordinates;
     }
 }
 
 /** 计算旋转坐标*/
-static void rotateCoordinates(GPUImageRotationMode rotation, GLfloat* textureCoordinates)
+static void rotateCoordinates(LSQGPUImageRotationMode rotation, GLfloat* textureCoordinates)
 {
     GLfloat t[] = {textureCoordinates[0], textureCoordinates[1], textureCoordinates[2], textureCoordinates[3], textureCoordinates[4],textureCoordinates[5], textureCoordinates[6], textureCoordinates[7]};
     
     switch (rotation)
     {
-        case kGPUImageFlipHorizonal:
+        case LSQKGPUImageFlipHorizonal:
             textureCoordinates[0] = t[2];
             textureCoordinates[1] = t[3];
             textureCoordinates[2] = t[0];
@@ -86,7 +86,7 @@ static void rotateCoordinates(GPUImageRotationMode rotation, GLfloat* textureCoo
             textureCoordinates[6] = t[4];
             textureCoordinates[7] = t[5];
             break;
-        case kGPUImageFlipVertical:
+        case LSQKGPUImageFlipVertical:
             
             textureCoordinates[0] = t[4];
             textureCoordinates[1] = t[5];
@@ -98,7 +98,7 @@ static void rotateCoordinates(GPUImageRotationMode rotation, GLfloat* textureCoo
             textureCoordinates[7] = t[3];
             
             break;
-        case kGPUImageRotateLeft:
+        case LSQKGPUImageRotateLeft:
             
             textureCoordinates[0] = t[2];
             textureCoordinates[1] = t[3];
@@ -111,7 +111,7 @@ static void rotateCoordinates(GPUImageRotationMode rotation, GLfloat* textureCoo
             
             
             break;
-        case kGPUImageRotateRight:
+        case LSQKGPUImageRotateRight:
             
             textureCoordinates[0] = t[4];
             textureCoordinates[1] = t[5];
@@ -124,7 +124,7 @@ static void rotateCoordinates(GPUImageRotationMode rotation, GLfloat* textureCoo
             
             
             break;
-        case kGPUImageRotateRightFlipVertical:
+        case LSQKGPUImageRotateRightFlipVertical:
             
             textureCoordinates[0] = t[0];
             textureCoordinates[1] = t[1];
@@ -136,7 +136,7 @@ static void rotateCoordinates(GPUImageRotationMode rotation, GLfloat* textureCoo
             textureCoordinates[7] = t[7];
             
             break;
-        case kGPUImageRotateRightFlipHorizontal:
+        case LSQKGPUImageRotateRightFlipHorizontal:
             
             textureCoordinates[0] = t[6];
             textureCoordinates[1] = t[7];
@@ -149,7 +149,7 @@ static void rotateCoordinates(GPUImageRotationMode rotation, GLfloat* textureCoo
             
             
             break;
-        case kGPUImageRotate180:
+        case LSQKGPUImageRotate180:
             
             textureCoordinates[0] = t[6];
             textureCoordinates[1] = t[7];
@@ -161,7 +161,7 @@ static void rotateCoordinates(GPUImageRotationMode rotation, GLfloat* textureCoo
             textureCoordinates[7] = t[1];
             
             break;
-        case kGPUImageNoRotation:
+        case LSQKGPUImageNoRotation:
         default:
             break;
     }

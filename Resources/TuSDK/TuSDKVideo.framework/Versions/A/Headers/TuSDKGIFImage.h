@@ -37,7 +37,7 @@
 @property (nonatomic, assign, readonly) NSUInteger animatedImageLoopCount;
 
 /**
- 返回给定索引的帧图像
+ 返回给定索引的帧图像。
  该方法可能在后台线程调用。
 
  @param index 帧图像索引
@@ -46,7 +46,7 @@
 - (UIImage *)animatedImageFrameAtIndex:(NSUInteger)index;
 
 /**
- 返回给定索引的帧时长
+ 返回给定索引的帧时长。
 
  @param index 帧图像索引
  @return 帧时长
@@ -54,12 +54,23 @@
 - (NSTimeInterval)animatedImageDurationAtIndex:(NSUInteger)index;
 
 /**
- 使用 TuSDKGifImage 解码 GIF，并返回动图 UIImage 对象
+ 使用 TuSDKGifImage 解码 GIF，并返回动图 UIImage 对象。
  该方法在解码 GIF 后，会释放解码器，以达到最小内存占用。
 
  @param name GIF 名称，可使用 `+imageNamed:` 一致的用法传入 GIF 的文件名称。
  @return UIImage 对象
  */
 + (UIImage *)gifImageName:(NSString *)name;
+
+/**
+ 使用 TuSDKGifImage 解码 GIF，并在主队列回调中返回动图 UIImage 对象。
+ 用户可把该方法放在自己管理的队列中进行多线程解码。
+ 该方法在解码 GIF 后，会释放解码器，以达到最小内存占用。
+
+ @param name GIF 名称，可使用 `+imageNamed:` 一致的用法传入 GIF 的文件名称。
+ @param firstFrameImageCompletion 首帧图像对象主队列回调
+ @param animatedImageCompletion 动图对象主队列回调
+ */
++ (void)requestGifImageWithName:(NSString *)name firstFrameImageCompletion:(void (^)(UIImage *firstFrameImage))firstFrameImageCompletion animatedImageCompletion:(void (^)(UIImage *animatedImage))animatedImageCompletion;
 
 @end

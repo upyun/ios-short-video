@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import "TuSDKAudioPitchEngine.h"
+#import "TuSDKTSAudioRecorder.h"
 #import "TuSDKMediaAudioRecorder.h"
 
 @protocol TuSDKMediaAssetAudioRecorderDelegate;
@@ -33,10 +34,16 @@
 @property (nonatomic, assign) TuSDKSoundPitchType pitchType;
 
 /**
- 录音速度, 设置速度后音调设置失效
+ 已录制的时长
  @since v3.0
  */
-@property (nonatomic, assign) float speed;
+@property (nonatomic, assign, readonly) CGFloat outputDuration;
+
+/**
+ 最大录制时长， 默认: -1 不限制录制时长 单位: 秒
+ @since v3.0
+ */
+@property (nonatomic, assign) CGFloat maxRecordingTime;
 
 /**
  删除最后一个音频片段
@@ -61,5 +68,21 @@
  @since v3.0
  */
 - (void)mediaAssetAudioRecorder:(TuSDKMediaAssetAudioRecorder *)mediaAssetAudioRecorde filePath:(NSString *)filePath;
+
+/**
+ 录制状态通知
+ @param recoder 录制对象
+ @param status 录制状态
+ @since v3.0
+ */
+- (void)mediaAssetAudioRecorder:(TuSDKMediaAssetAudioRecorder *)recoder statusChanged:(lsqAudioRecordingStatus)status;
+
+/**
+ 录制时间回调
+ @param recoder 录制对象
+ @param duration 已录制时长
+ @since v3.0
+ */
+- (void)mediaAssetAudioRecorder:(TuSDKMediaAssetAudioRecorder *)recoder durationChanged:(CGFloat)duration;
 
 @end

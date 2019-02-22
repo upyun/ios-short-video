@@ -11,6 +11,7 @@
 
 /**
  多媒体数据分离器
+ 
  @since v3.0
  */
 @interface TuSDKMediaAssetExtractor : NSObject <TuSDKMediaExtractor>
@@ -26,7 +27,6 @@
 - (instancetype _Nullable )initWithAsset:(AVAsset *_Nonnull)asset outputTrackMediaType:(AVMediaType _Nonnull )mediaType outputSettings:(TuSDKMediaAssetExtractorSettings*_Nullable)outputSettings;
 
 /**
- 
  解码器当前状态
  
  @since      v3.0
@@ -34,11 +34,11 @@
 @property (nonatomic) CMTimeRange timeRange;
 
 /**
- 是否将基准时间重置为 kCMTimeZero 默认：NO
+ 设置输出的时间偏移量。默认为 ：kCMTimeInvalid
  
  @since v3.0
  */
-@property (nonatomic) BOOL resetBaseTimeToZero;
+@property (nonatomic) CMTime outputPresentationTimeOffset;
 
 /**
  The value of the extractorFrameDuration property is set to a value short enough to accommodate the greatest nominal frame rate value among the asset’s video tracks, as indicated by the nominalFrameRate property of each track. If all of the asset tracks have a nominal frame rate of 0, a frame rate of 30 frames per second is used, with the frame duration set accordingly.

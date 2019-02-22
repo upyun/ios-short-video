@@ -65,3 +65,37 @@ typedef NS_ENUM(NSInteger,lsqMovieEditorEffectMode)
     lsqMovieEditorEffectMode_Particle,
 };
 
+/**
+ 画面特效参照时间线类型
+ 
+ @since v3.0.1
+ */
+typedef NS_ENUM(NSInteger,TuSDKMediaPictureEffectReferTimelineType)
+{
+
+    /**
+     视频输出时间线。
+     
+     以反复特效 + 场景特效为例：
+     时间特效为： [0s - 3s] 反复 3 次 反复周期为 :   1. [0s - 3s] (0s-3s) , 2. [0s - 3s](3s-6s), 3. [0s - 3s](6s-9s)
+     场景特效添加在 2 反复区间的 ：[0s - 2s]
+     
+     特效生效范围：2.[0s - 2s](3s-5s)
+     
+     @since v3.0.1
+     */
+    TuSDKMediaEffectReferOutputTimelineType,
+    
+    /**
+     视频原始输入时间线
+     
+     以反复特效 + 场景特效为例：
+     时间特效为： [0s - 3s] 反复 3 次 反复周期为 1. [0s - 3s], 2. [0s - 3s], 3. [0s - 3s]
+     场景特效添加在 1/2/3 反复区间的 ：[0s - 2s]
+     
+     特效生效范围：1.[0s - 2s] , 2.[0s - 2s], 3.[0s - 2s]
+     
+     @since v3.0.1
+     */
+    TuSDKMediaEffectReferInputTimelineType,
+};

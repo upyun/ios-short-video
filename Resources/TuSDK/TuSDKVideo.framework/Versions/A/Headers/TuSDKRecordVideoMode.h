@@ -76,22 +76,38 @@ typedef NS_ENUM(NSInteger,lsqRecordMode)
  */
 typedef NS_ENUM(NSInteger,lsqSpeedMode)
 {
-    /** 标准模式 */
+    /** 标准模式 速度大小1.0 */
     lsqSpeedMode_Normal,
     
-    /** 快速模式 */
+    /** 快速模式 速度大小1.5 */
     lsqSpeedMode_Fast1,
     
-    /** 极快模式 */
+    /** 极快模式 速度大小2.0 */
     lsqSpeedMode_Fast2,
     
-    /** 慢速模式 */
+    /** 慢速模式 速度大小0.7 */
     lsqSpeedMode_Slow1,
     
-    /** 极慢模式 */
+    /** 极慢模式  速度大小0.5 */
     lsqSpeedMode_Slow2,
 };
 
-
+/**
+ * 录制变声类型
+ *
+ * @since v3.0.1
+ */
+typedef NS_ENUM(NSUInteger, lsqSoundPitch) {
+    // 正常
+    lsqSoundPitchNormal,
+    // 怪兽
+    lsqSoundPitchMonster,
+    // 大叔
+    lsqSoundPitchUncle,
+    // 女生
+    lsqSoundPitchGirl,
+    // 萝莉
+    lsqSoundPitchLolita,
+};
 
 

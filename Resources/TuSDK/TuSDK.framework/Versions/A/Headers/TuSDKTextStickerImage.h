@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GPUImageImport.h"
+#import "SLGPUImage.h"
 
 /**
  文字/图片贴纸数据包装

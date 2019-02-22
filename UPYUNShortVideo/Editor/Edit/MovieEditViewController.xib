@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina3_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MovieEditViewController">
+            <connections>
+                <outlet property="effectCollectionView" destination="Hua-g5-ESC" id="YXk-he-yaS"/>
+                <outlet property="effectCollectionViewDataSource" destination="l0D-ov-a8H" id="rOf-h5-TUn"/>
+                <outlet property="filterSwipeView" destination="eat-Tf-ATs" id="O34-r0-iSf"/>
+                <outlet property="playButton" destination="aMM-DN-ObI" id="qqb-uW-LJE"/>
+                <outlet property="previewBottomLayout" destination="ehQ-33-OIq" id="dGg-GA-xiU"/>
+                <outlet property="previewView" destination="LNF-vs-8mP" id="wpw-aW-3rg"/>
+                <outlet property="tabBottomLayout" destination="gcI-or-7xR" id="Hep-kX-MXc"/>
+                <outlet property="tabHeightLayout" destination="LrE-ZK-cGi" id="1jd-Fo-tGO"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LNF-vs-8mP" customClass="AspectVideoPreviewView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <gestureRecognizers/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eat-Tf-ATs" customClass="FilterSwipeView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="EUs-AI-aPy"/>
+                        <outletCollection property="gestureRecognizers" destination="Br8-ab-Gx8" appends="YES" id="4Ae-DQ-hVR"/>
+                    </connections>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aMM-DN-ObI">
+                    <rect key="frame" x="136" y="216" width="48" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="nNX-PU-uOt"/>
+                        <constraint firstAttribute="width" constant="48" id="tGY-YR-ij1"/>
+                    </constraints>
+                    <state key="normal" image="list_ic_play"/>
+                    <connections>
+                        <action selector="playButtonAction:" destination="-1" eventType="touchUpInside" id="xdL-uo-3F4"/>
+                    </connections>
+                </button>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Hua-g5-ESC">
+                    <rect key="frame" x="0.0" y="400" width="320" height="80"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="80" id="LrE-ZK-cGi"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="PQE-cC-tQi">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="l0D-ov-a8H" id="tP1-40-VDF"/>
+                        <outlet property="delegate" destination="-1" id="5jh-4U-Z8S"/>
+                    </connections>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="eat-Tf-ATs" secondAttribute="bottom" id="2ph-5m-1BU"/>
+                <constraint firstItem="Hua-g5-ESC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ERY-i2-UBm"/>
+                <constraint firstItem="LNF-vs-8mP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="I1d-kB-6gM"/>
+                <constraint firstItem="LNF-vs-8mP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="MVS-N0-dj3"/>
+                <constraint firstAttribute="trailing" secondItem="eat-Tf-ATs" secondAttribute="trailing" id="OCe-Yb-rcl"/>
+                <constraint firstItem="eat-Tf-ATs" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Zg9-rp-IS5"/>
+                <constraint firstItem="aMM-DN-ObI" firstAttribute="centerX" secondItem="LNF-vs-8mP" secondAttribute="centerX" id="cKp-xW-b8r"/>
+                <constraint firstAttribute="bottom" secondItem="LNF-vs-8mP" secondAttribute="bottom" id="ehQ-33-OIq"/>
+                <constraint firstItem="Hua-g5-ESC" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottomMargin" id="gcI-or-7xR"/>
+                <constraint firstAttribute="trailing" secondItem="Hua-g5-ESC" secondAttribute="trailing" id="hw7-T1-SQD"/>
+                <constraint firstItem="eat-Tf-ATs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="nd5-mE-HTY"/>
+                <constraint firstItem="LNF-vs-8mP" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="rSL-g5-LNK"/>
+                <constraint firstItem="aMM-DN-ObI" firstAttribute="centerY" secondItem="LNF-vs-8mP" secondAttribute="centerY" id="xET-xS-yZm"/>
+            </constraints>
+            <point key="canvasLocation" x="34" y="-66"/>
+        </view>
+        <customObject id="l0D-ov-a8H" customClass="EditCollectionViewDataSource">
+            <connections>
+                <outlet property="collectionView" destination="Hua-g5-ESC" id="eJ3-vD-Fek"/>
+            </connections>
+        </customObject>
+        <tapGestureRecognizer id="Br8-ab-Gx8">
+            <connections>
+                <action selector="previewTapAction:" destination="-1" id="tMF-XZ-m9e"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+    <resources>
+        <image name="list_ic_play" width="48" height="48"/>
+    </resources>
+</document>

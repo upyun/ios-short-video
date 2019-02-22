@@ -11,6 +11,8 @@
 
 /** TuSDKAssetVideoTrackPixelBufferOutputSettings  */
 typedef NSDictionary<NSString *, id> TuSDKAssetVideoTrackPixelBufferOutputSettings;
+/** copy 完成后回调处理 */
+typedef void (^TuSDKAssetVideoTrackPixelBufferOutputCompletionHandler)(CVPixelBufferRef _Nullable);
 
 /**
  读取视频轨道像素数据
@@ -25,6 +27,13 @@ typedef NSDictionary<NSString *, id> TuSDKAssetVideoTrackPixelBufferOutputSettin
  @return TuSDKAssetVideoTrackPixelBufferOutput
  */
 -(instancetype _Nullable )initWithAsset:(AVAsset *_Nonnull)asset outputSettings:(TuSDKAssetVideoTrackPixelBufferOutputSettings* _Nullable)outputSettings;
+
+/*!
+ @property videoComposition
+ @abstract Indicates the video composition settings to be applied during playback.
+ @since v3.0.1
+ */
+@property (nonatomic, copy, nullable) AVVideoComposition *videoComposition;
 
 /*!
  @method            hasNewPixelBufferForItemTime:
@@ -53,25 +62,11 @@ typedef NSDictionary<NSString *, id> TuSDKAssetVideoTrackPixelBufferOutputSettin
  A CMTime pointer whose value will contain the true display deadline for the copied pixel buffer. Can be NULL.
  */
 
-- (void)copyPixelBufferForItemTime:(CMTime)seekTime itemTimeForDisplay:(nullable CMTime *)outItemTimeForDisplay completionHandler:(void (^_Nullable)(CVPixelBufferRef _Nullable ))completionHandler;
+- (void)copyPixelBufferForItemTime:(CMTime)seekTime itemTimeForDisplay:(nullable CMTime *)outItemTimeForDisplay completionHandler:(TuSDKAssetVideoTrackPixelBufferOutputCompletionHandler)completionHandler;
 
-
-/*!
- @method            copyPixelBufferForItemTime:itemTimeForDisplay:
- @abstract        Retrieves an image that is appropriate for display at the specified item time, and marks the image as acquired.
- @discussion
- The client is responsible for calling CVBufferRelease on the returned CVPixelBuffer when finished with it.
- 
- Typically you would call this method in response to a CVDisplayLink callback or CADisplayLink delegate invocation and if hasNewPixelBufferForItemTime: also returns YES.
- 
- The buffer reference retrieved from copyPixelBufferForItemTime:itemTimeForDisplay: may itself be NULL. A reference to a NULL pixel buffer communicates that nothing should be displayed for the supplied item time.
- @param            itemTime
- A CMTime that expresses a desired item time.
- @param            itemTimeForDisplay
- A CMTime pointer whose value will contain the true display deadline for the copied pixel buffer. Can be NULL.
+/**
+ 取消所有输出
  */
-
-- (CVPixelBufferRef)copyPixelBufferForItemTime:(CMTime)seekTime itemTimeForDisplay:(nullable CMTime *)outItemTimeForDisplay;
-
+- (void)destory;
 
 @end

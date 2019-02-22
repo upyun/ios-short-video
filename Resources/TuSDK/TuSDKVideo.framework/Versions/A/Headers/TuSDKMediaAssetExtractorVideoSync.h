@@ -23,18 +23,18 @@
  @param videoExtractor 视频分离器
  @return TuSDKMediaAssetExtractorVideoSync
  */
-- (instancetype)initExtractor:(TuSDKMediaTimelineAssetExtractor *)videoExtractor;
+- (instancetype)initExtractor:(id<TuSDKMediaTimelineExtractor>)videoExtractor;
 
 /**
  视频数据分离器
  @since      v3.0
  */
-@property (nonatomic,readonly) TuSDKMediaTimelineAssetExtractor *videoExtractor;
+@property (nonatomic,readonly) id<TuSDKMediaTimelineExtractor> videoExtractor;
 
 /**
  当前已播放时长
  @since      v3.0
  */
-@property (nonatomic,readonly) CMTime outputDuration;
+@property (nonatomic,readonly) CMTime outputTime;
 
 @end

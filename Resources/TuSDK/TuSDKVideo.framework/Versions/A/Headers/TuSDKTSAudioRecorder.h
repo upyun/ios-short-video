@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger,lsqAudioRecordingStatus)
     lsqAudioRecordingStatusRecording,
     
     /**
-     * 正在录音
+     * 暂停录音
      */
     lsqAudioRecordingStatusPause,
     

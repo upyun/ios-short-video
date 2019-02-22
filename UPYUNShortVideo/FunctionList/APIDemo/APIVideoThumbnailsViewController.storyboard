@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Qab-E5-dIN">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment version="2304" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--获取缩略图-->
+        <scene sceneID="oZ9-Fj-Dfj">
+            <objects>
+                <viewController title="获取缩略图" id="Qab-E5-dIN" customClass="APIVideoThumbnailsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="s0x-ai-WeK"/>
+                        <viewControllerLayoutGuide type="bottom" id="Nst-p6-Ck9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="j3e-Yd-Wxh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vwn-l6-Lz0" customClass="PlayerView">
+                                <rect key="frame" x="0.0" y="20" width="320" height="180"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Vwn-l6-Lz0" secondAttribute="height" multiplier="16:9" id="FhR-16-Xtj"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="31F-UR-ohm">
+                                <rect key="frame" x="0.0" y="248" width="320" height="320"/>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5SA-XC-Uma">
+                                <rect key="frame" x="48" y="480" width="224" height="40"/>
+                                <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="ArZ-HD-ZHp"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="获取缩略图"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="gainThumbnails" destination="Qab-E5-dIN" eventType="touchUpInside" id="Phe-fl-yj0"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="31F-UR-ohm" secondAttribute="trailing" id="0OT-q5-JKO"/>
+                            <constraint firstItem="Nst-p6-Ck9" firstAttribute="top" secondItem="5SA-XC-Uma" secondAttribute="bottom" constant="48" id="96S-Wz-LXe"/>
+                            <constraint firstAttribute="trailing" secondItem="Vwn-l6-Lz0" secondAttribute="trailing" id="AW4-V6-ffU"/>
+                            <constraint firstItem="5SA-XC-Uma" firstAttribute="leading" secondItem="j3e-Yd-Wxh" secondAttribute="leading" constant="48" id="Bfi-nA-HJC"/>
+                            <constraint firstItem="Nst-p6-Ck9" firstAttribute="top" secondItem="31F-UR-ohm" secondAttribute="bottom" id="DfL-xt-aVq"/>
+                            <constraint firstItem="Vwn-l6-Lz0" firstAttribute="top" secondItem="s0x-ai-WeK" secondAttribute="bottom" id="ETX-mT-FkN"/>
+                            <constraint firstItem="Vwn-l6-Lz0" firstAttribute="leading" secondItem="j3e-Yd-Wxh" secondAttribute="leading" id="W7d-k1-Emy"/>
+                            <constraint firstItem="31F-UR-ohm" firstAttribute="leading" secondItem="j3e-Yd-Wxh" secondAttribute="leading" id="f13-Is-HW5"/>
+                            <constraint firstItem="31F-UR-ohm" firstAttribute="top" secondItem="Vwn-l6-Lz0" secondAttribute="bottom" constant="48" id="jTA-yK-grM"/>
+                            <constraint firstAttribute="trailing" secondItem="5SA-XC-Uma" secondAttribute="trailing" constant="48" id="or0-4M-YQh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="playerView" destination="Vwn-l6-Lz0" id="vTl-iS-fmr"/>
+                        <outlet property="thumbnailScrollView" destination="31F-UR-ohm" id="MtV-dP-HU5"/>
+                        <outletCollection property="actionButtons" destination="5SA-XC-Uma" id="6Pb-Yo-kjT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w3W-pZ-kSA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1466.25" y="1654.2253521126761"/>
+        </scene>
+    </scenes>
+</document>

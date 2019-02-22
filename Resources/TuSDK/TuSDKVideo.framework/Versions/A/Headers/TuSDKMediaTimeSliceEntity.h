@@ -24,6 +24,14 @@
 - (instancetype)initWithSlice:(TuSDKMediaTimelineSlice *)slice;
 
 /**
+ 根据时间片段初始化实体计算对象
+ 
+ @param slice 时间片段
+ @return TuSDKMediaTimeSliceEntity
+ */
+- (instancetype)initWithSlice:(TuSDKMediaTimelineSlice *)slice canSupportedReverseSlice:(BOOL)canSupportedReverseSlice;
+
+/**
  原始切片信息
  @since      v3.0
  */
@@ -90,6 +98,19 @@
  @since      v3.0
  */
 - (NSComparisonResult)overviewInputTime:(CMTime)inputTime frameInterval:(CMTime)frameInterval;
+
+/**
+ 检查输入时间是否在该时间切片内
+ 
+ @param inputTime 输入时间
+ @return NSComparisonResult
+ NSOrderedAscending : inputTime 在当前片段之前
+ NSOrderedDescending: inputTime 在当前片段之后
+ NSOrderedSame :      inputTime 在当前片段
+ @param frameInterval 帧间隔
+ @since      v3.0
+ */
+- (BOOL)containsInputTime:(CMTime)inputTime;
 
 /**
  计算输出时间所在的输入时间

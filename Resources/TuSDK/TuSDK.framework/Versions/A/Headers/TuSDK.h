@@ -4,10 +4,11 @@
 //
 //  Created by Clear Hu on 14/10/25.
 //  Copyright (c) 2014年 tusdk.com. All rights reserved.
-//  https://tutucloud.com/docs/ios/api/
+//  https://tutucloud.com/docs/ios/image/api-core/
 //
 
 #import <Foundation/Foundation.h>
+#import "SLGPUImage.h"
 
 #import "TuSDKTSALAssets+Extend.h"
 #import "TuSDKTSALAssetsGrouped+CreateTimeDesc.h"
@@ -49,6 +50,7 @@
 #import "TuSDKICTouchImageView.h"
 #import "TuSDKICMessageHubInterface.h"
 #import "TuSDKICGifView.h"
+#import "TuSDKICGuideRegionView.h"
 
 #import "TuSDKCPAlbumComponentBase.h"
 #import "TuSDKCPAlbumMultipleComponentBase.h"
@@ -174,7 +176,7 @@ extern NSString * const lsqFilterSampleExtension;
 
 /**
  *  TuSDK 核心
- *  @see-https://tutucloud.com/docs/ios/api/Classes/TuSDK.html
+ *  @see-https://tutucloud.com/docs/ios/image/api-core/Classes/TuSDK.html
  *
  *  内部集成滤镜列表(17):
  *  Normal, Artistic, Brilliant, Cheerful, Clear, Fade, Forest, Gloss,
@@ -257,7 +259,7 @@ extern NSString * const lsqFilterSampleExtension;
 
 /**
  *  滤镜管理器
- *  @see-https://tutucloud.com/docs/ios/api/Classes/TuSDKFilterManager.html
+ *  @see-https://tutucloud.com/docs/ios/image/api-core/Classes/TuSDKFilterManager.html
  *
  *  @return filterManager 滤镜管理器
  */
@@ -265,7 +267,7 @@ extern NSString * const lsqFilterSampleExtension;
 
 /**
  *  贴纸管理器
- *  @see-https://tutucloud.com/docs/ios/api/Classes/TuSDKPFStickerLocalPackage.html
+ *  @see-https://tutucloud.com/docs/ios/image/api-core/Classes/TuSDKPFStickerLocalPackage.html
  *
  *  @return stickerManager 贴纸管理器
  */
@@ -280,7 +282,7 @@ extern NSString * const lsqFilterSampleExtension;
 
 /**
  *  相机对象
- *  @see-https://tutucloud.com/docs/ios/api/Classes/TuSDKStillCamera.html
+ *  @see-https://tutucloud.com/docs/ios/image/api-core/Classes/TuSDKStillCamera.html
  *
  *  @param sessionPreset  相机分辨率类型 
  *  @see AVCaptureSessionPresetPhoto

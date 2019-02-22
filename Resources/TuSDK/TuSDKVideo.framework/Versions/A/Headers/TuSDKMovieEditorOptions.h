@@ -13,6 +13,9 @@
 #import "TuSDKTimeRange.h"
 #import "TuSDKVideoQuality.h"
 #import "TuSDKVideoResult.h"
+#import "TuSDKMovieEditorMode.h"
+
+@class TuSDKMovieEditorPictureEffectOptions;
 
 /**
  *  视频编辑组件（TuSDKMovieEditor）配置项
@@ -111,7 +114,31 @@
  */
 @property (nonatomic) lsqWaterMarkPosition waterMarkPosition;
 
+/**
+ 画面特效配置项
+ 
+ @since v3.0.1
+ */
+@property (nonatomic,readonly) TuSDKMovieEditorPictureEffectOptions *pictureEffectOptions;
+
 
 + (TuSDKMovieEditorOptions *_Nonnull) defaultOptions;
+
+@end
+
+
+/**
+ 画面特效配置
+ 
+ @since v3.0.1
+ */
+@interface TuSDKMovieEditorPictureEffectOptions : NSObject
+
+/**
+ 设置画面特效参考时间线，通常在设置时间特效后该配置会发挥作用 默认： TuSDKMediaEffectReferOutputTimelineType
+
+ @since v3.0.1
+ */
+@property (nonatomic) TuSDKMediaPictureEffectReferTimelineType referTimelineType;
 
 @end

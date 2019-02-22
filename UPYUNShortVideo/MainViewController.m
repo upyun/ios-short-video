@@ -8,45 +8,32 @@
 
 #import "MainViewController.h"
 #import "TuSDKFramework.h"
-#import "RecordCameraViewController.h"
-#import "ComponentListViewController.h"
-
+#import "MultiVideoPickerViewController.h"
+#import "MovieCutViewController.h"
+#import "MovieEditViewController.h"
+#import "CameraViewController.h"
+#import "MoviePreviewViewController.h"
 #import "UPLivePlayerVC.h"
-#import "MoviePreviewAndCutViewController.h"
-#import <MobileCoreServices/MobileCoreServices.h>
-
-
-#import "MovieRecordFullScreenController.h"
-#import "TuAssetManager.h"
-#import "TuAlbumViewController.h"
-#import "MoviePreviewAndCutFullScreenController.h"
 
 
 
-@interface MainViewController ()<TuSDKFilterManagerDelegate,TuVideoSelectedDelegate>
+@interface MainViewController ()<TuSDKFilterManagerDelegate>
 
 @end
 
 @implementation MainViewController
 #pragma mark - 基础配置方法
-// 隐藏状态栏 for IOS7
-- (BOOL)prefersStatusBarHidden;
-{
-    return YES;
-}
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    [self setNavigationBarHidden:YES animated:NO];
-    [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
 
@@ -118,22 +105,21 @@
     
     if (button.tag == 100) {
 
-        MovieRecordFullScreenController *vc = [MovieRecordFullScreenController new];
-        vc.inputRecordMode = lsqRecordModeNormal;
-        [self.navigationController pushViewController:vc animated:YES];
+        CameraViewController *record = [CameraViewController recordController];
+        [self.navigationController pushViewController:record animated:YES];
     } else if (button.tag == 101) {
-        [TuAssetManager sharedManager].ifRefresh = YES;
-        TuAlbumViewController *videoSelector = [[TuAlbumViewController alloc] init];
-        videoSelector.selectedDelegate = self;
-        // 若需要选择视频后进行预览 设置为YES，默认为NO
-        videoSelector.isPreviewVideo = YES;
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:videoSelector];
-        [self presentViewController:nav animated:YES completion:nil];
+        MultiVideoPickerViewController *picker = [[MultiVideoPickerViewController alloc] initWithNibName:nil bundle:nil];
+        picker.maxSelectedCount = 9;
+        picker.rightButtonActionHandler = ^(MultiVideoPickerViewController *picker, UIButton *sender) {
+            NSArray *assets = [picker allSelectedAssets];
+            if (assets.count) [self actionAfterPickVideos:assets];
+        };
+        [self.navigationController pushViewController:picker animated:YES];
 
     } else {
+
         UPLivePlayerVC *vc = [[UPLivePlayerVC alloc] init];
-//        vc.url = @"http://upyun-xiuxiuquan-ios.test.upcdn.net/MGLBBOITWNMXVPBS.mp4";
-        vc.url = @"http://aicdn.baozibaozi.cn/video/20180807/78ce51a44cea4433ec2f084f0a32aadc.mp4";
+        vc.url = @"http://uprocess.b0.upaiyun.com/demo/short_video/UPYUN_0.mp4";
 
 
         [self presentViewController:vc animated:YES completion:nil];
@@ -141,15 +127,29 @@
     
 }
 
-#pragma mark - TuVideoSelectedDelegate
+/**
+ 相册返回数据，进入视频时间裁剪
 
-- (void)selectedModel:(TuVideoModel *)model;
-{
-    NSURL *url = model.url;
-    MoviePreviewAndCutFullScreenController *vc = [MoviePreviewAndCutFullScreenController new];
-    vc.inputURL = url;
-    [self.navigationController pushViewController:vc animated:YES];
-    
+ @param assets 相册返回数据
+ */
+- (void)actionAfterPickVideos:(NSArray<AVURLAsset *> *)assets {
+    MovieCutViewController *cutter = [[MovieCutViewController alloc] initWithNibName:nil bundle:nil];
+    cutter.inputAssets = assets;
+    cutter.rightButtonActionHandler = ^(MovieCutViewController *cutter, UIButton *sender) {
+        [self actionAfterMovieCutWithURL:cutter.outputURL];
+    };
+    [self.navigationController pushViewController:cutter animated:YES];
+}
+
+/**
+ 相册进入视频编辑器
+
+ @param inputURL 视频文件 URL 地址
+ */
+- (void)actionAfterMovieCutWithURL:(NSURL *)inputURL {
+    MovieEditViewController *edit = [[MovieEditViewController alloc] initWithNibName:nil bundle:nil];
+    edit.inputURL = inputURL;
+    [self.navigationController pushViewController:edit animated:YES];
 }
 
 #pragma mark - TuSDKFilterManagerDelegate

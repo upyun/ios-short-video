@@ -87,7 +87,7 @@
  设置视频输出的画面方向
  @since v3.0
  */
-@property (nonatomic) GPUImageRotationMode outputRotation;
+@property (nonatomic) LSQGPUImageRotationMode outputRotation;
 
 /**
  验证是否可以输出视频原音
@@ -125,7 +125,7 @@
  输入的画面方向
  @since 3.0
  */
-- (GPUImageRotationMode) inputRotation;
+- (LSQGPUImageRotationMode) inputRotation;
 
 /**
  * 输入的采样数据类型
@@ -242,6 +242,17 @@
 @property (nonatomic,assign)BOOL enableExportAssetSound;
 
 
+/*!
+ @property videoComposition
+ @abstract
+ The composition of video used by the receiver.
+ 
+ @discussion
+ The value of this property is an AVVideoComposition that can be used to specify the visual arrangement of video frames read from each source track over the timeline of the source asset.
+ 
+ This property cannot be set after reading has started.
+ */
+@property (nonatomic,nullable) AVVideoComposition *videoComposition;
 
 
 #pragma mark 相册

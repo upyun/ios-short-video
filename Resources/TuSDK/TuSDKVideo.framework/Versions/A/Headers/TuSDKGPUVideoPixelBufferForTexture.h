@@ -6,7 +6,6 @@
 //  Copyright © 2018 TuSDK. All rights reserved.
 //
 
-#import <GPUImage/GPUImage.h>
 #import "TuSDKVideoImport.h"
 #import "TuSDKMediaAssetInfo.h"
 #import "TuSDKAssetVideoDecoder.h"
@@ -16,7 +15,7 @@
  PixelBuffer 上传到 GPU
  @since 3.0
  */
-@interface TuSDKGPUVideoPixelBufferForTexture : GPUImageOutput <TuSDKSampleBufferInput>
+@interface TuSDKGPUVideoPixelBufferForTexture : SLGPUImageOutput <TuSDKSampleBufferInput>
 {
     CGSize _outputSize;
 }
@@ -25,13 +24,13 @@
  输入的画面方向
  @since 3.0
  */
-@property (nonatomic) GPUImageRotationMode inputRotation;
+@property (nonatomic) LSQGPUImageRotationMode inputRotation;
 
 /**
  输出的画面方向
  @since 3.0
  */
-@property (nonatomic) GPUImageRotationMode outputRotation;
+@property (nonatomic) LSQGPUImageRotationMode outputRotation;
 
 /**
  * 输入的采样数据类型

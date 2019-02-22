@@ -6,9 +6,18 @@
 //  Copyright © 2016 tusdk.com. All rights reserved.
 //
 
-#import <GPUImage/GPUImage.h>
+//#import <GPUImage/GPUImage.h>
 #import "TuSDKVideoImport.h"
 #import "TuSDKVideoResult.h"
+#import "TuSDKMediaEffect.h"
+#import "TuSDKMediaVideoEffectTimeline.h"
+#import "TuSDKMediaFilterEffect.h"
+#import "TuSDKMediaComicEffect.h"
+#import "TuSDKMediaStickerEffect.h"
+
+@protocol TuSDKVideoCameraEffectDelegate;
+
+@protocol TuSDKVideoCameraFaceDetectionDelegate;
 
 /** 贴纸可以同时使用的的最大数量*/
 #define LSQ_SMART_STICKER_MAX_NUM 5
@@ -30,9 +39,18 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
     lsqFormatTypeRawData,
 };
 
+/** 人脸信息检测结果类型 */
+typedef NS_ENUM(NSUInteger,lsqVideoCameraFaceDetectionResultType) {
+    /** No face is detected */
+    lsqVideoCameraFaceDetectionResultTypeNoFaceDetected,
+    /** Succeed */
+    lsqVideoCameraFaceDetectionResultTypeFaceDetected
+};
+
+
 #pragma mark - GPUImageVideoCamera (lsqExt)
 
-@interface GPUImageVideoCamera (lsqExt)
+@interface SLGPUImageVideoCamera (lsqExt)
 
 - (void)updateTargetsForVideoCameraUsingCacheTextureAtWidth:(int)bufferWidth height:(int)bufferHeight time:(CMTime)currentTime;
 @end
@@ -42,7 +60,7 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
 /**
  *  视频相机基类
  */
-@interface TuSDKVideoCameraBase : GPUImageVideoCamera<TuSDKVideoCameraInterface>
+@interface TuSDKVideoCameraBase : SLGPUImageVideoCamera<TuSDKVideoCameraInterface>
 {
     @protected
     // 输出尺寸
@@ -73,12 +91,30 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
 /**
  *  相机帧采样缓冲委托
  */
-@property (nonatomic, weak) id<TuSDKVideoCameraSampleBufferDelegate> sampleBufferDelegate;
+@property (nonatomic, weak) id<TuSDKVideoCameraSampleBufferDelegate> _Nullable sampleBufferDelegate;
+
+/**
+ * 人脸检测结果委托
+ * @since v3.0.1
+ */
+@property (nonatomic, weak) id<TuSDKVideoCameraFaceDetectionDelegate> _Nullable faceDetectionDelegate;
+
+/**
+ 特效数据委托对象
+ @since v3.2.0
+ */
+@property (nonatomic,weak)id<TuSDKVideoCameraEffectDelegate> _Nullable effectDelegate;
 
 /**
  *  相机状态
  */
 @property (nonatomic, readonly) lsqCameraState state;
+
+/**
+ 人脸检测结果
+ @since v3.0.1
+ */
+@property (nonatomic, readonly) lsqVideoCameraFaceDetectionResultType faceDetectionResultType;
 
 /**
  *  采集尺寸
@@ -88,7 +124,7 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
 /**
  *  选区范围算法
  */
-@property (nonatomic, retain) id<TuSDKCPRegionHandler> regionHandler;
+@property (nonatomic, retain) id<TuSDKCPRegionHandler> _Nullable regionHandler;
 
 /**
  *  是否正在切换滤镜
@@ -136,7 +172,7 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
 /**
  *  视频覆盖区域颜色 (默认：[UIColor blackColor])
  */
-@property (nonatomic, retain) UIColor *regionViewColor;
+@property (nonatomic, retain) UIColor * _Nullable regionViewColor;
 
 /**
  *  默认是否显示辅助线 (默认: false)
@@ -155,7 +191,9 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
 @property (nonatomic) BOOL disableMirrorFrontFacing;
 
 /**
- *  是否开启脸部追踪聚焦 (默认: YES)
+ *  是否开启人脸检测 默认：NO
+ *
+ *  @since v3.0.1
  */
 @property (nonatomic) BOOL enableFaceDetection;
 
@@ -163,6 +201,12 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
  *  是否开启动态贴纸 (默认: NO)
  */
 @property (nonatomic) BOOL enableLiveSticker;
+
+/**
+ 是否开启人脸聚焦
+ @since v3.0.1
+ */
+@property (nonatomic) BOOL enableFaceFocus;
 
 /**
  *  是否开启焦距调节 (默认关闭)
@@ -188,7 +232,7 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
 /**
  设置水印图片，最大边长不宜超过 500
  */
-@property (nonatomic, retain) UIImage *waterMarkImage;
+@property (nonatomic, retain) UIImage * _Nullable waterMarkImage;
 
 /**
  水印位置，默认 lsqWaterMarkBottomRight
@@ -200,16 +244,21 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
  *
  *  @param sessionPreset  相机分辨率类型
  *  @param cameraPosition 相机设备标识 （前置或后置）
- *  @param cameraView     相机显示容器视图
+ *  @param view 相机显示容器视图
  *
  *  @return 相机对象
  */
-- (instancetype)initWithSessionPreset:(NSString *)sessionPreset cameraPosition:(AVCaptureDevicePosition)cameraPosition cameraView:(UIView *)view;
+- (instancetype _Nullable )initWithSessionPreset:(NSString *_Nonnull)sessionPreset cameraPosition:(AVCaptureDevicePosition)cameraPosition cameraView:(UIView *_Nonnull)view;
 
 /**
  *  初始化相机
  */
 -(void)initCamera;
+
+/**
+ 重新设置音频会话分类
+ */
+- (void)resetAudioSessionCategory;
 
 /**
  *  更新相机视图布局
@@ -224,9 +273,9 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
 /**
  *  获取聚焦视图
  *
- *  @return
+ *  @return 聚焦视图
  */
-- (UIView<TuSDKVideoCameraExtendViewInterface> *)getFocusTouchView;
+- (UIView<TuSDKVideoCameraExtendViewInterface> *_Nonnull)getFocusTouchView;
 
 /**
  *  设置聚焦模式
@@ -292,14 +341,23 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
  
  @param result 拍摄照片
  */
-- (void)notifyCaptureResult:(UIImage *)result;
+- (void)notifyCaptureResult:(UIImage *_Nullable) result;
 
 /**
  获取图片
  
  @return  得到的图片对象
  */
-- (UIImage *)syncCaptureImage;
+- (UIImage *_Nullable)syncCaptureImage;
+
+/**
+ *  切换滤镜 v3.2.0 新增 addMediaEffect：接口，可通过该方法添加所有支持的特效。
+ *
+ *  @param code 滤镜代号
+ *
+ *  @return 是否成功切换滤镜
+ */
+- (BOOL)switchFilterWithCode:(NSString *_Nullable)code DEPRECATED_MSG_ATTRIBUTE("Pelease use addMediaEffect:");
 
 #pragma mark - live sticker
 
@@ -308,7 +366,7 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
  *
  *  @param groupSticker 动态贴纸对象
  */
-- (void)showGroupSticker:(TuSDKPFStickerGroup *)groupSticker;
+- (void)showGroupSticker:(TuSDKPFStickerGroup *_Nullable)groupSticker DEPRECATED_MSG_ATTRIBUTE("Pelease use addMediaEffect:");
 
 /**
  *  动态贴纸组是否已在使用
@@ -316,14 +374,18 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
  *  @param groupSticker 动态贴纸组对象
  *  @return 　是否使用
  */
-- (BOOL)isGroupStickerUsed:(TuSDKPFStickerGroup *)groupSticker;
+- (BOOL)isGroupStickerUsed:(TuSDKPFStickerGroup *_Nonnull)groupSticker DEPRECATED_MSG_ATTRIBUTE("Pelease use mediaEffectsWithType:");
 
 /**
  *  清除动态贴纸
  */
-- (void)removeAllLiveSticker;
+- (void)removeAllLiveSticker DEPRECATED_MSG_ATTRIBUTE("Pelease use removeMediaEffectsWithType:");
 
-/** 设置检测框最小倍数 [取值范围: 0.1 < x < 0.5, 默认: 0.2] 值越大性能越高距离越近 */
+/**
+ 设置检测框最小倍数 [取值范围: 0.1 < x < 0.5, 默认: 0.2] 值越大性能越高距离越近
+
+ @param scale 缩放f比
+ */
 - (void) setDetectScale: (CGFloat) scale;
 #pragma mark - benchmark
 /**
@@ -337,5 +399,101 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
  *  销毁
  */
 - (void)destory;
+
+@end
+
+/**
+ * 人脸检测事件委托
+ * @since v3.0.1
+ */
+@protocol TuSDKVideoCameraFaceDetectionDelegate <NSObject>
+
+@optional
+/**
+ *  人脸检测事件委托 (如需操作UI线程， 请检查当前线程是否为主线程)
+ *
+ *  @param videoCamera 相机对象
+ *  @param type 人脸检测结果
+ *  @param count 检测到的人脸数量
+ */
+- (void)onVideoCamera:(TuSDKVideoCameraBase *_Nonnull)videoCamera faceDetectionResultType:(lsqVideoCameraFaceDetectionResultType)type faceCount:(NSUInteger)count;
+
+@end
+
+#pragma mark -  MediaEffectManager
+
+/**
+ * 特效管理
+ */
+@interface TuSDKVideoCameraBase  (MediaEffectManager) <TuSDKMediaEffectSyncDelegate>
+
+/**
+ 添加一个多媒体特效。目前支持的特效包括：
+ TuSDKMediaFilterEffect、TuSDKMediaStickerEffect、TuSDKMediaComicEffect、TuSDKMediaSkinFaceEffect、TuSDKMediaPlasticFaceEffect
+ 
+ @param mediaEffect 特效数据
+ @discussion 如果已有特效和该特效不能同时共存，已有旧特效将被移除.
+ @return true 添加成功 false 添加失败不支持该特效或特效数据错误
+ @since    v3.2.0
+ */
+- (BOOL)addMediaEffect:(id<TuSDKMediaEffect> _Nonnull)mediaEffect;
+
+/**
+ 移除特效数据
+ 
+ @since    v3.2.0
+ @param mediaEffect TuSDKMediaEffectData
+ */
+- (void)removeMediaEffect:(id<TuSDKMediaEffect> _Nonnull)mediaEffect;
+
+/**
+ 移除指定类型的特效信息
+ 
+ @param effectType 特效类型
+ @since    v3.2.0
+ */
+- (void)removeMediaEffectsWithType:(NSUInteger)effectType;
+
+/**
+ 移除所有特效
+ @since    v3.2.0
+ */
+- (void)removeAllMediaEffect;
+
+/**
+ 获取指定类型的特效信息
+ 
+ @param effectType 特效数据类型
+ @return 特效列表
+ @since    v3.2.0
+ */
+- (NSArray<id<TuSDKMediaEffect>> *_Nonnull)mediaEffectsWithType:(NSUInteger)effectType;
+
+@end
+
+#pragma mark - TuSDKVideoCameraEffectDelegate
+
+@protocol TuSDKVideoCameraEffectDelegate <NSObject>
+
+@optional
+
+/**
+ 当前正在应用的特效
+ 
+ @param videoCamera 相机对象
+ @param mediaEffectData 正在预览特效
+ @since v3.2.0
+ */
+- (void)onVideoCamera:(TuSDKVideoCameraBase *_Nonnull)videoCamera didApplyingMediaEffect:(id<TuSDKMediaEffect>_Nonnull)mediaEffectData;
+
+
+/**
+ 特效被移除通知
+ 
+ @param videoCamera 相机对象
+ @param mediaEffects 被移除的特效列表
+ @since v3.2.0
+ */
+- (void)onVideoCamera:(TuSDKVideoCameraBase *_Nonnull)videoCamera didRemoveMediaEffects:(NSArray<id<TuSDKMediaEffect>> *_Nonnull) mediaEffects;
 
 @end

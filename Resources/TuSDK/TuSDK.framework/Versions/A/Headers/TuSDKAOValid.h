@@ -38,6 +38,12 @@
 @property (nonatomic, readonly) NSString *developerId;
 
 /**
+ *  appkey
+ */
+@property (nonatomic, readonly) NSString *appKey;
+
+
+/**
  *  Sdk配置
  */
 @property (nonatomic, readonly) TuSDKConfig *sdkConfig;
@@ -62,7 +68,7 @@
 /**
  * 获取在线配置信息
  */
-- (void)fetchConfigFromService;
+- (void)checkAppAuth;
 
 /**
  *  是否允许该级别
@@ -93,6 +99,8 @@
 
 /** service Expire */
 - (BOOL)serviceExpire;
+/** serviceExpireDate */
+- (NSDate *)serviceExpireDate;
 
 /** no Power */
 - (BOOL)noPower;
@@ -151,6 +159,9 @@
 // video camera bitrate support 相机 自定义码率
 - (BOOL)videoCameraBitrateSupport;
 
+// video camera monster face support 录制相机 是否支持哈哈镜特效
+- (BOOL)videoCameraMonsterFaceSupport;
+
 // video editor music support 编辑视频 添加音乐
 - (BOOL)videoEditorMusicSupport;
 
@@ -172,6 +183,15 @@
 //  video editor particle effects filter support 编辑视频 是否支持粒子特效滤镜
 - (BOOL)videoEditorParticleEffectsFilterSupport;
 
+// video editor monster face support 编辑视频 是否支持哈哈镜特效
+- (BOOL)videoEditorMonsterFaceSupport;
+
+// audioPitchEffectsSupport 音频变声
+- (BOOL)audioPitchEffectsSupport;
+
+// audioResampleEffectsSupport 音频重采样
+- (BOOL)audioResampleEffectsSupport;
+
 /**
   video editor text effects support 编辑视频 是否支持文字特效
 
@@ -179,6 +199,14 @@
  @sinace 2.2.0
  */
 - (BOOL)videoEditorTextEffectsSupport;
+
+/**
+ video editor text effects support 编辑视频 是否支持漫画特效
+ 
+ @return true/false
+ @sinace v3.0.1
+ */
+- (BOOL)videoEditorComicEffectsSupport;
 
 /**
  *  解密文本
@@ -199,6 +227,22 @@
  *  @return data 解密文本
  */
 - (NSString *)sdkDecodeWithData:(NSData *)data key:(NSString *)key type:(NSUInteger)type;
+
+/**
+ AES 数据加密
+
+ @param data 数据加密
+ @param index 加密key索引
+ @return 加密后的数据
+ */
+- (NSData *)sdkAESEncodeWithData:(NSData *)data keyIndex:(NSInteger)index;
+
+/**
+ 获取 AES 私钥数量
+
+ @return 私钥数量
+ */
+- (NSUInteger)sdkAESKeyCount;
 
 /**
  *  验证滤镜
@@ -292,4 +336,14 @@
  *  @return BOOL 是否验证成功
  */
 - (BOOL)brushValidWithKey:(NSString *)key type:(NSUInteger)type brushId:(uint64_t)brushId;
+
+/**
+ 获取贴纸key
+
+ @param stickerId 贴纸id
+ @param master master
+ @return 贴纸资源key
+ */
+- (NSString *)stickerGroupValidKeyWithStickerId:(uint64_t)stickerId master:(NSString *)master;
+
 @end

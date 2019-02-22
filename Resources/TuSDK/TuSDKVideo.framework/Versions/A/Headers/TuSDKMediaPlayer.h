@@ -67,4 +67,11 @@
  */
 - (BOOL)canSupportedReverse;
 
+/**
+ 销毁播放器并释放持有的资源
+ 
+ @since v3.0.1
+ */
+- (void)destory;
+
 @end

@@ -91,11 +91,10 @@ typedef NS_ENUM(NSInteger,lsqMovieMixStatus)
 @property (nonatomic, assign) CGFloat videoSoundVolume;
 // 混合的音频数组
 @property (nonatomic, strong) NSArray<TuSDKTSAudio *> *mixAudios;
-// 音频在视频中出现的时间范围
+// 校验视频时间范围
 @property (nonatomic, strong) TuSDKTimeRange *videoTimeRange;
 // 音频是否可循环 默认 NO 不循环
 @property (nonatomic, assign) BOOL enableCycleAdd;
-
 
 /**
  初始化 TuSDKTSMovieMixer
@@ -106,7 +105,7 @@ typedef NS_ENUM(NSInteger,lsqMovieMixStatus)
 -(instancetype) initWithMoviePath:(NSString *)moviePath;
 
 /**
- * 导出视频
+ 导出视频
  */
 - (void)startMovieMix;
 
@@ -117,7 +116,9 @@ typedef NS_ENUM(NSInteger,lsqMovieMixStatus)
  */
 - (void)startMovieMixWithCompletionHandler:(void (^)(NSString *filePath, lsqMovieMixStatus status))handler;
 
-// 取消混合操作
+/**
+ 取消混合操作
+ */
 - (void)cancelMixing;
 
 @end

@@ -9,7 +9,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <GPUImage/GPUImage.h>
 
 #import "TuSDKVideoQuality.h"
 #import "TuSDKVideoImport.h"
