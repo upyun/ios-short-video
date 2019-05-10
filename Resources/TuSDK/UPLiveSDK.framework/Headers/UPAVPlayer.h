@@ -118,6 +118,7 @@ willRenderBuffer:(AudioBufferList *)audioBufferList
 @property (nonatomic, assign) NSUInteger maxNumForReopenFile;
 /// 要播放的网络视频地址
 @property (nonatomic, copy) NSString *url;
+@property (nonatomic, copy) NSDictionary *headerDic;
 /// 视频已经播放到的时间点
 @property (nonatomic, assign, readonly) float displayPosition;
 /// 视频流读取到的时间点
