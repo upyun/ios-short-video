@@ -21,6 +21,29 @@
 -(void)setStatus:(NSString *)status;
 
 /**
+ * 修改背景颜色
+ *
+ * @param backGroudColor
+ *            背景颜色
+ */
+- (void)setBackGroudColor:(UIColor *)backGroudColor;
+
+/**
+ * 修改背景颜色
+ *
+ * @param textColor
+ *            背景颜色
+ */
+- (void)setTextColor:(UIColor *)textColor;
+/**
+ * 修改文字字体
+ *
+ * @param font
+ *            文字字体
+ */
+- (void)setTextFont:(UIFont *)font;
+
+/**
  * 显示信息 并自动关闭
  *
  * @param message
@@ -53,6 +76,7 @@
  *            信息
  */
 -(void)showError:(NSString *)status;
+
 
 /**
  * 使用动画关闭

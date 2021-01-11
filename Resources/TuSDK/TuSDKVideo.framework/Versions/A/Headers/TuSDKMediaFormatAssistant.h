@@ -41,7 +41,6 @@
 /**
  根据 AVAsset 创建一个安全音频解码器输出
  
- @param asset 音频资源
  @return NSDictionary
  */
 + (NSMutableDictionary *)safeAssetReaderOutputPCMSettings;

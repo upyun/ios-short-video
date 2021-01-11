@@ -66,7 +66,7 @@ extern NSString * const TuSDKAudioComponentFailedToCreateNotification;
  *
  *  @param sessionPreset  相机分辨率类型
  *  @param cameraPosition 相机设备标识 （前置或后置）
- *  @param cameraView     相机显示容器视图
+ *  @param view     相机显示容器视图
  *
  *  @return 相机对象
  */

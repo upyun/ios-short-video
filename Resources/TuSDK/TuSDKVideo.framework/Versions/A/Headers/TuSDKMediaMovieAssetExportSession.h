@@ -89,6 +89,14 @@
  */
 @property (nonatomic) LSQGPUImageRotationMode outputRotation;
 
+
+/**
+ 设置视频输出的地址
+ @since v3.4.2
+ */
+@property (nonatomic, strong) NSURL * _Nullable outputURL;
+
+
 /**
  验证是否可以输出视频原音
  
@@ -192,6 +200,19 @@
  */
 @property (nonatomic) NSURL * _Nullable outputURL;
 
+
+/**
+ 是否有音频混合
+ @since v3.4.2
+ */
+@property (nonatomic, assign) BOOL isMixAudio;
+
+/**
+ 导出过程中临时文件的地址
+ @since v3.4.2
+ */
+@property (nonatomic) NSURL * _Nullable tempOutputURL;
+
 /**
  输出的视频size
  @since v3.0
@@ -199,7 +220,21 @@
 @property (nonatomic) CGSize outputSize;
 
 /**
- 输出的文件类型
+ 设定输出 outputSize 时比例不一致时是否自适应画布大小 默认：NO
+ 
+ @since v3.3.1
+ */
+@property (nonatomic) BOOL aspectOutputRatioInSideCanvas;
+
+/**
+ 设置画面显示区域 默认：（CGRectMake(0,0,1,1) 完整画面） aspectOutputRatioInSideCanvas
+ aspectOutputRatioInSideCanvas 为 NO 时可用
+ @since v3.0
+ */
+@property (nonatomic) CGRect outputRegion;
+
+/**
+ 输出的文件类型, 默认：lsqFileTypeQuickTimeMovie
  @since v3.0
  */
 @property (nonatomic) lsqFileType outputFileType;
@@ -215,12 +250,6 @@
  @since v3.0
  */
 @property(readwrite, nonatomic) BOOL shouldPassthroughAudioSettings;
-
-/**
- 输出区域
- @since v3.0
- */
-@property (nonatomic) CGRect outputRegion;
 
 /*!
  @property transform

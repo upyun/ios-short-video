@@ -38,7 +38,7 @@ typedef void(^TuSDKMediaAudioEffectVolumeChangedBlock)(CGFloat);
 /**
  本地音频地址
 */
-@property (nonatomic,readonly,copy) NSURL *audioURL;
+@property (nonatomic,copy) NSURL *audioURL;
 
 /**
  设置音量大小 （0 - 1）
@@ -57,5 +57,12 @@ typedef void(^TuSDKMediaAudioEffectVolumeChangedBlock)(CGFloat);
  @since v3.0.1
  */
 @property (nonatomic) BOOL looping;
+
+/**
+ 输入的音频持续时间
+ @sicne v3.4.0
+ */
+@property (nonatomic, readonly) CMTime inputAudioTime;
+
 
 @end

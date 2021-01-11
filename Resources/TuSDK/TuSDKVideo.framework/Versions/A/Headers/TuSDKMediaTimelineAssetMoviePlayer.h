@@ -103,18 +103,23 @@
 @property (nonatomic) AVVideoComposition * _Nullable videoComposition;
 
 /**
- 指定输出画幅比例，默认：0 SDK自动计算最佳输出比例
- 
- @since v3.0.1
- */
-@property (nonatomic) CGFloat outputRatio;
-
-/**
  首选输出尺寸
  
  @since v3.0.1
  */
 @property (nonatomic,readonly)CGSize preferredOutputSize;
+
+/**
+ 预览宽高
+ @since 3.4.2
+ */
+@property (nonatomic) CGSize previewSize;
+
+/**
+ 输出比例与原视频比例不一致时是否自适应画布大小
+ @since 3.4.2
+ */
+@property (nonatomic) BOOL aspectPreviewRatioInSideCanvas;
 
 /**
  更新预览View

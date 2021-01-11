@@ -78,7 +78,7 @@ typedef NS_ENUM(NSInteger,lsqMovieClipperSessionStatus)
 /**
  初始化TuSDKMovieClipper
  
- @param moviePath 视频地址
+ @param movieURL 视频地址
  @return TuSDKMovieClipper
  */
 -(instancetype) initWithMovieURL:(NSURL *)movieURL;

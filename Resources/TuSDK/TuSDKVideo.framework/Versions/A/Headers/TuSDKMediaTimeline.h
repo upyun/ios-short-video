@@ -57,9 +57,6 @@
 
 /**
  重置时间轴
-
- @return true/false
- @since      v3.0
  */
 - (void)resetTimeline;
 

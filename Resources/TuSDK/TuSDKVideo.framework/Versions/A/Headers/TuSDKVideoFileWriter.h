@@ -13,15 +13,16 @@
 
 extern NSString *const kTuVideoGPUImageColorSwizzlingFragmentShaderString;
 
+
 #pragma mark - TuSDKVideoWriterDelegate
 
-@protocol TuSDKVideoFileWriterDelegate <NSObject>
-
+@protocol TuSDKVideoFileWriterDelegate<NSObject>
 @optional
-
 - (void)videoFileWriterDidRecordCompleted:(TuSDKVideoFileWriter *)fileWriter;
-
 - (void)videoFileWriterRecordFailed:(NSError*)error;
+
+- (void)adjustingLastVideoTime;
+
 
 @end
 
@@ -32,28 +33,24 @@ extern NSString *const kTuVideoGPUImageColorSwizzlingFragmentShaderString;
  */
 @interface TuSDKVideoFileWriter : TuSDKVideoDataOutputBase
 {
-    BOOL alreadyFinishedRecording;
-    
-    NSURL *movieURL;
-    NSString *fileType;
-    AVAssetWriter *assetWriter;
-    AVAssetWriterInput *assetWriterAudioInput;
-    AVAssetWriterInput *assetWriterVideoInput;
-    AVAssetWriterInputPixelBufferAdaptor *assetWriterPixelBufferInput;
+    NSString *_fileType;
+    AVAssetWriter *_assetWriter;
+    AVAssetWriterInput *_assetWriterAudioInput;
+    AVAssetWriterInput *_assetWriterVideoInput;
+    AVAssetWriterInputPixelBufferAdaptor *_assetWriterPixelBufferInput;
 }
 
-@property(readwrite, nonatomic) BOOL hasAudioTrack;
-@property(readwrite, nonatomic) BOOL shouldPassthroughAudioSettings;
-@property(readwrite, nonatomic) BOOL shouldInvalidateAudioSampleWhenDone;
-@property(nonatomic, assign) id<TuSDKVideoFileWriterDelegate> delegate;
-@property(nonatomic, copy) BOOL(^videoInputReadyCallback)(void);
-@property(nonatomic, copy) BOOL(^audioInputReadyCallback)(void);
-@property(nonatomic, copy) void(^audioProcessingCallback)(SInt16 **samplesRef, CMItemCount numSamplesInBuffer);
-@property(nonatomic, readonly) AVAssetWriter *assetWriter;
+@property (nonatomic, readonly) NSURL *movieURL;
+@property (nonatomic, assign) BOOL hasAudioTrack;
+@property (nonatomic, assign) BOOL shouldPassthroughAudioSettings;
+//@property (nonatomic, assign) BOOL shouldInvalidateAudioSampleWhenDone;
+@property (nonatomic, weak) id<TuSDKVideoFileWriterDelegate> delegate;
+@property (nonatomic, copy) BOOL(^videoInputReadyCallback)(void);
+@property (nonatomic, copy) BOOL(^audioInputReadyCallback)(void);
+@property (nonatomic, copy) void(^audioProcessingCallback)(SInt16 **samplesRef, CMItemCount numSamplesInBuffer);
 
-@property(nonatomic, assign) CGAffineTransform transform;
-@property (nonatomic) BOOL shouldOptimizeForNetworkUse;
-@property(nonatomic, copy) NSArray *metaData;
+@property (nonatomic, assign) CGAffineTransform transform;
+@property (nonatomic, assign) BOOL shouldOptimizeForNetworkUse;
 
 @property(nonatomic, assign, getter = isPaused) BOOL paused;
 // 变速后的时长
@@ -65,7 +62,7 @@ extern NSString *const kTuVideoGPUImageColorSwizzlingFragmentShaderString;
 // 是否为录制视频，当录制(不是剪裁)视频时，需要抛弃多余的音频帧
 @property(nonatomic, assign) BOOL isRecordVideo;
 // 续拍模式下，在暂停后，校对过最后一帧的时间后调用该block，同时校准camera类中的时间节点记录；
-@property(nonatomic, copy) void(^adjustingLastVideoTime)(void);
+//@property(nonatomic, copy) void(^adjustingLastVideoTime)(void);
 // Audio FormatDescriptionRef
 @property (nonatomic) CMAudioFormatDescriptionRef audioFormatDescriptionRef;
 // 变速速度  默认 1.0：正常
@@ -111,6 +108,24 @@ extern NSString *const kTuVideoGPUImageColorSwizzlingFragmentShaderString;
 - (void)setHasAudioTrack:(BOOL)hasAudioTrack audioSettings:(NSDictionary *)audioOutputSettings;
 
 - (void)enableSynchronizationCallbacks;
+
+
+/**
+ 写入一帧音频数据
+
+ @param audioBuffer 音频数据
+ @param outputTime 输出时间
+ @since v3.4.1
+ */
+- (void)processAudioBuffer:(CMSampleBufferRef)audioBuffer outputTime:(CMTime)outputTime;
+
+/**
+ 写入一帧音频数据
+ 
+ @param audioBuffer 音频数据
+ @since v3.4.1
+ */
+- (void)processAudioBuffer:(CMSampleBufferRef)audioBuffer;
 
 /**
  *  完成视频录制，且在完成后，执行block内容

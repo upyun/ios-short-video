@@ -7,25 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
 @class TuSDKICWebView;
 
 /**
  *  Web视图委托
  */
-@protocol TuSDKICWebViewDelegate <UIWebViewDelegate>
+@protocol TuSDKICWebViewDelegate <NSObject>
 @optional
-- (BOOL)webView:(TuSDKICWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
-- (void)webViewDidStartLoad:(TuSDKICWebView *)webView;
-- (void)webViewDidFinishLoad:(TuSDKICWebView *)webView;
-- (void)webView:(TuSDKICWebView *)webView didFailLoadWithError:(NSError *)error;
+- (BOOL)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction;
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation;
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation;
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error;
 - (void)webView:(TuSDKICWebView *)webView updateProgress:(CGFloat)progress;
 @end
 
 /**
  *  Web视图
  */
-@interface TuSDKICWebView : UIWebView
+@interface TuSDKICWebView : WKWebView
 {
     // 进度栏
     UIView *_progressBar;

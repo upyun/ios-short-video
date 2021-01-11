@@ -205,6 +205,11 @@ typedef NS_ENUM(NSInteger, TuSDKTKComponentType) {
     tkc_editSmudgeFragment = 0x409500,
     
     /**
+     * 笔触涂鸦控制器
+     */
+    tkc_editPaintFragment = 0x409501,
+    
+    /**
      * 滤镜涂抹控制器
      */
     tkc_editWipeAndFilterFragment = 0x409600,
@@ -372,6 +377,9 @@ typedef NS_ENUM(NSInteger, TuSDKTKComponentType) {
      * 0x90 视频库占用
      *
      * 0x91 - 0x93 已被TuSDKFaceID占用 详见TuSDKFaceID -> Secrets -> TuSDKPFStatistics.h
+     *
+     * 0x94 人脸融合使用 具体见人脸融合库中的TuSDKFaceFuseStatistics.h
+     * 0x95 eva库使用 具体eva库中的TuSDKEvaStatistics.h
      */
 };
 
@@ -385,7 +393,7 @@ typedef NS_ENUM(NSInteger, TuSDKTKComponentType) {
  *
  *  @param path 数据位置
  *
- *  @return 数据统计对象
+ *  @return path
  */
 + (void)initWithDataPath:(NSString *)path;
 

@@ -10,6 +10,7 @@
 #import "TuSDKVideoImport.h"
 #import "TuSDKMediaSettings.h"
 #import "TuSDKMediaStatus.h"
+#import "TuSDKMediaAssetExtractorPitch.h"
 
 @protocol TuSDKMediaExtractorSync;
 
@@ -34,6 +35,13 @@
  */
 @property (nonatomic)TuSDKMediaAssetExtractorSettings * _Nullable outputSettings;
 
+
+/*!
+ 是否是导出时的解码器
+ @since  v3.4.5
+ */
+@property (nonatomic, assign) BOOL isExport;
+
 /**
  分离的轨道数据类型
  @since      v3.0
@@ -49,7 +57,6 @@
 
 /*!
  @property processQueue
- @abstract
  
  @discussion
  Decoding run queue
@@ -83,6 +90,14 @@
  @since      v3.0
  */
 @property (nonatomic,readonly)CMTime frameInterval;
+
+/**
+ 获取视频帧率
+ 
+ @return 视频帧率
+ @since      v3.0
+ */
+@property (nonatomic, readonly) float nominalFrameRate;
 
 /**
  The value of the extractorFrameDuration property is set to a value short enough to accommodate the greatest nominal frame rate value among the asset’s video tracks, as indicated by the nominalFrameRate property of each track. If all of the asset tracks have a nominal frame rate of 0, a frame rate of 30 frames per second is used, with the frame duration set accordingly.

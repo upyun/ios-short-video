@@ -14,6 +14,12 @@
  */
 extern BOOL const lsqTuSDKNKNetworkEngineDebug;
 
+extern NSString* const lsqTuSDKNKNetworkEngineHeadrSDKTypeImage;
+extern NSString* const lsqTuSDKNKNetworkEngineHeadrSDKTypeVideo;
+extern NSString* const lsqTuSDKNKNetworkEngineHeadrSDKTypeEva;
+extern NSString* const lsqTuSDKNKNetworkEngineHeadrSDKTypeFaceFuse;
+
+
 /**
  *  sdk应用层网络引擎
  */
@@ -53,6 +59,9 @@ extern BOOL const lsqTuSDKNKNetworkEngineDebug;
  */
 + (NSString *)uniqueDeviceID;
 
+// 全局唯一id
++ (NSString *)globalDeviceID;
+
 /**
  *  开发者ID
  */
@@ -62,6 +71,12 @@ extern BOOL const lsqTuSDKNKNetworkEngineDebug;
  *  用户标识
  */
 @property (nonatomic, copy) NSString *userIdentify;
+
+/**
+ 设置 SDK
+ 类型 1. 图像
+ */
++ (void)setSDKType:(NSString *)sdkType;
 
 /**
  *  获取服务器地址
@@ -74,8 +89,7 @@ extern BOOL const lsqTuSDKNKNetworkEngineDebug;
  * 获取在线链接
  *
  * @param url
- * @param needAuth
- *            是否需要验证
+ * @param needAuth 是否需要验证
  * @return url
  */
 - (NSString *)webUrlWithUrl:(NSString *)url needAuth:(BOOL)needAuth;

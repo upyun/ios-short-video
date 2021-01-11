@@ -8,6 +8,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import "TuSDKMediaExtractor.h"
+#import "TuSDKMediaAssetExtractorPitch.h"
 
 /**
  多媒体数据分离器
@@ -46,5 +47,12 @@
  @since v3.0
  */
 @property (nonatomic) CMTime extractorFrameDuration;
+
+
+/**
+ 外部分离器补丁
+ @since v3.4.2
+ */
+@property (nonatomic) TuSDKMediaAssetExtractorPitch * _Nullable pitch;
 
 @end

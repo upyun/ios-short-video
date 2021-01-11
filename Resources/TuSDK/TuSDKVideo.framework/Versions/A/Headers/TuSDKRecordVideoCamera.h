@@ -35,6 +35,16 @@
 - (void)onVideoCamera:(TuSDKRecordVideoCamera *)camerea failedWithError:(NSError*)error;
 
 @optional
+
+/**
+ *  续拍、变速这两种情况下需要对视频进行时间切片分段、变速处理，该情况下为了提升用户体验可以提供进度条展示
+ *  其他情况下，保存都是瞬时完成
+ *  @param camerea 相机
+ *  @param progress 保存的进度progress
+ */
+- (void)onVideoCamera:(TuSDKRecordVideoCamera *)camerea saveProgressChanged:(CGFloat)progress;
+
+
 /**
  *  录制进度改变
  *
@@ -103,7 +113,7 @@
 @property (nonatomic, copy) NSString *saveToAlbumName;
 
 /**
- *  录制的视频文件格式（默认:lsqFileTypeMPEG4）
+ *  录制的视频文件格式（默认:lsqFileTypeQuickTimeMovie）
  */
 @property (nonatomic, assign) lsqFileType fileType;
 

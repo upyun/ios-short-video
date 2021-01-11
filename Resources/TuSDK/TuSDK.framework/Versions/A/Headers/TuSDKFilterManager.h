@@ -40,6 +40,14 @@
 + (instancetype) manager;
 
 /**
+ *  滤镜控管
+ *  用于swift包装
+ *  swift只认可的关键字 default、singleton、shared 为前缀声明的初始化单例方法名
+ *  @return 滤镜控管理器
+ */
++ (instancetype)sharedManager;
+
+/**
  *  滤镜控管理器
  *
  *  @param config Sdk配置

@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
  *       (C - E) <= 30天    成功：1天/次        失败： >=6小时/一次  (每天内必须请求一次)
  *       C > E              成功：一次即可      失败：每次启动/一次
  *       特殊情况： 本地资源包更新也需要发起 auth 验证请求
- *  @since v3.3.0
+ *  @since v3.0.7
  */
 @interface TuSDKAuth : NSObject
 
@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 请求远端 auth 信息
  *
- * @since v3.3.0
+ * @since v3.0.7
  */
 - (void)requestRemoteAuthInfo:(TuSDKAuthCompletionHandler)handler;
 
@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 -(instancetype)initWithJSON:(NSDictionary *)json;
 
-/** 在线更新后的 masterKey 过期日期  @since v3.3.0 */
+/** 在线更新后的 masterKey 过期日期  @since v3.0.7 */
 @property (nonatomic,readonly) NSDate *service_expire;
 
 /** 在线更新后获取到的 masterKey */
@@ -63,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  记录请求在线权限时本地 bundle 中 master 的 md5.
- 该 md5值 用以判断是否需要更新存储在本地的auth info。防止用户更新了权限信息 @since v3.3.0 */
+ 该 md5值 用以判断是否需要更新存储在本地的auth info。防止用户更新了权限信息 @since v3.0.7 */
 @property (nonatomic,readonly) NSString *bundleMasterMD5;
 
 /** 是否有效 */
@@ -98,6 +98,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** 将持久化的数据恢复 */
 + (TuSDKLocalAuthInfo *)recovery;
+
+/**
+ 本地缓存的key
+ 
+ @return NSString*
+ */
++ (NSString *)persistenceKey;
 
 @end
 

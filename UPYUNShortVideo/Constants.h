@@ -9,22 +9,30 @@
 #import <UIKit/UIKit.h>
 #import "TuSDKFramework.h"
 
-/// *****************----请在这里配置 滤镜相关 code ----*****************
 // 注意事项: 以 s 结尾的宏都是一些散列值，使用时需进行封包；而以 Array、Dictionary 结尾的则是可直接使用的数组和字典。
 
 #pragma mark - 普通滤镜（Array）
 
 // 视频编辑器滤镜的 filterCode
 #define kVideoFilterCodes @"Olympus_1", @"Leica_1", @"Gold_1", @"Cheerful_1", @"White_1", @"s1950_1", @"Blurred_1", @"Newborn_1", @"Fade_1", @"NewYork_1"
-//// 录制相机普通滤镜的 filterCode
-#define kCameraNormalFilterCodes @"SkinNature10", @"SkinPink10", @"SkinJelly10", @"SkinNoir10", @"SkinRuddy10", @"SkinSugar10", @"SkinPowder10", @"SkinWheat10", @"SkinSoft10", @"SkinPure10", @"SkinMoving10", @"SkinPast10", @"SkinCookies10", @"SkinRose10"
+// 录制相机普通滤镜的 filterCode
+//#define kCameraNormalFilterCodes  @"SkinLotus_1",@"SkinNatural_1", @"SkinFair_1", @"SkinBeckoning_1", @"SkinTender_1", @"SkinLeisurely_1", @"SkinRose_1", @"SkinWarm_1", @"SkinClear_1", @"SkinConfession_1", @"SkinJapanese_1",@"SkinExtraordinary_1",@"SkinHoney_1",@"SkinButter_1",@"SkinDawn_1",@"SkinSummer_1",@"SkinSweet_1",@"SkinPlain_1",@"SkinDusk_1",@"SkinNostalgia_1",@"gaosi_01"
+
+// 新相机滤镜的 filterCode - 3.5.6
+#define kCameraNormalFilterCodes @"Sharp_Video",@"Scenery_Video", @"Food_Video", @"Portrait_Video"
 
 // 录制相机漫画滤镜 filterCode
 #define kCameraComicsFilterCodes @"CHComics_Video", @"USComics_Video", @"JPComics_Video", @"Lightcolor_Video", @"Ink_Video", @"Monochrome_Video"
 // 美颜滤镜参数名称
-#define kBeautySkinKeys @"skin_default",@"smoothing",@"whitening",@"ruddy"
-// 美型滤镜参数名称
-#define kBeautyFaceKeys @"eyeSize", @"chinSize", @"noseSize", @"mouthWidth", @"archEyebrow", @"jawSize", @"eyeAngle", @"eyeDis"
+#define kBeautySkinKeys @"skin_default",@"smoothing",@"whitening", @"sharpen"
+#define kNaturalBeautySkinKeys @"skin_default",@"smoothing",@"whitening", @"ruddy"
+#define TuBeautySkinKeys @"skin_beauty",@"smoothing",@"whitening", @"sharpen"
+#define TuSkipBeautySkinKeys @"smoothing",@"whitening", @"sharpen", @"ruddy"
+// 美型（微整形）滤镜参数名称
+#define kBeautyFaceKeys @"eyeSize",@"chinSize",@"noseSize",@"mouthWidth",@"lips", @"archEyebrow", @"browPosition", @"jawSize",@"eyeAngle" ,@"eyeDis",  @"forehead"
+// 美型（微整形）滤镜参数名称 - 3.6.1
+#define kBeautyFaceKeyCodes @"eyeSize", @"chinSize", @"cheekNarrow", @"smallFace", @"noseSize", @"noseHeight", @"mouthWidth", @"lips", @"philterum", @"archEyebrow", @"browPosition", @"jawSize", @"cheekLowBoneNarrow", @"eyeAngle", @"eyeInnerConer", @"eyeOuterConer", @"eyeDis", @"eyeHeight", @"forehead", @"cheekBoneNarrow"
+
 
 /**
  是否为漫画滤镜
@@ -95,3 +103,23 @@ lsqRGBA(100, 253, 253, 0.7),\
 lsqRGBA(252, 231, 123, 0.7),\
 lsqRGBA(255, 145, 91, 0.7),\
 lsqRGBA(255, 203, 91, 0.7)]
+
+
+// 转场特效
+#define kTransitionTypesArray @[@(0),@(1),@(2),@(3),@(4),@(5),@(6),@(7),@(8),@(9),@(10),@(11),@(12)]
+
+#define kTransitionEffectColorArray @[\
+lsqRGBA(250, 118, 82, 0.7),\
+lsqRGBA(244, 161, 26, 0.7),\
+lsqRGBA(255, 253, 80, 0.7),\
+lsqRGBA(91, 242, 84, 0.7), \
+lsqRGBA(22, 206, 252, 0.7), \
+lsqRGBA(110, 160, 242, 0.7), \
+lsqRGBA(110, 160, 17, 0.7), \
+lsqRGBA(255, 155, 224, 0.7), \
+lsqRGBA(110, 17, 242, 0.7),\
+lsqRGBA(255, 145, 91, 0.7),\
+lsqRGBA(252, 231, 123, 0.7),\
+lsqRGBA(100, 253, 253, 0.7),\
+lsqRGBA(255, 203, 91, 0.7)]
+

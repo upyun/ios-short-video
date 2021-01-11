@@ -15,8 +15,9 @@
 /**
  *  人像信息 (百分比)
  */
-@interface TuSDKTSFaceFeature : NSObject
+@interface TuSDKTSFaceFeature:NSObject
 @property (nonatomic) CGRect bounds;
+@property (nonatomic) CGFloat frameRatio;
 @property (nonatomic) BOOL hasLeftEyePosition;
 @property (nonatomic) CGPoint leftEyePosition;
 @property (nonatomic) BOOL hasRightEyePosition;
@@ -91,9 +92,9 @@
 
 /**
  Get real orientation without mirror
- 
- @param rotation
- @return
+
+ @param rotation rotation
+ @return return value description
  */
 + (int)getOriByGPURotation:(LSQGPUImageRotationMode)rotation;
 @end

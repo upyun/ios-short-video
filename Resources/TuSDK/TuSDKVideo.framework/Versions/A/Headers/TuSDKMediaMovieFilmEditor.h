@@ -123,11 +123,9 @@
  */
 - (void)removeMediaPacketEffect:(id<TuSDKMediaPacketEffect> _Nonnull)mediaEffect;
 
+
 /**
  移除特效
- 
- @param mediaEffect 特效信息
- 
  @since v3.0.1
  */
 - (void)removeAllMediaPacketEffect;

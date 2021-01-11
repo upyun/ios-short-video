@@ -11,15 +11,13 @@
 #import "TuSDKVideoImport.h"
 #import "TuSDKLiveVideoCamera.h"
 #import "TuSDKRecordVideoCamera.h"
-#import "TuSDKLiveVideoProcessor.h"
-#import "TuSDKLiveRTCProcessor.h"
 #import "TuSDKVideoFocusTouchView.h"
 #import "TuSDKFilterConfigProtocol.h"
 #import "TuSDKFilterConfigViewBase.h"
 #import "TuSDKVideoResult.h"
 #import "TuSDKAudioResult.h"
 #import "TuSDKMoiveFragment.h"
-#import "TuSDK2DTextFilterWrap.h"
+#import "TuSDK2DImageFilterWrap.h"
 
 
 // 视频渲染特效
@@ -32,8 +30,11 @@
 #import "TuSDKMediaFilterEffect.h"
 #import "TuSDKMediaComicEffect.h"
 #import "TuSDKMediaPlasticFaceEffect.h"
+#import "TuSDKMediaCosmeticEffect.h"
 #import "TuSDKMediaSkinFaceEffect.h"
 #import "TuSDKMediaMonsterFaceEffect.h"
+#import "TuSDKMediaScreenKeyingEffect.h"
+#import "TuSDKMediaStickerImageEffect.h"
 
 // 时间特效
 #import "TuSDKMediaTimeEffect.h"
@@ -48,6 +49,9 @@
 #import "TuSDKMediaPacketMirrorEffect.h"
 #import "TuSDKMediaPacketStoryEffect.h"
 #import "TuSDKMediaPacketSpeedEffect.h"
+
+// 转场特效
+#import "TuSDKMediaTransitionEffect.h"
 
 // API
 #import "TuSDKFilterProcessor.h"
@@ -68,6 +72,7 @@
 #import "TuSDKTSAudioRecorder.h"
 #import "TuSDKTSMovieCompresser.h"
 #import "TuSDKVideoImageExtractor.h"
+#import "TuSDKVideoFileWriter.h"
 
 #import "TuSDKMediaAssetInfo.h"
 #import "TuSDKMediaTimelineSlice.h"
@@ -88,9 +93,27 @@
 #import "TuSDKMediaAudioRecorder.h"
 #import "TuSDKMediaAssetAudioRecorder.h"
 
+// 图片视频合成API
+#import "TuSDKMediaVideoTrackComposition.h"
+#import "TuSDKMediaImageComposition.h"
+#import "TuSDKMediaMutableVideoComposition.h"
+
+#import "TuSDKMediaAudioTrackComposition.h"
+#import "TuSDKMediaMutableAudioComposition.h"
+#import "TuSDKMediaAudioMuteComposition.h"
+
+#import "TuSDKMediaMovieCompositionComposer.h"
+
+#import "TuSDKGPUVideoPixelBufferForTexture.h"
+#import "TuSDKAssetVideoTrackPixelBufferOutput.h"
+#import "TuSDKMediaAssetExtractor.h"
+#import "TuSDKFileWriter.h"
+#import "TuSDKAsyncEncodecBridge.h"
 
 /** Video版本号 */
 extern NSString * const lsqVideoVersion;
+/** Video打包时间 */
+extern NSString * const lsqVideoPackingTime;
 
 @interface TuSDKVideo : NSObject
 

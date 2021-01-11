@@ -18,7 +18,23 @@ extern NSString *const kTuVideoGPUImageColorSwizzlingFragmentShaderString;
     
     LSQGPUImageRotationMode _inputRotation;
     
+    
+    
     @protected
+    
+    // 输入尺寸
+    CGSize inputImageSize;
+    
+    TuSDKStickerImage *mStickerImage;
+
+    SLGLProgram *colorSwizzlingProgram;
+    GLint colorSwizzlingPositionAttribute, colorSwizzlingTextureCoordinateAttribute;
+    GLint colorSwizzlingInputTextureUniform;
+    
+    GLfloat cropTextureCoordinates[8];
+    
+    // 输出顶点坐标
+    GLfloat waterMarkVertexCoordinates[8];
     
     GLuint movieFramebuffer, movieRenderbuffer;
     
@@ -58,6 +74,11 @@ extern NSString *const kTuVideoGPUImageColorSwizzlingFragmentShaderString;
  *  输出尺寸
  */
 @property (nonatomic) CGSize outputSize;
+
+/**
+ *  裁剪区域
+ */
+@property(readwrite, nonatomic) CGRect cropRegion;
 
 /**
  *  输出区域
@@ -103,6 +124,7 @@ extern NSString *const kTuVideoGPUImageColorSwizzlingFragmentShaderString;
 
 - (void)createDataFBO;
 
+- (void)renderWaterMark;
 
 #pragma mark - Recording
 /**
@@ -119,4 +141,7 @@ extern NSString *const kTuVideoGPUImageColorSwizzlingFragmentShaderString;
  *  终止录制
  */
 - (void)cancelRecording;
+
+// 更新位置
+- (void)updateCropRegion:(CGSize)inputSize;
 @end

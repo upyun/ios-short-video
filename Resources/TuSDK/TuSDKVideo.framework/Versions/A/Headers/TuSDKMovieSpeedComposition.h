@@ -59,6 +59,8 @@ typedef NS_ENUM(NSInteger,lsqMovieSpeedCompositionStatus)
 - (void)onMovieSpeedComposition:(TuSDKMovieSpeedComposition *)composition statusChanged:(lsqMovieSpeedCompositionStatus)status;
 // 结果通知代理
 - (void)onMovieSpeedComposition:(TuSDKMovieSpeedComposition *)composition result:(TuSDKVideoResult *)result;
+// 视频处理进度通知代理
+- (void)onMovieSpeedComposition:(TuSDKMovieSpeedComposition *)composition progress:(CGFloat)progress;
 
 @end
 
@@ -101,7 +103,7 @@ typedef NS_ENUM(NSInteger,lsqMovieSpeedCompositionStatus)
  *
  * @param handler 完成回调处理
  */
-- (void)startCompositionWithCompletionHandler:(void (^)(NSString* outputFilePath, lsqMovieSpeedCompositionStatus status))handler;
+- (void)startCompositionWithCompletionHandler:(void (^)(NSString* outputFilePath, CGFloat progress, lsqMovieSpeedCompositionStatus status))handler;
 
 /**
  * 取消操作
@@ -111,7 +113,7 @@ typedef NS_ENUM(NSInteger,lsqMovieSpeedCompositionStatus)
 /**
  * 开始裁剪音频
  */
-- (void)startAudioCompositionWithCompletionHandler:(void (^)(NSString* outputFilePath, lsqMovieSpeedCompositionStatus status))handler;
+- (void)startAudioCompositionWithCompletionHandler:(void (^)(NSString* outputFilePath, CGFloat progress, lsqMovieSpeedCompositionStatus status))handler;
 @end
 
 

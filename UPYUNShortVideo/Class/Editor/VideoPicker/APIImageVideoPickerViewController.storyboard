@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="YdM-iC-qGd">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Image Video Picker View Controller-->
+        <scene sceneID="L2m-4N-afv">
+            <objects>
+                <viewController storyboardIdentifier="APIImageVideoPickerViewController" id="YdM-iC-qGd" customClass="APIImageVideoPickerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="caI-gA-eBY"/>
+                        <viewControllerLayoutGuide type="bottom" id="64m-TP-HaX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="E7w-hA-cYx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="caN-UM-sZf" customClass="PageTabbar">
+                                <rect key="frame" x="0.0" y="64" width="375" height="35"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="dT2-25-zlG"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yzl-5S-qbU">
+                                <rect key="frame" x="0.0" y="104" width="375" height="563"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="caN-UM-sZf" secondAttribute="trailing" id="6eM-rX-nDC"/>
+                            <constraint firstAttribute="trailing" secondItem="yzl-5S-qbU" secondAttribute="trailing" id="EOR-SH-SX9"/>
+                            <constraint firstItem="caN-UM-sZf" firstAttribute="leading" secondItem="E7w-hA-cYx" secondAttribute="leading" id="Jua-VT-ISQ"/>
+                            <constraint firstItem="caN-UM-sZf" firstAttribute="top" secondItem="caI-gA-eBY" secondAttribute="bottom" constant="64" id="KMu-2c-vfm"/>
+                            <constraint firstItem="yzl-5S-qbU" firstAttribute="leading" secondItem="E7w-hA-cYx" secondAttribute="leading" id="UaN-Nl-1iZ"/>
+                            <constraint firstItem="64m-TP-HaX" firstAttribute="top" secondItem="yzl-5S-qbU" secondAttribute="bottom" id="sDg-eA-rub"/>
+                            <constraint firstItem="yzl-5S-qbU" firstAttribute="top" secondItem="caN-UM-sZf" secondAttribute="bottom" constant="5" id="vfv-2Y-bVf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="contentView" destination="yzl-5S-qbU" id="xoC-xS-Pre"/>
+                        <outlet property="pageBar" destination="caN-UM-sZf" id="BGu-vi-g4t"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bhp-yh-CDa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="81" y="147"/>
+        </scene>
+    </scenes>
+</document>

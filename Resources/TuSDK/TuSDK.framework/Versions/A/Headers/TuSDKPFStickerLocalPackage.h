@@ -53,6 +53,14 @@
 
 /**
  *  本地贴纸包
+ *  用于swift包装
+ *  swift只认可的关键字 default、singleton、shared 为前缀声明的初始化单例方法名
+ *  @return 本地贴纸包
+ */
++ (instancetype)sharedPackage;
+
+/**
+ *  本地贴纸包
  *
  *  @param config Sdk配置
  *

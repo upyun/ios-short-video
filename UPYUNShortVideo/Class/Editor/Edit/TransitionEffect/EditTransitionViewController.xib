@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditTransitionViewController">
+            <connections>
+                <outlet property="effectListView" destination="gvz-FG-yde" id="VN9-YG-uaE"/>
+                <outlet property="playButton" destination="hjU-9E-G5j" id="kFy-yC-OiZ"/>
+                <outlet property="trimmerView" destination="U3O-UY-vrS" id="USt-xO-yT8"/>
+                <outlet property="undoButton" destination="dvT-qA-qIy" id="BZo-yG-S9R"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U3O-UY-vrS" customClass="ScrollVideoTrimmerView">
+                    <rect key="frame" x="76" y="495" width="299" height="32"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="FOf-hJ-yrY"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="uTF-2u-nuM"/>
+                    </connections>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hjU-9E-G5j">
+                    <rect key="frame" x="0.0" y="495" width="76" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="76" id="ESz-y9-APr"/>
+                        <constraint firstAttribute="height" constant="32" id="s0S-pZ-JUS"/>
+                    </constraints>
+                    <state key="normal" image="edit_ic_play"/>
+                    <state key="selected" image="edit_ic_pause"/>
+                    <connections>
+                        <action selector="play:" destination="-1" eventType="touchUpInside" id="Pmg-Tk-Dll"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6S-oG-1zE">
+                    <rect key="frame" x="0.0" y="535" width="76" height="92"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvT-qA-qIy">
+                            <rect key="frame" x="18" y="26" width="40" height="40"/>
+                            <state key="normal" image="edit_ic_undo"/>
+                            <connections>
+                                <action selector="undo:" destination="-1" eventType="touchUpInside" id="5Z1-cc-I7E"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="76" id="4CK-3i-N3f"/>
+                        <constraint firstItem="dvT-qA-qIy" firstAttribute="centerX" secondItem="a6S-oG-1zE" secondAttribute="centerX" id="IJx-ub-24i"/>
+                        <constraint firstItem="dvT-qA-qIy" firstAttribute="centerY" secondItem="a6S-oG-1zE" secondAttribute="centerY" id="pvW-Sj-e8S"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gvz-FG-yde" customClass="TransitionEffectListView">
+                    <rect key="frame" x="76" y="535" width="299" height="92"/>
+                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="92" id="fhN-ts-S47"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="2Iw-Kc-1jN"/>
+                    </connections>
+                </view>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <constraints>
+                <constraint firstAttribute="bottomMargin" secondItem="gvz-FG-yde" secondAttribute="bottom" constant="40" id="3Ty-fH-ZET"/>
+                <constraint firstItem="a6S-oG-1zE" firstAttribute="top" secondItem="U3O-UY-vrS" secondAttribute="bottom" constant="8" id="GSi-T8-8Q2"/>
+                <constraint firstItem="a6S-oG-1zE" firstAttribute="bottom" secondItem="gvz-FG-yde" secondAttribute="bottom" id="GoE-9k-OI7"/>
+                <constraint firstItem="U3O-UY-vrS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="76" id="V78-SY-fkE"/>
+                <constraint firstAttribute="trailing" secondItem="gvz-FG-yde" secondAttribute="trailing" id="Vew-A7-3of"/>
+                <constraint firstItem="hjU-9E-G5j" firstAttribute="top" secondItem="U3O-UY-vrS" secondAttribute="top" id="bvr-yN-jhc"/>
+                <constraint firstItem="a6S-oG-1zE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cPq-6P-g7E"/>
+                <constraint firstAttribute="trailing" secondItem="U3O-UY-vrS" secondAttribute="trailing" id="ehb-eL-6zV"/>
+                <constraint firstItem="gvz-FG-yde" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="76" id="gez-2s-IUa"/>
+                <constraint firstItem="a6S-oG-1zE" firstAttribute="top" secondItem="gvz-FG-yde" secondAttribute="top" id="jNG-yn-g6E"/>
+                <constraint firstItem="hjU-9E-G5j" firstAttribute="bottom" secondItem="U3O-UY-vrS" secondAttribute="bottom" id="tJ8-i2-wYD"/>
+                <constraint firstItem="hjU-9E-G5j" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="wYU-KX-fpO"/>
+            </constraints>
+            <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="edit_ic_pause" width="36" height="36"/>
+        <image name="edit_ic_play" width="36" height="36"/>
+        <image name="edit_ic_undo" width="40" height="40"/>
+    </resources>
+</document>

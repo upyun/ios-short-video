@@ -1,0 +1,761 @@
+{
+    "lipstick" : {
+        "categoryName" : "口红",
+        "stickers" : [
+            {
+                "name" : "lipStick_1",
+                "id" : ""
+            },
+            {
+                "name" : "lipStick_2",
+                "id" : ""
+            },
+            {
+                "name" : "lipStick_3",
+                "id" : ""
+            },
+            {
+                "name" : "lipStick_4",
+                "id" : ""
+            },
+            {
+                "name" : "lipStick_5",
+                "id" : ""
+            },
+            {
+                "name" : "lipStick_6",
+                "id" : ""
+            },
+            {
+                "name" : "lipStick_7",
+                "id" : ""
+            },
+            {
+                "name" : "lipStick_8",
+                "id" : ""
+            },
+            {
+                "name" : "lipStick_9",
+                "id" : ""
+            },
+            {
+                "name" : "lipStick_10",
+                "id" : ""
+            },
+            {
+                "name" : "lipStick_11",
+                "id" : ""
+            },
+            {
+                "name" : "lipStick_12",
+                "id" : ""
+            },
+            {
+                "name" : "lipStick_13",
+                "id" : ""
+            }
+        ]
+    },
+    "blush" : {
+        "categoryName" : "腮红",
+        "stickers" : [
+            {
+                "name" : "blush_A_01",
+                "id" : "2024"
+            },
+            {
+                "name" : "blush_B_01",
+                "id" : "2025"
+            },
+            {
+                "name" : "blush_C_01",
+                "id" : "2026"
+            },
+            {
+                "name" : "blush_D_01",
+                "id" : "2027"
+            },
+            {
+                "name" : "blush_E_01",
+                "id" : "2028"
+            },
+            {
+                "name" : "blush_F_01",
+                "id" : "2029"
+            },
+            {
+                "name" : "blush_G_01",
+                "id" : "2030"
+            },
+            {
+                "name" : "blush_H_01",
+                "id" : "2031"
+            },
+            {
+                "name" : "blush_I_01",
+                "id" : "2033"
+            },
+            {
+                "name" : "blush_J_01",
+                "id" : "2034"
+            },
+            {
+                "name" : "blush_K_01",
+                "id" : "2035"
+            },
+            {
+                "name" : "blush_L_01",
+                "id" : "2036"
+            },
+            {
+                "name" : "blush_M_01",
+                "id" : "2037"
+            },
+            {
+                "name" : "blush_N_01",
+                "id" : "2039"
+            },
+            {
+                "name" : "blush_O_01",
+                "id" : "2041"
+            },
+            {
+                "name" : "blush_P_01",
+                "id" : "2043"
+            }
+        ]
+    },
+	"eyebrow-Fog" : {
+		"categoryName" : "眉毛",
+		"stickers" : [
+			{
+				"name" : "标准黑a",
+				"id" : "1863"
+			},
+			{
+				"name" : "标准灰a",
+				"id" : "1865"
+			},
+			{
+				"name" : "标准棕a",
+				"id" : "1864"
+			},
+			{
+				"name" : "柳弯黑a",
+				"id" : "1869"
+			},
+			{
+				"name" : "柳弯灰a",
+				"id" : "1871"
+			},
+			{
+				"name" : "柳弯棕a",
+				"id" : "1870"
+			},
+			{
+				"name" : "叶细黑a",
+				"id" : "1875"
+			},
+			{
+				"name" : "叶细灰a",
+				"id" : "1877"
+			},
+			{
+				"name" : "叶细棕a",
+				"id" : "1876"
+			},
+			{
+				"name" : "峰眉黑a",
+				"id" : "1881"
+			},
+			{
+				"name" : "峰眉灰a",
+				"id" : "1889"
+			},
+			{
+				"name" : "峰眉棕a",
+				"id" : "1888"
+			},
+			{
+				"name" : "粗平黑a",
+				"id" : "1887"
+			},
+			{
+				"name" : "粗平灰a",
+				"id" : "1889"
+			},
+			{
+				"name" : "粗平棕a",
+				"id" : "1888"
+			},
+			{
+				"name" : "弯线黑a",
+				"id" : "1893"
+			},
+			{
+				"name" : "弯线灰a",
+				"id" : "1895"
+			},
+			{
+				"name" : "弯线棕a",
+				"id" : "1894"
+			},
+			{
+				"name" : "芭比黑a",
+				"id" : "1899"
+			},
+            {
+                "name" : "芭比灰a",
+                "id" : "1901"
+            },
+            {
+                "name" : "芭比棕a",
+                "id" : "1900"
+            },
+            {
+                "name" : "小桃黑a",
+                "id" : "1905"
+            },
+            {
+                "name" : "小桃灰a",
+                "id" : "1907"
+            },
+            {
+                "name" : "小桃棕a",
+                "id" : "1906"
+            },
+            {
+                "name" : "新月黑a",
+                "id" : "1911"
+            },
+            {
+                "name" : "新月灰a",
+                "id" : "1913"
+            },
+            {
+                "name" : "新月棕a",
+                "id" : "1912"
+            },
+            {
+                "name" : "断眉黑a",
+                "id" : "1917"
+            },
+            {
+                "name" : "断眉灰a",
+                "id" : "1919"
+            },
+            {
+                "name" : "断眉棕a",
+                "id" : "1918"
+            },
+            {
+                "name" : "野生黑a",
+                "id" : "1923"
+            },
+            {
+                "name" : "野生灰a",
+                "id" : "1925"
+            },
+            {
+                "name" : "野生棕a",
+                "id" : "1924"
+            },
+            {
+                "name" : "欧线黑a",
+                "id" : "1929"
+            },
+            {
+                "name" : "欧线灰a",
+                "id" : "1931"
+            },
+            {
+                "name" : "欧线棕a",
+                "id" : "1930"
+            },
+            {
+                "name" : "圆眉黑a",
+                "id" : "1935"
+            },
+            {
+                "name" : "圆眉灰a",
+                "id" : "1937"
+            },
+            {
+                "name" : "圆眉棕a",
+                "id" : "1936"
+            },
+            {
+                "name" : "延禧黑a",
+                "id" : "1941"
+            },
+            {
+                "name" : "延禧灰a",
+                "id" : "1943"
+            },
+            {
+                "name" : "延禧棕a",
+                "id" : "1942"
+            }
+		]
+	},
+    "eyebrow-Fogen" : {
+        "categoryName" : "眉毛",
+        "stickers" : [
+            {
+                "name" : "标准黑b",
+                "id" : "1866"
+            },
+            {
+                "name" : "标准灰b",
+                "id" : "1868"
+            },
+            {
+                "name" : "标准棕b",
+                "id" : "1867"
+            },
+            {
+                "name" : "柳弯黑b",
+                "id" : "1872"
+            },
+            {
+                "name" : "柳弯灰b",
+                "id" : "1874"
+            },
+            {
+                "name" : "柳弯棕b",
+                "id" : "1873"
+            },
+            {
+                "name" : "叶细黑b",
+                "id" : "1878"
+            },
+            {
+                "name" : "叶细灰b",
+                "id" : "1880"
+            },
+            {
+                "name" : "叶细棕b",
+                "id" : "1879"
+            },
+            {
+                "name" : "峰眉黑b",
+                "id" : "1884"
+            },
+            {
+                "name" : "峰眉灰b",
+                "id" : "1886"
+            },
+            {
+                "name" : "峰眉棕b",
+                "id" : "1891"
+            },
+            {
+                "name" : "粗平黑b",
+                "id" : "1890"
+            },
+            {
+                "name" : "粗平灰b",
+                "id" : "1892"
+            },
+            {
+                "name" : "粗平棕b",
+                "id" : "1891"
+            },
+            {
+                "name" : "弯线黑b",
+                "id" : "1896"
+            },
+            {
+                "name" : "弯线灰b",
+                "id" : "1898"
+            },
+            {
+                "name" : "弯线棕b",
+                "id" : "1897"
+            },
+            {
+                "name" : "芭比黑b",
+                "id" : "1902"
+            },
+            {
+                "name" : "芭比灰b",
+                "id" : "1904"
+            },
+            {
+                "name" : "芭比棕b",
+                "id" : "1903"
+            },
+            {
+                "name" : "小桃黑b",
+                "id" : "1908"
+            },
+            {
+                "name" : "小桃灰b",
+                "id" : "1916"
+            },
+            {
+                "name" : "小桃棕b",
+                "id" : "1915"
+            },
+            {
+                "name" : "新月黑b",
+                "id" : "1914"
+            },
+            {
+                "name" : "新月灰b",
+                "id" : "1916"
+            },
+            {
+                "name" : "新月棕b",
+                "id" : "1915"
+            },
+            {
+                "name" : "断眉黑b",
+                "id" : "1920"
+            },
+            {
+                "name" : "断眉灰b",
+                "id" : "1922"
+            },
+            {
+                "name" : "断眉棕b",
+                "id" : "1921"
+            },
+            {
+                "name" : "野生黑b",
+                "id" : "1926"
+            },
+            {
+                "name" : "野生灰b",
+                "id" : "1928"
+            },
+            {
+                "name" : "野生棕b",
+                "id" : "1927"
+            },
+            {
+                "name" : "欧线黑b",
+                "id" : "1932"
+            },
+            {
+                "name" : "欧线灰b",
+                "id" : "1934"
+            },
+            {
+                "name" : "欧线棕b",
+                "id" : "1933"
+            },
+            {
+                "name" : "圆眉黑b",
+                "id" : "1938"
+            },
+            {
+                "name" : "圆眉灰b",
+                "id" : "1940"
+            },
+            {
+                "name" : "圆眉棕b",
+                "id" : "1939"
+            },
+            {
+                "name" : "延禧黑b",
+                "id" : "1944"
+            },
+            {
+                "name" : "延禧灰b",
+                "id" : "1946"
+            },
+            {
+                "name" : "延禧棕b",
+                "id" : "1945"
+            }
+        ]
+    },
+    "eyeshadow" : {
+        "categoryName" : "眼影",
+        "stickers" : [
+            {
+                "name" : "Shadow_A",
+                "id" : "1947"
+            },
+            {
+                "name" : "Shadow_B",
+                "id" : "1948"
+            },
+            {
+                "name" : "Shadow_C",
+                "id" : "1949"
+            },
+            {
+                "name" : "Shadow_D",
+                "id" : "1950"
+            },
+            {
+                "name" : "Shadow_E",
+                "id" : "1951"
+            },
+            {
+                "name" : "Shadow_F",
+                "id" : "1952"
+            },
+            {
+                "name" : "Shadow_G",
+                "id" : "1953"
+            },
+            {
+                "name" : "Shadow_H",
+                "id" : "1954"
+            },
+            {
+                "name" : "Shadow_I",
+                "id" : "1955"
+            },
+            {
+                "name" : "Shadow_J",
+                "id" : "1956"
+            },
+            {
+                "name" : "Shadow_K",
+                "id" : "1957"
+            },
+            {
+                "name" : "Shadow_L",
+                "id" : "1958"
+            },
+            {
+                "name" : "Shadow_M",
+                "id" : "1959"
+            },
+            {
+                "name" : "Shadow_N",
+                "id" : "1960"
+            },
+            {
+                "name" : "Shadow_O",
+                "id" : "1961"
+            },
+            {
+                "name" : "Shadow_P",
+                "id" : "1962"
+            },
+            {
+                "name" : "Shadow_Q",
+                "id" : "1963"
+            },
+            {
+                "name" : "Shadow_R",
+                "id" : "1964"
+            },
+            {
+                "name" : "Shadow_S",
+                "id" : "1965"
+            },
+            {
+                "name" : "Shadow_T",
+                "id" : "1966"
+            },
+            {
+                "name" : "Shadow_U",
+                "id" : "1967"
+            },
+            {
+                "name" : "Shadow_V",
+                "id" : "1968"
+            },
+            {
+                "name" : "Shadow_W",
+                "id" : "1969"
+            }
+        ]
+    },
+    "eyeliner" : {
+        "categoryName" : "眼线",
+        "stickers" : [
+            {
+                "name" : "line_A",
+                "id" : "1974"
+            },
+            {
+                "name" : "line_B",
+                "id" : "1975"
+            },
+            {
+                "name" : "line_C",
+                "id" : "1976"
+            },
+            {
+                "name" : "line_D",
+                "id" : "1977"
+            },
+            {
+                "name" : "line_E",
+                "id" : "1978"
+            },
+            {
+                "name" : "line_F",
+                "id" : "1979"
+            },
+            {
+                "name" : "line_G",
+                "id" : "1980"
+            },
+            {
+                "name" : "line_H",
+                "id" : "1981"
+            },
+            {
+                "name" : "line_I",
+                "id" : "1982"
+            },
+            {
+                "name" : "line_J",
+                "id" : "1983"
+            },
+            {
+                "name" : "line_K",
+                "id" : "1984"
+            },
+            {
+                "name" : "line_L",
+                "id" : "1985"
+            },
+            {
+                "name" : "line_M",
+                "id" : "1986"
+            },
+            {
+                "name" : "line_N",
+                "id" : "1987"
+            },
+            {
+                "name" : "line_O",
+                "id" : "1988"
+            },
+            {
+                "name" : "line_P",
+                "id" : "1989"
+            }
+        ]
+    },
+    "eyelash" : {
+        "categoryName" : "睫毛",
+        "stickers" : [
+            {
+                "name" : "eyelash_A",
+                "id" : "1990"
+            },
+            {
+                "name" : "eyelash_B",
+                "id" : "1991"
+            },
+            {
+                "name" : "eyelash_C",
+                "id" : "1992"
+            },
+            {
+                "name" : "eyelash_D",
+                "id" : "1993"
+            },
+            {
+                "name" : "eyelash_E",
+                "id" : "1994"
+            },
+            {
+                "name" : "eyelash_F",
+                "id" : "1995"
+            },
+            {
+                "name" : "eyelash_G",
+                "id" : "1996"
+            },
+            {
+                "name" : "eyelash_H",
+                "id" : "1997"
+            },
+            {
+                "name" : "eyelash_I",
+                "id" : "1998"
+            },
+            {
+                "name" : "eyelash_J",
+                "id" : "1999"
+            },
+            {
+                "name" : "eyelash_K",
+                "id" : "2000"
+            },
+            {
+                "name" : "eyelash_L",
+                "id" : "2001"
+            },
+            {
+                "name" : "eyelash_M",
+                "id" : "2002"
+            },
+            {
+                "name" : "eyelash_N",
+                "id" : "2003"
+            },
+            {
+                "name" : "eyelash_O",
+                "id" : "2004"
+            },
+            {
+                "name" : "eyelash_P",
+                "id" : "2005"
+            },
+            {
+                "name" : "eyelash_Q",
+                "id" : "2006"
+            },
+            {
+                "name" : "eyelash_R",
+                "id" : "2007"
+            },
+            {
+                "name" : "eyelash_S",
+                "id" : "2008"
+            },
+            {
+                "name" : "eyelash_T",
+                "id" : "2009"
+            },
+            {
+                "name" : "eyelash_U",
+                "id" : "2010"
+            },
+            {
+                "name" : "eyelash_V",
+                "id" : "2011"
+            },
+            {
+                "name" : "eyelash_W",
+                "id" : "2012"
+            },
+            {
+                "name" : "eyelash_X",
+                "id" : "2013"
+            },
+            {
+                "name" : "eyelash_Y",
+                "id" : "2014"
+            },
+            {
+                "name" : "eyelash_Z",
+                "id" : "2015"
+            },
+            {
+                "name" : "eyelash_Za",
+                "id" : "2016"
+            },
+            {
+                "name" : "eyelash_Zb",
+                "id" : "2017"
+            },
+            {
+                "name" : "eyelash_Zc",
+                "id" : "2018"
+            }
+        ]
+    }
+}

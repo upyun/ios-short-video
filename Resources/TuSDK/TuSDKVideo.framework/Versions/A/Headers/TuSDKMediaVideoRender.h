@@ -37,7 +37,7 @@
 /**
  请求渲染视频数据
 
- @param sampleBuffer  解码视频数据
+ @param pixelBufferRef  解码视频数据
  @param outputTime    输出视频时间
  @param shouldRelease SDK 是否负责释放处理后的 pixelBufferRef 默认： NO
 

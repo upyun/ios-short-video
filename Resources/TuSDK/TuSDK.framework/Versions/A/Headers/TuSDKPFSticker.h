@@ -38,6 +38,21 @@ typedef NS_ENUM(NSUInteger, lsqStickerPositionType)
     /** 唇膏*/
     lsqStickerPosLip = 9,
     
+    /** 眼影 (v4.0)*/
+    CosEyeShadow = 31,
+    /** 眼线 (v4.0)*/
+    CosEyeLine = 32,
+    /** 睫毛 (v4.0)*/
+    CosEyeLash = 33,
+    /** 画眉 (v4.0)*/
+    CosBrows = 34,
+    /** 腮红 (v4.0)*/
+    CosBlush = 35,
+    /** 唇彩 (v4.0)*/
+    CosLipGloss = 36,
+    /** 虹膜 (v4.0)*/
+    CosIris = 37,
+    
     /** 全屏显示*/
     lsqStickerPosFullScreen = 100,
     
@@ -154,6 +169,8 @@ typedef NS_ENUM(NSInteger, lsqStickerType)
     lsqStickerText = 2,
     /** 智能贴纸*/
     lsqStickerDynamic = 3,
+    /** 美妆贴纸*/
+    lsqStickerCosmetic =4,
 };
 
 /** 贴纸数据对象*/

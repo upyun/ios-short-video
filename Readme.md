@@ -40,7 +40,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
 * TuSDK 文件夹
 * `UPLiveSDK.framework`  注: __播放器,不需要可不添加__ 
 * `UpYunSDK 文件夹` 注: __上传视频必需__ 
-* `GPUImage.framework`
+* `GPUImage.framework` 注: __播放器所需, 不需要播放器可不添加__ 
 * `libyuv.framework` 
 * `TuSDK.framework`
 * `TuSDKVideo.framework`
@@ -49,18 +49,17 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
 * ` TuSDK.strings` 为 SDK 中使用的语言文件。
 * ` Localizable.strings` 为 demo 展示项目的语言文件。
 * `TuSDK.bundle` 为项目资源文件，包含滤镜，动态贴纸等文件。
+* AVSamples 文件夹 `Mp3` 文件为 `demo` 中 `「MV」` 和`「配音」`中使用到的音频文件，**可自定义更换**。
 
 2、勾选 **Copy items if needed**，点击 **Finish**。
 
 3、打开项目 app target，查看 **Build Settings** 中 **Linking** - **Other Linker Flags** 选项，确保含有 `-ObjC`，若没有则添加。用户使用 Cocoapod 进行第三方依赖库管理，需要在 `-ObjC` 前添加 `$(inherited)`。目前短视频 SDK 暂不支持 Cocoapod。
 
-4、在项目的 app target 中，查看 **Build Phases** 中的 **Linking** - **Link Binary With Libraries** 选项中，手动添加 `Photos.framework`，并将 Photos.framework 的 Status 设置成 `Optional`。
+4、在项目的 app target 中，查看 **Build Phases** 中的 **Linking** - **Link Binary With Libraries** 选项中，手动添加 `Photos.framework`，并将 Photos.framework 的 Status 设置成 `Optional`, 手动添加 `Accelerate.framework`, `libresolv.tbd`。
 
-5、在项目的 app target 中，查看 **Build Phases** 中的 **Linking** - **Link Binary With Libraries** 选项中，手动添加 `Accelerate.framework`。
+5、用户联系 `UPYUN` 服务支持, 需要的滤镜资源。资源文件中包含 `others` ， `textures`和`stickers` 需要将这些文件夹替换到 TuSDK.bundle 中对应位置。
 
-6、用户联系 `UPYUN` 服务支持, 需要的滤镜资源。资源文件中包含 `others` ， `textures`和`stickers` 需要将这些文件夹替换到 TuSDK.bundle 中对应位置。
-
-7、用户可以在 `TuSDKVideoDemo/Resources` 文件中找到 TuSDK.bundle 文件。文件中包含 `others` ，`textures`，`stickers`和`ui_default` 这些文件夹。用户需要替换 `others/lsq_tusdk_configs.json` 文件 `textures`和`stickers`整个文件夹。
+6、用户可以在 `TuSDKVideoDemo/Resources` 文件中找到 TuSDK.bundle 文件。文件中包含 `others` ，`textures`，`stickers`和`ui_default` 这些文件夹。用户需要替换 `others/lsq_tusdk_configs.json` 文件 `textures`和`stickers`整个文件夹。
 
 
 #### 1.5 TuSDK 的初始化
@@ -71,7 +70,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
 
 3、为便于开发，可打开 TuSDK 的调试日志，在初始化方法的同一位置添加以下代码：`[TuSDK setLogLevel:lsqLogLevelDEBUG];`发布应用时请关闭日志。
 
-  
+
     - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         // 初始化SDK (请前往 联系UPYUN 获取您的 APP 开发密钥)
         [TuSDK initSdkWithAppKey:@"828d700d182dd469-04-ewdjn1"];
@@ -82,10 +81,10 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         // 开发时请打开调试日志输出
         [TuSDK setLogLevel:lsqLogLevelDEBUG];
     }
-  
+
 4、添加位置权限，在 `viewDidLoad` 协议方法中添加以下代码，并在项目的 `Info.plist` 文件中加入获取位置信息字段。例如：
 
-  
+
     - (void)viewDidLoad {
         // 启动GPS
         // 不需要定位功能，可注释该代码,即不再申请定位权限
@@ -93,9 +92,10 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
     }
 
   
+
 5、检查滤镜管理器的初始化，在使用滤镜前的某个界面的 `viewDidLoad` 协议方法中添加以下代码，即可检查滤镜管理器的初始化是否完成。
 
-  
+
     - (void)viewDidLoad {
         // 异步方式初始化滤镜管理器 
         // 需要等待滤镜管理器初始化完成，才能使用所有功能
@@ -104,8 +104,9 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         NSLog(@"TuSDK.framework 的版本号 : %@",lsqSDKVersion);
         NSLog(@"TuSDKVideo.framework 的版本号 : %@",lsqVideoVersion);
     }
-    
-    
+
+
+​    
         #pragma mark - TuSDKFilterManagerDelegate
         /**
          * 滤镜管理器初始化完成（代理方法）
@@ -117,7 +118,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         {
             
         }
-  
+
 6、需要在 info.plist 中添加的权限字段
 
     <!-- 相册 --> 
@@ -139,7 +140,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
 ### 2.相机采集
 
 #### 2.1 创建相机对象
- 
+
         // 录制相机对象
         TuSDKRecordVideoCamera  *_camera;
 
@@ -147,7 +148,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
 
 #### 2.2 请求相机权限
 
-  
+
         // 开启访问相机权限
         [TuSDKTSDeviceSettings checkAllowWithController:self
                                                    type:lsqDeviceSettingsCamera
@@ -160,11 +161,11 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
              // 启动相机的方法
              // ...
          }];
-  
+
 
 #### 2.3 配置滤镜列表,创建事件处理队列，请求相册权限
 
-  
+
         // 滤镜列表，获取滤镜前往 TuSDK.bundle/others/lsq_tusdk_configs.json  
         // TuSDK 滤镜信息介绍 @see-https://tusdk.com/docs/ios/self-customize-filter
         _videoFilters = @[@"Normal", @"SkinSugar", @"DeepWhitening"];
@@ -181,7 +182,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
                 NSLog(@"已经获得了相册的权限");
             }
         }];
-  
+
 
 #### 2.4 配置录制相机
 
@@ -193,8 +194,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
             [self.view addSubview:_cameraView];
             [self.view insertSubview:_cameraView atIndex:0];
         }
-        
-        
+    
 * 启动相机对象 
         
         // SessionPreset :采集画面的清晰度，建议 AVCaptureSessionPresetHigh 
@@ -203,12 +203,13 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         _camera = [TuSDKRecordVideoCamera initWithSessionPreset:AVCaptureSessionPresetMedium
            cameraPosition:[AVCaptureDevice lsqFirstFrontCameraPosition]
                cameraView:_cameraView];
-               
+    
 * 设置录制文件格式(默认：lsqFileTypeQuickTimeMovie)，可输出 MP4       
          
+    
         _camera.fileType = lsqFileTypeMPEG4;
 * 输出视频的画质，影响保存视频文件的体积 (默认采用系统设置,自定义设置请参考「自定义使用5」)
- 
+
         _camera.videoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium2];        
 * 设置委托
 
@@ -233,20 +234,23 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         _camera.disableMirrorFrontFacing = NO;
 * 闪光灯模式（默认是关闭:AVCaptureFlashModeOff）
         
+    
         [_camera flashWithMode:AVCaptureFlashModeOff];
 * 相机采集帧率，默认20帧; 开启智能贴纸时，帧率建议范围：12 ~ 20;  关闭智能贴纸时，帧率建议范围：12 ~ 30
   
         _camera.frameRate = 30;
 * 不保存到相册，可在代理方法中获取 result.videoPath（默认：YES，录制完成自动保存到相册）
         
+    
         _camera.saveToAlbum = NO;
-        
+    
 * 保存到指定相册（需要将 saveToAlbum 置为 YES 后生效）
 
         _camera.saveToAlbumName = @"TuSDK";
 
 * 启用智能贴纸
         
+    
         _camera.enableFaceAutoBeauty = YES;
 * 设置图片水印，默认为空
   
@@ -271,8 +275,9 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         _camera.minAvailableSpaceBytes  = 1024.f*1024.f*50.f;        
 * 启动相机
        
-        [_camera tryStartCameraCapture];
-
+    
+    [_camera tryStartCameraCapture];
+  
 * 初始化相机时，以下几点需要注意
 * _camera.outputSize 和 _camera.videoQuality，影响保存视频的文件大小。
 * Demo 默认设置 outputSize 尺寸 CGSizeMake(640, 640)，需要设置为 16 的倍数。
@@ -297,7 +302,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
             CGRect rect = [UIScreen mainScreen].bounds;
             return CGRectMake(0, topBarHeight/rect.size.height, 1.0, (rect.size.width)/rect.size.height);
         }
-  
+
 
 #### 2.6 滤镜的使用
 
@@ -309,7 +314,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         // 滤镜列表，获取滤镜前往 TuSDK.bundle/others/lsq_tusdk_configs.json  
         // TuSDK 滤镜信息介绍 @see-https://tusdk.com/docs/ios/self-customize-filter
         _videoFilters = @[@"Normal",@"VideoFair", @"VideoWhiteSkin"];
-  
+
 
 * 初始化滤镜栏
 
@@ -343,7 +348,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
             //切换滤镜
             [_camera switchFilterWithCode:filterCode];
         }
-
+    
         // 相机调用 switchFilterWithCode 之后的回调方法
         /**
          *  相机滤镜改变 (如需操作UI线程， 请检查当前线程是否为主线程)
@@ -370,7 +375,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         _stickerView.stickerDelegate = self;
         _stickerView.backgroundColor = [UIColor whiteColor];
         [_bottomBackView addSubview:_stickerView];
-  
+
 
 * 遵守代理 StickerViewClickDelegate，实现代理方法。
 
@@ -384,7 +389,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
             //展示对应贴纸组；
             [_camera showGroupSticker:stickGroup];
         }
-  
+
 
 #### 2.8 录制完成
 
@@ -415,7 +420,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         // vc.inputURL = inputURL;
         // [self pushViewController:vc animated:YES];
     }
-  
+
 
 * `saveToAlbum`置为 YES，在录制达到最大时长或中途保存后，会自动保存到相册中。
 * `saveToAlbum`置为 NO，在录制达到最大时长或中途保存后，会通过 result.videoPath 获取到对应视频的临时文件，可进行自定义操作。
@@ -475,7 +480,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
                 // 正在保存
             }
         }
-        
+    
 ### 3.视频编辑
 
 #### 3.1 导入视频
@@ -492,7 +497,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
                 [self openMovieEditor:url];
             }];
         }
-  
+
 #### 3.2 视频裁剪功能
 
 * 裁剪功能控制器 `MoivePreviewAndCutController`
@@ -501,7 +506,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
   
         // 视频URL
         @property (nonatomic) NSURL *inputURL;
- 
+
 * 用户可以选择在完成录制之后，直接开启视频裁剪的控制器
 * 录制完成后可以获取到 `result.videoPath`,经过转换后传输给裁剪控制器
 
@@ -519,7 +524,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
             NSLog(@"get images = %@",images);
             wSelf.cutVideoView.thumbnails = images;
         }];
-        
+    
 * 裁剪控制器并未对视频本身进行裁剪，而是获取到需要裁剪的时间，以待后续处理。 
 * TuSDKVideoImageExtractor 可用于获取视频的缩略图，例如返回视频首帧画面作为展示封面。
 
@@ -533,41 +538,41 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         vc.startTime = _startTime;
         vc.endTime = _endTime;
         [self pushViewController:vc animated:true];
-            
+    
 #### 3.4 视频编辑控制器配置项
 
 * 遵守代理 `TuSDKMovieEditorDelegate`
 * 初始化视频编辑的参数设置
-    
+  
         TuSDKMovieEditorOptions *options = [TuSDKMovieEditorOptions defaultOptions];
 * 设置视频的 inoutURL 地址
-    
+  
         options.inputURL = self.inputURL;
 * 设置视频截取范围
-    
+  
         options.cutTimeRange = [TuSDKTimeRange makeTimeRangeWithStartSeconds:_startTime endSeconds:_endTime];
 * 是否按照正常速度播放
-    
+  
         options.playAtActualSpeed = YES;
 * 设置裁剪范围 注：该参数对应的值均为比例值，即：若视频展示View总高度800，此时截取时y从200开始，则cropRect的 originY = 偏移位置/总高度， 应为 0.25, 其余三个值同理
-    
+  
         options.cropRect = _cropRect;
 * 设置编码视频的画质
-    
+  
         options.encodeVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_High1];
 * 是否保留视频原音（置为 NO，视频中的原因就被去除）
-    
+  
         options.enableVideoSound = YES;
 
 * 初始化视频编辑器
 
         _movieEditor = [[TuSDKMovieEditor alloc]initWithPreview:_videoView options:options];
 * 遵守代理
-    
+  
         _movieEditor.delegate = self;
     
 * 贴纸出现的默认时间范围（1.7.0 之后已不再使用）
- 
+
         /*设置贴纸出现的默认时间范围 （开始时间~结束时间，注：基于裁剪范围，如原视频8秒，裁剪第2~第7秒的内容，此时贴纸时间范围为1~2，即原视频的第3~第4秒展示贴纸）
          */
         // _movieEditor.mvItemTimeRange = [[TuSDKMVEffectData alloc]initEffectInfoWithStart:_mvStartTime end:_mvEndTime type:lsqMVEffectDataTypeStickerAudio];
@@ -575,11 +580,11 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
 * 保存到系统相册 默认为YES
   
         _movieEditor.saveToAlbum = NO;
-        
+    
 * 保存到指定相册（需要将 saveToAlbum 置为 YES后生效）
 
         _movieEditor.saveToAlbumName = @"TuSDK";
-        
+    
 * 设置录制文件格式(默认：lsqFileTypeQuickTimeMovie)
   
         _movieEditor.fileType = lsqFileTypeMPEG4;
@@ -602,7 +607,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
 * 加载视频，显示第一帧
   
         [_movieEditor loadVideo];
-       
+    
 
 
 #### 3.5 视频编辑完成
@@ -635,7 +640,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         }else if (status == lsqMovieEditorStatusPreviewingCompleted){
         }
     }
-    
+
 #### 3.7 视频编辑滤镜使用
 
 * 直播相机初始化前需要配置滤镜列表
@@ -645,7 +650,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         // 滤镜列表，获取滤镜前往 TuSDK.bundle/others/lsq_tusdk_configs.json  
         // TuSDK 滤镜信息介绍 @see-https://tusdk.com/docs/ios/self-customize-filter
         _videoFilters = @[@"Normal", @"DeepWhitening",@"WarmSunshine", @"Leica", @"Newborn", @"Morning",@"VideoYoungGirl", @"VideoJelly", @"AmericaPast", @"SkinSugar"];
-  
+
 
 * 初始化滤镜栏
 
@@ -707,7 +712,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         // 最终输出的视频尺寸由 outputSize 控制
         // 需要将输出尺寸修改为均为 16 的倍数
         // _camera.outputSize = CGSizeMake(640, 640);
-        
+    
 * 5.录制相机控制输出的文件大小
 
         // 输出视频的画质，主要包含码率、分辨率等参数 (默认为空，采用系统设置)
@@ -716,7 +721,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         TuSDKVideoQuality *customVideoQuality = [[TuSDKVideoQuality alloc]init];
         customVideoQuality.lsqVideoBitRate = 1200 * 1000;
         _camera.videoQuality = customVideoQuality;
-        
+    
 * 6.录制相机的模式切换
 
         // 需要配置相机的录制模式，如果沿用 demo 提供的示例 UI，需要同时配置底部栏的 recordMode
@@ -733,7 +738,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         _camera.recordMode = _inputRecordMode;
         _bottomBar.recordMode = _inputRecordMode;
         // 拍照录制相机的录制模式为正常模式
-        
+    
 * 7.录制相机初始化，默认选择一款滤镜
 
         // 需要配置相机的默认选择滤镜，如果沿用 demo 提供的示例 UI ，需要同时配置滤镜栏的默认滤镜
@@ -804,7 +809,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         // 同时将控制器内 - (void)lsqInitView 中视频展示 _previewView 的 frame 设置为屏幕宽高，画面即为全屏展示
         // 如不设置 _previewView 的 frame 将进行视频比例的自适应的展示
         // 调整其他控件的背景色的 alpha 值，以防止遮挡视觉效果
-        
+    
 * 10.拍照录制相机/断点续拍相机，连接其他控制器使用
 
         // 拍照录制相机连接视频编辑功能，需要进行一些调整
@@ -930,7 +935,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         firstMixAudio.atTimeRange = [TuSDKTimeRange makeTimeRangeWithStartSeconds:0 endSeconds:3];
     
 * 音乐素材2
-    
+  
         NSURL *secondMixAudioURL = [self filePathName:@"sound_tangyuan.mp3"];
         secondMixAudio = [[TuSDKTSAudio alloc]initWithAudioURL:secondMixAudioURL];
         secondMixAudio.audioVolume = 0;
@@ -940,7 +945,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
 
         _audiomixer = [[TuSDKTSAudioMixer alloc]init];
 * 遵守代理
-    
+  
         _audiomixer.mixDelegate = self;
 * 设置主音轨
   
@@ -949,7 +954,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
   
         _audiomixer.enableCycleAdd = YES;
 * 音频混合的点击事件
-    
+  
         _audiomixer.mixAudios = [NSArray arrayWithObjects:firstMixAudio, secondMixAudio,nil];
         [_audiomixer startMixingAudioWithCompletion:^(NSURL *fileURL, lsqAudioMixStatus status) {
             _resultURL = fileURL;
@@ -962,17 +967,17 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
 
         NSURL *firstAudioURL = [self filePathName:@"sound_cat.mp3"];
 * 转换为 *AVURLAsset* 对象
- 
+
         AVURLAsset *firstMixAudioAsset = [AVURLAsset URLAssetWithURL:firstAudioURL options:nil];
 * 构建音频数据对象
-    
+  
         firstMixAudio = [[TuSDKTSAudio alloc]initWithAsset:firstMixAudioAsset];
 * 设置添加音乐素材的时间范围
-    
+  
         firstMixAudio.atTimeRange = [TuSDKTimeRange makeTimeRangeWithStartSeconds:1 endSeconds:6];
 
 * 获取另一段背景音乐素材地址
-   
+  
         NSURL *secondAudioURL = [self filePathName:@"sound_children.mp3"];
         // 同样可以使用 URL 地址进行初始化
         secondMixAudio = [[TuSDKTSAudio alloc]initWithAudioURL:secondAudioURL];
@@ -985,23 +990,23 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
 
         movieMixer = [[TuSDKTSMovieMixer alloc]initWithMoviePath:videoURL.path];
 * 遵守代理    
-    
+  
         movieMixer.mixDelegate = self;
 * 是否允许音频循环（ 默认 NO，即视频素材时长 9 秒，音频素材 3 秒，将音频素材循环添加三次）
-    
+  
         movieMixer.enableCycleAdd = YES;
 * 混合时视频的选中时间
   
         movieMixer.videoTimeRange = [TuSDKTimeRange makeTimeRangeWithStartSeconds:1 endSeconds:20];       
 
 * 是否保留视频原音
-    
+  
         movieMixer.enableVideoSound = NO;
 * 将背景音乐素材赋值给音视频混合器
 
         movieMixer.mixAudios = [NSArray arrayWithObjects:firstMixAudio, secondMixAudio, nil];
 * 进行混合
-   
+  
         [movieMixer startMovieMixWithCompletionHandler:^(NSString *filePath, lsqMovieMixStatus status) {
             if (status == lsqMovieMixStatusCompleted) {
                 // 操作成功 保存到相册
@@ -1017,19 +1022,19 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
 
         NSURL *videoURL  = [self filePathName:@"tusdk_sample_video.mov"];
 * 初始化视频画面提取的工具类
-    
+  
         imageExtractor = [TuSDKVideoImageExtractor createExtractor];
 * 将视频地址赋值给对象
-    
+  
         imageExtractor.videoPath = videoURL;
 * 设置需要返回的缩略图的数量
-    
+  
         imageExtractor.extractFrameCount = 15;
 * 需要输出缩略图的最大尺寸,(默认设置 ： 80 * 80 )
-    
+  
         imageExtractor.outputMaxImageSize = CGSizeMake(100, 100);
 * 返回 NSArray<UIImage *>，数组中即为视频的缩略图   
-    
+  
         [imageExtractor asyncExtractImageList:^(NSArray<UIImage *> * images) {
         // 获取到返回的视频的缩率图
         thumbnailsArr =  images;
@@ -1045,12 +1050,12 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         _movieSplicer.splicerDelegate = self;
 
 * 获取视频素材的地址
-    
+  
         NSURL *sampleOneURL = [self filePathName:@"tusdk_sample_splice_video.mov"];
         NSURL *sampleTwoURL = [self filePathName:@"tusdk_sample_video.mov"];
     
 * 将视频素材的地址赋值给 TuSDKMoiveFragment，并设置拼接部分的时间范围
-    
+  
         NSString *moviePath1 = sampleOneURL.path;
         TuSDKTimeRange *timeRange1 = [TuSDKTimeRange makeTimeRangeWithStartSeconds:0 endSeconds:8];
         TuSDKMoiveFragment *fragment1 = [[TuSDKMoiveFragment alloc]initWithMoviePath:moviePath1 atTimeRange:timeRange1];
@@ -1060,11 +1065,11 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         TuSDKMoiveFragment *fragment2 = [[TuSDKMoiveFragment alloc]initWithMoviePath:moviePath2 atTimeRange:timeRange2];
 
 * 将赋值过得拼接片段添加到对应的数组中    
-    
+  
         _movieSplicer.movies = [NSArray arrayWithObjects:fragment1, fragment2, nil];
     
 * 将多段视频片段合并为一个视频
-    
+  
         [_movieSplicer startSplicingWithCompletionHandler:^(NSString *filePath, lsqMovieSplicerSessionStatus status) {
         if (status == lsqMovieSplicerSessionStatusCompleted){
             // 操作成功 保存到相册
@@ -1096,10 +1101,12 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         _movieClipper.enableVideoSound = YES;
 * 遵守代理
         
+    
         _movieClipper.clipDelegate = self;
 * 输出视频的文件格式，可输出 MP4
        
-        _movieClipper.outputFileType = lsqFileTypeQuickTimeMovie;
+    
+       _movieClipper.outputFileType = lsqFileTypeQuickTimeMovie;
    
 * 将时间范围的数组赋值给视频裁剪工具
 
@@ -1130,16 +1137,17 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
         _audioRecorder.recordDelegate = self;
 * 开始录音
         
+    
         [_audioRecorder startRecording];
 * 暂停录音（暂停后，再次调用 startRecording，会从暂停处继续录制）
 
         [_audioRecorder pauseRecording];
-        
+    
 * 结束录音 （停止录音，并保存输出音频的临时文件地址）
 
         [_audioRecorder finishRecording];
 * 取消录音 （停止录音，删除已录制的音频临时文件）
-    
+  
         [_audioRecorder cancelRecording];
 * 获取保存文件的地址
 
@@ -1273,7 +1281,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
 
 ### 2.2 安装使用说明
 
-	
+
 #### 手动安装：
 
 直接将示例工程源码中 `UPLiveSDK.framework`文件夹拖拽到目标工程目录。
@@ -1366,7 +1374,7 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
 ```
 	_player. bright = 0.5; 
 
-``` 
+```
 
 * 静音控制 默认为 NO
 
@@ -1374,28 +1382,28 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
 	// 静音
 	_player.mute = YES; 
 
-``` 
+```
 
 * 视频缓冲超时，单位 秒,  默认 60, 一段时间内未能缓冲到可播放的数据
 
 ```
 	_player.timeoutForBuffering = 60; 
 
-``` 
+```
 
 * 连接超时，默认 10s  一段时间内无数据传输
 
 ```
 	_player.timeoutForOpenFile = 10; 
 
-``` 
+```
 
 * 打开视频失败后的重试次数限制，默认 1 次，最大 10 次
 
 ```
 	_player.maxNumForReopenFile = 1; 
 
-``` 
+```
 
 * 播放器的 delegate
 ```
@@ -1405,12 +1413,12 @@ _注:该 SDK 不支持模拟器运行,请使用真机_
 
 ```
 	_player.lipSynchOn = YES; 
-``` 
+```
 * 音视频同步方式, 0:音频向视频同步,视频向标准时间轴同步；1:视频向音频同步，音频按照原采样率连续播放。默认值 为 1。
 
 ```
 	_player.lipSynchMode = 1; 
-``` 
+```
 
 #### 3.3 播放器方法
 

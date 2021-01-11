@@ -101,7 +101,7 @@ typedef NS_ENUM(NSInteger,lsqMovieCompresserSessionStatus)
  *
  * @param handler 完成回调处理
  */
-- (void)startCompressingWithCompletionHandler:(void (^)(NSString* outputFilePath, lsqMovieCompresserSessionStatus status))handler;
+- (void)startCompressingWithCompletionHandler:(void (^)(NSString* outputFilePath, CGFloat progress, lsqMovieCompresserSessionStatus status))handler;
 
 /**
  * 取消压缩操作

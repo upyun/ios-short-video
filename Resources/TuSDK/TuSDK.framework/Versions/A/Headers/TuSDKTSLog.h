@@ -86,6 +86,17 @@ typedef NS_ENUM(NSInteger, lsqLogLevel)
 @property (nonatomic) lsqLogLevel outputLevel;
 
 /**
+ 文件日志输出级别 (默认：lsqLogLevelFATAL 不输出) 默认 ： lsqLogLevelFATAL
+ */
+@property (nonatomic) lsqLogLevel outputFileLevel;
+
+/**
+ 文件日志输出路径 可选 默认在 NSDocumentDirectory 目录下
+ */
+@property (nonatomic,copy) NSString* outputFilePath;
+
+
+/**
  *  日志处理类
  */
 + (TuSDKTSLog *)sharedLog;

@@ -60,7 +60,7 @@ typedef NS_ENUM(NSUInteger,lsqVideoCameraFaceDetectionResultType) {
 /**
  *  视频相机基类
  */
-@interface TuSDKVideoCameraBase : SLGPUImageVideoCamera<TuSDKVideoCameraInterface>
+@interface TuSDKVideoCameraBase : SLGPUImageStillCamera<TuSDKVideoCameraInterface>
 {
     @protected
     // 输出尺寸
@@ -106,6 +106,12 @@ typedef NS_ENUM(NSUInteger,lsqVideoCameraFaceDetectionResultType) {
 @property (nonatomic,weak)id<TuSDKVideoCameraEffectDelegate> _Nullable effectDelegate;
 
 /**
+ 聚焦视图点击委托对象
+ @since v3.5.1
+ */
+@property (nonatomic,weak)id<TuSDKCPFocusTouchViewDelegate> _Nullable focusTouchDelegate;
+
+/**
  *  相机状态
  */
 @property (nonatomic, readonly) lsqCameraState state;
@@ -137,9 +143,16 @@ typedef NS_ENUM(NSUInteger,lsqVideoCameraFaceDetectionResultType) {
 @property (nonatomic) BOOL enableFilterConfig;
 
 /**
- *  禁止触摸聚焦功能 (默认: YES)
+ *  禁止触摸聚焦功能 (默认: NO)
  */
 @property (nonatomic) BOOL disableTapFocus;
+
+/**
+ *  禁止触摸曝光功能 (默认: NO)
+ *  @since v3.4.2
+ */
+@property (nonatomic) BOOL disableTapExposure;
+
 
 /**
  *  是否开启长按拍摄 (默认: NO)
@@ -287,6 +300,14 @@ typedef NS_ENUM(NSUInteger,lsqVideoCameraFaceDetectionResultType) {
 - (BOOL)focusWithMode:(AVCaptureFocusMode)focusMode;
 
 /**
+ 获取当前摄像头的 activeFormat
+ 
+ @return activeFormat
+ @since v3.4.2
+ */
+- (AVCaptureDeviceFormat *_Nullable)getInputCameraDeviceFormat;
+
+/**
  *  设置聚焦模式
  *
  *  @param focusMode 聚焦模式
@@ -297,7 +318,7 @@ typedef NS_ENUM(NSUInteger,lsqVideoCameraFaceDetectionResultType) {
 - (BOOL)focusWithMode:(AVCaptureFocusMode)focusMode point:(CGPoint)point;
 
 /**
- *  设置曝光模式
+ *  设置曝光模式, 默认AVCaptureExposureModeContinuousAutoExposure
  *
  *  @param exposureMode 曝光模式
  *
@@ -306,11 +327,35 @@ typedef NS_ENUM(NSUInteger,lsqVideoCameraFaceDetectionResultType) {
 - (BOOL)exposureWithMode:(AVCaptureExposureMode)exposureMode;
 
 /**
- *  当前聚焦状态
+ *  设置曝光模式, 默认AVCaptureExposureModeContinuousAutoExposure
  *
- *  @param isFocusing 是否正在聚焦
+ *  @param exposureMode 曝光模式
+ *  @param point 曝光点，[(0,0),(1,1)]
+ *
+ *  @return 是否支持曝光模式
+ *  @since 3.4.2
  */
-- (void)onAdjustingFocus:(BOOL)isFocusing;
+- (BOOL)exposureWithMode:(AVCaptureExposureMode)exposureMode point:(CGPoint)point;
+
+///**
+// 设置曝光感应度 ISO值 当exposureMode 为AVCaptureExposureModeCustom 才能生效
+//
+// @param duration 曝光时长，可以用AVCaptureExposureDurationCurrent
+// @param ISO 曝光感应度 范围在[minISO maxISO]
+// @return 是否设置成功
+// @since v3.4.2
+// */
+//- (BOOL)exposureModeCustomCustomWithDuration:(CMTime)duration ISO:(float)ISO;
+//
+
+/**
+ 设置曝光补偿 bias
+
+ @param bias [-8 8]
+ @return 是否设置成功
+ @since v3.4.2
+ */
+- (BOOL)exposureWithBias:(float)bias;
 
 /**
  *  通知相机状态发生改变
@@ -344,11 +389,12 @@ typedef NS_ENUM(NSUInteger,lsqVideoCameraFaceDetectionResultType) {
 - (void)notifyCaptureResult:(UIImage *_Nullable) result;
 
 /**
- 获取图片
- 
- @return  得到的图片对象
+ 拍摄图片
+
+ @param block 拍照完成数据回调
+ @since v3.4.1
  */
-- (UIImage *_Nullable)syncCaptureImage;
+- (BOOL)capturePhotoAsImageCompletionHandler:(void (^_Nonnull)(UIImage * _Nullable processedImage, NSError * _Nullable error))block;
 
 /**
  *  切换滤镜 v3.2.0 新增 addMediaEffect：接口，可通过该方法添加所有支持的特效。

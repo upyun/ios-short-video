@@ -9,9 +9,8 @@
 
 //#import "TuSDK.h"
 #import <TuSDK/TuSDK.h>
-
-//#import "TuSDKVideo.h"
 #import <TuSDKVideo/TuSDKVideo.h>
+#import <TuSDKFace/TuSDKFace.h>
 
 #import "UPYUNConfig.h"
 

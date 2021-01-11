@@ -10,6 +10,7 @@
 #import "TuSDKMediaEffect.h"
 #import "TuSDKComboFilterWrapChain.h"
 #import "TuSDKMediaEffectSync.h"
+#import "TuSDKMediaCosmeticEffect.h"
 
 @interface TuSDKMediaVideoEffectTimelineSync : NSObject <TuSDKMediaEffectSync,TuSDKFilterFacePositionProtocol>
 
@@ -55,5 +56,12 @@
  @since v3.0.1
  */
 - (void)pauseAudioEffect;
+
+/**
+ 暂停播放音频特效
+ 
+ @since v3.4.1
+ */
+- (void)stopAudioEffect;
 
 @end

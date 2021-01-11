@@ -10,6 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSInteger, TuSkinFaceType)
+{
+    TuSkinFaceTypeNatural = 0,  // 自然美颜
+    TuSkinFaceTypeMoist,        // 极致美颜
+    TuSkinFaceTypeBeauty        // 新美颜
+};
+
 /**
  美肤美颜特效
  @sicne v3.2.0
@@ -23,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return TuSDKMediaSkinFaceEffect 美肤美颜特效实例
  @since v3.2.0
  */
--(instancetype)initUseSkinNatural:(BOOL)useSkinNatural;
+-(instancetype)initUseSkinFaceType:(TuSkinFaceType)type;
 
 @end
 

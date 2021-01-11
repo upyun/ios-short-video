@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina3_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditRatioViewController">
+            <connections>
+                <outlet property="_ratioListView" destination="UlV-Qp-ruM" id="p3v-ai-IYe"/>
+                <outlet property="_rationListViewBottomConstraints" destination="I7M-wO-aDr" id="IEe-ne-E7h"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UlV-Qp-ruM" customClass="EditRatioListView">
+                    <rect key="frame" x="0.0" y="348" width="320" height="92"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="92" id="UzQ-xb-5Tg"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="C9M-bn-PAY"/>
+                    </connections>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="UlV-Qp-ruM" secondAttribute="bottom" constant="40" id="I7M-wO-aDr"/>
+                <constraint firstAttribute="trailing" secondItem="UlV-Qp-ruM" secondAttribute="trailing" id="qdH-3I-C3x"/>
+                <constraint firstItem="UlV-Qp-ruM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="zi9-c1-n9u"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

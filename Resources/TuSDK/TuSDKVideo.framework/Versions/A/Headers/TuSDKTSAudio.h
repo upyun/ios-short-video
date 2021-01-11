@@ -18,7 +18,7 @@
 // 本地音频地址
 @property (nonatomic, strong) NSURL *audioURL;
 // asset
-@property (nonatomic, strong) AVURLAsset *asset;
+@property (nonatomic, strong) AVAsset *asset;
 // 音轨
 @property (nonatomic, strong) AVAssetTrack *audioTrack;
 // 音频片段所在时间, 默认 整个音频的时间范围

@@ -14,6 +14,8 @@ typedef NSDictionary<NSString *, id> TuSDKAssetVideoTrackPixelBufferOutputSettin
 /** copy 完成后回调处理 */
 typedef void (^TuSDKAssetVideoTrackPixelBufferOutputCompletionHandler)(CVPixelBufferRef _Nullable);
 
+@protocol TuSDKAssetVideoTrackPixelBufferOutputDelegate;
+
 /**
  读取视频轨道像素数据
  */
@@ -35,6 +37,12 @@ typedef void (^TuSDKAssetVideoTrackPixelBufferOutputCompletionHandler)(CVPixelBu
  */
 @property (nonatomic, copy, nullable) AVVideoComposition *videoComposition;
 
+/**
+ 委托时间
+ @since v3.4.1
+ */
+@property (nonatomic,weak)id<TuSDKAssetVideoTrackPixelBufferOutputDelegate> delegate;
+
 /*!
  @method            hasNewPixelBufferForItemTime:
  @abstract        Query if any new video output is available for an item time.
@@ -46,6 +54,7 @@ typedef void (^TuSDKAssetVideoTrackPixelBufferOutputCompletionHandler)(CVPixelBu
  */
 
 - (BOOL)hasNewPixelBufferForItemTime:(CMTime)itemTime;
+
 
 /*!
  @method            copyPixelBufferForItemTime:itemTimeForDisplay:
@@ -68,5 +77,23 @@ typedef void (^TuSDKAssetVideoTrackPixelBufferOutputCompletionHandler)(CVPixelBu
  取消所有输出
  */
 - (void)destory;
+
+@end
+
+
+/**
+ TuSDKAssetVideoTrackPixelBufferOutput 委托事件
+ */
+@protocol TuSDKAssetVideoTrackPixelBufferOutputDelegate <NSObject>
+
+@required
+
+/**
+ copyPixelBufferForItemTime 执行成功后 该回调事件将被调用
+
+ @param trackPixelBufferOutput TuSDKAssetVideoTrackPixelBufferOutput
+ @param pixelBufferRef 抓取的数据帧
+ */
+- (void)videoTrackPixelBufferOutput:(TuSDKAssetVideoTrackPixelBufferOutput *)trackPixelBufferOutput pixelBuffer:(CVPixelBufferRef)pixelBufferRef;
 
 @end

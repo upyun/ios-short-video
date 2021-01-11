@@ -2,8 +2,8 @@
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #import <OpenGLES/EAGL.h>
-#import <OpenGLES/ES2/gl.h>
-#import <OpenGLES/ES2/glext.h>
+#import <OpenGLES/ES3/gl.h>
+#import <OpenGLES/ES3/glext.h>
 #else
 #import <OpenGL/OpenGL.h>
 #import <OpenGL/gl.h>
@@ -27,6 +27,7 @@ typedef struct LSQGPUTextureOptions {
 @property(readonly) CGSize size;
 @property(readonly) LSQGPUTextureOptions textureOptions;
 @property(readonly) GLuint texture;
+@property(readonly) GLuint framebuffer;
 @property(readonly) BOOL missingFramebuffer;
 
 // Initialization and teardown
@@ -36,6 +37,8 @@ typedef struct LSQGPUTextureOptions {
 
 // Usage
 - (void)activateFramebuffer;
+
+-(void) copyFromFboTexture:(SLGPUImageFramebuffer *)src;
 
 // Reference counting
 - (void)lock;

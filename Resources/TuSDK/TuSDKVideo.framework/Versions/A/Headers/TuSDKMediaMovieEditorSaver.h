@@ -13,7 +13,7 @@
 #import "TuSDKMediaAudioRender.h"
 #import "TuSDKMediaEffect.h"
 #import "TuSDKMediaEffectSync.h"
-#import "TuSDKComboFilterWrapChain.h"
+#import "TuSDKVideoImport.h"
 #import "TuSDKMovieEditorOptions.h"
 
 
@@ -29,7 +29,7 @@
 /**
  初始化视频导出会话
 
- @param asset 输入的视频资源
+ @param inputAsset 输入的视频资源
  @param mediaEffects 导出的特效信息
  @param exportOutputSettings 输出设置
  @return TuSDKMovieEditorExportSession
@@ -152,6 +152,12 @@
  @since v3.0
  */
 @property (nonatomic) BOOL saveToAlbum;
+
+/**
+ *  画布区域背景颜色 (默认：[UIColor blackColor])
+ *  @since v3.2.1
+ */
+@property (nonatomic, retain) UIColor * _Nullable canvasColor;
 
 /**
  保存到系统相册的相册名称

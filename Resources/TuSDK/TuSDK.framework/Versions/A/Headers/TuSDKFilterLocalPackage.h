@@ -64,6 +64,11 @@ extern NSString * const lsqNormalFilterCode;
 @property (nonatomic, readonly) NSArray *groups;
 
 /**
+ *  直播滤镜分组列表
+ */
+@property (nonatomic, readonly) NSArray *liveGroups;
+
+/**
  *  是否已初始化
  */
 @property (nonatomic, readonly) BOOL isInited;
@@ -87,7 +92,15 @@ extern NSString * const lsqNormalFilterCode;
  *
  *  @return package 原生滤镜配置
  */
+
 + (instancetype)package;
+/**
+ *  原生滤镜配置
+ *  用于swift包装
+ *  swift只认可的关键字 default、singleton、shared 为前缀声明的单例方法名
+ *  @return 原生滤镜配置
+ */
++ (instancetype)sharedPackage;
 
 /**
  *  添加本地滤镜包委托
@@ -285,4 +298,21 @@ extern NSString * const lsqNormalFilterCode;
  *  @return json 数据
  */
 - (NSString *)jsonAllData;
+@end
+
+
+#pragma mark 本地滤镜组
+
+@interface TuSDKFilterLocalPackage (LocalFilter)
+
+/**
+ 将本地滤镜添加到 Package
+ 
+ @param filePath 本地滤镜组文件路径
+ @param groupFiltersType 滤镜类型, see TuSDKFilterGroup.h 0: 普通滤镜, 1: 特效滤镜, 2: 粒子特效滤镜, 3: 漫画特效滤镜
+ @return true/false
+ @since 3.4.5
+ */
+- (BOOL)addFilterGroupFile:(NSString *)filePath groupFiltersType:(NSUInteger)groupFiltersType;
+
 @end

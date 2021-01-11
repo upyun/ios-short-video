@@ -41,6 +41,19 @@
 - (instancetype _Nonnull )initWithPreview:(UIView *_Nonnull)holderView options:(TuSDKMovieEditorOptions *_Nonnull)options;
 
 /**
+ 视频编辑配置项
+ 
+ @since v3.2.1
+ */
+@property (nonatomic,readonly) TuSDKMovieEditorOptions * _Nonnull options;
+
+/**
+ 预览视图容器
+ @since v3.2.1
+ */
+@property (nonatomic,readonly) UIView * _Nullable holderView;
+
+/**
  输入的资产信息
  @since v1.0.0
  */
@@ -52,6 +65,7 @@
  @since      v3.0
  */
 @property (nonatomic,readonly)TuSDKMediaAssetInfo * _Nullable inputAssetInfo;
+
 
 /**
  TuSDKMovieEditor 状态
@@ -72,8 +86,7 @@
  
  @since v1.0.0
  */
-@property (nonatomic, assign) CGFloat videoSoundVolume ;
-
+@property (nonatomic, assign) CGFloat videoSoundVolume;
 
 #pragma mark - Load/Save
 
@@ -112,6 +125,14 @@
  @since 2.2.0
  */
 - (void) updatePreViewFrame:(CGRect)frame;
+
+/**
+ 更新视频输出比例
+
+ @param outputRatio 输出比例
+ @since v3.2.1
+ */
+- (void) updateOutputRatio:(CGFloat)outputRatio;
 
 @end
 
@@ -229,6 +250,14 @@
  @return 特效列表
  */
 - (NSArray<id<TuSDKMediaEffect>> *_Nonnull)mediaEffectsWithType:(NSUInteger)effectType;
+
+/**
+ 获取添加的所有特效
+ 
+ @since      v3.4.0
+ @return 特效列表
+ */
+- (NSArray<id<TuSDKMediaEffect>> *_Nonnull)allMediaEffects;
 
 @end
 

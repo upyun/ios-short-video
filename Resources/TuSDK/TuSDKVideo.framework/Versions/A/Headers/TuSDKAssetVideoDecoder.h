@@ -74,21 +74,13 @@ typedef NS_ENUM(NSInteger, TuSDKAssetVideoDecoderStatus) {
  */
 - (instancetype _Nullable )initWithAsset:(AVAsset *_Nullable)asset outputSettings:(TuSDKAssetVideoDecoderVideoSettings*_Nullable)outputSettings;
 
-/*!
- @property processQueue
- @abstract
-
- @discussion
-    Decoding run queue
+/**
+ processQueue
  */
 @property (nonatomic) dispatch_queue_t _Nullable processQueue;
 
-/*!
- @property delegate
- @abstract
- 
- @discussion
- Decoding event delegate
+/**
+ delegate
  */
 @property (nonatomic,weak) id<TuSDKAssetVideoDecoderDelegate> _Nullable delegate;
 

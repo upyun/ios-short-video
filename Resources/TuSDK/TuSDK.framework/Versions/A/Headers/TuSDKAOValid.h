@@ -38,10 +38,19 @@
 @property (nonatomic, readonly) NSString *developerId;
 
 /**
+ * 用户id (appkey)
+ * @since v1.0.0
+ */
+@property (nonatomic, strong, readonly) NSString *userId;
+
+/**
  *  appkey
  */
 @property (nonatomic, readonly) NSString *appKey;
-
+/**
+ *  appType
+ */
+@property (nonatomic, readonly) NSNumber *appType;
 
 /**
  *  Sdk配置
@@ -99,17 +108,34 @@
 
 /** service Expire */
 - (BOOL)serviceExpire;
-/** serviceExpireDate */
-- (NSDate *)serviceExpireDate;
+
+/** video service Expire */
+- (BOOL)videoServiceexpire;
+
+/** eva service Expire */
+- (BOOL)evaServiceexpire;
+
+/** Image SDK  距离过期时间剩余秒数 */
+- (NSTimeInterval)imageServiceExpireSeconds;
+/** Eva SDK  距离过期时间剩余秒数 */
+- (NSTimeInterval)evaServiceExpireSeconds;
+/** Video SDK  距离过期时间剩余秒数 */
+- (NSTimeInterval)videoServiceExpireSeconds;
 
 /** no Power */
 - (BOOL)noPower;
+
+/** no video Power */
+- (BOOL)noVideoPower;
 
 /** render filter thumb */
 - (BOOL)renderFilterThumb;
 
 /** 涂抹功能是否开启 */
 - (BOOL)smudgeEnabled;
+
+/** 画笔涂鸦功能是否开启 */
+- (BOOL)paintEnabled;
 
 /** 滤镜涂抹功能是否开启 */
 - (BOOL)wipeFilterEnabled;
@@ -119,6 +145,9 @@
 
 /** 美颜级别 */
 - (NSUInteger)beautyLevel;
+
+/** 美妆是否开启 */
+- (BOOL)cosmeticEnabled;
 
 /** 视频录制抹功能是否开启 */
 - (BOOL)videoRecordEnabled;
@@ -193,6 +222,22 @@
 - (BOOL)audioResampleEffectsSupport;
 
 /**
+ video composition support 合成视频 是否视频合成
+
+ @return 是否支持
+ @since 3.4.1
+ */
+- (BOOL)videoCompositionSupport;
+
+/**
+ video editor transition support 编辑视频 是否支持转场特效
+ 
+ @return 是否支持
+ @since 3.4.1
+ */
+- (BOOL)videoEditorTransitionSupport;
+
+/**
   video editor text effects support 编辑视频 是否支持文字特效
 
  @return true/false
@@ -207,6 +252,59 @@
  @sinace v3.0.1
  */
 - (BOOL)videoEditorComicEffectsSupport;
+
+/**
+ video editor image sticker effects support 编辑视频 是否支持自定义图片贴纸
+
+ @return true/false
+ @sinace v3.0.1
+ */
+- (BOOL)videoEditorImageStickerSupport;
+
+/**
+  EVA 支持替换文字
+ */
+- (BOOL)evaEditorReplaceTxtSupport;
+
+/**
+  EVA 支持图片文字
+ */
+- (BOOL)evaEditorReplaceImgSupport;
+
+/**
+  EVA 支持替换视频
+ */
+- (BOOL)evaEditorReplaceVideoSupport;
+
+/**
+  EVA 支持替换音频
+ */
+- (BOOL)evaEditorReplaceAudioSupport;
+
+/**
+ EVA 去除版权声明
+ */
+- (BOOL)evaEditorWipeCopyRightSupport;
+
+/**
+ EVA 自定义码率
+ */
+- (BOOL)evaEditorBitrateSupport;
+
+/**
+ EVA 自定义分辨率
+ */
+- (BOOL)evaEditorResolutionSupport;
+
+/**
+ EVA 导出时添加水印
+ */
+- (BOOL)evaEditorAddMarkImageSupport;
+
+/**
+ 当前支持的功能模块
+ */
+- (NSUInteger)evaEnableFunctions;
 
 /**
  *  解密文本
@@ -319,7 +417,7 @@
 /**
  *  验证笔刷
  *
- *  @param stickerId 笔刷ID
+ *  @param brushId 笔刷ID
  *  @param type      验证方式
  *
  *  @return BOOL 是否验证成功
@@ -331,7 +429,7 @@
  *
  *  @param key       笔刷密钥
  *  @param type      验证方式
- *  @param stickerId 笔刷ID
+ *  @param brushId 笔刷ID
  *
  *  @return BOOL 是否验证成功
  */

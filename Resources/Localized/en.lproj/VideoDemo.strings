@@ -1,0 +1,446 @@
+/*--- 别名 --- */
+
+// API示例列表
+"APIAudioMixViewController" = "Mix Two Audio";
+"APIMovieMixViewController" = "Add BGM To Video";
+"APIVideoThumbnailsViewController" = "Gain Thumb";
+"APIMovieSpliceViewController" = "Contact Two Video";
+"APIMovieClipViewController" = "Cut Video";
+"APIAudioRecordViewController" = "Record Audio";
+"APIAudioPitchEngineViewController" = "Audio Pitch";
+"APIImageVideoComposerViewController" = "Image Composer";
+"APIImageVideoPickerViewController" = "Video or Image Composer";
+
+// 变声
+"tu_怪兽" = "Monster";
+"tu_大叔" = "Uncle";
+"tu_正常" = "Normal";
+"tu_女生" = "Girl";
+"tu_萝莉" = "Lolita";
+
+// MV
+"tu_小猫玩球" = "Kitten";
+"tu_无语乌鸦" = "Crow";
+"tu_汤圆" = "Dumpling";
+"tu_老电影" = "Old Movie";
+"tu_流光" = "Ambilight";
+
+// 变速
+"tu_极慢" = "Very slow";
+"tu_慢" = "Slow";
+"tu_标准" = "Standard";
+"tu_快" = "Fast";
+"tu_极快" = "Very Fast";
+
+// 哈哈镜
+"tu_哈哈镜" = "Monster Face";
+
+/*--- 其他 ---*/
+
+/* 下一步 */
+"tu_下一步" = "Next";
+
+/* 下划线 */
+"tu_下划线" = "Underline";
+
+/* 不能低于最小时间 */
+"tu_不能低于最小时间" = "Cannot be lower than the minimum time";
+
+/* 从右到左 */
+"tu_从右到左" = "Right to left";
+
+/* 从左到右 */
+"tu_从左到右" = "Left to right";
+
+/* 保存 */
+"tu_保存" = "Save";
+
+/* 保存失败 */
+"tu_保存失败" = "Save failed";
+
+/* 保存成功 */
+"tu_保存成功" = "Successfully saved";
+
+/* 共%@个视频 */
+"tu_共%@个视频" = "Total %@ video";
+
+/* 关闭 */
+"tu_关闭" = "Off";
+
+/* 出现问题，操作被取消 */
+"tu_出现问题，操作被取消" = "Encountered an error, the operation was canceled";
+
+/* 删除 */
+"tu_删除" = "Delete";
+
+/* 单击拍摄 */
+"tu_单击拍摄" = "Click Recording";
+
+/* 原音 */
+"tu_原音" = "Original";
+
+/* 取消 */
+"tu_取消" = "Cancel";
+
+/* 取消保存 */
+"tu_取消保存" = "Cancel save";
+
+/* 取消录制？ */
+"tu_取消录制？" = "Cancel recording?";
+
+/* 变声 */
+"tu_变声" = "Pitch";
+
+/* 右对齐 */
+"tu_右对齐" = "Align right";
+
+/* 场景 */
+"tu_场景" = "Scene";
+
+/* 大于最大时长，请保存视频后继续录制 */
+"tu_大于最大时长，请保存视频后继续录制" = "Reach the maximum duration，please save the recording to record next video";
+
+/* 大小 */
+"tu_大小" = "Size";
+
+/* 字体 */
+"tu_字体" = "Font";
+
+/* 完成录制 */
+"tu_完成录制" = "Finish recording";
+
+/* 将所有参数恢复默认吗？ */
+"tu_将所有参数恢复默认吗？" = "Restore all parameters to default?";
+"tu_确定删除所有美妆效果?" = "Make sure to remove all cosmetic effects?";
+
+/* 居中 */
+"tu_居中" = "Align Center";
+
+/* 左对齐 */
+"tu_左对齐" = "Align left";
+
+/* 已到达最大录制时长 */
+"tu_已到达最大录制时长" = "The maximum recording duration has been reached";
+
+/* 已选择%.1f秒 */
+"tu_已选择%.1f秒" = "%.1f seconds selected";
+
+/* 建议选择大于3秒，小于60秒的视频 */
+"tu_建议选择大于3秒，小于60秒的视频" = "It is recommended to select a video larger than 3 seconds and less than 60 seconds";
+
+/* 开启 */
+"tu_开启" = "On";
+
+/* 开始合成... */
+"tu_开始合成..." = "Composing...";
+
+/* 录制失败 */
+"tu_录制失败" = "Recording failed";
+
+/* 录制失败，请重新录制 */
+"tu_录制失败，请重新录制" = "Recording failed, please re-record";
+
+/* 录制失败：未知原因失败 */
+"tu_录制失败：未知原因失败" = "Recording failed: Unknown reason";
+
+/* 录制已经取消 */
+"tu_录制已经取消" = "Recording has been canceled";
+
+/* 录制文件将被删除 */
+"tu_录制文件将被删除" = "Recording file will be deleted";
+
+/* 录音 */
+"tu_录音" = "Recording";
+
+/* 录音已经完成，请播放录音 */
+"tu_录音已经完成，请播放录音" = "Recording is complete, please play the recording";
+
+/* 录音已经开始 */
+"tu_录音已经开始" = "Recording has started";
+
+/* 微整形 */
+"tu_微整形" = "Micro shaping";
+
+/* 美妆 */
+"tu_美妆" = "Beauty MakeUp";
+
+/* 手机可用空间不足，请清理手机 */
+"tu_手机可用空间不足，请清理手机" = "There is not enough space available on the phone, please clean your phone";
+
+/* 拍照 */
+"tu_拍照" = "Photo";
+
+/* 描边 */
+"tu_描边" = "Stroke";
+
+/* 操作失败，无法生成视频文件 */
+"tu_操作失败，无法生成视频文件" = "The operation failed and the video file could not be generated";
+
+/* 操作完成，请前往相册查看视频 */
+"tu_操作完成，请前往相册查看视频" = "The operation is complete, please go to the album to view the video";
+
+/* 操作完成，请点击「播放」，播放混合好的音频 */
+"tu_操作完成，请点击「播放」，播放混合好的音频" = "The operation is completed, please click \"Play Mixed Audio\" button to play the mixed audio";
+
+/* 文字 */
+"tu_文字" = "Text";
+
+/* 无 */
+"tu_无" = "None";
+
+/* 无输入视频 */
+"tu_无输入视频" = "No input video";
+
+/* 时间 */
+"tu_时间" = "Time";
+
+/* 明黑 */
+"tu_明黑" = "HiraKakuPro";
+
+/* 更多 */
+"tu_更多" = "More";
+
+/* 最多只能选择%zu个视频 */
+"tu_最多只能选择%zu个视频" = "You can only select up to %zu videos";
+
+/* 正在保存... */
+"tu_正在保存..." = "Saving...";
+
+/* 正在合成... */
+"tu_正在合成..." = "Composing...";
+
+/* 正在处理视频 */
+"tu_正在处理视频" = "Processing video";
+
+/* 正在拼接... */
+"tu_正在拼接..." = "Stitching...";
+
+/* 正在裁剪... */
+"tu_正在裁剪..." = "Cutting...";
+
+/* 比例 */
+"tu_比例" = "Scale";
+
+/* 涂图 */
+"tu_涂图" = "Tu";
+
+/* 滤镜 */
+"tu_滤镜" = "Filter";
+
+/* 点击输入内容 */
+"tu_点击输入内容" = "Click to input";
+
+/* 特效 */
+"tu_特效" = "Effect";
+
+/* 贴纸 */
+"tu_贴纸" = "Sticker";
+
+/** 裁剪 */
+"tu_裁剪" = "Crop";
+
+/* 特效时长最多%@秒 */
+"tu_特效时长最多%@秒" = "The effect duration up to %@ seconds";
+
+/* 特效时长最少%@秒 */
+"tu_特效时长最少%@秒" = "The effect duration at least %@ seconds";
+
+/* 确定 */
+"tu_确定" = "Confirm";
+
+/* 确认删除本地文件？ */
+"tu_确认删除本地文件？" = "Confirm delete local files?";
+
+/* 美颜 */
+"tu_美肤" = "Beauty skin";
+
+/* 背景 */
+"tu_背景" = "Background";
+
+/* 自动对焦 */
+"tu_自动对焦" = "Auto focus";
+
+/* 视频加载出错 */
+"tu_视频加载出错" = "Video loading error";
+
+/* 视频时长最少%@秒 */
+"tu_视频时长最少%@秒" = "Video duration at least %@ seconds";
+
+/* 请选择%zu个视频 */
+"tu_请选择%zu个视频" = "Please select %zu videos";
+
+/* 请重新调节音量，进行音频混合 */
+"tu_请重新调节音量，进行音频混合" = "Please re-adjust the volume for audio mixing";
+
+/* 配乐 */
+"tu_配乐" = "Music";
+
+/* 重置 */
+"tu_重置" = "Reset";
+
+/* 长按录音 */
+"tu_长按录音" = "Long press recording";
+
+/* 长按拍摄 */
+"tu_长按拍摄" = "Long press recording";
+
+/* 闪光灯 */
+"tu_闪光灯" = "Flash";
+
+/* 音频开始混合 */
+"tu_音频开始混合" = "Audio begins to mix";
+
+/* 颜色 */
+"tu_颜色" = "Color";
+
+/* 魔法 */
+"tu_魔法" = "Magic";
+
+/* 黑体 */
+"tu_黑体" = "Heiti";
+
+"tu_漫画" = "Comics";
+
+"tu_视频时长不得小于%@秒，请重新选择" = "Duration of selected videos must not be less than %@ seconds, please re-select";
+
+"tu_录制" = "Record";
+"tu_剪辑" = "Edit";
+
+"tu_功能列表" = "Component List";
+"tu_API示例" = "API Demo";
+
+"tu_APIAudioMixViewController_usage" = "Please adjust the music volume, and then click \"Start Mixing\" button to generate a new audio. Remember to turn on the system volume.";
+"tu_素材一" = "Audio A";
+"tu_素材二" = "Audio B";
+"tu_开始音频混合" = "Start Mixing";
+"tu_删除混合音频" = "Delete Audio";
+"tu_播放音频" = "Play Mixed Audio";
+"tu_暂停音频" = "Pause Mixed Audio";
+
+"tu_合成视频" = "Mix Video";
+
+"tu_获取缩略图" = "Get Thumbnais From Video";
+
+"tu_APIMovieSpliceViewController_usage" = "Please click the \"Splice Videos\" button to splice the video. After successfully saving, check the new video in the system album.";
+"tu_视频拼接" = "Splice Videos";
+
+"tu_APIMovieClipViewController_usage" = "Please select the time range of cropping in the trimmer control.Then click the \"Cut Video\" button to generate the new video.";
+"tu_视频裁剪" = "Cut Video";
+
+"tu_APIAudioRecordViewController_usage" = "Please click the \"Stat Recording\" to generate a audio file. Click \"Play Recording\" to play the file.";
+"tu_开始录音" = "Stat Recording";
+"tu_结束录音" = "End Recording";
+"tu_播放录音" = "Play Recording";
+
+"tu_APIAudioPitchEngineViewController_usage" = "Please click the \"Stat Recording\" to start recording audio. After the recording is completed, click \"Finish and Play Recording\" to generate and play the audio file.";
+"tu_结束并播放录音" = "Finish and Play Recording";
+
+/*--- v3.3.2 --- */
+
+"tu_字间距" = "Word Spacing";
+"tu_行距" = "Line Spacing";
+"tu_不透明度" = "Alpha";
+"tu_宽度" = "Width";
+"tu_加粗" = "Bold";
+"tu_下划线" = "Underline";
+"tu_斜体" = "Obliqueness";
+"tu_字号" = "Font";
+"tu_换行数量限制" = "Up to three line breaks are supported";
+
+
+/*--- v3.4.1----*/
+"tu_视频" = "Video";
+"tu_照片" = "Image";
+"tu_转场" = "Transition";
+
+/* 最多只能选择%zu个照片 */
+"tu_最多只能选择%zu个照片" = "You can only select up to %zu images";
+
+/* 已经选择照片，不能再选择视频 */
+"tu_已经选择照片，不能再选择视频" = "Images has been selected, can't choose a video";
+
+/* 已经选择视频，不能再选择照片 */
+"tu_已经选择视频，不能再选择照片" = "Videos has been selected, can't choose a image";
+
+"tu_不支持预览非视频文件" = "Preview non-video files is not supported";
+
+/*--- 4.0.0 - 美妆 ---*/
+"tu_lipstick" = "Lipstick";
+"tu_blush" = "Blush";
+"tu_eyebrow" = "Eyebrow";
+"tu_eyeshadow" = "Eyeshadow";
+"tu_eyeliner" = "Eyeliner";
+"tu_eyelash" = "Eyelash";
+"tu_cosmeticReset" = "Cosmetic reset";
+
+//眼线
+"tu_back" = "Pack Up";
+"tu_reset" = "No";
+
+//口红
+"lipStick_1" = "枫叶红";
+"lipStick_2" = "正红色";
+"lipStick_3" = "牛血红";
+"lipStick_4" = "番茄橘";
+"lipStick_5" = "暖柿红";
+"lipStick_6" = "正橘色";
+"lipStick_7" = "珊瑚粉";
+"lipStick_8" = "玫红色";
+"lipStick_9" = "梅子色";
+"lipStick_10" = "覆盆子";
+"lipStick_11" = "肉桂色";
+"lipStick_12" = "奶茶色";
+"lipStick_13" = "豆沙色";
+
+"tu_水润" = "WaterWet";
+"tu_滋润" = "Moist";
+"tu_雾面" = "Matte";
+
+//眉毛
+
+//眉毛
+"tu_雾眉" = "Fog";
+"tu_雾根眉" = "Fogen";
+
+"tu_标准黑" = "标准黑";
+"tu_标准灰" = "标准灰";
+"tu_标准棕" = "标准棕";
+"tu_柳弯黑" = "柳弯黑";
+"tu_柳弯灰" = "柳弯灰";
+"tu_柳弯棕" = "柳弯棕";
+"tu_叶细黑" = "叶细黑";
+"tu_叶细灰" = "叶细灰";
+"tu_叶细棕" = "叶细棕";
+"tu_峰眉黑" = "峰眉黑";
+"tu_峰眉灰" = "峰眉灰";
+"tu_峰眉棕" = "峰眉棕";
+"tu_粗平黑" = "粗平黑";
+"tu_粗平灰" = "粗平灰";
+"tu_粗平棕" = "粗平棕";
+"tu_弯线黑" = "弯线黑";
+"tu_弯线灰" = "弯线灰";
+"tu_弯线棕" = "弯线棕";
+"tu_芭比黑" = "芭比黑";
+"tu_芭比灰" = "芭比灰";
+"tu_芭比棕" = "芭比棕";
+"tu_小桃黑" = "小桃黑";
+"tu_小桃灰" = "小桃灰";
+"tu_小桃棕" = "小桃棕";
+"tu_新月黑" = "新月黑";
+"tu_新月灰" = "新月灰";
+"tu_新月棕" = "新月棕";
+"tu_断眉黑" = "断眉黑";
+"tu_断眉灰" = "断眉灰";
+"tu_断眉棕" = "断眉棕";
+"tu_野生黑" = "野生黑";
+"tu_野生灰" = "野生灰";
+"tu_野生棕" = "野生棕";
+"tu_欧线黑" = "欧线黑";
+"tu_欧线灰" = "欧线灰";
+"tu_欧线棕" = "欧线棕";
+"tu_圆眉黑" = "圆眉黑";
+"tu_圆眉灰" = "圆眉灰";
+"tu_圆眉棕" = "圆眉棕";
+"tu_延禧黑" = "延禧黑";
+"tu_延禧灰" = "延禧灰";
+"tu_延禧棕" = "延禧棕";

@@ -61,6 +61,11 @@
 - (void)startCamera;
 
 /**
+ *  暂停相机
+ */
+- (void)pauseCamera;
+
+/**
  *  销毁相机
  */
 - (void)destoryCamera;
@@ -91,11 +96,10 @@
  */
 -(void)setFlashMode:(AVCaptureFlashMode)flashMode;
 
-
 /**
- *  手动设置相机比例
- *
- *  @param sender
+ 手动设置相机比例
+
+ @param sender sender
  */
 - (void)onCameraRatioChange:(id)sender;
 

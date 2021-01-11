@@ -40,21 +40,29 @@
 @property (nonatomic) OSType inputPixelFormatType;
 
 /**
- 期望输出的视频宽高
- @since 3.0
- */
-@property (nonatomic) CGSize outputSize;
-
-/**
  输入的视频宽高
  @since 3.0
  */
 @property (nonatomic,readonly) CGSize inputSize;
 
 /**
- * 设置材质坐标计算接口
- *  @since 3.0
+ 设置输出 outputSize, 如果输出比例和原视频比例不一致时，自动缩放视频大小，视频不会被裁剪
+ @since 3.4.2
  */
-@property (nonatomic) TuSDKTextureCoordinateCropBuilder *textureCoordinateBuilder;
+@property (nonatomic)CGSize outputSize;
+
+/**
+ 设置比例不一致时是否自适应画布
+ 比例不一致时是否将视频自适应画布大小 默认：NO
+ @since 3.4.2
+ */
+@property (nonatomic)BOOL aspectOutputRatioInSideCanvas;
+
+/**
+ 设置画面显示区域 默认：（CGRectMake(0,0,1,1) 完整画面） aspectOutputRatioInSideCanvas
+ aspectOutputRatioInSideCanvas 为 NO 时可用
+ @since 3.4.2
+ */
+@property (nonatomic) CGRect textureRect;
 
 @end

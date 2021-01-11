@@ -17,7 +17,7 @@
 
 /**
  获取CMSampleBufferRef音频数据地址
- @param ref 原始数据buffer
+ @param buffer 原始数据buffer
  @return 数据地址
  @since v3.0
  */

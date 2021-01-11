@@ -44,6 +44,6 @@
  该配置已废弃，在 v3.2.0 版本中已新增 TuSDKMediaPlasticFaceEffect 特效。
  @since v2.2.0
  */
-@property (nonatomic) BOOL enablePlastic DEPRECATED_MSG_ATTRIBUTE("Pelease use TuSDKMediaPlasticFaceEffect");;
+//@property (nonatomic) BOOL enablePlastic DEPRECATED_MSG_ATTRIBUTE("Pelease use TuSDKMediaPlasticFaceEffect");;
 
 @end

@@ -42,12 +42,12 @@
 
 /**
  同步特效数据
-
- @param effects 当前生效的特效数据
+ 
+ @param timeline 当前时间轴 timeline
  @param time 当前时间
  @since v3.0.1
  */
-- (void)syncMediaEffects:(NSMutableDictionary<NSNumber *,NSMutableArray<id<TuSDKMediaEffect>> *> *)effects atTime:(CMTime)time;
+- (void)syncMediaEffects:(id<TuSDKMediaEffectTimeline>)timeline atTime:(CMTime)time;
 
 /**
  通知同步器将要添加特效

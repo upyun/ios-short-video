@@ -110,6 +110,13 @@
 #import "TuSDKPFStickerGroup.h"
 #import "TuSDKPFSmudgeViewBase.h"
 #import "TuSDKPFBrushBarViewBase.h"
+#import "TuSDKPaintDrawViewBase.h"
+#import "TuSDKPFPaintBezierPath.h"
+
+#import "TuSDKOpenGLAssistant.h"
+#import "TuSDKTextureCoordinateCropBuilder.h"
+#import "TuSDKVerticeCoordinateBuilder.h"
+
 
 #import "TuSDKTKThread.h"
 #import "TuSDKVideoCameraInterface.h"
@@ -129,15 +136,27 @@
 #import "TuSDKFilterWrap.h"
 #import "TuSDKFilterProcessorBase.h"
 #import "TuSDKTKStatistics.h"
+#import "TuSDKStickerImage.h"
 
 #import "TuSDKOnlineStickerFetcher.h"
 #import "TuSDKOnlineStickerDownloader.h"
 
-#import "TuSDKTextStickerImage.h"
+#import "TuSDKGPU2DImageFilter.h"
+#import "TuSDKGPULiveTransitionFilterProtocol.h"
 
 
 #import "TuSDKNKNetworkEngine.h"
 #import "UIImageView+TuSDKNetworkAdditions.h"
+
+#import "SLGL2DTextureProgram.h"
+#import "SLGLYUVTextureProgram.h"
+
+#import  "TuSDKComboFilterWrapChain.h"
+#import "TuSDKSkinMoistWrap.h"
+#import "TuSDKSkinNaturalWrap.h"
+#import "TuSDKScreenKeyingWrap.h"
+#import "CosmeticTaskQueue.h"
+#import "CosmeticLipFilter.h"
 
 /**
  *  SDK版本
@@ -148,6 +167,11 @@ extern NSString * const lsqSDKVersion;
  *  SDK版本代号
  */
 extern NSUInteger const lsqSDKCode;
+
+/**
+ *  SDK打包时间
+ */
+extern NSString * const lsqSDKPackingTime;
 
 /**
  * SDK配置文件 (lsq_tusdk_configs.json)
@@ -207,6 +231,13 @@ extern NSString * const lsqFilterSampleExtension;
  */
 @property (nonatomic) BOOL useSSL;
 
+
+/**
+ * udid
+ * @since v1.0.0
+ */
+@property (nonatomic, strong, readonly) NSString *openid;
+
 /**
  *  TuSDK 核心
  *
@@ -235,6 +266,20 @@ extern NSString * const lsqFilterSampleExtension;
  *  @param level 日志输出级别 (默认：lsqLogLevelFATAL 不输出)
  */
 + (void)setLogLevel:(lsqLogLevel)level;
+
+/**
+ *  设置文件日志输出级别
+ *
+ *  @param level 日志输出级别 (默认：lsqLogLevelFATAL 不输出)
+ */
++ (void)setFileLogLevel:(lsqLogLevel)level;
+
+/**
+ * 获取日志文件路径
+ *
+ * @return 日志文件路径
+ */
++ (NSString *)fileLogPath;
 
 /**
  *  应用临时目录
@@ -287,7 +332,7 @@ extern NSString * const lsqFilterSampleExtension;
  *  @param sessionPreset  相机分辨率类型 
  *  @see AVCaptureSessionPresetPhoto
  *  @param cameraPosition 相机设备标识 （前置或后置）
- *  @param cameraView     相机显示容器视图
+ *  @param view     相机显示容器视图
  *
  *  @return 相机对象
  */

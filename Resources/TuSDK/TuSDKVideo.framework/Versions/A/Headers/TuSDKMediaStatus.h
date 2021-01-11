@@ -41,10 +41,11 @@ typedef NS_ENUM(NSInteger, TuSDKMediaAssetExtractorStatus) {
  */
 typedef NS_ENUM(NSInteger, TuSDKMediaExportSessionStatus) {
     TuSDKMediaExportSessionStatusUnknown = 0,
-    TuSDKMediaExportSessionStatusExporting = 1,
-    TuSDKMediaExportSessionStatusCancelled = 2,
-    TuSDKMediaExportSessionStatusFailed = 3,
-    TuSDKMediaExportSessionStatusCompleted = 4,
+    TuSDKMediaExportSessionStatusExporting,
+    TuSDKMediaExportSessionStatusRequestCancel,
+    TuSDKMediaExportSessionStatusCancelled,
+    TuSDKMediaExportSessionStatusFailed,
+    TuSDKMediaExportSessionStatusCompleted,
 };
 
 
@@ -67,4 +68,22 @@ typedef NS_ENUM(NSInteger, TuSDKMediaPlayerStatus) {
     TuSDKMediaPlayerStatusPlaying = 3,
     TuSDKMediaPlayerStatusPaused = 4,
     TuSDKMediaPlayerStatusCompleted = 5
+};
+
+
+#pragma mark - TuSDKMediaPlayerLoadStatus
+
+/**
+ 播放器状态枚举值
+ 
+ - TuSDKMediaPlayerLoadStatusUnknown: 未知状态
+ - TuSDKMediaPlayerLoadStatusFailed: 播放器播放失败
+ - TuSDKMediaPlayerLoadStatusLoading: 加载完成准备播放
+ - TuSDKMediaPlayerLoadStatusCompleted: 播放完成
+ */
+typedef NS_ENUM(NSInteger, TuSDKMediaPlayerLoadStatus) {
+    TuSDKMediaPlayerLoadStatusUnknown = 0,
+    TuSDKMediaPlayerLoadStatusFailed = 1,
+    TuSDKMediaPlayerLoadStatusLoading = 2,
+    TuSDKMediaPlayerLoadStatusCompleted = 3
 };

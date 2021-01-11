@@ -390,6 +390,21 @@ typedef NS_ENUM(NSInteger, lsqCameraState)
 @end
 
 
+#pragma mark - TuSDKCPFocusTouchViewBase 聚焦点回调
+
+@protocol TuSDKCPFocusTouchViewDelegate <NSObject>
+
+
+/**
+ 点击屏幕触发聚焦、曝光点前回调
+
+ @param focusTouchView 点击相应的View
+ @param point 点击的点
+ @since v3.1.1
+ */
+- (void)focusTouchView:(id<TuSDKVideoCameraExtendViewInterface>)focusTouchView didTapPoint:(CGPoint)point;
+
+@end
 
 #pragma mark - TuSDKVideoCameraExtendViewInterface
 /**
@@ -400,6 +415,13 @@ typedef NS_ENUM(NSInteger, lsqCameraState)
  *  相机对象
  */
 @property (nonatomic, assign) id<TuSDKVideoCameraInterface> camera;
+
+/**
+ * 聚焦点击视图代理
+ * @since v3.1.1
+ */
+@property (nonatomic, weak) id<TuSDKCPFocusTouchViewDelegate> focusViewDelegate;
+
 /**
  *  是否开启长按拍摄 (默认: NO)
  */
@@ -411,9 +433,21 @@ typedef NS_ENUM(NSInteger, lsqCameraState)
 @property (nonatomic) BOOL disableContinueFoucs;
 
 /**
- *  是否禁止触摸聚焦 (默认: YES)
+ *  是否禁止触摸聚焦 (默认: NO)
  */
 @property (nonatomic) BOOL disableTapFocus;
+
+/**
+ *  是否禁止触摸曝光 (默认: NO)
+ *  @since v3.1.1
+ */
+@property (nonatomic) BOOL disableTapExposure;
+
+/**
+ *  曝光模式
+ *  @since v3.1.1
+ */
+@property (nonatomic, assign) AVCaptureExposureMode exposureMode;
 
 /**
  *  自动聚焦延时 (默认: 5秒)
@@ -443,13 +477,6 @@ typedef NS_ENUM(NSInteger, lsqCameraState)
 - (void)cameraStateChanged:(lsqCameraState)state;
 
 /**
- *  当前聚焦状态
- *
- *  @param isFocusing 是否正在聚焦
- */
-- (void)onAdjustingFocus:(BOOL)isFocusing;
-
-/**
  *  通知滤镜配置视图
  *
  *  @param filter 滤镜包装对象
@@ -462,5 +489,5 @@ typedef NS_ENUM(NSInteger, lsqCameraState)
  *  @param faces 脸部追踪信息
  *  @param size  显示区域长宽
  */
-- (void)notifyFaceDetection:(NSArray<TuSDKTSFaceFeature *> *)faces size:(CGSize)size;
+- (void)notifyFaceDetection:(NSArray<TuSDKTSFaceFeature *> *)faces;
 @end

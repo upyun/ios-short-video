@@ -23,37 +23,14 @@
     UIView<TuSDKICFocusRangeViewProtocol> *_rangeView;
 }
 
-/**
- *  聚焦视图 (如果不设定，将使用 TuSDKICFocusRangeView)
- */
-@property (nonatomic, readonly) UIView<TuSDKICFocusRangeViewProtocol> *rangeView;
 
-/**
- *  顶部边距
- */
-@property (nonatomic) NSInteger topSpace;
+@property (nonatomic, readonly) UIView<TuSDKICFocusRangeViewProtocol> *rangeView; // 聚焦视图 (如果不设定，将使用 TuSDKICFocusRangeView)
+@property (nonatomic, weak) id<TuSDKCPFocusTouchViewDelegate> focusViewDelegate; // 聚焦中心点击回调
+@property (nonatomic) NSInteger topSpace; // 顶部边距
+@property (nonatomic) BOOL disableTapFocus; // 是否禁止触摸聚焦 (默认: YES)
 
-/**
- *  是否显示辅助线
- */
-@property (nonatomic) BOOL displayGuideLine;
 
-/**
- *  是否禁止触摸聚焦 (默认: YES)
- */
-@property (nonatomic) BOOL disableTapFocus;
-
-/**
- *  通知选取范围视图
- *
- *  @param point 聚焦点
- */
-- (void)notifyRangeViewWithPoint:(CGPoint)point;
-
-- (void) onFaceAligmented:(NSArray<TuSDKFaceAligment *> *)aligments
-                     size:(CGSize)size
-               transposed:(BOOL)transposed
-                focusFace:(BOOL)focusFace;
+- (void) updateFaceFeatures:(NSArray<TuSDKFaceAligment *> *)aligments;
 
 @end
 

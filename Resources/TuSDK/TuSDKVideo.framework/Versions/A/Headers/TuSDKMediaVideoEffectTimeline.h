@@ -17,7 +17,8 @@
 @interface TuSDKMediaVideoEffectTimeline : NSObject <TuSDKMediaEffectTimeline>
 {
     @protected
-    NSMutableDictionary<NSNumber *,NSMutableArray<id<TuSDKMediaEffect>> *> *_allEffectsDic;
+    /** 所有特效集合 排序为添加顺序 */
+    NSMutableArray<id<TuSDKMediaEffect>> *_allEffects;
 }
 
 @end

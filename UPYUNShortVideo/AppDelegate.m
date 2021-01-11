@@ -36,7 +36,7 @@
 //     [TuSDK initSdkWithAppKey:@"30f2fe79726dfb83-01-dmlup1" devType:@"debug"];
     
     // 上传 服务名 即 空间  bucket
-    [UPYUNConfig sharedInstance].DEFAULT_BUCKET = @"test86400";
+    [UPYUNConfig sharedInstance].DEFAULT_BUCKET = @"test-upyun-video";
     // 上传 操作员的名字
     [UPYUNConfig sharedInstance].OPERATOR_NAME = @"operator123";
     // 上传 操作员的密码

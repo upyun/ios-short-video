@@ -63,7 +63,7 @@
 /**
  TuSDKVideoTrackInfo
  
- @param audioTrack TuSDKVideoTrackInfo
+ @param videoTrack TuSDKVideoTrackInfo
  @return TuSDKAudioTrackInfo
  */
 +(instancetype)trackInfoWithVideoAssetTrack:(AVAssetTrack *)videoTrack;
