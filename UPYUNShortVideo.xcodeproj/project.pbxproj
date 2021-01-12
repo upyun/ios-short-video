@@ -26,6 +26,41 @@
 		3E552E3A1F289BD5002E5A62 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E552E391F289BD5002E5A62 /* libz.1.2.5.tbd */; };
 		3E552E3F1F29E77E002E5A62 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E552E3E1F29E77D002E5A62 /* Photos.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3E57D1DA205B74B500CA8BD4 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E57D1D9205B74B500CA8BD4 /* Accelerate.framework */; };
+		3E65A91B25AD435B002B1B53 /* lsq_filter_thumb_SkinRose_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A8F825AD4356002B1B53 /* lsq_filter_thumb_SkinRose_1.jpg */; };
+		3E65A91C25AD435B002B1B53 /* lsq_filter_thumb_SkinHoney_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A8F925AD4356002B1B53 /* lsq_filter_thumb_SkinHoney_1.jpg */; };
+		3E65A91D25AD435B002B1B53 /* lsq_filter_thumb_SkinDawn_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A8FA25AD4357002B1B53 /* lsq_filter_thumb_SkinDawn_1.jpg */; };
+		3E65A91E25AD435B002B1B53 /* lsq_filter_thumb_SkinExtraordinary_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A8FB25AD4357002B1B53 /* lsq_filter_thumb_SkinExtraordinary_1.jpg */; };
+		3E65A91F25AD435B002B1B53 /* lsq_filter_thumb_SkinSugar10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A8FC25AD4357002B1B53 /* lsq_filter_thumb_SkinSugar10.jpg */; };
+		3E65A92025AD435B002B1B53 /* lsq_filter_thumb_SkinSoft10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A8FD25AD4357002B1B53 /* lsq_filter_thumb_SkinSoft10.jpg */; };
+		3E65A92125AD435B002B1B53 /* lsq_filter_thumb_SkinPink10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A8FE25AD4357002B1B53 /* lsq_filter_thumb_SkinPink10.jpg */; };
+		3E65A92225AD435B002B1B53 /* lsq_filter_thumb_SkinNature10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A8FF25AD4357002B1B53 /* lsq_filter_thumb_SkinNature10.jpg */; };
+		3E65A92325AD435B002B1B53 /* lsq_filter_thumb_SkinJelly10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A90025AD4357002B1B53 /* lsq_filter_thumb_SkinJelly10.jpg */; };
+		3E65A92425AD435B002B1B53 /* lsq_filter_thumb_SkinLotus_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A90125AD4358002B1B53 /* lsq_filter_thumb_SkinLotus_1.jpg */; };
+		3E65A92525AD435B002B1B53 /* lsq_filter_thumb_SkinWarm_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A90225AD4358002B1B53 /* lsq_filter_thumb_SkinWarm_1.jpg */; };
+		3E65A92625AD435B002B1B53 /* lsq_filter_thumb_SkinClear_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A90325AD4358002B1B53 /* lsq_filter_thumb_SkinClear_1.jpg */; };
+		3E65A92725AD435B002B1B53 /* lsq_filter_thumb_gaosi_01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A90425AD4358002B1B53 /* lsq_filter_thumb_gaosi_01.jpg */; };
+		3E65A92825AD435B002B1B53 /* lsq_filter_thumb_SkinPowder10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A90525AD4358002B1B53 /* lsq_filter_thumb_SkinPowder10.jpg */; };
+		3E65A92925AD435B002B1B53 /* lsq_filter_thumb_SkinConfession_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A90625AD4358002B1B53 /* lsq_filter_thumb_SkinConfession_1.jpg */; };
+		3E65A92A25AD435B002B1B53 /* lsq_filter_thumb_SkinDusk_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A90725AD4358002B1B53 /* lsq_filter_thumb_SkinDusk_1.jpg */; };
+		3E65A92B25AD435B002B1B53 /* lsq_filter_thumb_SkinPast10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A90825AD4359002B1B53 /* lsq_filter_thumb_SkinPast10.jpg */; };
+		3E65A92C25AD435B002B1B53 /* lsq_filter_thumb_SkinBeckoning_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A90925AD4359002B1B53 /* lsq_filter_thumb_SkinBeckoning_1.jpg */; };
+		3E65A92D25AD435B002B1B53 /* lsq_filter_thumb_SkinLeisurely_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A90A25AD4359002B1B53 /* lsq_filter_thumb_SkinLeisurely_1.jpg */; };
+		3E65A92E25AD435B002B1B53 /* lsq_filter_thumb_SkinPure10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A90B25AD4359002B1B53 /* lsq_filter_thumb_SkinPure10.jpg */; };
+		3E65A92F25AD435B002B1B53 /* lsq_filter_thumb_SkinFair_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A90C25AD4359002B1B53 /* lsq_filter_thumb_SkinFair_1.jpg */; };
+		3E65A93025AD435B002B1B53 /* lsq_filter_thumb_SkinButter_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A90D25AD4359002B1B53 /* lsq_filter_thumb_SkinButter_1.jpg */; };
+		3E65A93125AD435B002B1B53 /* lsq_filter_thumb_SkinTender_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A90E25AD4359002B1B53 /* lsq_filter_thumb_SkinTender_1.jpg */; };
+		3E65A93225AD435B002B1B53 /* lsq_filter_thumb_SkinSweet_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A90F25AD435A002B1B53 /* lsq_filter_thumb_SkinSweet_1.jpg */; };
+		3E65A93325AD435B002B1B53 /* lsq_filter_thumb_SkinWheat10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A91025AD435A002B1B53 /* lsq_filter_thumb_SkinWheat10.jpg */; };
+		3E65A93425AD435B002B1B53 /* lsq_filter_thumb_SkinPlain_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A91125AD435A002B1B53 /* lsq_filter_thumb_SkinPlain_1.jpg */; };
+		3E65A93525AD435B002B1B53 /* lsq_filter_thumb_SkinMoving10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A91225AD435A002B1B53 /* lsq_filter_thumb_SkinMoving10.jpg */; };
+		3E65A93625AD435B002B1B53 /* lsq_filter_thumb_SkinRuddy10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A91325AD435A002B1B53 /* lsq_filter_thumb_SkinRuddy10.jpg */; };
+		3E65A93725AD435B002B1B53 /* lsq_filter_thumb_SkinNoir10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A91425AD435A002B1B53 /* lsq_filter_thumb_SkinNoir10.jpg */; };
+		3E65A93825AD435B002B1B53 /* lsq_filter_thumb_SkinNatural_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A91525AD435A002B1B53 /* lsq_filter_thumb_SkinNatural_1.jpg */; };
+		3E65A93925AD435B002B1B53 /* lsq_filter_thumb_SkinJapanese_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A91625AD435A002B1B53 /* lsq_filter_thumb_SkinJapanese_1.jpg */; };
+		3E65A93A25AD435B002B1B53 /* lsq_filter_thumb_SkinCookies10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A91725AD435B002B1B53 /* lsq_filter_thumb_SkinCookies10.jpg */; };
+		3E65A93B25AD435B002B1B53 /* lsq_filter_thumb_SkinNostalgia_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A91825AD435B002B1B53 /* lsq_filter_thumb_SkinNostalgia_1.jpg */; };
+		3E65A93C25AD435B002B1B53 /* lsq_filter_thumb_SkinRose10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A91925AD435B002B1B53 /* lsq_filter_thumb_SkinRose10.jpg */; };
+		3E65A93D25AD435B002B1B53 /* lsq_filter_thumb_SkinSummer_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E65A91A25AD435B002B1B53 /* lsq_filter_thumb_SkinSummer_1.jpg */; };
 		3E892571209B0DD70083773E /* UPLivePlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E89256F209B0DD70083773E /* UPLivePlayerVC.m */; };
 		3E892572209B0DD70083773E /* UPLivePlayerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E892570209B0DD70083773E /* UPLivePlayerVC.xib */; };
 		3E892575209B0DFB0083773E /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E892573209B0DFA0083773E /* MainViewController.m */; };
@@ -234,27 +269,6 @@
 		3EAC85CB25AC541D00961811 /* lsq_effect_thumb_LiveXRay01.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC842125AC541B00961811 /* lsq_effect_thumb_LiveXRay01.gif */; };
 		3EAC85CC25AC541D00961811 /* lsq_effect_thumb_LiveSoulOut01.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC842225AC541B00961811 /* lsq_effect_thumb_LiveSoulOut01.gif */; };
 		3EAC85CD25AC541D00961811 /* lsq_effect_thumb_LiveShake01.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC842325AC541B00961811 /* lsq_effect_thumb_LiveShake01.gif */; };
-		3EAC85CE25AC541D00961811 /* lsq_filter_thumb_SkinFair_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC842525AC541B00961811 /* lsq_filter_thumb_SkinFair_1.jpg */; };
-		3EAC85CF25AC541D00961811 /* lsq_filter_thumb_SkinPlain_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC842625AC541B00961811 /* lsq_filter_thumb_SkinPlain_1.jpg */; };
-		3EAC85D025AC541D00961811 /* lsq_filter_thumb_SkinNatural_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC842725AC541B00961811 /* lsq_filter_thumb_SkinNatural_1.jpg */; };
-		3EAC85D125AC541D00961811 /* lsq_filter_thumb_SkinLotus_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC842825AC541B00961811 /* lsq_filter_thumb_SkinLotus_1.jpg */; };
-		3EAC85D225AC541D00961811 /* lsq_filter_thumb_SkinConfession_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC842925AC541B00961811 /* lsq_filter_thumb_SkinConfession_1.jpg */; };
-		3EAC85D325AC541D00961811 /* lsq_filter_thumb_SkinRose_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC842A25AC541B00961811 /* lsq_filter_thumb_SkinRose_1.jpg */; };
-		3EAC85D425AC541D00961811 /* lsq_filter_thumb_SkinWarm_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC842B25AC541B00961811 /* lsq_filter_thumb_SkinWarm_1.jpg */; };
-		3EAC85D525AC541D00961811 /* lsq_filter_thumb_SkinButter_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC842C25AC541B00961811 /* lsq_filter_thumb_SkinButter_1.jpg */; };
-		3EAC85D625AC541D00961811 /* lsq_filter_thumb_SkinJapanese_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC842D25AC541B00961811 /* lsq_filter_thumb_SkinJapanese_1.jpg */; };
-		3EAC85D725AC541D00961811 /* lsq_filter_thumb_SkinNostalgia_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC842E25AC541B00961811 /* lsq_filter_thumb_SkinNostalgia_1.jpg */; };
-		3EAC85D825AC541D00961811 /* lsq_filter_thumb_SkinSummer_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC842F25AC541B00961811 /* lsq_filter_thumb_SkinSummer_1.jpg */; };
-		3EAC85D925AC541D00961811 /* lsq_filter_thumb_SkinDawn_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC843025AC541B00961811 /* lsq_filter_thumb_SkinDawn_1.jpg */; };
-		3EAC85DA25AC541D00961811 /* lsq_filter_thumb_SkinDusk_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC843125AC541B00961811 /* lsq_filter_thumb_SkinDusk_1.jpg */; };
-		3EAC85DB25AC541D00961811 /* lsq_filter_thumb_gaosi_01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC843225AC541B00961811 /* lsq_filter_thumb_gaosi_01.jpg */; };
-		3EAC85DC25AC541D00961811 /* lsq_filter_thumb_SkinSweet_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC843325AC541B00961811 /* lsq_filter_thumb_SkinSweet_1.jpg */; };
-		3EAC85DD25AC541D00961811 /* lsq_filter_thumb_SkinTender_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC843425AC541B00961811 /* lsq_filter_thumb_SkinTender_1.jpg */; };
-		3EAC85DE25AC541D00961811 /* lsq_filter_thumb_SkinBeckoning_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC843525AC541B00961811 /* lsq_filter_thumb_SkinBeckoning_1.jpg */; };
-		3EAC85DF25AC541D00961811 /* lsq_filter_thumb_SkinExtraordinary_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC843625AC541B00961811 /* lsq_filter_thumb_SkinExtraordinary_1.jpg */; };
-		3EAC85E025AC541D00961811 /* lsq_filter_thumb_SkinLeisurely_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC843725AC541B00961811 /* lsq_filter_thumb_SkinLeisurely_1.jpg */; };
-		3EAC85E125AC541D00961811 /* lsq_filter_thumb_SkinClear_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC843825AC541B00961811 /* lsq_filter_thumb_SkinClear_1.jpg */; };
-		3EAC85E225AC541D00961811 /* lsq_filter_thumb_SkinHoney_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC843925AC541B00961811 /* lsq_filter_thumb_SkinHoney_1.jpg */; };
 		3EAC85E325AC541D00961811 /* lsq_effect_thumb_repeat.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC843B25AC541B00961811 /* lsq_effect_thumb_repeat.gif */; };
 		3EAC85E425AC541D00961811 /* lsq_effect_thumb_reverse.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC843C25AC541B00961811 /* lsq_effect_thumb_reverse.gif */; };
 		3EAC85E525AC541D00961811 /* lsq_effect_thumb_slow.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC843D25AC541B00961811 /* lsq_effect_thumb_slow.gif */; };
@@ -671,6 +685,41 @@
 		3E552E401F2AE088002E5A62 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		3E552E411F2AE088002E5A62 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		3E57D1D9205B74B500CA8BD4 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		3E65A8F825AD4356002B1B53 /* lsq_filter_thumb_SkinRose_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinRose_1.jpg; sourceTree = "<group>"; };
+		3E65A8F925AD4356002B1B53 /* lsq_filter_thumb_SkinHoney_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinHoney_1.jpg; sourceTree = "<group>"; };
+		3E65A8FA25AD4357002B1B53 /* lsq_filter_thumb_SkinDawn_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinDawn_1.jpg; sourceTree = "<group>"; };
+		3E65A8FB25AD4357002B1B53 /* lsq_filter_thumb_SkinExtraordinary_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinExtraordinary_1.jpg; sourceTree = "<group>"; };
+		3E65A8FC25AD4357002B1B53 /* lsq_filter_thumb_SkinSugar10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinSugar10.jpg; sourceTree = "<group>"; };
+		3E65A8FD25AD4357002B1B53 /* lsq_filter_thumb_SkinSoft10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinSoft10.jpg; sourceTree = "<group>"; };
+		3E65A8FE25AD4357002B1B53 /* lsq_filter_thumb_SkinPink10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinPink10.jpg; sourceTree = "<group>"; };
+		3E65A8FF25AD4357002B1B53 /* lsq_filter_thumb_SkinNature10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinNature10.jpg; sourceTree = "<group>"; };
+		3E65A90025AD4357002B1B53 /* lsq_filter_thumb_SkinJelly10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinJelly10.jpg; sourceTree = "<group>"; };
+		3E65A90125AD4358002B1B53 /* lsq_filter_thumb_SkinLotus_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinLotus_1.jpg; sourceTree = "<group>"; };
+		3E65A90225AD4358002B1B53 /* lsq_filter_thumb_SkinWarm_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinWarm_1.jpg; sourceTree = "<group>"; };
+		3E65A90325AD4358002B1B53 /* lsq_filter_thumb_SkinClear_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinClear_1.jpg; sourceTree = "<group>"; };
+		3E65A90425AD4358002B1B53 /* lsq_filter_thumb_gaosi_01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_gaosi_01.jpg; sourceTree = "<group>"; };
+		3E65A90525AD4358002B1B53 /* lsq_filter_thumb_SkinPowder10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinPowder10.jpg; sourceTree = "<group>"; };
+		3E65A90625AD4358002B1B53 /* lsq_filter_thumb_SkinConfession_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinConfession_1.jpg; sourceTree = "<group>"; };
+		3E65A90725AD4358002B1B53 /* lsq_filter_thumb_SkinDusk_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinDusk_1.jpg; sourceTree = "<group>"; };
+		3E65A90825AD4359002B1B53 /* lsq_filter_thumb_SkinPast10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinPast10.jpg; sourceTree = "<group>"; };
+		3E65A90925AD4359002B1B53 /* lsq_filter_thumb_SkinBeckoning_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinBeckoning_1.jpg; sourceTree = "<group>"; };
+		3E65A90A25AD4359002B1B53 /* lsq_filter_thumb_SkinLeisurely_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinLeisurely_1.jpg; sourceTree = "<group>"; };
+		3E65A90B25AD4359002B1B53 /* lsq_filter_thumb_SkinPure10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinPure10.jpg; sourceTree = "<group>"; };
+		3E65A90C25AD4359002B1B53 /* lsq_filter_thumb_SkinFair_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinFair_1.jpg; sourceTree = "<group>"; };
+		3E65A90D25AD4359002B1B53 /* lsq_filter_thumb_SkinButter_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinButter_1.jpg; sourceTree = "<group>"; };
+		3E65A90E25AD4359002B1B53 /* lsq_filter_thumb_SkinTender_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinTender_1.jpg; sourceTree = "<group>"; };
+		3E65A90F25AD435A002B1B53 /* lsq_filter_thumb_SkinSweet_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinSweet_1.jpg; sourceTree = "<group>"; };
+		3E65A91025AD435A002B1B53 /* lsq_filter_thumb_SkinWheat10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinWheat10.jpg; sourceTree = "<group>"; };
+		3E65A91125AD435A002B1B53 /* lsq_filter_thumb_SkinPlain_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinPlain_1.jpg; sourceTree = "<group>"; };
+		3E65A91225AD435A002B1B53 /* lsq_filter_thumb_SkinMoving10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinMoving10.jpg; sourceTree = "<group>"; };
+		3E65A91325AD435A002B1B53 /* lsq_filter_thumb_SkinRuddy10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinRuddy10.jpg; sourceTree = "<group>"; };
+		3E65A91425AD435A002B1B53 /* lsq_filter_thumb_SkinNoir10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinNoir10.jpg; sourceTree = "<group>"; };
+		3E65A91525AD435A002B1B53 /* lsq_filter_thumb_SkinNatural_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinNatural_1.jpg; sourceTree = "<group>"; };
+		3E65A91625AD435A002B1B53 /* lsq_filter_thumb_SkinJapanese_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinJapanese_1.jpg; sourceTree = "<group>"; };
+		3E65A91725AD435B002B1B53 /* lsq_filter_thumb_SkinCookies10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinCookies10.jpg; sourceTree = "<group>"; };
+		3E65A91825AD435B002B1B53 /* lsq_filter_thumb_SkinNostalgia_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinNostalgia_1.jpg; sourceTree = "<group>"; };
+		3E65A91925AD435B002B1B53 /* lsq_filter_thumb_SkinRose10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinRose10.jpg; sourceTree = "<group>"; };
+		3E65A91A25AD435B002B1B53 /* lsq_filter_thumb_SkinSummer_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinSummer_1.jpg; sourceTree = "<group>"; };
 		3E89256E209B0DD70083773E /* UPLivePlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPLivePlayerVC.h; sourceTree = "<group>"; };
 		3E89256F209B0DD70083773E /* UPLivePlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPLivePlayerVC.m; sourceTree = "<group>"; };
 		3E892570209B0DD70083773E /* UPLivePlayerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UPLivePlayerVC.xib; sourceTree = "<group>"; };
@@ -1024,27 +1073,6 @@
 		3EAC842125AC541B00961811 /* lsq_effect_thumb_LiveXRay01.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lsq_effect_thumb_LiveXRay01.gif; sourceTree = "<group>"; };
 		3EAC842225AC541B00961811 /* lsq_effect_thumb_LiveSoulOut01.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lsq_effect_thumb_LiveSoulOut01.gif; sourceTree = "<group>"; };
 		3EAC842325AC541B00961811 /* lsq_effect_thumb_LiveShake01.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lsq_effect_thumb_LiveShake01.gif; sourceTree = "<group>"; };
-		3EAC842525AC541B00961811 /* lsq_filter_thumb_SkinFair_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinFair_1.jpg; sourceTree = "<group>"; };
-		3EAC842625AC541B00961811 /* lsq_filter_thumb_SkinPlain_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinPlain_1.jpg; sourceTree = "<group>"; };
-		3EAC842725AC541B00961811 /* lsq_filter_thumb_SkinNatural_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinNatural_1.jpg; sourceTree = "<group>"; };
-		3EAC842825AC541B00961811 /* lsq_filter_thumb_SkinLotus_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinLotus_1.jpg; sourceTree = "<group>"; };
-		3EAC842925AC541B00961811 /* lsq_filter_thumb_SkinConfession_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinConfession_1.jpg; sourceTree = "<group>"; };
-		3EAC842A25AC541B00961811 /* lsq_filter_thumb_SkinRose_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinRose_1.jpg; sourceTree = "<group>"; };
-		3EAC842B25AC541B00961811 /* lsq_filter_thumb_SkinWarm_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinWarm_1.jpg; sourceTree = "<group>"; };
-		3EAC842C25AC541B00961811 /* lsq_filter_thumb_SkinButter_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinButter_1.jpg; sourceTree = "<group>"; };
-		3EAC842D25AC541B00961811 /* lsq_filter_thumb_SkinJapanese_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinJapanese_1.jpg; sourceTree = "<group>"; };
-		3EAC842E25AC541B00961811 /* lsq_filter_thumb_SkinNostalgia_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinNostalgia_1.jpg; sourceTree = "<group>"; };
-		3EAC842F25AC541B00961811 /* lsq_filter_thumb_SkinSummer_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinSummer_1.jpg; sourceTree = "<group>"; };
-		3EAC843025AC541B00961811 /* lsq_filter_thumb_SkinDawn_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinDawn_1.jpg; sourceTree = "<group>"; };
-		3EAC843125AC541B00961811 /* lsq_filter_thumb_SkinDusk_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinDusk_1.jpg; sourceTree = "<group>"; };
-		3EAC843225AC541B00961811 /* lsq_filter_thumb_gaosi_01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_gaosi_01.jpg; sourceTree = "<group>"; };
-		3EAC843325AC541B00961811 /* lsq_filter_thumb_SkinSweet_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinSweet_1.jpg; sourceTree = "<group>"; };
-		3EAC843425AC541B00961811 /* lsq_filter_thumb_SkinTender_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinTender_1.jpg; sourceTree = "<group>"; };
-		3EAC843525AC541B00961811 /* lsq_filter_thumb_SkinBeckoning_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinBeckoning_1.jpg; sourceTree = "<group>"; };
-		3EAC843625AC541B00961811 /* lsq_filter_thumb_SkinExtraordinary_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinExtraordinary_1.jpg; sourceTree = "<group>"; };
-		3EAC843725AC541B00961811 /* lsq_filter_thumb_SkinLeisurely_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinLeisurely_1.jpg; sourceTree = "<group>"; };
-		3EAC843825AC541B00961811 /* lsq_filter_thumb_SkinClear_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinClear_1.jpg; sourceTree = "<group>"; };
-		3EAC843925AC541B00961811 /* lsq_filter_thumb_SkinHoney_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinHoney_1.jpg; sourceTree = "<group>"; };
 		3EAC843B25AC541B00961811 /* lsq_effect_thumb_repeat.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lsq_effect_thumb_repeat.gif; sourceTree = "<group>"; };
 		3EAC843C25AC541B00961811 /* lsq_effect_thumb_reverse.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lsq_effect_thumb_reverse.gif; sourceTree = "<group>"; };
 		3EAC843D25AC541B00961811 /* lsq_effect_thumb_slow.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lsq_effect_thumb_slow.gif; sourceTree = "<group>"; };
@@ -2278,27 +2306,41 @@
 		3EAC842425AC541B00961811 /* CameraNormalFilter */ = {
 			isa = PBXGroup;
 			children = (
-				3EAC842525AC541B00961811 /* lsq_filter_thumb_SkinFair_1.jpg */,
-				3EAC842625AC541B00961811 /* lsq_filter_thumb_SkinPlain_1.jpg */,
-				3EAC842725AC541B00961811 /* lsq_filter_thumb_SkinNatural_1.jpg */,
-				3EAC842825AC541B00961811 /* lsq_filter_thumb_SkinLotus_1.jpg */,
-				3EAC842925AC541B00961811 /* lsq_filter_thumb_SkinConfession_1.jpg */,
-				3EAC842A25AC541B00961811 /* lsq_filter_thumb_SkinRose_1.jpg */,
-				3EAC842B25AC541B00961811 /* lsq_filter_thumb_SkinWarm_1.jpg */,
-				3EAC842C25AC541B00961811 /* lsq_filter_thumb_SkinButter_1.jpg */,
-				3EAC842D25AC541B00961811 /* lsq_filter_thumb_SkinJapanese_1.jpg */,
-				3EAC842E25AC541B00961811 /* lsq_filter_thumb_SkinNostalgia_1.jpg */,
-				3EAC842F25AC541B00961811 /* lsq_filter_thumb_SkinSummer_1.jpg */,
-				3EAC843025AC541B00961811 /* lsq_filter_thumb_SkinDawn_1.jpg */,
-				3EAC843125AC541B00961811 /* lsq_filter_thumb_SkinDusk_1.jpg */,
-				3EAC843225AC541B00961811 /* lsq_filter_thumb_gaosi_01.jpg */,
-				3EAC843325AC541B00961811 /* lsq_filter_thumb_SkinSweet_1.jpg */,
-				3EAC843425AC541B00961811 /* lsq_filter_thumb_SkinTender_1.jpg */,
-				3EAC843525AC541B00961811 /* lsq_filter_thumb_SkinBeckoning_1.jpg */,
-				3EAC843625AC541B00961811 /* lsq_filter_thumb_SkinExtraordinary_1.jpg */,
-				3EAC843725AC541B00961811 /* lsq_filter_thumb_SkinLeisurely_1.jpg */,
-				3EAC843825AC541B00961811 /* lsq_filter_thumb_SkinClear_1.jpg */,
-				3EAC843925AC541B00961811 /* lsq_filter_thumb_SkinHoney_1.jpg */,
+				3E65A90425AD4358002B1B53 /* lsq_filter_thumb_gaosi_01.jpg */,
+				3E65A90925AD4359002B1B53 /* lsq_filter_thumb_SkinBeckoning_1.jpg */,
+				3E65A90D25AD4359002B1B53 /* lsq_filter_thumb_SkinButter_1.jpg */,
+				3E65A90325AD4358002B1B53 /* lsq_filter_thumb_SkinClear_1.jpg */,
+				3E65A90625AD4358002B1B53 /* lsq_filter_thumb_SkinConfession_1.jpg */,
+				3E65A91725AD435B002B1B53 /* lsq_filter_thumb_SkinCookies10.jpg */,
+				3E65A8FA25AD4357002B1B53 /* lsq_filter_thumb_SkinDawn_1.jpg */,
+				3E65A90725AD4358002B1B53 /* lsq_filter_thumb_SkinDusk_1.jpg */,
+				3E65A8FB25AD4357002B1B53 /* lsq_filter_thumb_SkinExtraordinary_1.jpg */,
+				3E65A90C25AD4359002B1B53 /* lsq_filter_thumb_SkinFair_1.jpg */,
+				3E65A8F925AD4356002B1B53 /* lsq_filter_thumb_SkinHoney_1.jpg */,
+				3E65A91625AD435A002B1B53 /* lsq_filter_thumb_SkinJapanese_1.jpg */,
+				3E65A90025AD4357002B1B53 /* lsq_filter_thumb_SkinJelly10.jpg */,
+				3E65A90A25AD4359002B1B53 /* lsq_filter_thumb_SkinLeisurely_1.jpg */,
+				3E65A90125AD4358002B1B53 /* lsq_filter_thumb_SkinLotus_1.jpg */,
+				3E65A91225AD435A002B1B53 /* lsq_filter_thumb_SkinMoving10.jpg */,
+				3E65A91525AD435A002B1B53 /* lsq_filter_thumb_SkinNatural_1.jpg */,
+				3E65A8FF25AD4357002B1B53 /* lsq_filter_thumb_SkinNature10.jpg */,
+				3E65A91425AD435A002B1B53 /* lsq_filter_thumb_SkinNoir10.jpg */,
+				3E65A91825AD435B002B1B53 /* lsq_filter_thumb_SkinNostalgia_1.jpg */,
+				3E65A90825AD4359002B1B53 /* lsq_filter_thumb_SkinPast10.jpg */,
+				3E65A8FE25AD4357002B1B53 /* lsq_filter_thumb_SkinPink10.jpg */,
+				3E65A91125AD435A002B1B53 /* lsq_filter_thumb_SkinPlain_1.jpg */,
+				3E65A90525AD4358002B1B53 /* lsq_filter_thumb_SkinPowder10.jpg */,
+				3E65A90B25AD4359002B1B53 /* lsq_filter_thumb_SkinPure10.jpg */,
+				3E65A8F825AD4356002B1B53 /* lsq_filter_thumb_SkinRose_1.jpg */,
+				3E65A91925AD435B002B1B53 /* lsq_filter_thumb_SkinRose10.jpg */,
+				3E65A91325AD435A002B1B53 /* lsq_filter_thumb_SkinRuddy10.jpg */,
+				3E65A8FD25AD4357002B1B53 /* lsq_filter_thumb_SkinSoft10.jpg */,
+				3E65A8FC25AD4357002B1B53 /* lsq_filter_thumb_SkinSugar10.jpg */,
+				3E65A91A25AD435B002B1B53 /* lsq_filter_thumb_SkinSummer_1.jpg */,
+				3E65A90F25AD435A002B1B53 /* lsq_filter_thumb_SkinSweet_1.jpg */,
+				3E65A90E25AD4359002B1B53 /* lsq_filter_thumb_SkinTender_1.jpg */,
+				3E65A90225AD4358002B1B53 /* lsq_filter_thumb_SkinWarm_1.jpg */,
+				3E65A91025AD435A002B1B53 /* lsq_filter_thumb_SkinWheat10.jpg */,
 			);
 			path = CameraNormalFilter;
 			sourceTree = "<group>";
@@ -2939,6 +2981,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EAC86D825AC541E00961811 /* line_J.jpg in Resources */,
+				3E65A92125AD435B002B1B53 /* lsq_filter_thumb_SkinPink10.jpg in Resources */,
 				3EAC85C825AC541D00961811 /* lsq_effect_thumb_LiveLightning01.gif in Resources */,
 				3EAC872825AC541E00961811 /* plastic_reset_sel@3x.png in Resources */,
 				3EAC86DC25AC541E00961811 /* eyelash_R.jpg in Resources */,
@@ -2948,6 +2991,7 @@
 				3EAC860D25AC541D00961811 /* lsq_filter_thumb_Portrait_Clear_1.jpg in Resources */,
 				3EAC862C25AC541D00961811 /* lsq_filter_thumb_Food_Delicious_1.jpg in Resources */,
 				3EAC85F625AC541D00961811 /* lsq_filter_thumb_Portrait_Warm_1.jpg in Resources */,
+				3E65A91E25AD435B002B1B53 /* lsq_filter_thumb_SkinExtraordinary_1.jpg in Resources */,
 				3EAC861025AC541D00961811 /* lsq_filter_thumb_Sharp_Nostalgia_1.jpg in Resources */,
 				3EAC85E325AC541D00961811 /* lsq_effect_thumb_repeat.gif in Resources */,
 				3EAC863E25AC541D00961811 /* lsq_effect_thumb_Star.jpg in Resources */,
@@ -2967,10 +3011,11 @@
 				3EAC85F925AC541D00961811 /* lsq_filter_thumb_Portrait_Bellflower_1.jpg in Resources */,
 				3EAC86D025AC541E00961811 /* line_C.jpg in Resources */,
 				3EAC860025AC541D00961811 /* lsq_filter_thumb_Sharp_Quiet_1.jpg in Resources */,
+				3E65A92D25AD435B002B1B53 /* lsq_filter_thumb_SkinLeisurely_1.jpg in Resources */,
+				3E65A92225AD435B002B1B53 /* lsq_filter_thumb_SkinNature10.jpg in Resources */,
 				3EAC86E225AC541E00961811 /* eyelash_U.jpg in Resources */,
 				3EAC870C25AC541E00961811 /* plastic_smallFace@2x.png in Resources */,
 				3EAC86F825AC541E00961811 /* face_monster_ic_thicklips@3x.png in Resources */,
-				3EAC85E125AC541D00961811 /* lsq_filter_thumb_SkinClear_1.jpg in Resources */,
 				3EAC863625AC541D00961811 /* lsq_filter_thumb_Newborn_1.jpg in Resources */,
 				3EAC873025AC541E00961811 /* plastic_eyeOuterConer@2x.png in Resources */,
 				3EAC862325AC541D00961811 /* lsq_filter_thumb_Portrait_Milk_1.jpg in Resources */,
@@ -2998,11 +3043,11 @@
 				3EAC866525AC541E00961811 /* Shadow_W.jpg in Resources */,
 				3EAC830025A8640B00961811 /* APIAudioMixViewController.storyboard in Resources */,
 				3EAC865425AC541D00961811 /* blush_C_01.jpg in Resources */,
-				3EAC85D625AC541D00961811 /* lsq_filter_thumb_SkinJapanese_1.jpg in Resources */,
 				3EAC85BF25AC541D00961811 /* lsq_audio_thumb_lively.jpg in Resources */,
 				3EAC866125AC541E00961811 /* Shadow_C.jpg in Resources */,
 				3EAC86A225AC541E00961811 /* 弯线黑a.jpg in Resources */,
 				3EAC82FA25A8640B00961811 /* APIAudioPitchEngineViewController.storyboard in Resources */,
+				3E65A93825AD435B002B1B53 /* lsq_filter_thumb_SkinNatural_1.jpg in Resources */,
 				3EAC86A325AC541E00961811 /* 小桃棕a.jpg in Resources */,
 				3EAC86D625AC541E00961811 /* line_I.jpg in Resources */,
 				3EAC872725AC541E00961811 /* plastic_philterum@3x.png in Resources */,
@@ -3048,6 +3093,7 @@
 				3EAC870625AC541E00961811 /* plastic_eyeInnerConer_sel@2x.png in Resources */,
 				3EAC815F25A85DEF00961811 /* homepage_inport.png in Resources */,
 				3EAC874025AC541E00961811 /* plastic_eyeSize_sel@2x.png in Resources */,
+				3E65A92625AD435B002B1B53 /* lsq_filter_thumb_SkinClear_1.jpg in Resources */,
 				3EAC86B925AC541E00961811 /* 圆眉棕a.jpg in Resources */,
 				3EAC863525AC541D00961811 /* lsq_filter_thumb_Cheerful_1.jpg in Resources */,
 				3EAC864825AC541D00961811 /* lipStick_7.jpg in Resources */,
@@ -3055,6 +3101,9 @@
 				3EAC862625AC541D00961811 /* lsq_filter_thumb_Portrait_Sweet_1.jpg in Resources */,
 				3EAC7DEB25A85DCB00961811 /* VideoDemo.strings in Resources */,
 				3EAC873425AC541E00961811 /* plastic_eyeInnerConer@2x.png in Resources */,
+				3E65A93025AD435B002B1B53 /* lsq_filter_thumb_SkinButter_1.jpg in Resources */,
+				3E65A91B25AD435B002B1B53 /* lsq_filter_thumb_SkinRose_1.jpg in Resources */,
+				3E65A93325AD435B002B1B53 /* lsq_filter_thumb_SkinWheat10.jpg in Resources */,
 				3EAC870825AC541E00961811 /* plastic_chinSize@3x.png in Resources */,
 				3EAC864C25AC541D00961811 /* lipStick_1.jpg in Resources */,
 				3EAC861825AC541D00961811 /* lsq_filter_thumb_Scenery_Birch_1.jpg in Resources */,
@@ -3066,7 +3115,6 @@
 				3EAC873225AC541E00961811 /* plastic_lips@3x.png in Resources */,
 				3EAC872C25AC541E00961811 /* plastic_noseHeight_sel@2x.png in Resources */,
 				3EAC86B225AC541E00961811 /* 柳弯黑a.jpg in Resources */,
-				3EAC85D325AC541D00961811 /* lsq_filter_thumb_SkinRose_1.jpg in Resources */,
 				3EAC86FE25AC541E00961811 /* lsq_filter_thumb_CHComics_Video.jpg in Resources */,
 				3EAC860C25AC541D00961811 /* lsq_filter_thumb_Scenery_Innocence_1.jpg in Resources */,
 				3EAC85F125AC541D00961811 /* lsq_filter_thumb_Food_Mangosteen_1.jpg in Resources */,
@@ -3092,48 +3140,55 @@
 				3EAC86AA25AC541E00961811 /* 芭比黑a.jpg in Resources */,
 				3EAC865A25AC541D00961811 /* blush_F_01.jpg in Resources */,
 				3EAC871225AC541E00961811 /* plastic_browPosition_sel@3x.png in Resources */,
+				3E65A92525AD435B002B1B53 /* lsq_filter_thumb_SkinWarm_1.jpg in Resources */,
 				3EAC870725AC541E00961811 /* plastic_browPosition_sel@2x.png in Resources */,
 				3EAC864125AC541D00961811 /* lsq_effect_thumb_snow01.jpg in Resources */,
 				3EAC872925AC541E00961811 /* plastic_noseSize@2x.png in Resources */,
 				3EAC85E925AC541D00961811 /* lsq_filter_thumb_Portrait_Ruddy_1.jpg in Resources */,
+				3E65A93925AD435B002B1B53 /* lsq_filter_thumb_SkinJapanese_1.jpg in Resources */,
 				3EAC86A025AC541E00961811 /* 圆眉灰a.jpg in Resources */,
 				3EAC870E25AC541E00961811 /* plastic_forehead@2x.png in Resources */,
 				3EAC869625AC541E00961811 /* 粗平黑b.jpg in Resources */,
 				3EAC873D25AC541E00961811 /* plastic_cheekBoneNarrow_sel@2x.png in Resources */,
 				3EAC874A25AC541E00961811 /* plastic_archEyebrow@2x.png in Resources */,
 				3EAC860B25AC541D00961811 /* lsq_filter_thumb_Portrait_Cream_1.jpg in Resources */,
+				3E65A93625AD435B002B1B53 /* lsq_filter_thumb_SkinRuddy10.jpg in Resources */,
 				3EAC865725AC541D00961811 /* blush_H_01.jpg in Resources */,
 				3EAC868A25AC541E00961811 /* 标准灰b.jpg in Resources */,
 				3EAC873B25AC541E00961811 /* plastic_noseHeight_sel@3x.png in Resources */,
 				3EAC85E425AC541D00961811 /* lsq_effect_thumb_reverse.gif in Resources */,
 				3EAC817B25A85DFE00961811 /* sound_crow.mp3 in Resources */,
-				3EAC85DA25AC541D00961811 /* lsq_filter_thumb_SkinDusk_1.jpg in Resources */,
 				3EAC85F325AC541D00961811 /* lsq_filter_thumb_Scenery_Picnic_1.jpg in Resources */,
 				3EAC869825AC541E00961811 /* 延禧黑b.jpg in Resources */,
+				3E65A92325AD435B002B1B53 /* lsq_filter_thumb_SkinJelly10.jpg in Resources */,
 				3EAC834F25A8640B00961811 /* SceneEffectViewController.xib in Resources */,
 				3EAC864225AC541D00961811 /* lipStick_10.jpg in Resources */,
 				3EAC874E25AC541E00961811 /* plastic_archEyebrow@3x.png in Resources */,
 				3EAC866625AC541E00961811 /* Shadow_D.jpg in Resources */,
-				3EAC85D925AC541D00961811 /* lsq_filter_thumb_SkinDawn_1.jpg in Resources */,
 				3EAC86E025AC541E00961811 /* eyelash_Q.jpg in Resources */,
 				3EAC868C25AC541E00961811 /* 弯线棕b.jpg in Resources */,
 				3EAC861B25AC541D00961811 /* lsq_filter_thumb_Portrait_Pure_1.jpg in Resources */,
 				3EAC840925AC427B00961811 /* upyun_wartermark.png in Resources */,
+				3E65A92F25AD435B002B1B53 /* lsq_filter_thumb_SkinFair_1.jpg in Resources */,
 				3EAC862025AC541D00961811 /* lsq_filter_thumb_Portrait_Natural_1.jpg in Resources */,
 				3EAC85C525AC541D00961811 /* lsq_effect_thumb_LiveHeartbeat01.gif in Resources */,
 				3EAC86B325AC541E00961811 /* 标准灰a.jpg in Resources */,
 				3EAC86D125AC541E00961811 /* line_B.jpg in Resources */,
 				3EAC86B725AC541E00961811 /* 弯线棕a.jpg in Resources */,
 				3EAC872A25AC541E00961811 /* plastic_cheekBoneNarrow_sel@3x.png in Resources */,
+				3E65A91C25AD435B002B1B53 /* lsq_filter_thumb_SkinHoney_1.jpg in Resources */,
 				3EAC817525A85DFE00961811 /* sound_relieve.mp3 in Resources */,
 				3EAC866425AC541E00961811 /* Shadow_A.jpg in Resources */,
 				3EAC86C125AC541E00961811 /* 欧线棕a.jpg in Resources */,
 				3EAC861D25AC541D00961811 /* lsq_filter_thumb_Scenery_Afternoon_1.jpg in Resources */,
 				3EAC86E625AC541E00961811 /* eyelash_V.jpg in Resources */,
 				3EAC85E525AC541D00961811 /* lsq_effect_thumb_slow.gif in Resources */,
+				3E65A93D25AD435B002B1B53 /* lsq_filter_thumb_SkinSummer_1.jpg in Resources */,
 				3EAC872525AC541E00961811 /* plastic_jawSize@3x.png in Resources */,
 				3EAC872625AC541E00961811 /* plastic_cheekLowBoneNarrow@2x.png in Resources */,
 				3EAC869425AC541E00961811 /* 峰眉棕b.jpg in Resources */,
+				3E65A92925AD435B002B1B53 /* lsq_filter_thumb_SkinConfession_1.jpg in Resources */,
+				3E65A93225AD435B002B1B53 /* lsq_filter_thumb_SkinSweet_1.jpg in Resources */,
 				3EAC866325AC541E00961811 /* Shadow_V.jpg in Resources */,
 				3EAC869725AC541E00961811 /* 断眉黑b.jpg in Resources */,
 				3EAC862125AC541D00961811 /* lsq_filter_thumb_Portrait_Candy_1.jpg in Resources */,
@@ -3142,6 +3197,7 @@
 				3EAC86B425AC541E00961811 /* 欧线灰a.jpg in Resources */,
 				3EAC86A425AC541E00961811 /* 叶细棕a.jpg in Resources */,
 				3EAC860825AC541D00961811 /* lsq_filter_thumb_Sharp_Pink_1.jpg in Resources */,
+				3E65A92C25AD435B002B1B53 /* lsq_filter_thumb_SkinBeckoning_1.jpg in Resources */,
 				3E552C041F272055002E5A62 /* Assets.xcassets in Resources */,
 				3EAC874C25AC541E00961811 /* plastic_smallFace_sel@3x.png in Resources */,
 				3EAC85F425AC541D00961811 /* lsq_filter_thumb_Sharp_Red_1.jpg in Resources */,
@@ -3169,12 +3225,12 @@
 				3EAC868725AC541E00961811 /* 标准黑b.jpg in Resources */,
 				3EAC870B25AC541E00961811 /* plastic_forehead@3x.png in Resources */,
 				3EAC872B25AC541E00961811 /* plastic_chinSize_sel@3x.png in Resources */,
-				3EAC85D725AC541D00961811 /* lsq_filter_thumb_SkinNostalgia_1.jpg in Resources */,
 				3EAC861925AC541D00961811 /* lsq_filter_thumb_Sharp_Black_1.jpg in Resources */,
 				3EAC872E25AC541E00961811 /* plastic_eyeSize@2x.png in Resources */,
 				3EAC840D25AC427B00961811 /* default.jpg in Resources */,
 				3EAC864525AC541D00961811 /* lipStick_12.jpg in Resources */,
 				3EAC865825AC541D00961811 /* blush_D_01.jpg in Resources */,
+				3E65A93B25AD435B002B1B53 /* lsq_filter_thumb_SkinNostalgia_1.jpg in Resources */,
 				3EAC86F925AC541E00961811 /* face_monster_ic_smalleyes@3x.png in Resources */,
 				3EAC862725AC541D00961811 /* lsq_filter_thumb_Sharp_Mottled_1.jpg in Resources */,
 				3EAC871025AC541E00961811 /* plastic_eyeAngle_sel@3x.png in Resources */,
@@ -3196,17 +3252,19 @@
 				3EAC868F25AC541E00961811 /* 芭比棕b.jpg in Resources */,
 				3EAC865C25AC541D00961811 /* blush_N_01.jpg in Resources */,
 				3EAC875125AC541E00961811 /* plastic_jawSize_sel@2x.png in Resources */,
+				3E65A92825AD435B002B1B53 /* lsq_filter_thumb_SkinPowder10.jpg in Resources */,
 				3EAC874825AC541E00961811 /* plastic_smallFace_sel@2x.png in Resources */,
 				3EAC867925AC541E00961811 /* 芭比灰b.jpg in Resources */,
 				3EAC863425AC541D00961811 /* lsq_filter_thumb_Fade_1.jpg in Resources */,
+				3E65A93525AD435B002B1B53 /* lsq_filter_thumb_SkinMoving10.jpg in Resources */,
 				3EAC816225A85DEF00961811 /* homepage_import_icon_unselected@2x.png in Resources */,
 				3EAC833925A8640B00961811 /* APIImageVideoPickerViewController.storyboard in Resources */,
+				3E65A93C25AD435B002B1B53 /* lsq_filter_thumb_SkinRose10.jpg in Resources */,
 				3EAC836425A8640B00961811 /* EditTextViewController.xib in Resources */,
 				3EAC817925A85DFE00961811 /* sound_lively.mp3 in Resources */,
 				3EAC836025A8640B00961811 /* EditTransitionViewController.xib in Resources */,
 				3EAC837925A8640B00961811 /* MovieCutViewController.xib in Resources */,
 				3EAC835025A8640B00961811 /* ParticleEffectViewController.xib in Resources */,
-				3EAC85D525AC541D00961811 /* lsq_filter_thumb_SkinButter_1.jpg in Resources */,
 				3EAC86FF25AC541E00961811 /* lsq_filter_thumb_Lightcolor_Video.jpg in Resources */,
 				3EAC86CA25AC541E00961811 /* line_F.jpg in Resources */,
 				3EAC867B25AC541E00961811 /* 峰眉灰b.jpg in Resources */,
@@ -3216,7 +3274,9 @@
 				3EAC816525A85DEF00961811 /* homepage_video.png in Resources */,
 				3EAC871125AC541E00961811 /* plastic_chinSize@2x.png in Resources */,
 				3EAC816625A85DEF00961811 /* homepage.png in Resources */,
+				3E65A92A25AD435B002B1B53 /* lsq_filter_thumb_SkinDusk_1.jpg in Resources */,
 				3EAC863C25AC541D00961811 /* lsq_effect_thumb_Money.jpg in Resources */,
+				3E65A93425AD435B002B1B53 /* lsq_filter_thumb_SkinPlain_1.jpg in Resources */,
 				3EAC86AD25AC541E00961811 /* 标准黑a.jpg in Resources */,
 				3EAC863725AC541D00961811 /* lsq_effect_thumb_Surprise.jpg in Resources */,
 				3EAC866C25AC541E00961811 /* Shadow_Q.jpg in Resources */,
@@ -3234,11 +3294,11 @@
 				3EAC874F25AC541E00961811 /* plastic_eyeHeight@3x.png in Resources */,
 				3EAC870D25AC541E00961811 /* plastic_smallFace@3x.png in Resources */,
 				3EAC833C25A8640B00961811 /* EditStickerImageViewController.xib in Resources */,
+				3E65A92025AD435B002B1B53 /* lsq_filter_thumb_SkinSoft10.jpg in Resources */,
 				3EAC86FA25AC541E00961811 /* face_monster_ic_papaya@3x.png in Resources */,
 				3EAC85F025AC541D00961811 /* lsq_filter_thumb_Food_Whisky_1.jpg in Resources */,
 				3EAC86F025AC541E00961811 /* eyelash_N.jpg in Resources */,
 				3EAC817425A85DFE00961811 /* sound_cat.mp3 in Resources */,
-				3EAC85E225AC541D00961811 /* lsq_filter_thumb_SkinHoney_1.jpg in Resources */,
 				3EAC862E25AC541D00961811 /* lsq_filter_thumb_White_1.jpg in Resources */,
 				3EAC866E25AC541E00961811 /* Shadow_K.jpg in Resources */,
 				3EAC863D25AC541D00961811 /* lsq_effect_thumb_Love.jpg in Resources */,
@@ -3263,19 +3323,23 @@
 				3EAC817D25A85DFE00961811 /* sound_children.mp3 in Resources */,
 				3EAC867025AC541E00961811 /* Shadow_H.jpg in Resources */,
 				3EAC863A25AC541D00961811 /* lsq_effect_thumb_Music.jpg in Resources */,
+				3E65A92E25AD435B002B1B53 /* lsq_filter_thumb_SkinPure10.jpg in Resources */,
 				3EAC830425A8640B00961811 /* APIMovieMixViewController.storyboard in Resources */,
 				3EAC86CC25AC541E00961811 /* line_P.jpg in Resources */,
 				3EAC86D725AC541E00961811 /* line_H.jpg in Resources */,
 				3EAC85C225AC541D00961811 /* lsq_effect_thumb_EdgeMagic01.gif in Resources */,
+				3E65A93725AD435B002B1B53 /* lsq_filter_thumb_SkinNoir10.jpg in Resources */,
+				3E65A92725AD435B002B1B53 /* lsq_filter_thumb_gaosi_01.jpg in Resources */,
 				3EAC861225AC541D00961811 /* lsq_filter_thumb_Scenery_SNight_1.jpg in Resources */,
 				3EAC85C725AC541D00961811 /* lsq_effect_thumb_LiveSignal01.gif in Resources */,
 				3EAC861E25AC541D00961811 /* lsq_filter_thumb_Portrait_Soda_1.jpg in Resources */,
-				3EAC85DC25AC541D00961811 /* lsq_filter_thumb_SkinSweet_1.jpg in Resources */,
 				3EAC861625AC541D00961811 /* lsq_filter_thumb_Sharp_History_1.jpg in Resources */,
 				3EAC863325AC541D00961811 /* lsq_filter_thumb_s1950_1.jpg in Resources */,
+				3E65A92425AD435B002B1B53 /* lsq_filter_thumb_SkinLotus_1.jpg in Resources */,
 				3EAC866925AC541E00961811 /* Shadow_E.jpg in Resources */,
 				3EAC871425AC541E00961811 /* plastic_cheekNarrow_sel@2x.png in Resources */,
 				3EAC815E25A85DEF00961811 /* homepage_play.png in Resources */,
+				3E65A93125AD435B002B1B53 /* lsq_filter_thumb_SkinTender_1.jpg in Resources */,
 				3EAC864425AC541D00961811 /* lipStick_13.jpg in Resources */,
 				3EAC870F25AC541E00961811 /* plastic_mouthWidth@3x.png in Resources */,
 				3EAC863F25AC541D00961811 /* lsq_effect_thumb_Magic.jpg in Resources */,
@@ -3283,21 +3347,17 @@
 				3EAC840825AC427B00961811 /* edit_ic_colorbar.jpg in Resources */,
 				3EAC874525AC541E00961811 /* plastic_eyeDis_sel@2x.png in Resources */,
 				3EAC85FF25AC541D00961811 /* lsq_filter_thumb_Sharp_Past_1.jpg in Resources */,
-				3EAC85E025AC541D00961811 /* lsq_filter_thumb_SkinLeisurely_1.jpg in Resources */,
 				3EAC865525AC541D00961811 /* blush_A_01.jpg in Resources */,
-				3EAC85D025AC541D00961811 /* lsq_filter_thumb_SkinNatural_1.jpg in Resources */,
 				3EAC866B25AC541E00961811 /* Shadow_P.jpg in Resources */,
 				3EAC865325AC541D00961811 /* blush_O_01.jpg in Resources */,
 				3EAC86DE25AC541E00961811 /* eyelash_G.jpg in Resources */,
 				3EAC864F25AC541D00961811 /* blush_I_01.jpg in Resources */,
 				3E552C021F272055002E5A62 /* Main.storyboard in Resources */,
-				3EAC85D425AC541D00961811 /* lsq_filter_thumb_SkinWarm_1.jpg in Resources */,
 				3EAC86D225AC541E00961811 /* line_O.jpg in Resources */,
 				3EAC86DA25AC541E00961811 /* eyelash_D.jpg in Resources */,
 				3EAC867A25AC541E00961811 /* 圆眉灰b.jpg in Resources */,
 				3EAC86D325AC541E00961811 /* line_N.jpg in Resources */,
 				3EAC868525AC541E00961811 /* 野生棕b.jpg in Resources */,
-				3EAC85DF25AC541D00961811 /* lsq_filter_thumb_SkinExtraordinary_1.jpg in Resources */,
 				3EAC85F825AC541D00961811 /* lsq_filter_thumb_Sharp_Imprint_1.jpg in Resources */,
 				3EAC871725AC541E00961811 /* plastic_cheekLowBoneNarrow@3x.png in Resources */,
 				3EAC830725A8640B00961811 /* APIMovieSpliceViewController.storyboard in Resources */,
@@ -3323,18 +3383,16 @@
 				3EAC85C125AC541D00961811 /* lsq_audio_thumb_relieve.jpg in Resources */,
 				3EAC875525AC541E00961811 /* plastic_lips_sel@2x.png in Resources */,
 				3EAC86FB25AC541E00961811 /* face_monster_ic_pie@3x.png in Resources */,
+				3E65A91D25AD435B002B1B53 /* lsq_filter_thumb_SkinDawn_1.jpg in Resources */,
 				3EAC873325AC541E00961811 /* plastic_eyeInnerConer@3x.png in Resources */,
 				3EAC863025AC541D00961811 /* lsq_filter_thumb_Blurred_1.jpg in Resources */,
-				3EAC85DB25AC541D00961811 /* lsq_filter_thumb_gaosi_01.jpg in Resources */,
 				3EAC86EB25AC541E00961811 /* eyelash_Zc.jpg in Resources */,
 				3EAC864325AC541D00961811 /* lipStick_11.jpg in Resources */,
 				3EAC85EA25AC541D00961811 /* lsq_filter_thumb_Sharp_Ash_1.jpg in Resources */,
-				3EAC85D225AC541D00961811 /* lsq_filter_thumb_SkinConfession_1.jpg in Resources */,
 				3EAC816025A85DEF00961811 /* homepage@2x.png in Resources */,
 				3EAC865125AC541D00961811 /* blush_G_01.jpg in Resources */,
 				3EAC86C825AC541E00961811 /* 断眉灰a.jpg in Resources */,
 				3EAC864625AC541D00961811 /* lipStick_8.jpg in Resources */,
-				3EAC85D825AC541D00961811 /* lsq_filter_thumb_SkinSummer_1.jpg in Resources */,
 				3EAC873825AC541E00961811 /* plastic_mouthWidth_sel@2x.png in Resources */,
 				3EAC870A25AC541E00961811 /* plastic_mouthWidth@2x.png in Resources */,
 				3EAC840A25AC427B00961811 /* home.png in Resources */,
@@ -3342,12 +3400,9 @@
 				3EAC85C025AC541D00961811 /* lsq_audio_thumb_oldmovie.jpg in Resources */,
 				3EAC872225AC541E00961811 /* plastic_cheekNarrow@3x.png in Resources */,
 				3EAC86A825AC541E00961811 /* 新月棕a.jpg in Resources */,
-				3EAC85D125AC541D00961811 /* lsq_filter_thumb_SkinLotus_1.jpg in Resources */,
-				3EAC85DE25AC541D00961811 /* lsq_filter_thumb_SkinBeckoning_1.jpg in Resources */,
 				3EAC85FB25AC541D00961811 /* lsq_filter_thumb_Food_Lime_1.jpg in Resources */,
 				3EAC875325AC541E00961811 /* plastic_eyeDis_sel@3x.png in Resources */,
 				3EAC82FC25A8640B00961811 /* APIMovieClipViewController.storyboard in Resources */,
-				3EAC85CF25AC541D00961811 /* lsq_filter_thumb_SkinPlain_1.jpg in Resources */,
 				3EAC870325AC541E00961811 /* lsq_filter_thumb_USComics_Video.jpg in Resources */,
 				3EAC834025A8640B00961811 /* StickerImageItemView.xib in Resources */,
 				3EAC868325AC541E00961811 /* 欧线黑b.jpg in Resources */,
@@ -3370,10 +3425,11 @@
 				3EAC85C425AC541D00961811 /* lsq_effect_thumb_LiveMirrorImage01.gif in Resources */,
 				3EAC866A25AC541E00961811 /* Shadow_G.jpg in Resources */,
 				3EAC86E325AC541E00961811 /* eyelash_B.jpg in Resources */,
-				3EAC85DD25AC541D00961811 /* lsq_filter_thumb_SkinTender_1.jpg in Resources */,
 				3EAC860E25AC541D00961811 /* lsq_filter_thumb_Portrait_Pale_1.jpg in Resources */,
 				3EAC835A25A8640B00961811 /* EditMVViewController.xib in Resources */,
+				3E65A93A25AD435B002B1B53 /* lsq_filter_thumb_SkinCookies10.jpg in Resources */,
 				3EAC85E725AC541D00961811 /* lsq_filter_thumb_Sharp_Otimes_1.jpg in Resources */,
+				3E65A92B25AD435B002B1B53 /* lsq_filter_thumb_SkinPast10.jpg in Resources */,
 				3EAC873E25AC541E00961811 /* plastic_reset_sel@2x.png in Resources */,
 				3EAC86ED25AC541E00961811 /* eyelash_M.jpg in Resources */,
 				3EAC864E25AC541D00961811 /* lipStick_3.jpg in Resources */,
@@ -3390,8 +3446,8 @@
 				3EAC86C425AC541E00961811 /* 延禧黑a.jpg in Resources */,
 				3EAC873725AC541E00961811 /* plastic_eyeOuterConer@3x.png in Resources */,
 				3EAC86E125AC541E00961811 /* eyelash_F.jpg in Resources */,
+				3E65A91F25AD435B002B1B53 /* lsq_filter_thumb_SkinSugar10.jpg in Resources */,
 				3EAC835C25A8640B00961811 /* MovieEditViewController.xib in Resources */,
-				3EAC85CE25AC541D00961811 /* lsq_filter_thumb_SkinFair_1.jpg in Resources */,
 				3EAC863825AC541D00961811 /* lsq_effect_thumb_Burning.jpg in Resources */,
 				3EAC86E825AC541E00961811 /* eyelash_W.jpg in Resources */,
 				3EAC864025AC541D00961811 /* lsq_effect_thumb_Bubbles.jpg in Resources */,
