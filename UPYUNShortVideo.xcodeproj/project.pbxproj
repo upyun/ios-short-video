@@ -210,14 +210,6 @@
 		3EAC839525A8640C00961811 /* CustomSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC82F325A8640B00961811 /* CustomSlider.m */; };
 		3EAC839625A8640C00961811 /* CustomTouchBoundsButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC82F425A8640B00961811 /* CustomTouchBoundsButton.m */; };
 		3EAC839725A8640C00961811 /* ColorSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC82F525A8640B00961811 /* ColorSlider.m */; };
-		3EAC83AC25A86D4300961811 /* FDTransformLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC839D25A86D4300961811 /* FDTransformLayer.m */; };
-		3EAC83AD25A86D4300961811 /* FDLayoutSpacer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC839E25A86D4300961811 /* FDLayoutSpacer.m */; };
-		3EAC83AE25A86D4300961811 /* FDStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC83A125A86D4300961811 /* FDStackView.m */; };
-		3EAC83AF25A86D4300961811 /* FDStackViewExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC83A325A86D4300961811 /* FDStackViewExtensions.m */; };
-		3EAC83B025A86D4300961811 /* FDStackViewAlignmentLayoutArrangement.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC83A525A86D4300961811 /* FDStackViewAlignmentLayoutArrangement.m */; };
-		3EAC83B125A86D4300961811 /* FDStackViewDistributionLayoutArrangement.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC83A625A86D4300961811 /* FDStackViewDistributionLayoutArrangement.m */; };
-		3EAC83B225A86D4300961811 /* FDStackViewLayoutArrangement.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC83A825A86D4300961811 /* FDStackViewLayoutArrangement.m */; };
-		3EAC83B325A86D4300961811 /* FDGapLayoutGuide.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC83A925A86D4300961811 /* FDGapLayoutGuide.m */; };
 		3EAC83C525AC1C2E00961811 /* libyuv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EAC83C425AC1C2E00961811 /* libyuv.framework */; };
 		3EAC840825AC427B00961811 /* edit_ic_colorbar.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC840025AC427B00961811 /* edit_ic_colorbar.jpg */; };
 		3EAC840925AC427B00961811 /* upyun_wartermark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC840125AC427B00961811 /* upyun_wartermark.png */; };
@@ -636,6 +628,14 @@
 		3EAC875525AC541E00961811 /* plastic_lips_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC85BC25AC541D00961811 /* plastic_lips_sel@2x.png */; };
 		3EAC875625AC541E00961811 /* plastic_browPosition@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC85BD25AC541D00961811 /* plastic_browPosition@2x.png */; };
 		3EAC875725AC541E00961811 /* plastic_eyeSize_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EAC85BE25AC541D00961811 /* plastic_eyeSize_sel@3x.png */; };
+		3EAC876C25AD3A8200961811 /* FDTransformLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC875D25AD3A8200961811 /* FDTransformLayer.m */; };
+		3EAC876D25AD3A8200961811 /* FDLayoutSpacer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC875E25AD3A8200961811 /* FDLayoutSpacer.m */; };
+		3EAC876E25AD3A8200961811 /* FDStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC876125AD3A8200961811 /* FDStackView.m */; };
+		3EAC876F25AD3A8200961811 /* FDStackViewExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC876325AD3A8200961811 /* FDStackViewExtensions.m */; };
+		3EAC877025AD3A8200961811 /* FDStackViewAlignmentLayoutArrangement.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC876525AD3A8200961811 /* FDStackViewAlignmentLayoutArrangement.m */; };
+		3EAC877125AD3A8200961811 /* FDStackViewDistributionLayoutArrangement.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC876625AD3A8200961811 /* FDStackViewDistributionLayoutArrangement.m */; };
+		3EAC877225AD3A8200961811 /* FDStackViewLayoutArrangement.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC876825AD3A8200961811 /* FDStackViewLayoutArrangement.m */; };
+		3EAC877325AD3A8200961811 /* FDGapLayoutGuide.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC876925AD3A8200961811 /* FDGapLayoutGuide.m */; };
 		3EBD859B1F330FA2009DF2D1 /* UpYunBlockUpLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD85901F330FA2009DF2D1 /* UpYunBlockUpLoader.m */; };
 		3EBD859C1F330FA2009DF2D1 /* UpYunFormUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD85921F330FA2009DF2D1 /* UpYunFormUploader.m */; };
 		3EBD859D1F330FA2009DF2D1 /* UPYUNConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD85951F330FA2009DF2D1 /* UPYUNConfig.m */; };
@@ -1000,22 +1000,6 @@
 		3EAC82F425A8640B00961811 /* CustomTouchBoundsButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTouchBoundsButton.m; sourceTree = "<group>"; };
 		3EAC82F525A8640B00961811 /* ColorSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorSlider.m; sourceTree = "<group>"; };
 		3EAC82F625A8640B00961811 /* SegmentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentButton.h; sourceTree = "<group>"; };
-		3EAC839C25A86D4300961811 /* FDStackViewAlignmentLayoutArrangement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDStackViewAlignmentLayoutArrangement.h; sourceTree = "<group>"; };
-		3EAC839D25A86D4300961811 /* FDTransformLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDTransformLayer.m; sourceTree = "<group>"; };
-		3EAC839E25A86D4300961811 /* FDLayoutSpacer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDLayoutSpacer.m; sourceTree = "<group>"; };
-		3EAC839F25A86D4300961811 /* FDStackViewLayoutArrangement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDStackViewLayoutArrangement.h; sourceTree = "<group>"; };
-		3EAC83A025A86D4300961811 /* FDStackViewDistributionLayoutArrangement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDStackViewDistributionLayoutArrangement.h; sourceTree = "<group>"; };
-		3EAC83A125A86D4300961811 /* FDStackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDStackView.m; sourceTree = "<group>"; };
-		3EAC83A225A86D4300961811 /* FDGapLayoutGuide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDGapLayoutGuide.h; sourceTree = "<group>"; };
-		3EAC83A325A86D4300961811 /* FDStackViewExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDStackViewExtensions.m; sourceTree = "<group>"; };
-		3EAC83A425A86D4300961811 /* FDTransformLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDTransformLayer.h; sourceTree = "<group>"; };
-		3EAC83A525A86D4300961811 /* FDStackViewAlignmentLayoutArrangement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDStackViewAlignmentLayoutArrangement.m; sourceTree = "<group>"; };
-		3EAC83A625A86D4300961811 /* FDStackViewDistributionLayoutArrangement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDStackViewDistributionLayoutArrangement.m; sourceTree = "<group>"; };
-		3EAC83A725A86D4300961811 /* FDLayoutSpacer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDLayoutSpacer.h; sourceTree = "<group>"; };
-		3EAC83A825A86D4300961811 /* FDStackViewLayoutArrangement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDStackViewLayoutArrangement.m; sourceTree = "<group>"; };
-		3EAC83A925A86D4300961811 /* FDGapLayoutGuide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDGapLayoutGuide.m; sourceTree = "<group>"; };
-		3EAC83AA25A86D4300961811 /* FDStackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDStackView.h; sourceTree = "<group>"; };
-		3EAC83AB25A86D4300961811 /* FDStackViewExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDStackViewExtensions.h; sourceTree = "<group>"; };
 		3EAC83C425AC1C2E00961811 /* libyuv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libyuv.framework; sourceTree = "<group>"; };
 		3EAC840025AC427B00961811 /* edit_ic_colorbar.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = edit_ic_colorbar.jpg; sourceTree = "<group>"; };
 		3EAC840125AC427B00961811 /* upyun_wartermark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upyun_wartermark.png; sourceTree = "<group>"; };
@@ -1434,6 +1418,22 @@
 		3EAC85BC25AC541D00961811 /* plastic_lips_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_lips_sel@2x.png"; sourceTree = "<group>"; };
 		3EAC85BD25AC541D00961811 /* plastic_browPosition@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_browPosition@2x.png"; sourceTree = "<group>"; };
 		3EAC85BE25AC541D00961811 /* plastic_eyeSize_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeSize_sel@3x.png"; sourceTree = "<group>"; };
+		3EAC875C25AD3A8200961811 /* FDStackViewAlignmentLayoutArrangement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDStackViewAlignmentLayoutArrangement.h; sourceTree = "<group>"; };
+		3EAC875D25AD3A8200961811 /* FDTransformLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDTransformLayer.m; sourceTree = "<group>"; };
+		3EAC875E25AD3A8200961811 /* FDLayoutSpacer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDLayoutSpacer.m; sourceTree = "<group>"; };
+		3EAC875F25AD3A8200961811 /* FDStackViewLayoutArrangement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDStackViewLayoutArrangement.h; sourceTree = "<group>"; };
+		3EAC876025AD3A8200961811 /* FDStackViewDistributionLayoutArrangement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDStackViewDistributionLayoutArrangement.h; sourceTree = "<group>"; };
+		3EAC876125AD3A8200961811 /* FDStackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDStackView.m; sourceTree = "<group>"; };
+		3EAC876225AD3A8200961811 /* FDGapLayoutGuide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDGapLayoutGuide.h; sourceTree = "<group>"; };
+		3EAC876325AD3A8200961811 /* FDStackViewExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDStackViewExtensions.m; sourceTree = "<group>"; };
+		3EAC876425AD3A8200961811 /* FDTransformLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDTransformLayer.h; sourceTree = "<group>"; };
+		3EAC876525AD3A8200961811 /* FDStackViewAlignmentLayoutArrangement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDStackViewAlignmentLayoutArrangement.m; sourceTree = "<group>"; };
+		3EAC876625AD3A8200961811 /* FDStackViewDistributionLayoutArrangement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDStackViewDistributionLayoutArrangement.m; sourceTree = "<group>"; };
+		3EAC876725AD3A8200961811 /* FDLayoutSpacer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDLayoutSpacer.h; sourceTree = "<group>"; };
+		3EAC876825AD3A8200961811 /* FDStackViewLayoutArrangement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDStackViewLayoutArrangement.m; sourceTree = "<group>"; };
+		3EAC876925AD3A8200961811 /* FDGapLayoutGuide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDGapLayoutGuide.m; sourceTree = "<group>"; };
+		3EAC876A25AD3A8200961811 /* FDStackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDStackView.h; sourceTree = "<group>"; };
+		3EAC876B25AD3A8200961811 /* FDStackViewExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDStackViewExtensions.h; sourceTree = "<group>"; };
 		3EBD858F1F330FA2009DF2D1 /* UpYunBlockUpLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpYunBlockUpLoader.h; sourceTree = "<group>"; };
 		3EBD85901F330FA2009DF2D1 /* UpYunBlockUpLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpYunBlockUpLoader.m; sourceTree = "<group>"; };
 		3EBD85911F330FA2009DF2D1 /* UpYunFormUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpYunFormUploader.h; sourceTree = "<group>"; };
@@ -2213,30 +2213,6 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		3EAC839B25A86D4300961811 /* FDStackView */ = {
-			isa = PBXGroup;
-			children = (
-				3EAC83A225A86D4300961811 /* FDGapLayoutGuide.h */,
-				3EAC83A925A86D4300961811 /* FDGapLayoutGuide.m */,
-				3EAC83A725A86D4300961811 /* FDLayoutSpacer.h */,
-				3EAC839E25A86D4300961811 /* FDLayoutSpacer.m */,
-				3EAC83AA25A86D4300961811 /* FDStackView.h */,
-				3EAC83A125A86D4300961811 /* FDStackView.m */,
-				3EAC839C25A86D4300961811 /* FDStackViewAlignmentLayoutArrangement.h */,
-				3EAC83A525A86D4300961811 /* FDStackViewAlignmentLayoutArrangement.m */,
-				3EAC83A025A86D4300961811 /* FDStackViewDistributionLayoutArrangement.h */,
-				3EAC83A625A86D4300961811 /* FDStackViewDistributionLayoutArrangement.m */,
-				3EAC83AB25A86D4300961811 /* FDStackViewExtensions.h */,
-				3EAC83A325A86D4300961811 /* FDStackViewExtensions.m */,
-				3EAC839F25A86D4300961811 /* FDStackViewLayoutArrangement.h */,
-				3EAC83A825A86D4300961811 /* FDStackViewLayoutArrangement.m */,
-				3EAC83A425A86D4300961811 /* FDTransformLayer.h */,
-				3EAC839D25A86D4300961811 /* FDTransformLayer.m */,
-			);
-			name = FDStackView;
-			path = "../../../../Downloads/TuSDK-ShortVideo-for-iOS-demo-master/Example/TuSDKVideoDemo/Vendors/FDStackView";
-			sourceTree = "<group>";
-		};
 		3EAC83FF25AC427B00961811 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -2820,6 +2796,29 @@
 			path = TuPlastic;
 			sourceTree = "<group>";
 		};
+		3EAC875B25AD3A8200961811 /* FDStackView */ = {
+			isa = PBXGroup;
+			children = (
+				3EAC875C25AD3A8200961811 /* FDStackViewAlignmentLayoutArrangement.h */,
+				3EAC875D25AD3A8200961811 /* FDTransformLayer.m */,
+				3EAC875E25AD3A8200961811 /* FDLayoutSpacer.m */,
+				3EAC875F25AD3A8200961811 /* FDStackViewLayoutArrangement.h */,
+				3EAC876025AD3A8200961811 /* FDStackViewDistributionLayoutArrangement.h */,
+				3EAC876125AD3A8200961811 /* FDStackView.m */,
+				3EAC876225AD3A8200961811 /* FDGapLayoutGuide.h */,
+				3EAC876325AD3A8200961811 /* FDStackViewExtensions.m */,
+				3EAC876425AD3A8200961811 /* FDTransformLayer.h */,
+				3EAC876525AD3A8200961811 /* FDStackViewAlignmentLayoutArrangement.m */,
+				3EAC876625AD3A8200961811 /* FDStackViewDistributionLayoutArrangement.m */,
+				3EAC876725AD3A8200961811 /* FDLayoutSpacer.h */,
+				3EAC876825AD3A8200961811 /* FDStackViewLayoutArrangement.m */,
+				3EAC876925AD3A8200961811 /* FDGapLayoutGuide.m */,
+				3EAC876A25AD3A8200961811 /* FDStackView.h */,
+				3EAC876B25AD3A8200961811 /* FDStackViewExtensions.h */,
+			);
+			path = FDStackView;
+			sourceTree = "<group>";
+		};
 		3EBD858C1F330FA2009DF2D1 /* UpYunSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -2867,7 +2866,7 @@
 		3EF53250221E7E3F001E8A30 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
-				3EAC839B25A86D4300961811 /* FDStackView */,
+				3EAC875B25AD3A8200961811 /* FDStackView */,
 			);
 			path = Vendors;
 			sourceTree = "<group>";
@@ -3417,7 +3416,7 @@
 				3EAC837825A8640B00961811 /* StickerEditor.m in Sources */,
 				3EAC837E25A8640B00961811 /* MarkableProgressView.m in Sources */,
 				3EAC837725A8640B00961811 /* EditCollectionViewDataSource.m in Sources */,
-				3EAC83AE25A86D4300961811 /* FDStackView.m in Sources */,
+				3EAC876E25AD3A8200961811 /* FDStackView.m in Sources */,
 				3EAC837F25A8640B00961811 /* ScrollVideoTrimmerView.m in Sources */,
 				3EAC832425A8640B00961811 /* TuCosmeticCategoryCell.m in Sources */,
 				3EAC836825A8640B00961811 /* TextFontSizeMenuView.m in Sources */,
@@ -3475,7 +3474,7 @@
 				3E892575209B0DFB0083773E /* MainViewController.m in Sources */,
 				3EAC831325A8640B00961811 /* PhotoCaptureMode.m in Sources */,
 				3EAC839125A8640C00961811 /* ParametersAdjustView.m in Sources */,
-				3EAC83AD25A86D4300961811 /* FDLayoutSpacer.m in Sources */,
+				3EAC876D25AD3A8200961811 /* FDLayoutSpacer.m in Sources */,
 				3EAC832C25A8640B00961811 /* TuBeautyFacePanelView.m in Sources */,
 				3EAC838F25A8640C00961811 /* RecordButton.m in Sources */,
 				3EAC832725A8640B00961811 /* CameraNormalFilterListView.m in Sources */,
@@ -3520,9 +3519,9 @@
 				3EAC833425A8640B00961811 /* MultiVideoPickerViewController.m in Sources */,
 				3EAC835325A8640B00961811 /* ParticleEffectEditAreaView.m in Sources */,
 				3EAC835F25A8640B00961811 /* TransitionHorizontalListItemView.m in Sources */,
-				3EAC83AF25A86D4300961811 /* FDStackViewExtensions.m in Sources */,
+				3EAC876F25AD3A8200961811 /* FDStackViewExtensions.m in Sources */,
 				3EAC830225A8640B00961811 /* APIAudioPitchEngineViewController.m in Sources */,
-				3EAC83B325A86D4300961811 /* FDGapLayoutGuide.m in Sources */,
+				3EAC877325AD3A8200961811 /* FDGapLayoutGuide.m in Sources */,
 				3EAC834825A8640B00961811 /* MovieEditViewController.m in Sources */,
 				3EAC838025A8640B00961811 /* VideoFixedSelectionRangeView.m in Sources */,
 				3EAC836B25A8640B00961811 /* TextStyleMenuView.m in Sources */,
@@ -3532,11 +3531,11 @@
 				3EAC835125A8640B00961811 /* ParticleEffectListView.m in Sources */,
 				3EAC837325A8640B00961811 /* FilterSwipeView.m in Sources */,
 				3EAC838525A8640B00961811 /* VideoThumbnailsView.m in Sources */,
-				3EAC83AC25A86D4300961811 /* FDTransformLayer.m in Sources */,
+				3EAC876C25AD3A8200961811 /* FDTransformLayer.m in Sources */,
 				3EAC832D25A8640B00961811 /* CameraBeautySkinListView.m in Sources */,
 				3E892571209B0DD70083773E /* UPLivePlayerVC.m in Sources */,
 				3EAC831425A8640B00961811 /* TapCaptureMode.m in Sources */,
-				3EAC83B125A86D4300961811 /* FDStackViewDistributionLayoutArrangement.m in Sources */,
+				3EAC877125AD3A8200961811 /* FDStackViewDistributionLayoutArrangement.m in Sources */,
 				3EAC836725A8640B00961811 /* TextAlignmentMenuView.m in Sources */,
 				3EAC834425A8640B00961811 /* EditAudioRecordController.m in Sources */,
 				3EAC836325A8640B00961811 /* EditTextViewController.m in Sources */,
@@ -3545,14 +3544,14 @@
 				3EAC833E25A8640B00961811 /* StickerImageItemView.m in Sources */,
 				3EBD859E1F330FA2009DF2D1 /* UpApiUtils.m in Sources */,
 				3EAC838725A8640B00961811 /* TrimmerMaskView+Util.m in Sources */,
-				3EAC83B025A86D4300961811 /* FDStackViewAlignmentLayoutArrangement.m in Sources */,
+				3EAC877025AD3A8200961811 /* FDStackViewAlignmentLayoutArrangement.m in Sources */,
 				3EAC837C25A8640B00961811 /* PageTabbar.m in Sources */,
 				3EAC833125A8640B00961811 /* TuBeautyFacePanelViewCell.m in Sources */,
 				3EAC837D25A8640B00961811 /* VerticalMenuView.m in Sources */,
 				3EAC838C25A8640C00961811 /* DemoAppearance.m in Sources */,
 				3EAC832525A8640B00961811 /* TuCameraEffectConfig.m in Sources */,
 				3EAC838125A8640B00961811 /* MaskLayer.m in Sources */,
-				3EAC83B225A86D4300961811 /* FDStackViewLayoutArrangement.m in Sources */,
+				3EAC877225AD3A8200961811 /* FDStackViewLayoutArrangement.m in Sources */,
 				3EAC831025A8640B00961811 /* CameraViewController.m in Sources */,
 				3EAC835225A8640B00961811 /* ParticleEffectViewController.m in Sources */,
 				3EAC839725A8640C00961811 /* ColorSlider.m in Sources */,
