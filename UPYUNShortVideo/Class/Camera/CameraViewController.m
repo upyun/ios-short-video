@@ -1041,14 +1041,15 @@ LSQGPUImageVideoCameraDelegate
             NSLog(@"file url：http://%@.test.upcdn.net/%@",[UPYUNConfig sharedInstance].DEFAULT_BUCKET, saveKey);
             //            视频同步截图方法
             //            /// source   需截图的视频相对地址,   save_as 保存截图的相对地址, point 截图时间点 hh:mm:ss 格式
-            //            NSDictionary *task = @{@"source": [NSString stringWithFormat:@"/%@", saveKey], @"save_as": [NSString stringWithFormat:@"/%@", imgSaveKey], @"point": @"00:00:00"};
-            //            [[UPYUNConfig sharedInstance] fileTask:task success:^(NSHTTPURLResponse *response, NSDictionary *responseBody) {
-            //                NSLog(@"截图成功--%@", responseBody);
-            //
-            //                NSLog(@"截图 图片 url：http://%@.test.upcdn.net/%@",[UPYUNConfig sharedInstance].DEFAULT_BUCKET, imgSaveKey);
-            //            } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
-            //                NSLog(@"截图失败-error==%@--response==%@, responseBody==%@", error,  response, responseBody);
-            //            }];
+            NSDictionary *task = @{@"source": [NSString stringWithFormat:@"/%@", saveKey], @"save_as": [NSString stringWithFormat:@"/%@", imgSaveKey], @"point": @"00:00:00"};
+
+            [[UPYUNConfig sharedInstance] fileTask:task success:^(NSHTTPURLResponse *response, NSDictionary *responseBody) {
+                NSLog(@"截图成功--%@", responseBody);
+
+                NSLog(@"截图 图片 url：http://%@.test.upcdn.net/%@",[UPYUNConfig sharedInstance].DEFAULT_BUCKET, imgSaveKey);
+            } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
+                NSLog(@"截图失败-error==%@--response==%@, responseBody==%@", error,  response, responseBody);
+            }];
 
 
         } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {

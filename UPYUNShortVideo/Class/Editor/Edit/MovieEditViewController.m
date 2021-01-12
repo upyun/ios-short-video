@@ -304,7 +304,7 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
     // 水印的大小是基于视频最小边1080进行缩放的，视频分辨率小于1080则水印会对应缩小，但显示在视频中的区域是不变的
     // 建议水印的大小是1080P上相对应的即可，比如我们Demo中，想让水印显示区域在视频的五分之一左右，
     // 因此我们的水印图片宽度是200，即使是分辨率低于1080P的，会将其对应缩放，显示区域占五分之一左右
-    option.waterMarkImage = [UIImage imageNamed:@"sample_watermark.png"];
+    option.waterMarkImage = [UIImage imageNamed:@"upyun_wartermark.png"];
     // 设置水印图片的位置
     option.waterMarkPosition = lsqWaterMarkTopRight;
     // 设置画面特效输出时间轴
@@ -712,14 +712,14 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
             NSLog(@"file url：http://%@.test.upcdn.net/%@",[UPYUNConfig sharedInstance].DEFAULT_BUCKET, saveKey);
             //            [[TuSDK shared].messageHub showSuccess:@"上传成功"];
             /// 视频同步截图方法
-            //            /// 相对地址前需要加上'/'表示根目录   source 需截图的视频相对地址,   save_as 保存截图的相对地址, point 截图时间点 hh:mm:ss 格式
-            //            NSDictionary *task = @{@"source": [NSString stringWithFormat:@"/%@", saveKey], @"save_as": [NSString stringWithFormat:@"/%@", imgSaveKey], @"point": @"00:00:00"};
-            //            [[UPYUNConfig sharedInstance] fileTask:task success:^(NSHTTPURLResponse *response, NSDictionary *responseBody) {
-            //                NSLog(@"截图成功--%@", responseBody);
-            //                NSLog(@"截图 图片 url：http://%@.test.upcdn.net/%@",[UPYUNConfig sharedInstance].DEFAULT_BUCKET, imgSaveKey);
-            //            } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
-            //                NSLog(@"截图失败-error==%@--response==%@, responseBody==%@", error,  response, responseBody);
-            //            }];
+                        /// 相对地址前需要加上'/'表示根目录   source 需截图的视频相对地址,   save_as 保存截图的相对地址, point 截图时间点 hh:mm:ss 格式
+                        NSDictionary *task = @{@"source": [NSString stringWithFormat:@"/%@", saveKey], @"save_as": [NSString stringWithFormat:@"/%@", imgSaveKey], @"point": @"00:00:00"};
+                        [[UPYUNConfig sharedInstance] fileTask:task success:^(NSHTTPURLResponse *response, NSDictionary *responseBody) {
+                            NSLog(@"截图成功--%@", responseBody);
+                            NSLog(@"截图 图片 url：http://%@.test.upcdn.net/%@",[UPYUNConfig sharedInstance].DEFAULT_BUCKET, imgSaveKey);
+                        } failure:^(NSError *error, NSHTTPURLResponse *response, NSDictionary *responseBody) {
+                            NSLog(@"截图失败-error==%@--response==%@, responseBody==%@", error,  response, responseBody);
+                        }];
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[TuSDK shared].messageHub showSuccess:@"上传成功"];

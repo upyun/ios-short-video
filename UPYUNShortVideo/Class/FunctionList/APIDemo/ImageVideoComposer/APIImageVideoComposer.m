@@ -43,7 +43,7 @@
     TuSDKMediaCompositionVideoComposerSettings *settings = [[TuSDKMediaCompositionVideoComposerSettings alloc] init];
     settings.saveToAlbum = NO;
     // 设置水印，默认为空
-//    settings.waterMarkImage = [UIImage imageNamed:@"sample_watermark.png"];
+//    settings.waterMarkImage = [UIImage imageNamed:@"upyun_wartermark.png"];
     // 设置水印图片的位置
 //    settings.waterMarkPosition = lsqWaterMarkTopRight;
     // 输出格式大小

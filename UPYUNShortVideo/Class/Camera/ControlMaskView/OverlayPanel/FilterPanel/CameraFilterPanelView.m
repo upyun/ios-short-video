@@ -80,6 +80,7 @@ static const CGFloat kFilterTabbarHeight = 36;
  */
 @property (nonatomic, strong) CALayer *horizontalSeparatorLayer;
 
+@property (nonatomic, assign) BOOL showComics;
 
 @end
 
@@ -99,15 +100,16 @@ static const CGFloat kFilterTabbarHeight = 36;
 }
 
 - (void)commonInit {
+    _showComics = NO;
     _skippedFilterKeys = @[kBeautySkinKeys, kBeautyFaceKeys];
     __weak typeof(self) weakSelf = self;
-    
+
     self.filterTitles = [NSMutableArray array];
     self.filtersGroups = [NSMutableArray array];
     self.filtersOptions = [NSMutableArray array];
-    
+
     //获取滤镜标题数组
-    NSArray *titleDataSet = [[TuCameraFilterPackage sharePackage] titleGroupsWithComics:YES];
+    NSArray *titleDataSet = [[TuCameraFilterPackage sharePackage] titleGroupsWithComics:_showComics];
     //获取滤镜列表
     NSArray *filtersDataSet = [[TuCameraFilterPackage sharePackage] filterOptionsGroups];
     //获取滤镜codes列表
@@ -120,18 +122,18 @@ static const CGFloat kFilterTabbarHeight = 36;
     // 模糊背景
     _effectBackgroundView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
     [self addSubview:_effectBackgroundView];
-    
-    
+
+
     for (int viewIndex = 0; viewIndex < self.filtersOptions.count; viewIndex++) {
         __weak typeof(self) weakSelf = self;
         // 普通滤镜列表
         CameraNormalFilterListView *filterListView = [[CameraNormalFilterListView alloc] initWithFrame:CGRectZero];
         filterListView.tag = viewIndex;
         filterListView.delegate = self;
-        
+
         filterListView.filterCodes = self.filtersGroups[viewIndex];
         filterListView.itemViewTapActionHandler = ^(HorizontalListItemView *filterListView, HorizontalListItemView *selectedItemView, NSString *filterCode) {
-            
+
             weakSelf.paramtersView.hidden = selectedItemView.tapCount < selectedItemView.maxTapCount;
 
             if ([weakSelf.delegate respondsToSelector:@selector(filterPanel:didSelectedFilterCode:)]) {
@@ -141,7 +143,7 @@ static const CGFloat kFilterTabbarHeight = 36;
         };
         [self.filterViews addObject:filterListView];
     }
-    
+
     // 漫画滤镜列表
     _comicsFilterListView = [[CameraComicsFilterListView alloc] initWithFrame:CGRectZero];
     _comicsFilterListView.tag = self.filterTitles.count - 1;
@@ -153,25 +155,25 @@ static const CGFloat kFilterTabbarHeight = 36;
         }
         // 不能在此处调用 reloadData，应在外部滤镜应用后才调用
     };
-    
+
     // 参数面板
     _paramtersView = [[ParametersAdjustView alloc] initWithFrame:CGRectZero];
     [self addSubview:_paramtersView];
     _paramtersView.hidden = YES;
-    
+
     _verticalSeparatorLayer = [CALayer layer];
     [self.layer addSublayer:_verticalSeparatorLayer];
     _verticalSeparatorLayer.backgroundColor = [UIColor colorWithWhite:1 alpha:0.15].CGColor;
     _horizontalSeparatorLayer = [CALayer layer];
     [self.layer addSublayer:_horizontalSeparatorLayer];
     _horizontalSeparatorLayer.backgroundColor = [UIColor colorWithWhite:1 alpha:0.15].CGColor;
-    
+
     //重置按钮
     self.unsetButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.unsetButton setImage:[UIImage imageNamed:@"video_ic_nix"] forState:0];
     [self.unsetButton addTarget:self action:@selector(unsetButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.unsetButton];
-    
+
     // 分页标签栏
     PageTabbar *tabbar = [[PageTabbar alloc] initWithFrame:CGRectZero];
     [self addSubview:tabbar];
@@ -184,7 +186,7 @@ static const CGFloat kFilterTabbarHeight = 36;
     tabbar.disableAnimation = YES;
     tabbar.itemTitleFont = [UIFont systemFontOfSize:13];
     tabbar.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    
+
     // 分页控件
     ViewSlider *pageSlider = [[ViewSlider alloc] initWithFrame:CGRectZero];
     [self addSubview:pageSlider];
@@ -203,17 +205,17 @@ static const CGFloat kFilterTabbarHeight = 36;
     if (@available(iOS 11.0, *)) {
         safeBounds = UIEdgeInsetsInsetRect(safeBounds, self.safeAreaInsets);
     }
-    
+
     const CGFloat tabbarY = CGRectGetMaxY(safeBounds) - kFilterListHeight;
     _unsetButton.frame = CGRectMake(CGRectGetMinX(safeBounds), tabbarY, 52, kFilterTabbarHeight);
-    
+
     _tabbar.frame = CGRectMake(CGRectGetMaxX(_unsetButton.frame) + 10, tabbarY, CGRectGetWidth(safeBounds) - CGRectGetMaxX(_unsetButton.frame), kFilterTabbarHeight);
     const CGFloat pageSliderHeight = kFilterListHeight - kFilterTabbarHeight;
     _pageSlider.frame = CGRectMake(CGRectGetMinX(safeBounds), CGRectGetMaxY(_tabbar.frame), CGRectGetWidth(safeBounds), pageSliderHeight);
-        
+
     _verticalSeparatorLayer.frame = CGRectMake(CGRectGetMaxX(_unsetButton.frame), CGRectGetMinY(_unsetButton.frame), 1, kFilterTabbarHeight);
     _horizontalSeparatorLayer.frame = CGRectMake(0, CGRectGetMaxY(_unsetButton.frame), CGRectGetWidth(safeBounds), 1);
-    
+
     const CGFloat paramtersViewAvailableHeight = CGRectGetMaxY(safeBounds) - kFilterListHeight - kFilterListParamtersViewSpacing;
     const CGFloat paramtersViewLeftMargin = 16;
     const CGFloat paramtersViewRightMargin = 9;
@@ -224,12 +226,12 @@ static const CGFloat kFilterTabbarHeight = 36;
                CGRectGetWidth(safeBounds) - paramtersViewLeftMargin - paramtersViewRightMargin,
                paramtersViewHeight);
     _effectBackgroundView.frame = CGRectMake(0, tabbarY, size.width, size.height - tabbarY);
-    
+
     if (self.filterTitles.count < 6) {
-        
+
         CGFloat tabBarWidth = (CGRectGetWidth(safeBounds) - CGRectGetMinX(_tabbar.frame)) / self.filterTitles.count;
         _tabbar.itemWidth = tabBarWidth;
-        
+
     } else {
         _tabbar.itemsSpacing = 32;
     }
@@ -268,11 +270,11 @@ static const CGFloat kFilterTabbarHeight = 36;
 
     for (NSInteger viewIndex = 0; viewIndex < self.filterTitles.count; viewIndex++)
     {
-        if (viewIndex == self.filterTitles.count - 1)
+        if (_showComics && viewIndex == self.filterTitles.count - 1)
         {
             _comicsFilterListView.selectedIndex = -1;
         }
-        
+
         else
         {
             CameraNormalFilterListView *filterView = self.filterViews[viewIndex];
@@ -291,10 +293,10 @@ static const CGFloat kFilterTabbarHeight = 36;
 
     for (NSInteger viewIndex = 0; viewIndex < self.filterTitles.count; viewIndex++)
     {
-        if (viewIndex == self.filterTitles.count - 1)
+        if (_showComics && viewIndex == self.filterTitles.count - 1)
         {
             NSArray *filterCodes = @[kCameraComicsFilterCodes];
-            
+
             if ([filterCodes containsObject:selectedFilterCode])
             {
                 _comicsFilterListView.selectedFilterCode = selectedFilterCode;
@@ -347,8 +349,8 @@ static const CGFloat kFilterTabbarHeight = 36;
         return;
     }
     __weak typeof(self) weakSelf = self;
-    
-    
+
+
     [_paramtersView setupWithParameterCount:1 config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent, double defaultValue)) {
         NSString *parameterName = [self.dataSource filterPanel:weakSelf  paramterNameAtIndex:index];
         // 跳过美颜、美型滤镜参数
@@ -356,11 +358,11 @@ static const CGFloat kFilterTabbarHeight = 36;
         if (!shouldSkip) {
             double percentVale = [self.dataSource filterPanel:weakSelf percentValueAtIndex:index];
             parameterName = [NSString stringWithFormat:@"lsq_filter_set_%@", parameterName];
-            
+
             parameterItemConfig(NSLocalizedStringFromTable(parameterName, @"TuSDKConstants", @"无需国际化"), percentVale, percentVale);
         }
     } valueChange:^(NSUInteger index, double percent) {
-            
+
         if ([weakSelf.delegate respondsToSelector:@selector(filterPanel:didChangeValue:paramterIndex:)]) {
             [weakSelf.delegate filterPanel:weakSelf didChangeValue:percent paramterIndex:index];
         }
@@ -377,7 +379,7 @@ static const CGFloat kFilterTabbarHeight = 36;
 
 /**
  标签项选中回调
- 
+
  @param tabbar 标签栏对象
  @param fromIndex 起始索引
  @param toIndex 目标索引
@@ -405,7 +407,7 @@ static const CGFloat kFilterTabbarHeight = 36;
  */
 - (UIView *)viewSlider:(ViewSlider *)slider viewAtIndex:(NSInteger)index {
 
-    if (index == self.filterTitles.count - 1)
+    if (_showComics && index == self.filterTitles.count - 1)
     {
         return _comicsFilterListView;
     }
